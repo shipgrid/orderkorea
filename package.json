@@ -1,0 +1,43 @@
+{
+  "name": "orderkorea",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "pnpm --stream -r start",
+    "start:dev": "pnpm --parallel --stream -r run start:dev",
+    "build": "pnpm -r --if-present run build",
+    "clean": "rm -rf .parcel-cache && pnpm -r run clean",
+    "pnpm-context": "node bin/pnpm-context.mjs",
+    "list-packages": "echo [$(pnpm -s m ls --depth -1 | tr \" \" \"\n\" | grep -o \"@.*@\" | rev | cut -c 2- | rev | sed -e 's/\\(.*\\)/\"\\1\"/' | paste -sd, - )]"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@pnpm/filter-workspace-packages": "^4.1.11",
+    "@pnpm/logger": "^4.0.0",
+    "@types/jest": "^29.5.2",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^20.3.0",
+    "axios": "^1.4.0",
+    "globby": "^12.0.2",
+    "meow": "^10.1.1",
+    "mississippi": "^4.0.0",
+    "nx": "16.0.1",
+    "nx-cloud": "latest",
+    "tar": "^6.1.11",
+    "typescript": "5.2.2"
+  },
+  "nx": {
+    "targets": {}
+  },
+  "dependencies": {
+    "chai": "^4.3.7",
+    "dotenv": "^16.3.1",
+    "os": "^0.1.2",
+    "path": "^0.12.7",
+    "util": "^0.12.5"
+  }
+}
