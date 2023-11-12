@@ -8,7 +8,7 @@
     "docker:build": "docker build .",
     "build": "tsc",
     "start": "tsc && node dist/index.js",
-    "build:start": "nodemon tsc && node dist/index.js",
+    "build:start": "tsc && node dist/index.js",
     "compile": "tsc && node dist/index.js"
   },
   "keywords": [],

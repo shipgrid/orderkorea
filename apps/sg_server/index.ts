@@ -2,6 +2,7 @@ import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
 import morgan from 'morgan'
+import routes from './routes'
 
 const APP_PORT = process.env.APP_PORT || 4000;
 const ALLOWED_ORIGIN = process.env.ALLOW_APP_ORIGIN  // Default to localhost:3000 if env variable is not set
@@ -36,10 +37,13 @@ app.use(express.urlencoded({ extended: false, limit: "5mb" }));
 app.use(helmet());
 
 // Routing
-// app.use('/', routes);
+app.use('/', routes);
 
 // Not found handler
-
+// If no routes triggered, send 404
+app.use((req, res) => {
+  res.status(404).send()
+})
 
 // Start server on port defined in .env or default to 4000
 app.listen(APP_PORT, () => {
