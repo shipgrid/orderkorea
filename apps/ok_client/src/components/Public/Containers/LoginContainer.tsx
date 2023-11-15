@@ -2,8 +2,8 @@ import {
   Stack,
 } from '@chakra-ui/react';
 
-import LoginForm from './LoginForm'
-import LoginBannerImage from './LoginBannerImage';
+import LoginForm from '../Login/LoginForm'
+import LoginBannerImage from '../Login/LoginBannerImage';
 
 const Login = () => {
   return (
