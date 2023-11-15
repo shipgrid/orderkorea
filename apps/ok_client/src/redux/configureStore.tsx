@@ -1,9 +1,24 @@
-import { createStore, applyMiddleware, Store, Middleware } from 'redux'; // Import from Redux
-import rootReducer, { RootState } from './reducers/index'; // Import your root reducer and RootState type
-import { loadState, saveState } from '../utils/session'; // Import your session utility functions
+import { 
+  createStore, 
+  applyMiddleware, 
+  Store, 
+  Middleware 
+} from 'redux'; 
 
-import { createLogger } from 'redux-logger'; // Import from redux-logger
-import throttle from 'lodash/throttle'; // Import from lodash
+import rootReducer, { 
+  RootState 
+} from './reducers/index'; 
+
+import { 
+  loadState, 
+  saveState 
+} from '../utils/session'; 
+
+import { 
+  createLogger 
+} from 'redux-logger'; 
+
+import throttle from 'lodash/throttle'; 
 
 export const configureStore = (): Store<RootState> => {
   try {
@@ -30,7 +45,6 @@ export const configureStore = (): Store<RootState> => {
     return store;
 
   } catch(e) {
-    console.error(e);
     throw e;
   }
 };

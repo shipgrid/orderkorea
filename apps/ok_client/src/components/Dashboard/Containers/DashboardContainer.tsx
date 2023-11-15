@@ -1,9 +1,9 @@
 import { Outlet } from "react-router-dom";
-import Sidebar from './Sidebar'
+import Sidebar from '../Layout/Sidebar'
 import { Suspense } from "react";
 import { Spinner } from '@chakra-ui/react'
 
-export default function Layout() {
+const DashboardContainer = () => {
   return (
     <>
       <Sidebar 
@@ -20,8 +20,9 @@ export default function Layout() {
           size='xl'
         />
       }>
-
       </Suspense>
     </>
   );
 }
+
+export default DashboardContainer

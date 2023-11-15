@@ -1,15 +1,15 @@
 import { lazy } from "react";
 import { RouteObject } from "react-router-dom";
-import Layout from "../components/Layout";
+import Dashboard from "../pages/Dashboard";
 
-const Dashboard = lazy(() => import("../components/ProductDetails"));
+const ProductDetails = lazy(() => import("../components/ProductDetails"));
 
 const privateRoutes: RouteObject[] = [
   {
     path: "/",
-    element: <Layout />,
+    element: <Dashboard />,
     children: [
-      { path: "/dashboard", element: <Dashboard /> },
+      { path: "/", element: <ProductDetails /> },
     ],  
   },
 ];
