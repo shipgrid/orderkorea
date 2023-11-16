@@ -3,11 +3,15 @@ import {
 } from '@chakra-ui/react';
 
 import InventoryCard from '../Inventory/InventoryCard'
+import InventoryRow from '../Inventory/InventoryRow';
 
 const Login = () => {
   return (
     <Stack minH={'100vh'}>
-      <InventoryCard/>
+      <InventoryRow/>
+      <InventoryRow/>
+      <InventoryRow/>
+      <InventoryRow/>
     </Stack>
   );
 }

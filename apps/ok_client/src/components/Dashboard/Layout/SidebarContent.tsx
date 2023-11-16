@@ -37,6 +37,7 @@ const LinkItems: Array<LinkItemProps> = [
   { name: 'Create an Order', icon: FiCompass },
   { name: 'Inventory', icon: FiTrendingUp },
   { name: 'Orders', icon: FiStar },
+  { name: 'Shipments', icon: FiStar },
   { name: 'Billing', icon: FiCompass },
   { name: 'Settings', icon: FiSettings },
 ]
