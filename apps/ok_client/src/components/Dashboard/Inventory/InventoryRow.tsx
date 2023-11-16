@@ -22,14 +22,24 @@ import {
   StatGroup
 } from '@chakra-ui/react';
 
-const InventoryRow = () => {
+interface InventoryRowProps {
+  id: number,
+  handleClick: (id:number) => void
+}
+
+const InventoryRow = ({
+  id,
+  handleClick
+}:InventoryRowProps) => {
+
   return (
     <Card
       direction={{ base: 'column', sm: 'row' }}
       overflow='hidden'
       variant='outline'
       maxW={{ base: '900px' }}
-      onClick={() => {console.log('being pressed')}}
+      onClick={() => handleClick(id)}
+      style={{ cursor: 'pointer' }}
     >
     <Center p={3} >
       <Image

@@ -4,6 +4,7 @@ import Dashboard from "../pages/Dashboard";
 
 // const ProductDetails = lazy(() => import("../components/ProductDetails"));
 const InventoryContainer = lazy(() => import("../components/Dashboard/Containers/InventoryContainer"));
+const SOMContainer = lazy(() => import("../components/Dashboard/Containers/SOMContainer"));
 
 const privateRoutes: RouteObject[] = [
   {
@@ -11,6 +12,7 @@ const privateRoutes: RouteObject[] = [
     element: <Dashboard />,
     children: [
       { path: "/", element: <InventoryContainer /> },
+      { path: '/create-shipment', element: <SOMContainer />}
     ],  
   },
 ];

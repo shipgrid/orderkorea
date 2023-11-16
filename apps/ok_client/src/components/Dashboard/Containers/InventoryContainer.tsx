@@ -2,10 +2,9 @@ import {
   Stack,
 } from '@chakra-ui/react';
 
-import InventoryCard from '../Inventory/InventoryCard'
 import InventoryRow from '../Inventory/InventoryRow';
 
-const Login = () => {
+const InventoryContainer = () => {
   return (
     <Stack minH={'100vh'}>
       <InventoryRow/>
@@ -16,4 +15,4 @@ const Login = () => {
   );
 }
 
-export default Login
+export default InventoryContainer

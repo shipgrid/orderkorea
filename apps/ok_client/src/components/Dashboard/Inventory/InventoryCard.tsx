@@ -44,25 +44,6 @@ const Pricing = () => {
           <Text fontSize={'xs'}> Width: 5 </Text>
           <Text fontSize={'xs'}> Height: 5 </Text>
           <Text fontSize={'xs'}> Unit Price: $7.99 </Text>
-
-          {/* <List spacing={3}>
-            <ListItem>
-              PlayStation 5 DualSense Wireless Controller
-            </ListItem>
-            <ListItem>
-              <ListIcon as={CheckIcon} color="green.400" />
-              50 automation executions
-            </ListItem>
-            <ListItem>
-              <ListIcon as={CheckIcon} color="green.400" />
-              50 identified users
-            </ListItem>
-            <ListItem>
-              <ListIcon as={CheckIcon} color="green.400" />
-              All features
-            </ListItem>
-          </List> */}
-
           <Button
             mt={10}
             w={'full'}
