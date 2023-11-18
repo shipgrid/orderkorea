@@ -18,29 +18,31 @@ import {
   StatLabel,
   StatNumber,
   StatHelpText,
+  CardHeader,
   StatArrow,
   StatGroup
 } from '@chakra-ui/react';
 
-interface InventoryRowProps {
+interface ShipmentInventoryRowProps {
   id: number,
-  handleClick: (id:number) => void
+  // handleClick: (id:number) => void
 }
 
-const InventoryRow: React.FC<InventoryRowProps> = ({
+const ShipmentInventoryRow = ({
   id,
-  handleClick
-}:InventoryRowProps) => {
+  // handleClick
+}:ShipmentInventoryRowProps) => {
 
   return (
-    <Card
-      direction={{ base: 'column', sm: 'row' }}
-      overflow='hidden'
-      variant='outline'
-      maxW={{ base: '900px' }}
-      onClick={() => handleClick(id)}
-      style={{ cursor: 'pointer' }}
-    >
+  <Card
+    direction={{ base: 'column', sm: 'row' }}
+    overflow='hidden'
+    variant='outline'
+    maxW={{ base: '900px' }}
+    // onClick={() => handleClick(id)}
+    style={{ cursor: 'pointer' }}
+    m={1}
+  >
     <Center p={3} >
       <Image
         objectFit='cover'
@@ -90,4 +92,4 @@ const InventoryRow: React.FC<InventoryRowProps> = ({
   );
 }
 
-export default InventoryRow
+export default ShipmentInventoryRow
