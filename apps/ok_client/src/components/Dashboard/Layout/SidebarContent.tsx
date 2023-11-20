@@ -10,11 +10,10 @@ import {
 } from '@chakra-ui/react'
 
 import {
-  FiHome,
-  FiTrendingUp,
-  FiCompass,
-  FiStar,
-  FiSettings,
+  FiDollarSign,
+  FiShoppingBag,
+  FiTruck,
+  FiGrid,
 } from 'react-icons/fi'
 
 import { 
@@ -25,7 +24,8 @@ import NavItem from './NavItem'
 
 interface LinkItemProps {
   name: string
-  icon: IconType
+  icon: IconType,
+  link: string,
 }
 
 interface SidebarProps extends BoxProps {
@@ -33,13 +33,10 @@ interface SidebarProps extends BoxProps {
 }
 
 const LinkItems: Array<LinkItemProps> = [
-  // { name: 'Home', icon: FiHome },
-  { name: 'Inventory', icon: FiTrendingUp },
-  // { name: 'Create an Order', icon: FiCompass },
-  { name: 'Orders', icon: FiStar },
-  { name: 'Shipments', icon: FiStar },
-  { name: 'Billing', icon: FiCompass },
-  // { name: 'Settings', icon: FiSettings },
+  { name: 'Orders', icon: FiShoppingBag, link: '/orders' },
+  { name: 'Inventory', icon: FiGrid, link: '/inventory' },
+  { name: 'Shipments', icon: FiTruck, link: '/shipments' },
+  { name: 'Billing', icon: FiDollarSign, link: '/billing' },
 ]
 
 const SidebarContent = ({ 
@@ -63,7 +60,7 @@ const SidebarContent = ({
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
+        <NavItem key={link.name} icon={link.icon} link={link.link}>
           {link.name}
         </NavItem>
       ))}

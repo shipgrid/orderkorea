@@ -13,22 +13,35 @@ import {
 
 import React from "react";
 
+import { 
+  useNavigate 
+} from 'react-router-dom'
+
+import {
+  startTransition
+} from 'react'
+
 interface NavItemProps extends FlexProps {
   icon: IconType
-  children: React.ReactNode
+  children: React.ReactNode,
+  link: string
 }
 
 const NavItem = ({ 
   icon, 
+  link,
   children, 
   ...rest 
 }: NavItemProps) => {
+
+  const navigate = useNavigate();
+  
   return (
     <Box
       as="a"
-      href="#"
       style={{ textDecoration: 'none' }}
-      _focus={{ boxShadow: 'none' }}>
+      _focus={{ boxShadow: 'none' }}
+      onClick={() => startTransition(() => navigate(link))}>
       <Flex
         align="center"
         p="4"
@@ -37,7 +50,7 @@ const NavItem = ({
         role="group"
         cursor="pointer"
         _hover={{
-          bg: 'cyan.400',
+          bg: 'blue.400',
           color: 'white',
         }}
         {...rest}>

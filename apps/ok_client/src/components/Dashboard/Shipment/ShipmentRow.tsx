@@ -79,10 +79,6 @@ const Shipment = ({
           <Text size='xs' color='darkgray'> (10162427) </Text>  
         </HStack>
         <HStack p={3} spacing={2}>
-          <PackingInstructionsDrawer 
-            title='Packing Instructions (Optional)'
-            color='red'
-          />
           <Button colorScheme='green' size='sm' isDisabled> Add Shipment </Button>
         </HStack>
       </Flex>
@@ -94,23 +90,27 @@ const Shipment = ({
       <CardHeader flexDirection={'row-reverse'} p={2}>
         <ButtonGroup>
           <ShipmentRateDrawer 
-            title='Buy Shipping Label'
+            title='Choose Shipping Option'
             color='purple'
           />
+          <PackingInstructionsDrawer 
+            title='Packing Instructions (Optional)'
+            color='yellow'
+          />
+        </ButtonGroup>
+        <HStack spacing={2} pt={3} wrap='wrap'>
           <Tag size='sm' colorScheme='purple' borderRadius='full'>
             UPS - International Standard - $49.94
             <TagCloseButton />
           </Tag>
-        </ButtonGroup>
-        <HStack spacing={2} pt={3}>
-          <Tag size='sm' colorScheme='red' borderRadius='full'>
+          {/* <Tag size='sm' colorScheme='red' borderRadius='full'>
             Inclusions Only
             <TagCloseButton />
           </Tag>
           <Tag size='sm' colorScheme='red' borderRadius='full'>
             Extra Padding
             <TagCloseButton />
-          </Tag>
+          </Tag> */}
           <Tag size='sm' colorScheme='red' borderRadius='full'>
             Bubble Wrap
             <TagCloseButton />
