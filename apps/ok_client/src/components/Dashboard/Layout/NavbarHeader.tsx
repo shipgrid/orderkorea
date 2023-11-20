@@ -21,7 +21,7 @@ import {
   FiMenu,
   FiShoppingCart,
   FiChevronDown,
-  FiClipboard
+  FiTruck
 } from 'react-icons/fi'
 
 interface MobileProps extends FlexProps {
@@ -60,7 +60,7 @@ const NavbarHeader = ({
         Logo
       </Text>
       <HStack spacing={{ base: '0', md: '6' }}>
-        <IconButton size="lg" variant="ghost" aria-label="open menu" icon={<FiShoppingCart />} />
+        <IconButton size="lg" variant="ghost" aria-label="open menu" icon={<FiTruck />} />
         <Flex alignItems={'center'}>
           <Menu>
             <MenuButton py={2} transition="all 0.3s" _focus={{ boxShadow: 'none' }}>
