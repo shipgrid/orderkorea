@@ -1,6 +1,16 @@
 import {
   Stack,
+  HStack,
+  VStack,
+  Heading,
+  Flex,
+  Box,
+  Divider,
+  Button,
+  Text
 } from '@chakra-ui/react';
+
+import { FaArrowRight } from 'react-icons/fa'
 
 import { 
   useState,
@@ -9,6 +19,7 @@ import {
 
 import InventoryRow from '../Inventory/InventoryRow';
 import ShipmentRow from '../Shipment/ShipmentRow';
+import OrderSummary from '../Shipment/OrderSummary'
 
 interface InventoryRow {
   id: number,
@@ -30,27 +41,22 @@ const SOMContainer = () => {
       id,
       handleClick
     }
-    console.log(newItem)
-    // const isDuplicate = selectedInventory.some((item) => item?.id === newItem.id);
-    // if(!isDuplicate) {
-    //   setShipmentInventory([
-    //     ...shipmentInventory,
-    //     newItem
-    //   ])
-    // }
+    
     setShipmentInventory([
       ...shipmentInventory,
       newItem
     ])
 
     const selectedInventoryClone = [ ...selectedInventory ]
-    const indexToRemove = newItem.id; // Index of the object to remove
+
+    const idToRemove = newItem.id; // Index of the object to remove
+    const indexToRemove = selectedInventoryClone.findIndex(item => item.id === idToRemove)
     selectedInventoryClone.splice(indexToRemove, 1); // Removes one element at the specified index
+
     setSelectedInventory([
       ...selectedInventoryClone
     ])
   }
-
 
   useEffect(() => { 
     setSelectedInventory([
@@ -75,21 +81,41 @@ const SOMContainer = () => {
 
   return (
     <Stack minH={'100vh'}>
-      <ShipmentRow
-        inventoryRows={shipmentInventory}
-      />
-      {
-        selectedInventory.length && selectedInventory.map((item, i) => {
-          return (
-            <div key={i}>
-              <InventoryRow
-                id={item.id}
-                handleClick={handleClick}
-              />
-            </div>
-          )
-        })
-      }
+      <Flex justifyContent={'space-between'}>
+        <Box>
+          <Heading size='md'>
+            Shipment Order Management
+          </Heading>
+          <Text py={1} color='gray'> Select your inventory and start creating your shipments. </Text>
+        </Box>
+        <Box>
+          <Button colorScheme="blue" size="lg" fontSize="md" rightIcon={<FaArrowRight />}>
+            Checkout
+          </Button>
+        </Box>
+      </Flex>
+      <Divider/>
+      <HStack align="flex-start" justify="flex-start">
+        <VStack align="flex-start">
+          <ShipmentRow
+            shipmentInventoryRows={shipmentInventory}
+          />
+          {
+            selectedInventory.length && selectedInventory.map((item, i) => {
+              return (
+                <div key={i}>
+                  <InventoryRow
+                    id={item.id}
+                    imageUrl='https://images.unsplash.com/photo-1635048424329-a9bfb146d7aa?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHM1fGVufDB8fDB8fHww'
+                    handleClick={handleClick}
+                  />
+                </div>
+              )
+            })
+          }
+        </VStack>
+        <OrderSummary/>
+      </HStack>
     </Stack>
   );
 }
