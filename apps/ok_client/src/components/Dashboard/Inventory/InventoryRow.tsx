@@ -16,13 +16,25 @@ import {
 interface InventoryRowProps {
   id: number,
   imageUrl: string,
+  name: string,
+  sku: string,
+  dimensions: string,
+  weight: string,
+  quantity: number,
+  price: string,
   handleClick: (id:number) => void
 }
 
 const InventoryRow: React.FC<InventoryRowProps> = ({
   id,
+  name,
+  sku,
   imageUrl,
-  handleClick
+  handleClick,
+  dimensions,
+  weight,
+  quantity,
+  price
 }:InventoryRowProps) => {
 
   return (
@@ -53,32 +65,32 @@ const InventoryRow: React.FC<InventoryRowProps> = ({
           <CardBody>
             <Center>
               <StatGroup>
-                <Stat px={5} minW={125}>
+                <Stat px={5} minW={230} maxW={230}>
                   <StatLabel> Product </StatLabel>
                   <StatHelpText>
-                    PlayStation 5 (PS-1310-20)
+                    {name} ({sku})
                   </StatHelpText>
                 </Stat>
                 <Stat px={5} minW={125}>
                   <StatLabel>Quantity</StatLabel>
                   <StatHelpText>
-                    20 x USD 12.99
+                    {quantity} x {price}
                   </StatHelpText>
                 </Stat>
               </StatGroup>
             </Center>
             <Divider />
             <StatGroup>
-              <Stat px={5} py={2} minW={125}>
+              <Stat px={5} py={2} minW={230}>
                 <StatLabel>Dimensions</StatLabel>
                 <StatHelpText>
-                  5cm x 5cm x 5cm
+                  {dimensions}
                 </StatHelpText>
               </Stat>
               <Stat px={5} py={2} minW={125}>
                 <StatLabel>Weight</StatLabel>
                 <StatHelpText>
-                  0.8kg
+                  {weight}
                 </StatHelpText>
               </Stat>
             </StatGroup>
@@ -86,7 +98,7 @@ const InventoryRow: React.FC<InventoryRowProps> = ({
         </Stack>
         <Radio size='lg' colorScheme='blue' />
       </HStack>
-  </Card>
+    </Card>
   );
 }
 

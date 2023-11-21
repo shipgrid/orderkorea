@@ -21,7 +21,7 @@ import {
 const OrderContainer = () => {
   return (
     <TableContainer bg='white' borderRadius={'md'}>
-      <Table variant='simple'>
+      <Table variant='simple' size={'md'}>
         <TableCaption>Accurate as of {new Date().toISOString()}</TableCaption>
         <Thead>
           <Tr>
@@ -125,7 +125,7 @@ const OrderContainer = () => {
             </Td>
             <Td>
             <HStack>
-                <Progress colorScheme='green' size='sm' value={70} w={'60%'}/>
+                <Progress colorScheme='green' size='sm' value={100} w={'60%'}/>
                 <Text> 60/60 </Text>
               </HStack>
             </Td>

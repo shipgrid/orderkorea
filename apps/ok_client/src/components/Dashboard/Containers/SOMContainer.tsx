@@ -2,43 +2,47 @@ import {
   Stack,
   HStack,
   VStack,
-  Heading,
-  Flex,
-  Box,
   Divider,
-  Button,
-  Text
 } from '@chakra-ui/react';
-
-import { FaArrowRight } from 'react-icons/fa'
 
 import { 
   useState,
   useEffect 
 } from 'react'
 
+import DashboardHeader from '../Layout/DashboardHeader';
 import InventoryRow from '../Inventory/InventoryRow';
 import ShipmentRow from '../SOM/ShipmentRow';
 import OrderSummary from '../SOM/ShipmentOrderSummary'
 
 interface InventoryRow {
   id: number,
+  name: string,
+  sku: string,
+  imageUrl: string,
+  dimensions: string,
+  weight: string,
+  quantity: number,
+  price: string,
   handleClick: (id:number) => void
-}
-
-interface ShipmentInventoryRow {
-  id: number,
 }
 
 const SOMContainer = () => {
 
   const [selectedInventory, setSelectedInventory] = useState<InventoryRow[]>([])
-  const [shipmentInventory, setShipmentInventory] = useState<ShipmentInventoryRow[]>([])
+  const [shipmentInventory, setShipmentInventory] = useState<InventoryRow[]>([])
 
   const handleClick = (id:number) => {
 
     const newItem:InventoryRow = {
       id,
+      name: 'PlayStation 5',
+      sku: 'PS-1310-20',
+      imageUrl: 'https://images.unsplash.com/photo-1635048424329-a9bfb146d7aa?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHM1fGVufDB8fDB8fHww',
+      dimensions: '10cm x 10cm x 10cm',
+      weight: '10kg',
+      quantity: 1,
+      price: 'USD 1000',
       handleClick
     }
     
@@ -62,18 +66,46 @@ const SOMContainer = () => {
     setSelectedInventory([
       {
         id: 1,
+        name: 'PlayStation 5',
+        sku: 'PS-1310-20',
+        imageUrl:'https://i5.walmartimages.ca/images/Enlarge/318/403/6000207318403.jpg?odnHeight=612&odnWidth=612&odnBg=FFFFFF',
+        dimensions: '10cm x 10cm x 10cm',
+        weight: '10kg',
+        quantity: 20,
+        price: 'USD 22.99',
         handleClick
       },
       {
         id: 2,
+        name: 'Flintstones Chewable Morphine',
+        sku: 'PS-1310-20',
+        imageUrl:'https://cloudinary.images-iherb.com/image/upload/f_auto,q_auto:eco/images/fli/fli55435/v/21.jpg',
+        dimensions: '10cm x 10cm x 10cm',
+        weight: '10kg',
+        quantity: 20,
+        price: 'USD 150.00',
         handleClick
       },
       {
         id: 3,
+        name: 'Apple iPhone 13 Pro Max',
+        sku: 'PS-1310-20',
+        imageUrl: 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-finish-select-202207-midnight?wid=2560&hei=1440&fmt=p-jpg&qlt=80&.v=1693064181063',
+        dimensions: '10cm x 10cm x 10cm',
+        weight: '10kg',
+        quantity: 20,
+        price: 'USD 220.00',
         handleClick
       },
       {
         id: 4,
+        name: 'Dog Food',
+        sku: 'PS-1310-20',
+        imageUrl: 'https://www.homesalive.ca/media/catalog/product/z/i/ziwipeak-dog-ad-mackerel_1_.jpg?quality=80&bg-color=255,255,255&fit=bounds&height=700&width=700&canvas=700:700',
+        dimensions: '10cm x 10cm x 10cm',
+        weight: '10kg',
+        quantity: 20,
+        price: 'USD 180.00',
         handleClick
       },
     ])
@@ -81,19 +113,10 @@ const SOMContainer = () => {
 
   return (
     <Stack minH={'100vh'}>
-      <Flex justifyContent={'space-between'}>
-        <Box>
-          <Heading size='md'>
-            Shipment Order Management
-          </Heading>
-          <Text py={1} color='gray'> Select your inventory and start creating your shipments. </Text>
-        </Box>
-        <Box>
-          <Button colorScheme="blue" size="lg" fontSize="md" rightIcon={<FaArrowRight />}>
-            Checkout
-          </Button>
-        </Box>
-      </Flex>
+      <DashboardHeader
+        title='Shipment Order Management'
+        description='Select your inventory and start creating your shipments.'
+      />
       <Divider/>
       <HStack align="flex-start" justify="flex-start">
         <VStack align="flex-start">
@@ -106,8 +129,14 @@ const SOMContainer = () => {
                 <div key={i}>
                   <InventoryRow
                     id={item.id}
-                    imageUrl='https://images.unsplash.com/photo-1635048424329-a9bfb146d7aa?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHM1fGVufDB8fDB8fHww'
+                    name={item.name}
+                    sku={item.sku}
+                    imageUrl={item.imageUrl}
+                    dimensions={item.dimensions}
+                    weight={item.weight}
+                    quantity={item.quantity}
                     handleClick={handleClick}
+                    price={item.price}
                   />
                 </div>
               )

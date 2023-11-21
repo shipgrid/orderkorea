@@ -1,5 +1,4 @@
-import React, { 
-  ReactNode, 
+import { 
   useRef 
 } from 'react';
 
@@ -21,7 +20,6 @@ import {
   Th,
   Td,
   TableCaption,
-  RadioGroup,
   TableContainer,
   Radio
 } from '@chakra-ui/react';

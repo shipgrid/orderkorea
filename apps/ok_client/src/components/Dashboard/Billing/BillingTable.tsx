@@ -19,7 +19,7 @@ import {
 const BillingTable = () => {
   return (
     <TableContainer bg='white' borderRadius={'md'}>
-      <Table variant='simple'>
+      <Table variant='simple' size='md'>
         <TableCaption>Accurate as of {new Date().toISOString()}</TableCaption>
         <Thead>
           <Tr>
@@ -45,7 +45,7 @@ const BillingTable = () => {
             </Tag>
             </Td>
             <Td>USD 189.99</Td>
-            <Td><Button colorScheme='yellow' size='md' rightIcon={<FaArrowRight />}> Send Invoice to Email </Button></Td>
+            <Td><Button colorScheme='yellow' size='sm' rightIcon={<FaArrowRight />}> Send Invoice to Email </Button></Td>
           </Tr>
           <Tr>
             <Td>11</Td>
@@ -61,7 +61,7 @@ const BillingTable = () => {
               </Tag>
             </Td>
             <Td>USD 189.99</Td>
-            <Td><Button colorScheme='yellow' size='md' rightIcon={<FaArrowRight />}> Send Invoice to Email </Button></Td>
+            <Td><Button colorScheme='yellow' size='sm' rightIcon={<FaArrowRight />}> Send Invoice to Email </Button></Td>
           </Tr>
           <Tr>
             <Td>12</Td>
@@ -77,7 +77,7 @@ const BillingTable = () => {
               </Tag>
             </Td>
             <Td>USD 189.99</Td>
-            <Td><Button colorScheme='yellow' size='md' rightIcon={<FaArrowRight />}> Send Invoice to Email </Button></Td>
+            <Td><Button colorScheme='yellow' size='sm' rightIcon={<FaArrowRight />}> Send Invoice to Email </Button></Td>
           </Tr>
         </Tbody>
       </Table>
