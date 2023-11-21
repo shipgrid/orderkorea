@@ -82,7 +82,6 @@ const ShipmentInventoryRow = ({
       </Stack>
       <Radio size='lg' colorScheme='blue' isChecked={true}/>
     </HStack>
-    
   </Card>
   );
 }

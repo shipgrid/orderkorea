@@ -1,4 +1,4 @@
-import DashboardContainer from '../components/Dashboard/Containers/DashboardContainer'
+import DashboardContainer from '../components/Dashboard'
 
 const Dashboard = () => {
   return (

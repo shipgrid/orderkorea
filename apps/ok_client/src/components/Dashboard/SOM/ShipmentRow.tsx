@@ -28,7 +28,7 @@ interface ShipmentProps {
   shipmentInventoryRows?: ShipmentInventoryRow[];
 }
 
-const Shipment = ({
+const ShipmentRow = ({
   shipmentInventoryRows
 }:ShipmentProps) => {
 
@@ -116,4 +116,4 @@ const Shipment = ({
   );
 }
 
-export default Shipment
+export default ShipmentRow

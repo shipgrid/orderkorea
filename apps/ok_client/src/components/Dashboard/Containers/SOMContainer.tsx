@@ -18,8 +18,8 @@ import {
 } from 'react'
 
 import InventoryRow from '../Inventory/InventoryRow';
-import ShipmentRow from '../Shipment/ShipmentRow';
-import OrderSummary from '../Shipment/OrderSummary'
+import ShipmentRow from '../SOM/ShipmentRow';
+import OrderSummary from '../SOM/ShipmentOrderSummary'
 
 interface InventoryRow {
   id: number,
