@@ -18,8 +18,6 @@ import {
   Divider
 } from '@chakra-ui/react';
 
-import { FaArrowRight } from "react-icons/fa";
-
 const InventoryContainer = () => {
   return (
     <Stack minH={'100vh'}>

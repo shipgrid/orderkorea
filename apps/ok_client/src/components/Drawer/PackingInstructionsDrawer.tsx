@@ -1,4 +1,7 @@
-import React, { ReactNode, useRef } from 'react';
+import { 
+  useRef 
+} from 'react';
+
 import {
   useDisclosure,
   Button,
@@ -16,7 +19,10 @@ import {
   Heading,
   Checkbox
 } from '@chakra-ui/react';
-import { FiClipboard } from 'react-icons/fi';
+
+import { 
+  FiClipboard 
+} from 'react-icons/fi';
 
 
 interface DrawerProps {

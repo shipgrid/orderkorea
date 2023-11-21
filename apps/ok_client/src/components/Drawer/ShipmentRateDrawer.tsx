@@ -1,4 +1,8 @@
-import React, { ReactNode, useRef } from 'react';
+import React, { 
+  ReactNode, 
+  useRef 
+} from 'react';
+
 import {
   useDisclosure,
   Button,
@@ -10,15 +14,9 @@ import {
   DrawerBody,
   DrawerFooter,
   Box,
-  Text,
-  VStack,
-  Textarea,
-  Heading,
-  Checkbox,
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
@@ -40,7 +38,7 @@ function DrawerExample({
   color
 }:DrawerProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = useRef<HTMLButtonElement | null>(null); // Specify the type for btnRef
+  const btnRef = useRef<HTMLButtonElement | null>(null); 
 
   return (
     <>

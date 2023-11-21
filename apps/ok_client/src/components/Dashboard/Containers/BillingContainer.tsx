@@ -8,22 +8,19 @@ import {
   Th,
   Tbody,
   Td,
-  Image,
   Flex,
   Box,
   Heading,
   Tag,
   Text,
   Button,
-  Progress,
   TagLabel,
-  HStack,
   Divider
 } from '@chakra-ui/react';
 
-import { FaArrowRight } from "react-icons/fa";
-
-import { FiPackage } from 'react-icons/fi'
+import { 
+  FaArrowRight 
+} from "react-icons/fa";
 
 const BillingContainer = () => {
   return (
@@ -35,11 +32,6 @@ const BillingContainer = () => {
           </Heading>
           <Text py={1} color='gray'> Select your inventory and start creating your shipments. </Text>
         </Box>
-        {/* <Box>
-          <Button colorScheme="blue" size='md' fontSize="md" rightIcon={<FaArrowRight />}>
-            Create a Purchase Order
-          </Button>
-        </Box> */}
       </Flex>
       <Divider/>
       <TableContainer bg='white' borderRadius={'md'}>

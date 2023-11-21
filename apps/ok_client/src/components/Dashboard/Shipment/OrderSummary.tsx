@@ -1,13 +1,10 @@
 import {
-  Button,
   Flex,
   Heading,
-  Link,
   Stack,
   Text,
   useColorModeValue as mode,
 } from '@chakra-ui/react'
-import { FaArrowRight } from 'react-icons/fa'
 
 type OrderSummaryItemProps = {
   label: string
@@ -47,9 +44,6 @@ export default function() {
           </Text>
         </Flex>
       </Stack>
-      {/* <Button colorScheme="blue" size="lg" fontSize="md" rightIcon={<FaArrowRight />}>
-        Checkout
-      </Button> */}
     </Stack>
   )
 }

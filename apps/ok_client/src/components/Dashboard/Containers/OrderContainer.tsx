@@ -8,7 +8,6 @@ import {
   Th,
   Tbody,
   Td,
-  Image,
   Flex,
   Box,
   Heading,
@@ -21,9 +20,13 @@ import {
   Divider
 } from '@chakra-ui/react';
 
-import { FaArrowRight } from "react-icons/fa";
+import { 
+  FaArrowRight 
+} from "react-icons/fa";
 
-import { FiPackage } from 'react-icons/fi'
+import { 
+  FiPackage 
+} from 'react-icons/fi'
 
 const OrderContainer = () => {
   return (

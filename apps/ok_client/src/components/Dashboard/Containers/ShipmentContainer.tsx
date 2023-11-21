@@ -21,10 +21,6 @@ import {
   Divider
 } from '@chakra-ui/react';
 
-import { FaArrowRight } from "react-icons/fa";
-
-import { FiPackage } from 'react-icons/fi'
-
 const ShipmentContainer = () => {
   return (
     <Stack minH={'100vh'}>
@@ -35,11 +31,6 @@ const ShipmentContainer = () => {
           </Heading>
           <Text py={1} color='gray'> View your shipments and track their delivery progress </Text>
         </Box>
-        {/* <Box>
-          <Button colorScheme="blue" size='md' fontSize="md" rightIcon={<FaArrowRight />}>
-            Create a Purchase Order
-          </Button>
-        </Box> */}
       </Flex>
       <Divider/>
       <TableContainer bg='white' borderRadius={'md'}>

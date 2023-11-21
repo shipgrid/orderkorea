@@ -3,32 +3,16 @@ import {
   Heading,
   Card,
   Divider,
-  ButtonGroup,
-  Box,
+  ButtonGroup,  
   CardHeader,
   Tag,
   Flex,
   HStack,
-  Stack,
   TagCloseButton,
-  StepStatus,
-  StepIcon,
-  useSteps,
-  StepIndicator,
-  Stepper,
-  StepSeparator,
-  StepTitle,
-  StepDescription,
-  Step,
-  StepNumber,
   Text,
-  Radio
 } from '@chakra-ui/react';
 
-import { FiCheck } from "react-icons/fi";
-
 import {
-  useState,
   useEffect,
 } from 'react'
 
@@ -48,8 +32,6 @@ const Shipment = ({
   shipmentInventoryRows
 }:ShipmentProps) => {
 
-  const [borderColor, setBorderColor] = useState('lightblue')  
-
   useEffect(() =>{
 
   }, [shipmentInventoryRows?.length])
@@ -65,7 +47,7 @@ const Shipment = ({
         style={{ 
           borderStyle: 'dotted',
           borderWidth: '4px',
-          borderColor: borderColor,
+          borderColor: 'lightblue',
           cursor: 'pointer', 
           display: shipmentInventoryRows?.length ? 'block' : 'none' 
         }}
@@ -103,14 +85,14 @@ const Shipment = ({
             UPS - International Standard - $49.94
             <TagCloseButton />
           </Tag>
-          {/* <Tag size='sm' colorScheme='red' borderRadius='full'>
+          <Tag size='sm' colorScheme='red' borderRadius='full'>
             Inclusions Only
             <TagCloseButton />
           </Tag>
           <Tag size='sm' colorScheme='red' borderRadius='full'>
             Extra Padding
             <TagCloseButton />
-          </Tag> */}
+          </Tag>
           <Tag size='sm' colorScheme='red' borderRadius='full'>
             Bubble Wrap
             <TagCloseButton />

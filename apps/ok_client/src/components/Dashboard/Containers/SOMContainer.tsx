@@ -49,9 +49,9 @@ const SOMContainer = () => {
 
     const selectedInventoryClone = [ ...selectedInventory ]
 
-    const idToRemove = newItem.id; // Index of the object to remove
+    const idToRemove = newItem.id; 
     const indexToRemove = selectedInventoryClone.findIndex(item => item.id === idToRemove)
-    selectedInventoryClone.splice(indexToRemove, 1); // Removes one element at the specified index
+    selectedInventoryClone.splice(indexToRemove, 1); 
 
     setSelectedInventory([
       ...selectedInventoryClone

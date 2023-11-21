@@ -1,7 +1,17 @@
-import { Outlet } from "react-router-dom";
+import { 
+  Outlet 
+} from "react-router-dom";
+
+import {
+  Suspense 
+} from "react";
+
+import { 
+  Spinner 
+} from '@chakra-ui/react'
+
 import Sidebar from '../Layout/Sidebar'
-import { Suspense } from "react";
-import { Spinner } from '@chakra-ui/react'
+
 
 const DashboardContainer = () => {
   return (
