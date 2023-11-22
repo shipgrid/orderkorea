@@ -1,11 +1,16 @@
 import {
-  Stack,
-  Flex,
   Box,
-  Heading,
-  Text,
-  Button
 } from '@chakra-ui/react';
+
+import { 
+  PageHeader,
+} from '@ant-design/pro-layout'
+
+import {
+  Flex,
+} from 'antd'
+
+
 import { ReactNode } from 'react';
 
 interface DashboardHeaderProps {
@@ -20,16 +25,16 @@ const DashboardHeader = ({
   action
 }:DashboardHeaderProps) => {
   return (
-    <Flex justifyContent={'space-between'}>
-      <Box>
-        <Heading size='lg'>
-          { title } 
-        </Heading>
-        <Text py={1} color='gray'> { description } </Text>
-      </Box>
-      <Box>
-        { action }
-      </Box>
+    <Flex>
+      <PageHeader
+        onBack={() => null}
+        title={title}
+        subTitle={description}
+        extra={[
+          action
+        ]}
+        style={{ flex: 1 }}
+      />
     </Flex>
   );
 }

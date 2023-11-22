@@ -1,12 +1,15 @@
 import {
   Stack,
   Divider,
-  Button
 } from '@chakra-ui/react';
 
 import { 
   FiPlus 
 } from "react-icons/fi";
+
+import {
+  Button
+} from 'antd'
 
 import DashboardHeader from '../Layout/DashboardHeader';
 import OrderTable from '../Order/OrderTable'  
@@ -19,7 +22,7 @@ const OrderContainer = () => {
         <DashboardHeader
           title={'Order Overview'}
           description={'View your orders and track your shipments'}
-          action={<Button colorScheme='blue' leftIcon={<FiPlus/>} size='sm'> Create Order </Button>}
+          action={<Button type='primary' icon={<FiPlus />}> Create Order </Button>}
         />
         <Divider/>
         <OrderTable />

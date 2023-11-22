@@ -1,54 +1,57 @@
 import {
-  TableContainer,
   Table,
-  TableCaption,
-  Thead,
-  Tr,
-  Th,
-  Tbody,
-  Td,
-  Image,
-  Button,
-  Center,
-} from '@chakra-ui/react';
+  Image
+} from 'antd'
 
-import { 
-  FaArrowRight 
-} from "react-icons/fa";
 
 import Pagination from '../Pagination/Pagination';
 
-const InventoryTableRow = ({ data }: any) => {
-  return (
-    <Tr style={{ height: 75}}>
-      <Td>
-        <Center>
-          <Image
-            objectFit='cover'
-            maxW={{ base: '45px' }}
-            maxH={{ base: '45px' }}
-            minW={{ base: '45px' }}
-            minH={{ base: '45px' }}
-
-            src={data.image}
-            alt={data.name}
-            borderRadius="md" 
-          />
-        </Center>
-      </Td>
-      <Td>{data.vendor}</Td>
-      <Td>{data.name}</Td>
-      <Td>{data.sku}</Td>
-      <Td>{data.createdOn}</Td>
-      <Td>{data.location}</Td>
-      <Td>{data.quantity}</Td>
-      <Td>{data.unitPrice}</Td>
-      <Td><Button colorScheme='yellow' size='sm' rightIcon={<FaArrowRight />}> Add to Shipment </Button></Td>
-    </Tr>
-  )
-}
 
 const InventoryTable = () => {
+
+  const columns = [
+    {
+      title: 'Image',
+      dataIndex: 'image',
+      key: 'image',
+      render: (image: string) => <Image width={55} src={image} style={{ borderRadius: 2 }}/>
+    },
+    {
+      title: 'Vendor',
+      dataIndex: 'vendor',
+      key: 'vendor',
+    },
+    {
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: 'SKU',
+      dataIndex: 'sku',
+      key: 'sku',
+    },
+    {
+      title: 'Created',
+      dataIndex: 'createdOn',
+      key: 'createdOn',
+    },
+    {
+      title: 'Location',
+      dataIndex: 'location',
+      key: 'location',
+    },
+    {
+      title: 'Quantity',
+      dataIndex: 'quantity',
+      key: 'quantity',
+    },
+    {
+      title: 'Unit Price',
+      dataIndex: 'unitPrice',
+      key: 'unitPrice',
+    },
+  ];
 
   const data = [
     {
@@ -84,28 +87,7 @@ const InventoryTable = () => {
   ]
 
   return (
-    <TableContainer bg='white' borderRadius={'md'}>
-      <Table variant='simple' size='md'>
-        <TableCaption>Accurate as of {new Date().toISOString()}</TableCaption>
-        <Thead>
-          <Tr style={{ height: 75}}>
-            <Th>Image</Th>
-            <Th>Vendor</Th>
-            <Th>Name</Th>
-            <Th>SKU</Th>
-            <Th>Created On</Th>
-            <Th>Location</Th>
-            <Th>Quantity</Th>
-            <Th>Unit Price</Th>
-            <Th>Select</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          { data.map((item, index) => <InventoryTableRow key={index} data={item} />) }
-        </Tbody>
-      </Table>
-      <Pagination />
-    </TableContainer>
+    <Table dataSource={data} columns={columns} />
   );
 }
 

@@ -1,65 +1,52 @@
 import {
-  TableContainer,
-  Table,
-  TableCaption,
-  Thead,
-  Tr,
-  Th,
-  Tbody,
-  Td,
-  Tag,
-  Text,
-  Progress,
-  TagLabel,
-  HStack,
-} from '@chakra-ui/react';
-
-import { 
-  FiPackage 
-} from 'react-icons/fi'
-
-import Pagination from '../Pagination/Pagination';
-
-const OrderTableRow = ({ data }: any) => {
-
-  return (
-    <Tr style={{ height: 75}}>
-      <Td> { data.id } </Td>
-      <Td> { data.vendor }</Td>
-      <Td>
-      <Tag
-        size={'md'}
-        borderRadius='full'
-        variant='solid'
-        colorScheme='yellow'
-      >
-        <TagLabel>{data.orderStatus}</TagLabel>
-      </Tag>
-      </Td>
-      <Td>{data.created}</Td>
-      <Td>{data.expected}</Td>
-      <Td>
-        <HStack>
-          <FiPackage
-            color="red" 
-          />
-        <Text color='red'> {data.inventoryStatus} </Text>
-        </HStack>
-      </Td>
-      <Td>
-        <HStack>
-          <Progress colorScheme='red' size='sm' value={100} w={'60%'}/>
-          <Text> {data.receivedOrdered} </Text>
-        </HStack>
-      </Td>
-      <Td>
-        <Text> {data.totalCost} </Text>
-      </Td>
-    </Tr>
-  )
-}
+  Table
+} from 'antd'
 
 const OrderTable = () => {
+
+  const columns = [
+    {
+      title: 'Order',
+      dataIndex: 'id',
+      key: 'id',
+    },
+    {
+      title: 'Vendor',
+      dataIndex: 'vendor',
+      key: 'vendor',
+    },
+    {
+      title: 'Order Status',
+      dataIndex: 'orderStatus',
+      key: 'orderStatus',
+    },
+    {
+      title: 'Created',
+      dataIndex: 'created',
+      key: 'created',
+    },
+    {
+      title: 'Expected',
+      dataIndex: 'expected',
+      key: 'expected',
+    },
+    {
+      title: 'Inventory Statius',
+      dataIndex: 'inventoryStatus',
+      key: 'inventoryStatus',
+    },
+    {
+      title: 'Orders Received',
+      dataIndex: 'receivedOrdered',
+      key: 'receivedOrdered',
+    },
+    {
+      title: 'Total Cost',
+      dataIndex: 'totalCost',
+      key: 'totalCost',
+    },
+  ];
+
 
   const data = [
     {
@@ -95,27 +82,7 @@ const OrderTable = () => {
   ];
 
   return (
-    <TableContainer bg='white' borderRadius={'md'}>
-      <Table variant='simple' size={'md'}>
-        <TableCaption>Accurate as of {new Date().toISOString()}</TableCaption>
-        <Thead>
-          <Tr style={{ height: 75}}>
-            <Th>Order</Th>
-            <Th>Vendor</Th>
-            <Th>Order Status</Th>
-            <Th>Created</Th>
-            <Th>Expected</Th>
-            <Th>Inventory Status</Th>
-            <Th>Received / Ordered </Th>
-            <Th>Total Cost </Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {data.map((data) => <OrderTableRow key={data.id} data={data} />)}
-        </Tbody>
-      </Table>
-      <Pagination/>
-    </TableContainer>
+    <Table dataSource={data} columns={columns} />
   );
 }
 
