@@ -18,13 +18,88 @@ import {
   FiPackage 
 } from 'react-icons/fi'
 
-const OrderContainer = () => {
+import Pagination from '../Pagination/Pagination';
+
+const OrderTableRow = ({ data }: any) => {
+
+  return (
+    <Tr style={{ height: 75}}>
+      <Td> { data.id } </Td>
+      <Td> { data.vendor }</Td>
+      <Td>
+      <Tag
+        size={'md'}
+        borderRadius='full'
+        variant='solid'
+        colorScheme='yellow'
+      >
+        <TagLabel>{data.orderStatus}</TagLabel>
+      </Tag>
+      </Td>
+      <Td>{data.created}</Td>
+      <Td>{data.expected}</Td>
+      <Td>
+        <HStack>
+          <FiPackage
+            color="red" 
+          />
+        <Text color='red'> {data.inventoryStatus} </Text>
+        </HStack>
+      </Td>
+      <Td>
+        <HStack>
+          <Progress colorScheme='red' size='sm' value={100} w={'60%'}/>
+          <Text> {data.receivedOrdered} </Text>
+        </HStack>
+      </Td>
+      <Td>
+        <Text> {data.totalCost} </Text>
+      </Td>
+    </Tr>
+  )
+}
+
+const OrderTable = () => {
+
+  const data = [
+    {
+      id: 10,
+      vendor: 'Coupang',
+      orderStatus: 'Pending',
+      created: new Date().toISOString(),
+      expected: new Date().toISOString(),
+      inventoryStatus: 'Over Received',
+      receivedOrdered: '6/3',
+      totalCost: 'USD 139.99',
+    },
+    {
+      id: 11,
+      vendor: 'Coupang',
+      orderStatus: 'Complete',
+      created: new Date().toISOString(),
+      expected: new Date().toISOString(),
+      inventoryStatus: 'Partially Received',
+      receivedOrdered: '80/120',
+      totalCost: 'USD 120.99',
+    },
+    {
+      id: 12,
+      vendor: 'Coupang',
+      orderStatus: 'Pending',
+      created: new Date().toISOString(),
+      expected: new Date().toISOString(),
+      inventoryStatus: 'Received',
+      receivedOrdered: '60/60',
+      totalCost: 'USD 59.99',
+    },
+  ];
+
   return (
     <TableContainer bg='white' borderRadius={'md'}>
       <Table variant='simple' size={'md'}>
         <TableCaption>Accurate as of {new Date().toISOString()}</TableCaption>
         <Thead>
-          <Tr>
+          <Tr style={{ height: 75}}>
             <Th>Order</Th>
             <Th>Vendor</Th>
             <Th>Order Status</Th>
@@ -36,105 +111,12 @@ const OrderContainer = () => {
           </Tr>
         </Thead>
         <Tbody>
-          <Tr>
-            <Td>10</Td>
-            <Td>Coupang</Td>
-            <Td>
-            <Tag
-              size={'md'}
-              borderRadius='full'
-              variant='solid'
-              colorScheme='yellow'
-            >
-              <TagLabel>Pending</TagLabel>
-            </Tag>
-            </Td>
-            <Td>{new Date().toISOString()}</Td>
-            <Td>{new Date().toISOString()}</Td>
-            <Td>
-              <HStack>
-                <FiPackage
-                  color="red" // Set the icon color
-                />
-              <Text color='red'> Over Received </Text>
-              </HStack>
-            </Td>
-            <Td>
-              <HStack>
-                <Progress colorScheme='red' size='sm' value={100} w={'60%'}/>
-                <Text> 6/3 </Text>
-              </HStack>
-            </Td>
-            <Td>
-              <Text> USD 139.99 </Text>
-            </Td>
-          </Tr>
-          <Tr>
-            <Td>11</Td>
-            <Td>Coupang</Td>
-            <Td>
-              <Tag
-                size={'md'}
-                borderRadius='full'
-                variant='solid'
-                colorScheme='green'
-              >
-                <TagLabel>Complete</TagLabel>
-              </Tag>
-            </Td>
-            <Td>{new Date().toISOString()}</Td>
-            <Td>{new Date().toISOString()}</Td>
-            <Td>
-              <HStack>
-                <FiPackage
-                  color="gray" 
-                />
-              <Text color='gray'> Partially Received </Text>
-              </HStack>
-            </Td>
-            <Td>
-            <HStack>
-                <Progress colorScheme='green' size='sm' value={70} w={'60%'}/>
-                <Text> 80/120 </Text>
-              </HStack>
-            </Td>
-            <Td> USD 120.99</Td>
-          </Tr>
-          <Tr>
-            <Td>12</Td>
-            <Td>Coupang</Td>
-            <Td>
-              <Tag
-                size={'md'}
-                borderRadius='full'
-                variant='solid'
-                colorScheme='yellow'
-              >
-                <TagLabel>Pending</TagLabel>
-              </Tag>
-            </Td>
-            <Td>{new Date().toISOString()}</Td>
-            <Td>{new Date().toISOString()}</Td>
-            <Td>
-              <HStack>
-                <FiPackage
-                  color="black" // Set the icon color
-                />
-              <Text color='black'> Received </Text>
-              </HStack>
-            </Td>
-            <Td>
-            <HStack>
-                <Progress colorScheme='green' size='sm' value={100} w={'60%'}/>
-                <Text> 60/60 </Text>
-              </HStack>
-            </Td>
-            <Td> USD 59.99 </Td>
-          </Tr>
+          {data.map((data) => <OrderTableRow key={data.id} data={data} />)}
         </Tbody>
       </Table>
+      <Pagination/>
     </TableContainer>
   );
 }
 
-export default OrderContainer
+export default OrderTable

@@ -17,8 +17,8 @@ import {
 } from 'react'
 
 import InventoryRow from '../Inventory/InventoryRow';
-import PackingInstructionsDrawer from '../../Drawer/PackingInstructionsDrawer';
-import ShipmentRateDrawer from '../../Drawer/ShipmentRateDrawer';
+import PackingInstructionsDrawer from '../Drawers/PackingInstructionsDrawer';
+import ShipmentRateDrawer from '../Drawers/ShipmentRateDrawer';
 
 interface ShipmentInventoryRow {
   id: number,

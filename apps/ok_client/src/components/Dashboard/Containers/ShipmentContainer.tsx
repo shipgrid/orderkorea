@@ -5,16 +5,19 @@ import {
 
 import DashboardHeader from '../Layout/DashboardHeader';
 import ShipmentTable from '../Shipment/ShipmentTable';
+import DashboardContent from '../Layout/DashboardContent';
 
 const ShipmentContainer = () => {
   return (
     <Stack minH={'100vh'}>
-      <DashboardHeader
-        title={'Shipment Overview'}
-        description={'View your shipments and track your orders'}
-      />
-      <Divider/>
-      <ShipmentTable/>
+      <DashboardContent>
+        <DashboardHeader
+          title={'Shipment Overview'}
+          description={'View your shipments and track your orders'}
+        />
+        <Divider/>
+        <ShipmentTable/>
+      </DashboardContent>
     </Stack>
   );
 }

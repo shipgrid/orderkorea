@@ -14,6 +14,8 @@ import DashboardHeader from '../Layout/DashboardHeader';
 import InventoryRow from '../Inventory/InventoryRow';
 import ShipmentRow from '../SOM/ShipmentRow';
 import OrderSummary from '../SOM/ShipmentOrderSummary'
+import DashboardContent from '../Layout/DashboardContent';
+
 
 interface InventoryRow {
   id: number,
@@ -113,38 +115,40 @@ const SOMContainer = () => {
 
   return (
     <Stack minH={'100vh'}>
-      <DashboardHeader
-        title='Shipment Order Management'
-        description='Select your inventory and start creating your shipments.'
-      />
-      <Divider/>
-      <HStack align="flex-start" justify="flex-start">
-        <VStack align="flex-start">
-          <ShipmentRow
-            shipmentInventoryRows={shipmentInventory}
-          />
-          {
-            selectedInventory.length && selectedInventory.map((item, i) => {
-              return (
-                <div key={i}>
-                  <InventoryRow
-                    id={item.id}
-                    name={item.name}
-                    sku={item.sku}
-                    imageUrl={item.imageUrl}
-                    dimensions={item.dimensions}
-                    weight={item.weight}
-                    quantity={item.quantity}
-                    handleClick={handleClick}
-                    price={item.price}
-                  />
-                </div>
-              )
-            })
-          }
-        </VStack>
-        <OrderSummary/>
-      </HStack>
+      <DashboardContent>
+        <DashboardHeader
+          title='Shipment Order Management'
+          description='Select your inventory and start creating your shipments.'
+        />
+        <Divider/>
+        <HStack align="flex-start" justify="flex-start">
+          <VStack align="flex-start">
+            <ShipmentRow
+              shipmentInventoryRows={shipmentInventory}
+            />
+            {
+              selectedInventory.length && selectedInventory.map((item, i) => {
+                return (
+                  <div key={i}>
+                    <InventoryRow
+                      id={item.id}
+                      name={item.name}
+                      sku={item.sku}
+                      imageUrl={item.imageUrl}
+                      dimensions={item.dimensions}
+                      weight={item.weight}
+                      quantity={item.quantity}
+                      handleClick={handleClick}
+                      price={item.price}
+                    />
+                  </div>
+                )
+              })
+            }
+          </VStack>
+          <OrderSummary/>
+        </HStack>
+      </DashboardContent>
     </Stack>
   );
 }
