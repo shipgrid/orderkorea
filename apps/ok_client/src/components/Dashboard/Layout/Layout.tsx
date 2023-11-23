@@ -13,24 +13,58 @@ import {
   Avatar
 } from 'antd';
 
+import {
+  FiMenu,
+  FiChevronDown,
+} from 'react-icons/fi'
+
+import { 
+  IconContext 
+} from "react-icons";
+
 import { 
   FiTruck 
 } from "react-icons/fi";
 
-const { Header, Content, Sider } = Layout;
+const { Header, Content } = Layout;
 
-const items: MenuProps['items'] = [
-  FiTruck,
-  FiTruck,
-  FiTruck,
-  FiTruck,
-  FiTruck,
-  FiTruck,,
-  FiTruck,
-].map((icon, index) => ({
+const navItems = [
+  {
+    label: 'Dashboard',
+    icon: FiTruck,
+    path: '/dashboard',
+  },
+  {
+    label: 'Orders',
+    icon: FiTruck,
+    path: '/dashboard/orders',
+  },
+  {
+    label: 'Products',
+    icon: FiTruck,
+    path: '/dashboard/products',
+  },
+  {
+    label: 'Customers',
+    icon: FiTruck,
+    path: '/dashboard/customers',
+  },
+  {
+    label: 'Reports',
+    icon: FiTruck,
+    path: '/dashboard/reports',
+  },
+  {
+    label: 'Integrations',
+    icon: FiTruck,
+    path: '/dashboard/integrations',
+  },
+];
+
+const items: MenuProps['items'] = navItems.map((item, index) => ({
   key: String(index + 1),
-  icon: React.createElement(icon),
-  label: `nav ${index + 1}`,
+  icon: item.icon,
+  label: `${item.label}`,
 }));
 
 interface LayoutProps {
@@ -43,20 +77,7 @@ const DashboardLayout = ({
 
   return (
     <Layout hasSider>
-      <Sider
-        style={{
-          overflow: 'auto',
-          height: '100vh',
-          position: 'fixed',
-          left: 0,
-          top: 0,
-          bottom: 0,
-        }}
-      >
-        <div className="demo-logo-vertical" />
-        <Menu theme='dark' mode="inline" defaultSelectedKeys={['4']} items={items} style={{ padding: 10}}/>
-      </Sider>
-      <Layout className="site-layout" style={{ marginLeft: 200 }}>
+      <Layout className="site-layout">
         <Header
           style={{
             position: 'sticky',
@@ -65,12 +86,19 @@ const DashboardLayout = ({
             width: '100%',
             display: 'flex',
             alignItems: 'center',
-            // backgroundColor: 'white',
           }}
         >
-          <div style={{width: '100%', display: 'flex', justifyContent: 'space-between'}}>
+          <div style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+            <Menu theme='dark' mode="horizontal" defaultSelectedKeys={['4']} items={items}/>
             <div className="demo-logo" />
-            <Avatar shape="square" size={40} style={{ backgroundColor: 'orange'}}> EK </Avatar>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <div style={{ marginRight: 20 }}>
+                <IconContext.Provider value={{ color: "white", size: '2.0em' }}>
+                  <FiTruck />
+                </IconContext.Provider>
+              </div>
+              <Avatar shape="square" size={40} style={{ backgroundColor: 'orange'}}> EK </Avatar>
+            </div>
           </div>
         </Header>
         <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>  
