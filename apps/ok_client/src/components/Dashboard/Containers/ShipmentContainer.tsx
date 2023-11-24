@@ -3,6 +3,13 @@ import {
   Divider
 } from '@chakra-ui/react';
 
+import {
+  Button
+} from 'antd'
+
+import {
+  FiPlus
+} from "react-icons/fi";
 import DashboardHeader from '../Layout/DashboardHeader';
 import ShipmentTable from '../Shipment/ShipmentTable';
 import DashboardContent from '../Layout/DashboardContent';
@@ -14,8 +21,9 @@ const ShipmentContainer = () => {
         <DashboardHeader
           title={'Shipment Overview'}
           description={'View your shipments and track your orders'}
+          action={<Button icon={<FiPlus />} disabled> Resume Shipment </Button>}
         />
-        <Divider/>
+        <Divider my={5}/>
         <ShipmentTable/>
       </DashboardContent>
     </Stack>

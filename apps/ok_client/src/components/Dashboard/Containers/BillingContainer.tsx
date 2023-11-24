@@ -15,7 +15,7 @@ const BillingContainer = () => {
             title={'Billing Overview'}
             description='Update your billing information and send invoices to your customers'
           />
-        <Divider/>
+        <Divider my={5}/>
         <BillingTable />
       </DashboardContent>
     </Stack>

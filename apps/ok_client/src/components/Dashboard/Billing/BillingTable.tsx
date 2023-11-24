@@ -65,7 +65,12 @@ const BillingTable = () => {
 
   return (
     <>
-      <Table dataSource={data} columns={columns} />
+      <Table 
+        dataSource={data} 
+        columns={columns} 
+        size='small'
+        bordered
+      />
     </>
   );
 }

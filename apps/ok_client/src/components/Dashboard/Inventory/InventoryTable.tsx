@@ -3,9 +3,31 @@ import {
   Image
 } from 'antd'
 
+import type { ColumnsType } from 'antd/es/table';
 
-import Pagination from '../Pagination/Pagination';
+interface DataType {
+  key: React.Key;
+  image: string;
+  vendor: string;
+  name: string;
+  sku: string;
+  createdOn: string;
+  location: string;
+  quantity: number;
+  unitPrice: string;
 
+}
+
+// rowSelection object indicates the need for row selection
+const rowSelection = {
+  onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
+    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+  },
+  getCheckboxProps: (record: DataType) => ({
+    disabled: record.name === 'Disabled User', // Column configuration not to be checked
+    name: record.name,
+  }),
+};
 
 const InventoryTable = () => {
 
@@ -53,8 +75,9 @@ const InventoryTable = () => {
     },
   ];
 
-  const data = [
+  const data: DataType[] = [
     {
+      key: 1,
       image: 'https://images.unsplash.com/photo-1635048424329-a9bfb146d7aa?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHM1fGVufDB8fDB8fHww',
       vendor: 'Amazon',
       name: 'PlayStation 5',
@@ -65,6 +88,7 @@ const InventoryTable = () => {
       unitPrice: 'USD 39.99',
     },
     {
+      key: 2,
       image: 'https://thumbnail8.coupangcdn.com/thumbnails/remote/230x230ex/image/retail/images/2023/04/06/17/9/f7c15ab1-426a-419a-a8ab-ee572dc431aa.jpg',
       vendor: 'Amazon',
       name: 'PlayStation 5',
@@ -75,6 +99,7 @@ const InventoryTable = () => {
       unitPrice: 'USD 39.99',
     },
     {
+      key: 3,
       image: 'https://images.unsplash.com/photo-1635048424329-a9bfb146d7aa?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHM1fGVufDB8fDB8fHww',
       vendor: 'Amazon',
       name: 'PlayStation 5',
@@ -87,7 +112,15 @@ const InventoryTable = () => {
   ]
 
   return (
-    <Table dataSource={data} columns={columns} />
+    <Table 
+      rowSelection={{
+        ...rowSelection,
+      }}
+      dataSource={data} 
+      columns={columns} 
+      size='small'
+      bordered
+    />
   );
 }
 

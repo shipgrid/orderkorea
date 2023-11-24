@@ -120,7 +120,7 @@ const SOMContainer = () => {
           title='Shipment Order Management'
           description='Select your inventory and start creating your shipments.'
         />
-        <Divider/>
+        <Divider my={5}/>
         <HStack align="flex-start" justify="flex-start">
           <VStack align="flex-start">
             <ShipmentRow

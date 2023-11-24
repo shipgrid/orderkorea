@@ -14,9 +14,11 @@ const DashboardContent = ({
   children
 }:DashboardContentProps) => {
   return (
-    <Stack mx={5} my={2}>
-      {children}
-    </Stack>
+    <div style={{ display: 'flex', justifyContent: 'center'  }}>
+      <div style={{ flex: 1, maxWidth: 1280 }}>
+        {children}
+      </div>
+    </div>
   );
 }
 

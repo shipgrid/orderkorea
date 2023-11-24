@@ -8,12 +8,37 @@ import {
 } from "react-icons/fi";
 
 import {
-  Button
+  Button,
+  Dropdown,
+  Menu
 } from 'antd'
+
+import type { 
+  MenuProps 
+} from 'antd';
 
 import DashboardHeader from '../Layout/DashboardHeader';
 import OrderTable from '../Order/OrderTable'  
 import DashboardContent from '../Layout/DashboardContent';
+
+const dropdownItems: MenuProps['items'] = [
+  {
+    key: '1',
+    label: (
+      <a target="_blank" rel="noopener noreferrer">
+        Purchase Order
+      </a>
+    ),
+  },
+  {
+    key: '2',
+    label: (
+      <a target="_blank" rel="noopener noreferrer">
+        Inform Order
+      </a>
+    ),
+  },
+]
 
 const OrderContainer = () => {
   return (
@@ -22,9 +47,18 @@ const OrderContainer = () => {
         <DashboardHeader
           title={'Order Overview'}
           description={'View your orders and track your shipments'}
-          action={<Button type='primary' icon={<FiPlus />}> Create Order </Button>}
+          action={
+            <Dropdown
+            overlay={<Menu items={dropdownItems} />}
+            trigger={['click']}
+            placement="bottomLeft"
+            arrow
+          >
+            <Button icon={<FiPlus/>} style={{ marginRight: 10 }}> Create Order </Button>
+          </Dropdown>
+          }
         />
-        <Divider/>
+        <Divider my={5}/>
         <OrderTable />
       </DashboardContent>
     </Stack>
