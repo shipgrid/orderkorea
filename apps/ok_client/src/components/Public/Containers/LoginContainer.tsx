@@ -7,7 +7,7 @@ import LoginBannerImage from '../Login/LoginBannerImage';
 
 const Login = () => {
   return (
-    <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
+    <Stack direction={{ base: 'column', md: 'row' }}>
       <LoginForm/>
       <LoginBannerImage/>
     </Stack>

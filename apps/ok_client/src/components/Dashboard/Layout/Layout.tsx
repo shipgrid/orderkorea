@@ -23,13 +23,19 @@ import {
 } from 'react-icons/fi'
 
 import { 
-  IconContext 
-} from "react-icons";
-
+  RiShipLine,
+  RiLogoutBoxRLine,
+  RiInformationLine
+} from "react-icons/ri";
 
 import { 
   FiTruck 
 } from "react-icons/fi";
+
+import { 
+  MdShoppingCartCheckout 
+} from "react-icons/md";
+
 
 import { 
   useNavigate 
@@ -39,21 +45,24 @@ import logo from '../../../assets/images/color-logo-no-bg.png'
 
 const { Header, Content } = Layout;
 
-const dropdownItems: MenuProps['items'] = [
+
+const userDropdownItems: MenuProps['items'] = [
   {
     key: '1',
     label: (
-      <a target="_blank" rel="noopener noreferrer">
-        Purchase Order
-      </a>
+      <div style={{ display: 'flex', alignItems: 'center'}}>
+        <RiShipLine/> 
+        <span style={{ marginLeft: 5 }}>  Shipping Calculator </span>
+      </div>
     ),
   },
   {
     key: '2',
     label: (
-      <a target="_blank" rel="noopener noreferrer">
-        Inform Order
-      </a>
+      <div style={{ display: 'flex', alignItems: 'center'}}>
+        <RiLogoutBoxRLine/> 
+        <span style={{ marginLeft: 5 }}>  Sign Out </span>
+      </div>
     ),
   },
 ];
@@ -79,11 +88,6 @@ const navItems = [
     icon: FiTruck,
     path: '/billing',
   },
-  {
-    label: 'Shipping Calculator',
-    icon: FiTruck,
-    path: '/shipping-calculator',
-  },
 ];
 
 const items: MenuProps['items'] = navItems.map((item, index) => ({
@@ -101,6 +105,28 @@ const DashboardLayout = ({
 }: LayoutProps) => {
 
   const navigate = useNavigate();
+
+
+  const orderDropdownItems: MenuProps['items'] = [
+    {
+      key: '1',
+      label: (
+        <div style={{ display: 'flex', alignItems: 'center'}} onClick={() => startTransition(() => navigate('/purchase-order'))}>
+          <MdShoppingCartCheckout/>
+          <span style={{ marginLeft: 5 }}>  Purchase Order </span>
+        </div>
+      ),
+    },
+    {
+      key: '2',
+      label: (
+        <div style={{ display: 'flex', alignItems: 'center'}}>
+          <RiInformationLine/>
+          <span style={{ marginLeft: 5 }}>  Inform Order </span>
+        </div>
+      ),
+    },
+  ];
 
   return (
     <Layout hasSider>
@@ -122,15 +148,21 @@ const DashboardLayout = ({
             <Menu mode="horizontal" defaultSelectedKeys={['/orders']} items={items} onClick={(e) => startTransition(() => navigate(e.key))} style={{ flex: 1 }}/>
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <Dropdown
-                overlay={<Menu items={dropdownItems} />}
+                overlay={<Menu items={orderDropdownItems} />}
                 trigger={['click']}
                 placement="bottomLeft"
                 arrow
               >
                 <Button icon={<FiPlus/>} style={{ marginRight: 10 }}> Create Order </Button>
               </Dropdown>
-              <Button icon={<FiTruck/>} style={{ marginRight: 10 }} disabled> Resume Shipment </Button>
-              <Avatar shape="square" size={40} style={{ backgroundColor: 'orange'}}> EK </Avatar>
+              <Dropdown
+                overlay={<Menu items={userDropdownItems} />}
+                trigger={['click']}
+                placement="bottomLeft"
+                arrow
+              >
+                <Button icon={<FiChevronDown/>} style={{ marginRight: 10 }}> Emma Kim </Button>
+              </Dropdown>
             </div>
           </div>
         </Header>

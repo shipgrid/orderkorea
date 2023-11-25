@@ -2,7 +2,13 @@ import {
   Table
 } from 'antd'
 
+import '../../../assets/index.css'
+
 const OrderTable = () => {
+
+  const rowClassName = () => {
+    return 'fixed-height-row';
+  };
 
   const columns = [
     {
@@ -87,6 +93,7 @@ const OrderTable = () => {
       columns={columns} 
       size='small'
       bordered
+      rowClassName={rowClassName}
     />
   );
 }

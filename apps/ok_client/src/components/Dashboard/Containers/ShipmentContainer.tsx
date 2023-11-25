@@ -21,7 +21,6 @@ const ShipmentContainer = () => {
         <DashboardHeader
           title={'Shipment Overview'}
           description={'View your shipments and track your orders'}
-          action={<Button icon={<FiPlus />} disabled> Resume Shipment </Button>}
         />
         <Divider my={5}/>
         <ShipmentTable/>

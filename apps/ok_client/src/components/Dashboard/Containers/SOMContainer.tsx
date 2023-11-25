@@ -10,12 +10,25 @@ import {
   useEffect 
 } from 'react'
 
+import { 
+  Table,
+  Image
+} from 'antd'
+
+import {
+  FiPlus
+} from "react-icons/fi";
+
 import DashboardHeader from '../Layout/DashboardHeader';
 import InventoryRow from '../Inventory/InventoryRow';
 import ShipmentRow from '../SOM/ShipmentRow';
 import OrderSummary from '../SOM/ShipmentOrderSummary'
 import DashboardContent from '../Layout/DashboardContent';
 
+import InventoryRow2 from '../Inventory/InventoryRow2';
+
+import PackingInstructionsDrawer from '../Drawers/PackingInstructionsDrawer';
+import ShipmentRateDrawer from '../Drawers/ShipmentRateDrawer';
 
 interface InventoryRow {
   id: number,
@@ -33,6 +46,52 @@ const SOMContainer = () => {
 
   const [selectedInventory, setSelectedInventory] = useState<InventoryRow[]>([])
   const [shipmentInventory, setShipmentInventory] = useState<InventoryRow[]>([])
+  
+  const columns = [
+    {
+      title: 'Image',
+      dataIndex: 'imageUrl',
+      key: 'image',
+      render: (imageUrl: string) => (
+        <Image width={55} src={imageUrl} style={{ borderRadius: 8 }} alt="Product Image" />
+      ),
+    },
+    {
+      title: 'Vendor',
+      dataIndex: 'vendor', // Assuming you have a 'vendor' property in your data
+      key: 'vendor',
+    },
+    {
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: 'SKU',
+      dataIndex: 'sku',
+      key: 'sku',
+    },
+    {
+      title: 'Dimensions',
+      dataIndex: 'dimensions', // Assuming you have a 'dimensions' property in your data
+      key: 'dimensions',
+    },
+    {
+      title: 'Weight',
+      dataIndex: 'weight', // Assuming you have a 'weight' property in your data
+      key: 'weight',
+    },
+    {
+      title: 'Quantity',
+      dataIndex: 'quantity',
+      key: 'quantity',
+    },
+    {
+      title: 'Unit Price',
+      dataIndex: 'price', // Assuming you have a 'price' property in your data
+      key: 'price',
+    }
+  ];
 
   const handleClick = (id:number) => {
 
@@ -114,7 +173,7 @@ const SOMContainer = () => {
   }, [])
 
   return (
-    <Stack minH={'100vh'}>
+    <Stack>
       <DashboardContent>
         <DashboardHeader
           title='Shipment Order Management'
@@ -123,14 +182,38 @@ const SOMContainer = () => {
         <Divider my={5}/>
         <HStack align="flex-start" justify="flex-start">
           <VStack align="flex-start">
-            <ShipmentRow
+            <OrderSummary/>
+            { shipmentInventory.length ? <Table 
+              title={() =>  (
+                <div style={{ display: 'flex' }}>
+                  <div style={{ margin: 5 }}>
+                    <ShipmentRateDrawer 
+                      title='Choose Shipping Option'
+                      color='purple'
+                    />
+                  </div>
+                  <div style={{ margin: 5 }}>
+                    <PackingInstructionsDrawer 
+                      title='Packing Instructions (Optional)'
+                      color='yellow'
+                    />
+                  </div>
+                </div>
+              )}
+              dataSource={shipmentInventory} 
+              columns={columns} 
+              pagination={false}
+              style={{ width: '100%' }}
+              size='small'
+            /> : null }
+            {/* <ShipmentRow
               shipmentInventoryRows={shipmentInventory}
-            />
+            /> */}
             {
               selectedInventory.length && selectedInventory.map((item, i) => {
                 return (
                   <div key={i}>
-                    <InventoryRow
+                    <InventoryRow2
                       id={item.id}
                       name={item.name}
                       sku={item.sku}
@@ -146,7 +229,6 @@ const SOMContainer = () => {
               })
             }
           </VStack>
-          <OrderSummary/>
         </HStack>
       </DashboardContent>
     </Stack>

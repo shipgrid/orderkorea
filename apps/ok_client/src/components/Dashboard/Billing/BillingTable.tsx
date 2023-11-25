@@ -7,7 +7,14 @@ import {
   Table
 } from 'antd'
 
+import '../../../assets/index.css'
+
+
 const BillingTable = () => {
+
+  const rowClassName = () => {
+    return 'fixed-height-row';
+  };
 
   const columns = [
     {
@@ -70,6 +77,7 @@ const BillingTable = () => {
         columns={columns} 
         size='small'
         bordered
+        rowClassName={rowClassName}
       />
     </>
   );

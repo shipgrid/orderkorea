@@ -4,7 +4,14 @@ import {
   Table
 } from 'antd'
 
+import '../../../assets/index.css'
+
+
 const ShipmentTable = () => {
+
+  const rowClassName = () => {
+    return 'fixed-height-row';
+  };
 
   const columns = [
     {
@@ -80,6 +87,7 @@ const ShipmentTable = () => {
       columns={columns} 
       size='small'  
       bordered
+      rowClassName={rowClassName}
     />
   );
 }

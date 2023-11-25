@@ -6,6 +6,10 @@ import {
   useColorModeValue as mode,
 } from '@chakra-ui/react'
 
+// import {
+
+// }
+
 type OrderSummaryItemProps = {
   label: string
   value?: string
@@ -26,7 +30,7 @@ const OrderSummaryItem = (props: OrderSummaryItemProps) => {
 
 export default function() {
   return (
-    <Stack spacing="8" borderWidth="1px" rounded="lg" padding="8" width="325px" bgColor={'white'}>
+    <Stack spacing="8" borderWidth="1px" rounded="lg" padding="8" width={'100%'} bgColor={'white'}>
       <Heading size="md">Shipment Order Summary</Heading>
       <Stack spacing="6">
         <OrderSummaryItem label="Shipment-10162427-549a-43a8-b0e7">

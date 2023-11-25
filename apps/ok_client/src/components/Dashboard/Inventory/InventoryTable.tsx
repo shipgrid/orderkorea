@@ -1,7 +1,10 @@
 import {
   Table,
-  Image
+  Image,
+  Popover,
 } from 'antd'
+
+import '../../../assets/index.css'
 
 import type { ColumnsType } from 'antd/es/table';
 
@@ -15,10 +18,9 @@ interface DataType {
   location: string;
   quantity: number;
   unitPrice: string;
-
 }
 
-// rowSelection object indicates the need for row selection
+
 const rowSelection = {
   onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
     console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -31,12 +33,16 @@ const rowSelection = {
 
 const InventoryTable = () => {
 
+  const rowClassName = () => {
+    return 'fixed-height-row';
+  };
+
   const columns = [
     {
       title: 'Image',
       dataIndex: 'image',
       key: 'image',
-      render: (image: string) => <Image width={55} src={image} style={{ borderRadius: 2 }}/>
+      render: (image: string) => <Image width={55} src={image} style={{ borderRadius: 8 }}/>
     },
     {
       title: 'Vendor',
@@ -120,6 +126,7 @@ const InventoryTable = () => {
       columns={columns} 
       size='small'
       bordered
+      rowClassName={rowClassName}
     />
   );
 }
