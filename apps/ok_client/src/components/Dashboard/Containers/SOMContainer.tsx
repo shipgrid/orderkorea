@@ -285,9 +285,7 @@ const SOMContainer = () => {
           description='Select your inventory and start creating your shipments.'
         />
         <Divider my={5}/>
-        <HStack align="flex-start" justify="flex-start">
-          <VStack align="flex-start">
-            <OrderSummary/>
+        <OrderSummary/>
             <Grid
               title="Add Inventory and create shipments"
               actionButtons={[
@@ -337,8 +335,6 @@ const SOMContainer = () => {
                   ) : <Empty description={'Search your inventory and add it to the shipment'} style={{ minWidth: 1200 }}/> 
               }
             />
-          </VStack>
-        </HStack>
       </DashboardContent>
     </Stack>
   );

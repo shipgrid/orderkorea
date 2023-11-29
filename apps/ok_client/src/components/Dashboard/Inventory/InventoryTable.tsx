@@ -17,7 +17,6 @@ interface DataType {
   unitPrice: string;
 }
 
-
 const rowSelection = {
   onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
     console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);

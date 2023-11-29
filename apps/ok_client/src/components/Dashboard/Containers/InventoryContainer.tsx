@@ -24,7 +24,6 @@ import {
   useEffect,
 } from 'react'
 
-
 import DashboardHeader from '../Layout/DashboardHeader';
 import InventoryTable from '../Inventory/InventoryTable';
 import DashboardContent from '../Layout/DashboardContent';
@@ -57,7 +56,6 @@ const InventoryContainer = () => {
         </div>
       )
     },
-
     {
       title: 'Dimensions',
       dataIndex: 'dimensions',
@@ -125,8 +123,8 @@ const InventoryContainer = () => {
     ])
   }, [])
 
-
   const navigate = useNavigate()
+
   return (
     <Stack minH={'100vh'}>
       <DashboardContent>
