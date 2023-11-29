@@ -65,7 +65,7 @@ const OrderSummary = () => {
 const App: React.FC = () => (
   <>
     <Collapse
-      style={{ width: '100%' }}
+      style={{ width: '100%', marginBottom: 10, marginTop: 10 }}
       size="large"
       items={[{ key: '1', label: 'Shipment Order Summary ', children: <OrderSummary/>, extra: <IoReceiptOutline /> }]}
     />
