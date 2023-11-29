@@ -6,7 +6,6 @@ import {
 
 import '../../../assets/index.css'
 
-
 const ShipmentTable = () => {
 
   const rowClassName = () => {

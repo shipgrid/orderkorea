@@ -21,18 +21,18 @@ import Grid from '../Layout/Grid';
 
 const { TextArea } = Input;
 
-const PurchaseOrderContainer = () => {
+const InformOrderContainer = () => {
 
   return (
     <Stack minH={'100vh'}>
       <DashboardContent>
         <DashboardHeader
-          title={'Purchase Order Overview'}
-          description={'Start your purchase order and we will take care of the rest'}
+          title={'Inform Order Overview'}
+          description={'Start your inform order and and tell us what will be arriving at our warehouse'}
         />
         <Divider my={5}/>
         <Grid
-          title="Purchase Order"
+          title="Inform Order"
           actionButtons={[
             <div style={{ display: 'flex' }}>
                 <p style={{ marginRight: 10 }}> Show all fields </p>
@@ -61,7 +61,7 @@ const PurchaseOrderContainer = () => {
                 <Form.Item label="Quantity">
                   <InputNumber style={{ width: '100%' }}/>
                 </Form.Item>
-                <Form.Item label="Price ₩ (per item)">
+                <Form.Item label="Unit Price ₩">
                   <InputNumber placeholder='KRW (₩)' style={{ width: '100%' }}/>
                 </Form.Item>
                 <Form.Item label="Product Description">
@@ -72,6 +72,7 @@ const PurchaseOrderContainer = () => {
                 </Form.Item>
               </Form>
             </div>
+            
           }
         />
       </DashboardContent>
@@ -79,4 +80,4 @@ const PurchaseOrderContainer = () => {
   );
 }
 
-export default PurchaseOrderContainer
+export default InformOrderContainer

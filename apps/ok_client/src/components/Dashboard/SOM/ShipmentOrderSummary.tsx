@@ -1,14 +1,12 @@
-import {
-  Flex,
-  Heading,
-  Stack,
-  Text,
-  useColorModeValue as mode,
-} from '@chakra-ui/react'
+import React from 'react';
 
-// import {
+import { 
+  Collapse
+ } from 'antd';
 
-// }
+import { 
+  IoReceiptOutline 
+} from 'react-icons/io5';
 
 type OrderSummaryItemProps = {
   label: string
@@ -19,35 +17,59 @@ type OrderSummaryItemProps = {
 const OrderSummaryItem = (props: OrderSummaryItemProps) => {
   const { label, value, children } = props
   return (
-    <Flex justify="space-between" fontSize="sm">
-      <Text fontWeight="medium" color={mode('gray.600', 'gray.400')}>
+    <div style={{ justifyContent: 'space-between', display: 'flex', marginBottom: 15 }}>
+      <p style={{ fontWeight: 'bold', color: 'gray' }}>
         {label}
-      </Text>
-      {value ? <Text fontWeight="medium">{value}</Text> : children}
-    </Flex>
+      </p>
+      {value ? <p style={{ fontWeight: 'bold' }}>{value}</p> : children}
+    </div>
   )
 }
 
-export default function() {
+const OrderSummary = () => {
+
   return (
-    <Stack spacing="8" borderWidth="1px" rounded="lg" padding="8" width={'100%'} bgColor={'white'}>
-      <Heading size="md">Shipment Order Summary</Heading>
-      <Stack spacing="6">
-        <OrderSummaryItem label="Shipment-10162427-549a-43a8-b0e7">
-          <Text fontWeight="medium">$597.99</Text>
-        </OrderSummaryItem>
-        <OrderSummaryItem label="Subtotal">
-          <Text fontWeight="medium">$597.99</Text>
-        </OrderSummaryItem>
-        <Flex justify="space-between">
-          <Text fontSize="lg" fontWeight="semibold">
-            Total
-          </Text>
-          <Text fontSize="xl" fontWeight="extrabold">
-            $597.99
-          </Text>
-        </Flex>
-      </Stack>
-    </Stack>
+    <div>
+      <OrderSummaryItem
+        label="Shipment-10162427-549a-43a8-b0e7"
+        value="$40.99"
+      />
+      <OrderSummaryItem
+        label="Extra Padding Fee"
+        value="$2"
+      />
+      <OrderSummaryItem
+        label="Gift Wrapping Fee"
+        value="$10"
+      />
+      <OrderSummaryItem
+        label="Picking Fee"
+        value="$20"
+      />
+      <OrderSummaryItem
+        label="Packing Fee"
+        value="$2"
+      />
+      <div style={{ display: 'flex', justifyContent: 'space-between'}}>
+        <p style={{ fontWeight: 'bold' }}>
+          Total
+        </p>
+        <p style={{ fontWeight: 'bold' }}>
+          $1597.99
+        </p>
+      </div>
+    </div>
   )
 }
+
+const App: React.FC = () => (
+  <>
+    <Collapse
+      style={{ width: '100%' }}
+      size="large"
+      items={[{ key: '1', label: 'Shipment Order Summary ', children: <OrderSummary/>, extra: <IoReceiptOutline /> }]}
+    />
+  </>
+);
+
+export default App;

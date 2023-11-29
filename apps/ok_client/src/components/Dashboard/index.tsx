@@ -10,7 +10,6 @@ import {
   Spinner 
 } from '@chakra-ui/react'
 
-import Sidebar from './Layout/Sidebar'
 import DashboardLayout from "./Layout/Layout";
 
 const DashboardContainer = () => {

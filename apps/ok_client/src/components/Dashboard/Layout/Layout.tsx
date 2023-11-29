@@ -1,25 +1,24 @@
-import React, {
+import {
   ReactNode,
   startTransition
 } from 'react';
-
-import type { 
-  MenuProps 
-} from 'antd';
 
 import { 
   Layout, 
   Menu,
   Image,
-  Avatar,
   Button,
   Dropdown
 } from 'antd';
 
+import type { 
+  MenuProps 
+} from 'antd';
+
 import {
-  FiMenu,
   FiChevronDown,
-  FiPlus
+  FiPlus,
+  FiTruck 
 } from 'react-icons/fi'
 
 import { 
@@ -29,19 +28,14 @@ import {
 } from "react-icons/ri";
 
 import { 
-  FiTruck 
-} from "react-icons/fi";
-
-import { 
   MdShoppingCartCheckout 
 } from "react-icons/md";
-
 
 import { 
   useNavigate 
 } from 'react-router-dom'
 
-import logo from '../../../assets/images/color-logo-no-bg.png'
+import logo from '../../../assets/images/white-logo-no-bg.png'
 
 const { Header, Content } = Layout;
 
@@ -120,7 +114,7 @@ const DashboardLayout = ({
     {
       key: '2',
       label: (
-        <div style={{ display: 'flex', alignItems: 'center'}}>
+        <div style={{ display: 'flex', alignItems: 'center'}} onClick={() => startTransition(() => navigate('/inform-order'))}>
           <RiInformationLine/>
           <span style={{ marginLeft: 5 }}>  Inform Order </span>
         </div>
@@ -139,13 +133,13 @@ const DashboardLayout = ({
             display: 'flex',
             alignItems: 'flex-end',
             justifyContent: 'center',
-            backgroundColor: 'white',
+            // backgroundColor: 'white',
             height: 100,
           }}
         >
           <div style={{width: 1280, display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
             <Image src={logo} preview={false} style={{ height: 50, paddingRight: 10 }}/>
-            <Menu mode="horizontal" defaultSelectedKeys={['/orders']} items={items} onClick={(e) => startTransition(() => navigate(e.key))} style={{ flex: 1 }}/>
+            <Menu theme='dark' mode="horizontal" defaultSelectedKeys={['/orders']} items={items} onClick={(e) => startTransition(() => navigate(e.key))} style={{ flex: 1 }}/>
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <Dropdown
                 overlay={<Menu items={orderDropdownItems} />}

@@ -1,93 +1,119 @@
-import { 
-  useRef 
+import React, { 
+  useState 
 } from 'react';
 
-import {
-  useDisclosure,
-  Button,
-  Drawer,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
-  DrawerHeader,
-  DrawerBody,
-  DrawerFooter,
-  Box,
-  Text,
-  VStack,
-  Textarea,
-  Heading,
-  Checkbox
-} from '@chakra-ui/react';
+import { 
+  Button, 
+  Col, 
+  Drawer, 
+  Form, Input, 
+  Row, 
+  Space, 
+  Alert, 
+  Checkbox 
+} from 'antd';
+
+import type { 
+  CheckboxChangeEvent 
+} from 'antd/es/checkbox';
 
 import { 
-  FiClipboard 
+  FiPlus 
 } from 'react-icons/fi';
 
+import { 
+  RiSave3Line 
+} from 'react-icons/ri';
 
-interface DrawerProps {
-  title: string,
-  color: string
-}
+const App: React.FC = () => {
+  const [open, setOpen] = useState(false);
 
-function DrawerExample({ 
-  title, 
-  color 
-}:DrawerProps) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = useRef<HTMLButtonElement | null>(null); // Specify the type for btnRef
+  const onChange = (e: CheckboxChangeEvent) => {
+    console.log(`checked = ${e.target.checked}`);
+  };  
+
+  const showDrawer = () => {
+    setOpen(true);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
 
   return (
     <>
-      <Button leftIcon={<FiClipboard/>} ref={btnRef} colorScheme={color} onClick={onOpen} size={'sm'}>
-        { title }
+      <Button onClick={showDrawer} icon={<FiPlus />}>
+        Packing Instructions (Optional)
       </Button>
       <Drawer
-        isOpen={isOpen}
-        placement='right'
+        title="Review Your Packing Instructions"
+        width={720}
         onClose={onClose}
-        finalFocusRef={btnRef}
-        size='lg'
+        open={open}
+        styles={{
+          body: {
+            paddingBottom: 80,
+          },
+        }}
+        extra={
+          <Space>
+            <Button onClick={onClose}>Cancel</Button>
+            <Button onClick={onClose} icon={<RiSave3Line />}>
+              Save
+            </Button>
+          </Space>
+        }
       >
-        <DrawerOverlay />
-        <DrawerContent>
-          <Box>
-            <DrawerCloseButton />
-            <DrawerHeader>Review Packing Instructions</DrawerHeader>
-            <DrawerBody>
-              <VStack
-                align='stretch'
-                py={3}
+        <Form layout="vertical" hideRequiredMark>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                name="giftWrap"
+                rules={[{ required: true, message: 'Please enter user name' }]}
               >
-                <Checkbox defaultChecked>Gift Wrapping</Checkbox>
-                <Checkbox defaultChecked>Extra Padding</Checkbox>
-                <Checkbox defaultChecked>Add Bubble Wrap</Checkbox>
-                <Checkbox defaultChecked>Inclusions Only</Checkbox>
-              </VStack>
-              <VStack
-                py={3}
-                align='stretch'
+                <Checkbox onChange={onChange}>Gift Wrapping</Checkbox>
+              </Form.Item>
+              <Form.Item
+                name="url"
+                rules={[{ required: true, message: 'Please enter url' }]}
               >
-                <Heading size='sm'> Extra Details</Heading>
-                <Text fontSize='xs' color={'gray'}>
-                  If you have selected for inclusions only, please use the below area to describe specific instructions.
-                </Text>
-                <Box py={2}>
-                  <Textarea placeholder='Provide extra instructions here...'   size='sm'/>
-                </Box>
-              </VStack>
-            </DrawerBody>
-            <DrawerFooter>
-              <Button variant='outline' mr={3} onClick={onClose}>
-                Cancel
-              </Button>
-              <Button colorScheme='blue'>Save</Button>
-            </DrawerFooter>
-            </Box>
-        </DrawerContent>
+                <Checkbox onChange={onChange}> Extra Padding </Checkbox>
+              </Form.Item>
+              <Form.Item
+                name="url"
+                rules={[{ required: true, message: 'Please enter url' }]}
+              >
+                <Checkbox onChange={onChange}> Add Bubble Wrap </Checkbox>
+              </Form.Item>
+              <Form.Item
+                name="url"
+                rules={[{ required: true, message: 'Please enter url' }]}
+              >
+                <Checkbox onChange={onChange}> Inclusions Only </Checkbox>
+              </Form.Item>
+            </Col>
+          </Row>
+          <Alert style={{ marginBottom: 20}} message="If you have selected for inclusions only, please use the below area to describe your specific instructions." type="info" showIcon />
+          <Row gutter={16}>
+            <Col span={24}>
+              <Form.Item
+                name="description"
+                label="Extra Details"
+                rules={[
+                  {
+                    required: true,
+                    message: 'please enter url description',
+                  },
+                ]}
+              > 
+                <Input.TextArea rows={4} placeholder="Provide extra instructions here..." />
+              </Form.Item>
+            </Col>
+          </Row>
+        </Form>
       </Drawer>
     </>
   );
-}
+};
 
-export default DrawerExample;
+export default App;

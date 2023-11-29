@@ -1,12 +1,9 @@
 import {
   Table,
   Image,
-  Popover,
 } from 'antd'
 
 import '../../../assets/index.css'
-
-import type { ColumnsType } from 'antd/es/table';
 
 interface DataType {
   key: React.Key;

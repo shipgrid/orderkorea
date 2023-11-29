@@ -1,8 +1,13 @@
 import {
-  Table
+  Table,
+  Progress
 } from 'antd'
 
 import '../../../assets/index.css'
+
+import { 
+  BsBoxes 
+} from "react-icons/bs";
 
 const OrderTable = () => {
 
@@ -37,14 +42,26 @@ const OrderTable = () => {
       key: 'expected',
     },
     {
-      title: 'Inventory Statius',
+      title: 'Inventory Status',
       dataIndex: 'inventoryStatus',
       key: 'inventoryStatus',
+      render: (inventoryStatus: string) => (
+        <div style={{ display: 'flex', alignItems: 'center'}}>
+          <BsBoxes/> 
+          <span style={{ marginLeft: 5 }}>  {inventoryStatus} </span>
+        </div>
+      )
     },
     {
-      title: 'Orders Received',
+      title: 'Inventory Received',
       dataIndex: 'receivedOrdered',
       key: 'receivedOrdered',
+      render: (receivedOrdered: string) => (
+        <div style={{ display: 'flex', alignItems: 'center'}}>
+          <Progress percent={100} size="small" />
+          <span style={{ marginLeft: 5 }}>  {receivedOrdered} </span>
+        </div>
+      )
     },
     {
       title: 'Total Cost',

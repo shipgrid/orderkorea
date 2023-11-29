@@ -3,13 +3,6 @@ import {
   Divider
 } from '@chakra-ui/react';
 
-import {
-  Button
-} from 'antd'
-
-import {
-  FiPlus
-} from "react-icons/fi";
 import DashboardHeader from '../Layout/DashboardHeader';
 import ShipmentTable from '../Shipment/ShipmentTable';
 import DashboardContent from '../Layout/DashboardContent';
