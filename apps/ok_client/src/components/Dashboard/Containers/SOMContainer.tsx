@@ -30,7 +30,7 @@ import OrderSummary from '../SOM/ShipmentOrderSummary'
 import DashboardContent from '../Layout/DashboardContent';
 import PackingInstructionsDrawer from '../Drawers/PackingInstructionDrawer';
 import ShipmentRateDrawer from '../Drawers/ShippingRateDrawer'
-import Grid from '../Layout/Grid';
+import Grid from '../../Shared/Grid';
 
 interface InventoryRow {
   id: number,

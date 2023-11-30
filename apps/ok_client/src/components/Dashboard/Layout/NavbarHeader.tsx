@@ -21,7 +21,7 @@ import {
 } from 'react-router-dom'
 
 import OrderDropdownMenu from '../../Shared/OrderDropdownMenu';
-import UserNavbarDropdownMenu from '../../Shared/UserNavbarDropdownMenu';
+import UserNavbarDropdownMenu from './UserNavbarDropdownMenu';
 
 import logo from '../../../assets/images/white-logo-no-bg.png'
 
@@ -71,13 +71,20 @@ const NavbarHeader = ({ }) => {
         display: 'flex',
         alignItems: 'flex-end',
         justifyContent: 'center',
-        height: 100,
+        // height: 100,
         // backgroundColor: 'white',
       }}
     >
       <div style={{width: 1280, display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
         <Image src={logo} preview={false} style={{ height: 50, paddingRight: 10 }}/>
-        <Menu theme='dark' mode="horizontal" style={{ flex: 1 }} defaultSelectedKeys={['/orders']} items={items} onClick={(e) => startTransition(() => navigate(e.key))}/>
+        <Menu 
+          theme='dark' 
+          mode="horizontal" 
+          style={{ flex: 1 }} 
+          defaultSelectedKeys={['/orders']} 
+          items={items} 
+          onClick={(e) => startTransition(() => navigate(e.key))}
+        />
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <OrderDropdownMenu/>
           <UserNavbarDropdownMenu/>

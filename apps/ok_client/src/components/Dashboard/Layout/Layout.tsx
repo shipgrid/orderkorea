@@ -22,7 +22,7 @@ const DashboardLayout = ({
 
   return (
     <Layout>
-      <Layout className="site-layout">
+      <Layout style={{ backgroundColor: '#FCFBF3' }}>
         <NavbarHeader/>
         <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>  
           {content}

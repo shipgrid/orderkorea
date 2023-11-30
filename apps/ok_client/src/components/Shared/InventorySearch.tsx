@@ -26,47 +26,8 @@ interface InventoryRow {
 
 const SOMContainer = () => {
 
-  const [selectedInventory, setSelectedInventory] = useState<InventoryRow[]>([])
-
-  const [options, setOptions] = useState<SelectProps<object>['options']>([]);
-
-  const handleSearch = (value: string) => {
-    setOptions(value ? searchResult(value) : []);
-  };
-
-  const onSelect = (value: string) => {
-    console.log('onSelect', value);
-  };
-
-  const searchResult = (query: string) => {
-
-    return selectedInventory.filter(item => item.name.toLowerCase().includes(query.toLowerCase())).map((item) => {
-
-      return {
-        value: item.name,
-        label: (
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-            }}
-            // onClick={() => handleClick(item.id)}
-          >
-            <Descriptions column={1} size='small'>
-              <Descriptions.Item label="Name"> {item.name} </Descriptions.Item>
-              <Descriptions.Item label="SKU"> {item.sku} </Descriptions.Item>
-              <Descriptions.Item label="Dimensions"> {item.dimensions} </Descriptions.Item>
-              <Descriptions.Item label="Weight"> {item.weight} </Descriptions.Item>
-            </Descriptions>
-            <hr className="m-0" />
-          </div>
-        ),
-      };
-    })
-  }
-
-  useEffect(() => { 
-    setSelectedInventory([
+  const [selectedInventory, setSelectedInventory] = useState<InventoryRow[]>(
+    [
       {
         id: 1,
         name: 'PlayStation 5',
@@ -107,9 +68,45 @@ const SOMContainer = () => {
         quantity: 20,
         price: 'USD 180.00',
       },
-    ])
-  }, [])
+    ]
+  )
 
+  const [options, setOptions] = useState<SelectProps<object>['options']>([]);
+
+  const handleSearch = (value: string) => {
+    setOptions(value ? searchResult(value) : []);
+  };
+
+  const onSelect = (value: string) => {
+    console.log('onSelect', value);
+  };
+
+  const searchResult = (query: string) => {
+
+    return selectedInventory.filter(item => item.name.toLowerCase().includes(query.toLowerCase())).map((item) => {
+
+      return {
+        value: item.name,
+        label: (
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Descriptions column={1} size='small'>
+              <Descriptions.Item label="Name"> {item.name} </Descriptions.Item>
+              <Descriptions.Item label="SKU"> {item.sku} </Descriptions.Item>
+              <Descriptions.Item label="Dimensions"> {item.dimensions} </Descriptions.Item>
+              <Descriptions.Item label="Weight"> {item.weight} </Descriptions.Item>
+            </Descriptions>
+            <hr className="m-0" />
+          </div>
+        ),
+      };
+    })
+  }
+  
   return (
     <div>
       <AutoComplete

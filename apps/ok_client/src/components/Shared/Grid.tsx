@@ -14,6 +14,7 @@ interface GridProps {
   showHeader?: boolean;
   title?: string;
   content?: ReactNode;
+  centerContent?: boolean;
   actionButtons?: ReactNode[];
 }
 
@@ -22,6 +23,7 @@ const Grid: FC<GridProps> = ({
   showHeader = true,
   title = '',
   content = null,
+  centerContent = false,
   actionButtons = [],
   ...props
 }) => {
@@ -55,7 +57,7 @@ const Grid: FC<GridProps> = ({
         {showHeader ? <hr className="m-0" /> : null}
         <Row>
           <Col flex="auto">
-            <div style={{ margin: 10, display: 'flex', justifyContent: 'center' }}>
+            <div style={{ margin: 10, display: centerContent ? 'flex' : '', justifyContent: 'center' }}>
               {content}
             </div>
           </Col>

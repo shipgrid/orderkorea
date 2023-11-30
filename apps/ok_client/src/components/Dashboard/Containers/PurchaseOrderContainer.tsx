@@ -9,8 +9,8 @@ import {
 
 import DashboardHeader from '../Layout/DashboardHeader';
 import DashboardContent from '../Layout/DashboardContent';
-import Grid from '../Layout/Grid';
-import PurchaseForm from '../../Shared/PurchaseForm';
+import Grid from '../../Shared/Grid';
+import PurchaseForm from '../Forms/PurchaseForm';
 
 const PurchaseOrderContainer = () => {
 
@@ -30,6 +30,7 @@ const PurchaseOrderContainer = () => {
                <Switch />
             </div>
           ]}
+          centerContent={true}
           content={
             <div style={{ display: 'flex', width: 800 }}>
               <PurchaseForm />

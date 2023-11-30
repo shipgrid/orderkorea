@@ -1,29 +1,30 @@
 import {
   Stack,
-  Divider
+  Divider,
 } from '@chakra-ui/react';
 
 import {
-  Switch,
-} from 'antd';
+  Switch
+} from 'antd'
 
 import DashboardHeader from '../Layout/DashboardHeader';
 import DashboardContent from '../Layout/DashboardContent';
+import ShippingCalculator from '../ShippingCalculator/ShippingRates';
+import ShippingCalculatorForm from '../Forms/ShippingCalculatorForm';
 import Grid from '../../Shared/Grid';
-import PurchaseForm from '../Forms/PurchaseForm';
 
-const InformOrderContainer = () => {
+const ShippingCalculatorContainer = () => {
 
   return (
     <Stack minH={'100vh'}>
       <DashboardContent>
         <DashboardHeader
-          title={'Inform Order Overview'}
-          description={'Start your inform order and and tell us what will be arriving at our warehouse'}
+          title={'Shipping Calculator'}
+          description={'Calculate shipping rates for your orders'}
         />
         <Divider my={5}/>
         <Grid
-          title="Inform Order"
+          title="Calculate your order ahead of time"
           actionButtons={[
             <div style={{ display: 'flex' }}>
                 <p style={{ marginRight: 10 }}> Show all fields </p>
@@ -32,9 +33,16 @@ const InformOrderContainer = () => {
           ]}
           centerContent={true}
           content={
-            <div style={{ display: 'flex', width: 800 }}>
-              <PurchaseForm />
+            <div style={{ width: 800, }}>
+              <ShippingCalculatorForm />
             </div>
+          }
+        />
+        <Divider my={5}/>
+        <Grid
+          title="Shipping Rates"
+          content={
+            <ShippingCalculator />
           }
         />
       </DashboardContent>
@@ -42,4 +50,4 @@ const InformOrderContainer = () => {
   );
 }
 
-export default InformOrderContainer
+export default ShippingCalculatorContainer

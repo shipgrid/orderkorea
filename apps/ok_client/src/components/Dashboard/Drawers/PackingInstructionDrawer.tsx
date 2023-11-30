@@ -4,13 +4,8 @@ import React, {
 
 import { 
   Button, 
-  Col, 
   Drawer, 
-  Form, Input, 
-  Row, 
   Space, 
-  Alert, 
-  Checkbox 
 } from 'antd';
 
 import type { 
@@ -25,7 +20,7 @@ import {
   RiSave3Line 
 } from 'react-icons/ri';
 
-import PackingInstructionsForm from '../../Shared/PackingInstructionForm';
+import PackingInstructionsForm from '../Forms/PackingInstructionForm';
 
 const App: React.FC = () => {
   const [open, setOpen] = useState(false);
