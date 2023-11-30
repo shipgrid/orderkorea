@@ -13,8 +13,25 @@ import type {
 } from 'antd';
 
 import {
-  FiTruck 
+  FiTruck,
+  FiHome
 } from 'react-icons/fi'
+
+import { 
+  BsBoxes 
+} from "react-icons/bs";
+
+import { 
+  FaWpforms 
+} from "react-icons/fa";
+
+import { 
+  RiShipLine,
+} from "react-icons/ri";
+
+import { 
+  LiaFileInvoiceDollarSolid 
+} from "react-icons/lia";
 
 import { 
   useNavigate 
@@ -31,23 +48,28 @@ const {
 
 const navItems = [
   {
+    label: 'Home',
+    icon: <FiHome/>,
+    path: '/',
+  },
+  {
     label: 'Orders',
-    icon: FiTruck,
+    icon: <FaWpforms/>,
     path: '/orders',
   },
   {
     label: 'Inventory',
-    icon: FiTruck,
+    icon: <BsBoxes/>,
     path: '/inventory',
   },
   {
     label: 'Shipments',
-    icon: FiTruck,
+    icon: <RiShipLine/>,
     path: '/shipments',
   },
   {
     label: 'Billing',
-    icon: FiTruck,
+    icon: <LiaFileInvoiceDollarSolid/>,
     path: '/billing',
   },
 ];
@@ -71,7 +93,7 @@ const NavbarHeader = ({ }) => {
         display: 'flex',
         alignItems: 'flex-end',
         justifyContent: 'center',
-        // height: 100,
+        height: 100,
         // backgroundColor: 'white',
       }}
     >
@@ -81,7 +103,7 @@ const NavbarHeader = ({ }) => {
           theme='dark' 
           mode="horizontal" 
           style={{ flex: 1 }} 
-          defaultSelectedKeys={['/orders']} 
+          defaultSelectedKeys={['/']} 
           items={items} 
           onClick={(e) => startTransition(() => navigate(e.key))}
         />
