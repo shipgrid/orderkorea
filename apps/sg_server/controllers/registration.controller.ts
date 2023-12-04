@@ -16,7 +16,6 @@ const registerCustomer = async (
 ) => {
 
   try {
-
     const {
       first_name,
       last_name,
