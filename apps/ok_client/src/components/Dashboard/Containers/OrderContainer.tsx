@@ -16,9 +16,11 @@ const OrderContainer = () => {
         <DashboardHeader
           title={'Order Overview'}
           description={'View your orders and track your shipments'}
-          action={
-            <OrderDropdownMenu/>
-          }
+          action={[
+            <div key={'1'}>
+              <OrderDropdownMenu/>
+            </div>
+          ]}
         />
         <Divider my={5}/>
         <OrderTable />

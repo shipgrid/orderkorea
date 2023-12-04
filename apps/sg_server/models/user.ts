@@ -1,29 +1,22 @@
 import { Model } from 'objection';
-import Knex from 'knex';
-import dotenv from 'dotenv';
+import knexClient from './knex_client'
 
-dotenv.config();
+Model.knex(knexClient);
 
-// Initialize knex.
-const knex = Knex({
-  client: 'mysql2',
-  useNullAsDefault: true,
-  connection: {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE,
-    port: Number(process.env.DB_PORT),
-    multipleStatements: true,
-    dateStrings: true,
-    timezone: 'Z'
-  },
-  pool: { min: 0, max: 7 }
-});
+// Define an interface that represents your User model properties
+interface User {
+  user_id: number;
+  first_name: string;
+  last_name: string;
+  username: string;
+  password_hash: string;
+  last_login: string | null; // Assuming last_login can be null
+  created_on: string;
+  updated_on: string;
+  deleted_on: string | null; // Assuming deleted_on can be null
+}
 
-Model.knex(knex);
-
-class User extends Model {
+class User extends Model implements User {
   static get tableName() {
     return 'users'; 
   }
@@ -53,6 +46,4 @@ class User extends Model {
   }
 }
 
-export {
-  User
-};
+export default User;

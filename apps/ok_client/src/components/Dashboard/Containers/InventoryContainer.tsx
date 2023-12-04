@@ -131,7 +131,9 @@ const InventoryContainer = () => {
         <DashboardHeader
           title={'Inventory Overview'}
           description={'Update your inventory and ship them out when you are ready'}
-          action={<Button icon={<FiPlus />} onClick={() => startTransition(() => navigate('/create-shipment'))}> Start Shipment </Button>}
+          action={[
+            <Button key='1' icon={<FiPlus />} onClick={() => startTransition(() => navigate('/create-shipment'))}> Start Shipment </Button>
+          ]}
         />
         <Divider my={5}/>
         <InventoryTable />

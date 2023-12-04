@@ -1,9 +1,7 @@
 // Define the RootState type
 export interface SessionState {
   isAuth: boolean;
-  user: {
-    email: string;
-  };
+  token: string;
 }
 
 export interface RootState {

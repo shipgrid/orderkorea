@@ -3,29 +3,26 @@ import { SessionState } from '../../types/root';
 // Define the initial state
 const initialState: SessionState = {
   isAuth: false,
-  user: {
-    email: '',
-  },
+  token: ''
 };
 
 // Define the action type
 type SessionAction = {
   type: string;
-  payload?: {
-    user?: {
-      email: string;
-    };
-  };
+  payload: {
+    token: string;
+  }
 };
 
 // Define the session reducer
 const sessionReducer = (state: SessionState = initialState, action: SessionAction): SessionState => {
   switch (action.type) {
     case 'LOGIN':
+
       return { 
         ...state, 
         isAuth: true, 
-        user: action.payload?.user || state.user 
+        token: action.payload.token
       };
 
     case 'LOGOUT':

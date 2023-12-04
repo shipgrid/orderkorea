@@ -1,5 +1,6 @@
 import { lazy } from "react";
 import { RouteObject } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import Dashboard from "../pages/Dashboard";
 
 const HomeContainer = lazy(() => import("../components/Dashboard/Containers/HomeContainer"));
@@ -14,19 +15,20 @@ const SOMContainer = lazy(() => import("../components/Dashboard/Containers/SOMCo
 
 const privateRoutes: RouteObject[] = [
   {
-    path: "/",
+    path: '/',
     element: <Dashboard />,
     children: [
-      { path: "/", element: <HomeContainer /> },
-      { path: "/inventory", element: <InventoryContainer /> },
-      { path: '/create-shipment', element: <SOMContainer />},
-      { path: '/orders', element: <OrderContainer />},
-      { path: '/shipments', element: <ShipmentContainer />},
-      { path: '/purchase-order', element: <PurchaseOrderContainer />},
-      { path: '/inform-order', element: <InformOrderContainer />},
-      { path: '/billing', element: <BillingContainer />},
-      { path: '/shipping-calculator', element: <ShippingCalculatorContainer />}
-    ],  
+      { path: '/', element: <HomeContainer /> },
+      { path: '/inventory', element: <InventoryContainer /> },
+      { path: '/create-shipment', element: <SOMContainer /> },
+      { path: '/orders', element: <OrderContainer /> },
+      { path: '/shipments', element: <ShipmentContainer /> },
+      { path: '/purchase-order', element: <PurchaseOrderContainer /> },
+      { path: '/inform-order', element: <InformOrderContainer /> },
+      { path: '/billing', element: <BillingContainer /> },
+      { path: '/shipping-calculator', element: <ShippingCalculatorContainer /> },
+      { path: "*", element: <Navigate to="/login" replace /> },
+    ],
   },
 ];
 

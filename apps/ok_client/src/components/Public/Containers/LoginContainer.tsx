@@ -1,16 +1,10 @@
-import {
-  Stack,
-} from '@chakra-ui/react';
-
 import LoginForm from '../Login/LoginForm'
-import LoginBannerImage from '../Login/LoginBannerImage';
 
 const Login = () => {
   return (
-    <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
+    <div style={{ minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
       <LoginForm/>
-      <LoginBannerImage/>
-    </Stack>
+    </div>
   );
 }
 

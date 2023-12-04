@@ -1,43 +1,120 @@
-import {
-  Button,
-  Checkbox,
-  Flex,
-  Text,
-  FormControl,
-  FormLabel,
-  Heading,
-  Input,
-  Stack,
-} from '@chakra-ui/react';
 
-const LoginForm = () => {
-  return (
-    <Flex p={8} flex={1} align={'center'} justify={'center'}>
-      <Stack spacing={4} w={'full'} maxW={'md'}>
-        <Heading fontSize={'2xl'}>Sign in to your account</Heading>
-        <FormControl id="email">
-          <FormLabel>Email address</FormLabel>
-          <Input type="email" />
-        </FormControl>
-        <FormControl id="password">
-          <FormLabel>Password</FormLabel>
-          <Input type="password" />
-        </FormControl>
-        <Stack spacing={6}>
-          <Stack
-            direction={{ base: 'column', sm: 'row' }}
-            align={'start'}
-            justify={'space-between'}>
-            <Checkbox>Remember me</Checkbox>
-            <Text color={'blue.500'}>Forgot password?</Text>
-          </Stack>
-          <Button colorScheme={'blue'} variant={'solid'}>
-            Sign in
-          </Button>
-        </Stack>
-      </Stack>
-    </Flex>
-  );
+import { 
+  Button,
+  Checkbox, 
+  Form, 
+  Input 
+} from 'antd';
+
+import agent from '../../../api/agent'
+
+import {
+  connect,
+} from 'react-redux'
+
+import { 
+  Dispatch 
+} from 'redux';
+
+import {
+  useNavigate
+} from 'react-router-dom'
+
+interface LoginAction {
+  type: string;
+  payload: any; // Define the payload type here
 }
 
-export default LoginForm
+const mapStateToProps = (state: LoginAction) => ({ store: state });
+
+const mapDispatchToProps = (dispatch: Dispatch<LoginAction>) => ({
+  login: (loginData: any) => dispatch({ type: 'LOGIN', payload: loginData }),
+});
+
+export { mapStateToProps, mapDispatchToProps };
+
+type FieldType = {
+  username?: string;
+  password?: string;
+  remember?: string;
+};
+
+interface LoginFormProps {
+  login: (loginData: any) => void;
+}
+
+const LoginForm = ({
+  login
+}: LoginFormProps) => {
+
+  const navigate = useNavigate()
+
+  const onFinish = async (values: any) => {
+    console.log('Success:', values);
+    
+    const {
+      username,
+      password,
+    } = values;
+
+    try {
+      const response = await agent.account.login({
+        username,
+        password
+      })
+
+      login(response.data)
+      navigate('/inventory')
+
+    } catch(e) {
+      console.log(e)
+    }
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
+
+  return (
+    <Form
+      name="basic"
+      labelCol={{ span: 8 }}
+      wrapperCol={{ span: 16 }}
+      style={{ maxWidth: 600 }}
+      initialValues={{ remember: true }}
+      onFinish={onFinish}
+      onFinishFailed={onFinishFailed}
+      autoComplete="off"
+    >
+      <Form.Item<FieldType>
+        label="Username"
+        name="username"
+        rules={[{ required: true, message: 'Please input your username!' }]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item<FieldType>
+        label="Password"
+        name="password"
+        rules={[{ required: true, message: 'Please input your password!' }]}
+      >
+        <Input.Password />
+      </Form.Item>
+      <Form.Item<FieldType>
+        name="remember"
+        valuePropName="checked"
+        wrapperCol={{ offset: 8, span: 16 }}
+      >
+        <Checkbox>Remember me</Checkbox>
+      </Form.Item>
+      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </Form.Item>
+    </Form> 
+  )
+}
+  
+export default (connect(mapStateToProps, mapDispatchToProps)(LoginForm))
