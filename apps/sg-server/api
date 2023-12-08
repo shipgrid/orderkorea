@@ -1,40 +1,44 @@
 ACCOUNT 
-POST /login 
-POST /register
+POST /login - joe /done 
+POST /register - joe /done
 
 INVENTORY 
-GET /vehicles 
-POST /vehicles/:vehicle-id/reserve
+GET /vehicles - joe
+POST /vehicles/:vehicle-id/reserve - joe
   side effect - create order
-  trigger emails sent 
-  trigger sms sent
-  trigger whatsapp sent 
+  trigger emails sent - lewis
+  trigger sms sent - ??
+  trigger whatsapp sent - lewis
    
 ORDER 
-GET /orders/:order-id
-  get shipment 
-    get shipment tracking history 
-  get third-party
-  get documents
-DEL /orders/:order-id
+GET /orders/:order-id - joe
+  get shipment - joe
+    get shipment tracking history - joe
+  get third-party - joe 
+  get documents - joe
+DEL /orders/:order-id - joe 
   
-POST /orders/third-party
-PUT /orders/third-party
-DEL /orders/third-party
+POST /orders/third-party - lewis
+PUT /orders/third-party - lewis
+DEL /orders/third-party - lewis
 
-POST /orders/document 
-  - upload to s3
+POST /addresses - joe
+PUT /addresses/:address-id - joe
+DEL  /addresses/:address-id - joe
+
+POST /orders/document - lewis
+  - upload to s3 - lewis 
   - save to db
-DEL /orders/document
+DEL /orders/document - lewis
 
 STAFF POV 
 
 SHIPMENTS
-POST /shipment
+POST /shipment - joe 
   body - order-id
-PUT /shipment/shipment-id
-DEL /shipment/shipment-id
-POST /shipmemt/shipment-id/events
+PUT /shipment/shipment-id - joe 
+DEL /shipment/shipment-id - joe
+POST /shipmemt/shipment-id/events - joe
   [
     event1: {
       id: 1,
