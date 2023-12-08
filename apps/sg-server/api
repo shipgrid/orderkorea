@@ -1,0 +1,53 @@
+ACCOUNT 
+POST /login 
+POST /register
+
+INVENTORY 
+GET /vehicles 
+POST /vehicles/:vehicle-id/reserve
+  side effect - create order
+  trigger emails sent 
+  trigger sms sent
+  trigger whatsapp sent 
+   
+ORDER 
+GET /orders/:order-id
+  get shipment 
+    get shipment tracking history 
+  get third-party
+  get documents
+DEL /orders/:order-id
+  
+POST /orders/third-party
+PUT /orders/third-party
+DEL /orders/third-party
+
+POST /orders/document 
+  - upload to s3
+  - save to db
+DEL /orders/document
+
+STAFF POV 
+
+SHIPMENTS
+POST /shipment
+  body - order-id
+PUT /shipment/shipment-id
+DEL /shipment/shipment-id
+POST /shipmemt/shipment-id/events
+  [
+    event1: {
+      id: 1,
+      type: 'pickup',
+      location: 'address',
+      time: 'timestamp'
+    },
+    event2: {
+      id: 2,
+      type: 'pickup',
+      location: 'address',
+      time: 'timestamp'
+    },
+  ]
+
+
