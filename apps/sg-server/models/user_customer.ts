@@ -14,7 +14,7 @@ interface UserCustomer {
 
 class UserCustomer extends Model implements UserCustomer {
   static get tableName() {
-    return 'user_customer';
+    return 'user_customers';
   }
 
   static get idColumn() {

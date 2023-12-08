@@ -98,7 +98,8 @@ const NavbarHeader = ({ }) => {
       }}
     >
       <div style={{width: 1280, display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-        <Image src={logo} preview={false} style={{ height: 50, paddingRight: 10 }}/>
+        <p style={{ color: 'white', fontSize: '32px', fontWeight: 'bolder' }}> ShipGrid</p>
+        {/* <Image src={logo} preview={false} style={{ height: 50, paddingRight: 10 }}/> */}
         <Menu 
           theme='dark' 
           mode="horizontal" 
