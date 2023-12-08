@@ -6,9 +6,10 @@ INVENTORY
 GET /vehicles - joe
 POST /vehicles/:vehicle-id/reserve - joe
   side effect - create order
-  trigger emails sent - lewis
+  trigger emails sent - joe
   trigger sms sent - ??
-  trigger whatsapp sent - lewis
+  trigger whatsapp sent - joe
+  trigger slack sent - joe
    
 ORDER 
 GET /orders/:order-id - joe
