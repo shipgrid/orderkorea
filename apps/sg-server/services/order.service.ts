@@ -17,7 +17,10 @@ const getOrderById = async ({
 }) => {
 
   try {
-    const order = await Order.query().findById(order_id);
+    const order = await Order
+      .query()
+      .withGraphFetched('orderEvents')
+      .findById(order_id);
     return order;
 
   } catch(e) {

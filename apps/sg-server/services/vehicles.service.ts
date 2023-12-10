@@ -1,4 +1,4 @@
-import Vehicle from '../models/vehicles'
+import Vehicle from '../models/vehicle'
 import logger from '../models/logger'
 import knexClient from '../models/knex_client'
 
@@ -18,7 +18,10 @@ const getVehicleById = async ({
   vehicle_id
 }) => {
   try {
-    const vehicle = await Vehicle.query().findById(vehicle_id);
+    const vehicle = await Vehicle
+      .query()
+      .findById(vehicle_id)
+      .withGraphFetched('vehicleImages');
 
     if(!vehicle) {
       throw new Error('Vehicle not found');

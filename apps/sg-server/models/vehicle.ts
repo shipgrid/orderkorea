@@ -1,5 +1,6 @@
 import { Model } from 'objection';
 import knexClient from './knex_client'
+import VehicleImage from './vehicle_image';
 
 Model.knex(knexClient);
 
@@ -27,6 +28,19 @@ class Vehicle extends Model implements Vehicle {
 
   static get idColumn() {
     return 'vehicle_id';
+  }
+
+  static get relationMappings() {
+    return {
+      vehicleImages: {
+        relation: Model.HasManyRelation,
+        modelClass: VehicleImage,
+        join: {
+          from: 'vehicles.vehicle_id',
+          to: 'vehicle_images.vehicle_id',
+        },
+      },
+    };
   }
 
   static get jsonSchema() {
