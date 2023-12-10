@@ -15,7 +15,6 @@ export default (req: Request, res: Response, next: NextFunction) => {
     return;
   }
 
-
   // if authHeader is present, then we can validate the user against his present jwt token for authentication.
   const tokenArray = authHeader.split(' ');
   const token = tokenArray[1].replace(/[^a-zA-Z0-9_+.\-]/g, '');
@@ -46,7 +45,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
       return;
     }
 
-    // req.customer = result.data;
+    req.customer = result.customer;
     logger.info('Authentication token not provided', result.data);
     next();
   });

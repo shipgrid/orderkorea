@@ -27,7 +27,7 @@ class UserCustomer extends Model implements UserCustomer {
         relation: Model.BelongsToOneRelation,
         modelClass: User,
         join: {
-          from: 'user_customer.user_id',
+          from: 'user_customers.user_id',
           to: 'users.user_id',
         },
       },

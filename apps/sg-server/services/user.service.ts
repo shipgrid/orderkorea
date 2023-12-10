@@ -3,6 +3,10 @@ import UserCustomer from '../models/user_customer'
 import knexClient from '../models/knex_client'
 import logger from '../models/logger'
 
+interface UserWithUserCustomer extends User {
+  userCustomer: UserCustomer; 
+}
+
 const createUserCustomer = async ({
   first_name,
   last_name,
@@ -40,6 +44,30 @@ const createUserCustomer = async ({
   }
 }
 
+const updateUser = async ({
+  user_id,
+  last_login,
+}) => {
+
+  try {
+    await knexClient.transaction(async (trx) => {
+
+      const updatedUser = {
+        last_login,
+      };
+
+      const user = await User.query(trx).patchAndFetchById(user_id, updatedUser);
+
+      await trx.commit();
+
+      logger.info('User updated:', user);
+    });
+  } catch(e) {
+    logger.error('Error updating User:', e);
+    throw e
+  }
+}
+
 const getUserByUsername = async ({
   username,
 }) => {
@@ -58,7 +86,23 @@ const getUserByUsername = async ({
   }
 }
 
+const getUserCustomerByUsername = async ({
+  username,
+}):Promise<UserWithUserCustomer | undefined> => {
+  try {
+    const user = await User.query()
+      .withGraphFetched('userCustomer')
+      .where('username', username).first();
+
+    return user as UserWithUserCustomer;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export {
   createUserCustomer,
-  getUserByUsername
+  getUserByUsername,
+  getUserCustomerByUsername,
+  updateUser
 }
