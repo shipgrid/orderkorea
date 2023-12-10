@@ -3,6 +3,7 @@ import UserCustomer from '../models/user_customer'
 import knexClient from '../models/knex_client'
 import logger from '../models/logger'
 
+
 interface UserWithUserCustomer extends User {
   userCustomer: UserCustomer; 
 }
