@@ -33,13 +33,15 @@ import {
   updateAddressController
 } from '../controllers/address.controller'
 
+import validateToken from '../middlewares/validate_token'
+
 const routes = Router()
 
 routes.get('/test', (req, res) => res.status(200).send('OK'))
 routes.post('/register', registerCustomer)
 routes.post('/login', loginCustomer)
 
-routes.get('/vehicles', getVehiclesController)
+routes.get('/vehicles', validateToken, getVehiclesController)
 routes.get('/vehicles/:vehicle_id', getVehicleByIdController)
 routes.post('/vehicles', createVehicleController)
 routes.delete('/vehicles', deleteVehicleController)

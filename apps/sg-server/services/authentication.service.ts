@@ -37,9 +37,7 @@ const login = async ({
     try {
       token = jwt.sign(
         { 
-          data: { 
-            user: user 
-          } 
+          customer_id: user.user_id
         },
         'YOUR_SECRET_KEY',
         { expiresIn: '1h' }

@@ -4,19 +4,20 @@ POST /register - joe /done
 
 INVENTORY 
 GET /vehicles - joe
-POST /vehicles/:vehicle-id/reserve - joe
-  side effect - create order
-  trigger emails sent - joe
-  trigger sms sent - ??
-  trigger whatsapp sent - joe
-  trigger slack sent - joe
-   
+
 ORDER 
 GET /orders/:order-id - joe
   get shipment - joe
     get shipment tracking history - joe
   get third-party - joe 
   get documents - joe
+
+  side effect -
+  trigger emails sent - joe
+  trigger sms sent - ??
+  trigger whatsapp sent - joe
+  trigger slack sent - joe
+   
 DEL /orders/:order-id - joe 
   
 POST /orders/third-party - lewis
