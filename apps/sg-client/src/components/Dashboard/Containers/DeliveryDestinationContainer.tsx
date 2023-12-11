@@ -18,12 +18,12 @@ const PurchaseOrderContainer = () => {
     <Stack minH={'100vh'}>
       <DashboardContent>
         <DashboardHeader
-          title={'Purchase Order Overview'}
-          description={'Start your purchase order and we will take care of the rest'}
+          title={'Delivery Destination'}
+          description={'Add a delivery destination to your shipment'}
         />
         <Divider my={5}/>
         <Grid
-          title="Purchase Order"
+          title="Add New Delivery Destination"
           actionButtons={[
             <div style={{ display: 'flex' }}>
                 <p style={{ marginRight: 10 }}> Show all fields </p>

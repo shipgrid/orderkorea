@@ -11,7 +11,7 @@ import {
 
 const { TextArea } = Input;
 
-const PurchaseForm = () => {
+const DeliveryDestinationForm = () => {
 
   return (
     <Form
@@ -19,25 +19,31 @@ const PurchaseForm = () => {
       labelCol={{ span: 5 }}
       style={{ flex: 1, padding: 10, borderRadius: 10,  }}
     >
-      <Form.Item label="Vendor">
+      <Form.Item label="Name">
         <Input/>
       </Form.Item>
-      <Form.Item label="SKU">
-        <Input placeholder='Barcode or reference code'/>
+      <Form.Item label="Line 1">
+        <Input/>
       </Form.Item>
-      <Form.Item label="Contact">
-        <Input placeholder='email or phone number'/>
+      <Form.Item label="Line 2">
+        <Input placeholder='optional'/>
       </Form.Item>
-      <Form.Item label="Product URL">
-        <Input placeholder='https://www.coupang.com/vp/products/717'/>
+      <Form.Item label="City">
+        <Input/>
       </Form.Item>
-      <Form.Item label="Quantity">
-        <InputNumber style={{ width: '100%' }}/>
+      <Form.Item label="Country">
+        <Input/>
       </Form.Item>
-      <Form.Item label="Unit Price ₩">
-        <InputNumber placeholder='KRW (₩)' style={{ width: '100%' }}/>
+      <Form.Item label="State/Province">
+        <Input/>
       </Form.Item>
-      <Form.Item label="Product Description">
+      <Form.Item label="Postal Code">
+        <Input/>
+      </Form.Item>
+      <Form.Item label="Contact Number">
+        <Input placeholder='optional'/>
+      </Form.Item>
+      <Form.Item label="Comment">
         <TextArea rows={4} placeholder="name, size, color, design, variant, etc" />
       </Form.Item>
       <Form.Item wrapperCol={{ offset: 5 }}>
@@ -47,4 +53,4 @@ const PurchaseForm = () => {
   );
 }
 
-export default PurchaseForm
+export default DeliveryDestinationForm
