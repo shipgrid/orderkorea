@@ -6,7 +6,9 @@ const getVehicles = async ({
 }) => {
 
   try {
-    const vehicles = await Vehicle.query();
+    const vehicles = await Vehicle
+      .query()
+      .withGraphFetched('vehicleImages');
     return vehicles;
   } catch(e) {
     logger.error('Error getting user by username:', e);

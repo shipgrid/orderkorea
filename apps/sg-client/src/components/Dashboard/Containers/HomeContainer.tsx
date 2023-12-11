@@ -4,12 +4,13 @@ import {
 } from '@chakra-ui/react';
 
 import {
-  startTransition
+  startTransition,
+  useEffect,
+  useState
 } from 'react';
 
 import {
   Card,
-  Alert,
   Button,
   Image
 } from 'antd'
@@ -21,11 +22,45 @@ import {
 import DashboardHeader from '../Layout/DashboardHeader';
 import DashboardContent from '../Layout/DashboardContent';
 
+import agent from '../../../api/agent';
+
 const { Meta } = Card;
+
+interface Vehicle {
+  id: number;
+  make: string;
+  model: string;
+  year: number;
+  mileage: number;
+  price: number;
+  images: string[];
+}
+
+interface ResponseBody {
+  data: Vehicle[];
+  success: boolean;
+}
 
 const HomeContainer = () => {
 
+  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
+
+  const getVehicles = async () => {
+    const response = await agent.vehicles.list();
+    const {
+      data, 
+      success
+    } = response.data as ResponseBody; // Access 'data' directly from 'response'
+    setVehicles(data);
+  };
+
   const navigate = useNavigate();
+
+
+
+  useEffect(() => {
+    getVehicles();
+  }, []);
 
   return (
     <Stack minH={'100vh'}>
@@ -64,69 +99,42 @@ const HomeContainer = () => {
         /> */}
         <p style={{ fontWeight: 'bold', margin: 5, marginTop: 20, marginBottom: 20,  fontSize: 18 }}> Inventory </p>
         <div style={{ display: 'flex', margin: 5 }}>
-          <Card
-            onClick={() => startTransition(() => navigate('/vehicle-detail'))}
-            hoverable
-            style={{ width: 220, flex: 1, margin: 5 }}
-            cover={<Image height={260} alt="example" src="https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8aHl1bmRhaXxlbnwwfHwwfHx8MA%3D%3D" />}
-            actions={[
-              <Button key="setting" style={{ width: '90%', borderRadius: 20 }} type='primary'> View More </Button>,
-            ]}
-          >
-            <Meta title="2008 Hyundai Elentra - USD 19,000" description="89,000 KM" />
-          </Card>
-          <Card
-            hoverable
-            style={{ width: 220, flex: 1, margin: 5 }}
-            cover={<Image  height={260} alt="example" src="https://www.usnews.com/cmsmedia/56/44/fc92b01c4006b46932e72ac46fe8/2023-hyundai-tucson-hybrid-8.jpg" />}
-            actions={[
-              <Button key="setting" style={{ width: '90%', borderRadius: 20 }} type='primary'> View More </Button>,
-            ]}
-          >
-            <Meta title="2008 Hyundai Elentra - USD 19,000" description="89,000 KM" />
-          </Card>
-          <Card
-            hoverable
-            style={{ width: 220, flex: 1, margin: 5 }}
-            cover={<Image height={260} alt="example" src="https://www.usnews.com/cmsmedia/56/44/fc92b01c4006b46932e72ac46fe8/2023-hyundai-tucson-hybrid-8.jpg" />}
-            actions={[
-              <Button key="setting" style={{ width: '90%', borderRadius: 20 }} type='primary'> View More </Button>,
-            ]}
-          >
-            <Meta title="2008 Hyundai Elentra - USD 19,000" description="89,000 KM" />
-          </Card>
+          {
+            vehicles.map((vehicle) => {
+              return (
+                <Card
+                  onClick={() => startTransition(() => navigate('/vehicle-detail'))}
+                  hoverable
+                  style={{ width: 220, flex: 1, margin: 5 }}
+                  cover={<Image height={260} alt="example" src="https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8aHl1bmRhaXxlbnwwfHwwfHx8MA%3D%3D" />}
+                  actions={[
+                    <Button key="setting" style={{ width: '90%', borderRadius: 20 }} type='primary'> View More </Button>,
+                  ]}
+                >
+                  <Meta title={`${vehicle.year} ${vehicle.make} ${vehicle.model} - USD 19,000`} description="89,000 KM" />
+                </Card>
+              )
+            })
+          }
         </div>
         <div style={{ display: 'flex', margin: 5 }}>
-          <Card
-            hoverable
-            style={{ width: 220, flex: 1, margin: 5 }}
-            cover={<Image height={260} alt="example" src="https://www.usnews.com/cmsmedia/56/44/fc92b01c4006b46932e72ac46fe8/2023-hyundai-tucson-hybrid-8.jpg" />}
-            actions={[
-              <Button key="setting" style={{ width: '90%', borderRadius: 20 }} type='primary'> View More </Button>,
-            ]}
-          >
-            <Meta title="2008 Hyundai Elentra - USD 19,000" description="89,000 KM" />
-          </Card>
-          <Card
-            hoverable
-            style={{ width: 220, flex: 1, margin: 5 }}
-            cover={<Image  height={260} alt="example" src="https://www.usnews.com/cmsmedia/56/44/fc92b01c4006b46932e72ac46fe8/2023-hyundai-tucson-hybrid-8.jpg" />}
-            actions={[
-              <Button key="setting" style={{ width: '90%', borderRadius: 20 }} type='primary'> View More </Button>,
-            ]}
-          >
-            <Meta title="2008 Hyundai Elentra - USD 19,000" description="89,000 KM" />
-          </Card>
-          <Card
-            hoverable
-            style={{ width: 220, flex: 1, margin: 5 }}
-            cover={<Image height={260} alt="example" src="https://www.usnews.com/cmsmedia/56/44/fc92b01c4006b46932e72ac46fe8/2023-hyundai-tucson-hybrid-8.jpg" />}
-            actions={[
-              <Button key="setting" style={{ width: '90%', borderRadius: 20 }} type='primary'> View More </Button>,
-            ]}
-          >
-            <Meta title="2008 Hyundai Elentra - USD 19,000" description="89,000 KM" />
-          </Card>
+        {
+          vehicles.map((vehicle) => {
+            return (
+              <Card
+                onClick={() => startTransition(() => navigate('/vehicle-detail'))}
+                hoverable
+                style={{ width: 220, flex: 1, margin: 5 }}
+                cover={<Image height={260} alt="example" src="https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8aHl1bmRhaXxlbnwwfHwwfHx8MA%3D%3D" />}
+                actions={[
+                  <Button key="setting" style={{ width: '90%', borderRadius: 20 }} type='primary'> View More </Button>,
+                ]}
+              >
+                <Meta title={`${vehicle.year} ${vehicle.make} ${vehicle.model} - USD 19,000`} description="89,000 KM" />
+              </Card>
+            )
+          })
+        }
         </div>
       </DashboardContent>
     </Stack>

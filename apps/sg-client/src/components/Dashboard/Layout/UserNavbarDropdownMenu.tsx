@@ -65,7 +65,6 @@ const UserNavbarDropdownMenu = ({
 
   const menuProps = {
     items: userDropdownItems,
-    // onClick: handleMenuClick,
   };
 
   return (

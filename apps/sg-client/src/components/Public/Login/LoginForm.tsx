@@ -49,9 +49,7 @@ const LoginForm = ({
 
   const navigate = useNavigate()
 
-  const onFinish = async (values: any) => {
-    console.log('Success:', values);
-    
+  const onFinish = async (values: any) => {    
     const {
       username,
       password,
