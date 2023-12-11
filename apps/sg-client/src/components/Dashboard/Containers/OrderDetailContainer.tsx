@@ -29,7 +29,8 @@ const OrderDetailContainer = () => {
         />
         <Divider my={3}/>
         <Button style={{marginBottom: 5 }}> Edit </Button>
-        <Grid          title='Shipment Details'
+        <Grid          
+        title='Shipment Details'
           content={
             <div>
               <OrderDetail/>

@@ -28,20 +28,6 @@ interface DataType {
   contact: Contact;
 }
 
-
-
-
-
-const rowSelection = {
-  onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
-    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-  },
-  getCheckboxProps: (record: DataType) => ({
-    disabled: record.name === 'Disabled User', // Column configuration not to be checked
-    name: record.name,
-  }),
-};
-
 const InventoryTable = () => {
 
   const rowClassName = () => {
@@ -149,9 +135,6 @@ const InventoryTable = () => {
 
   return (
     <Table 
-      rowSelection={{
-        ...rowSelection,
-      }}
       dataSource={data} 
       columns={columns} 
       size='small'
