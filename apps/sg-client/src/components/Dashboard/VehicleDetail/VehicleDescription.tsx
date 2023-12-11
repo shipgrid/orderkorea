@@ -1,6 +1,8 @@
 import {
   Table,
-  Button
+  Progress,
+  Card,
+  Image
 } from 'antd'
 
 import '../../../assets/index.css'
@@ -9,7 +11,7 @@ import {
   BsBoxes 
 } from "react-icons/bs";
 
-const OrderTable = () => {
+const VehicleImages = () => {
 
   const rowClassName = () => {
     return 'fixed-height-row';
@@ -17,54 +19,56 @@ const OrderTable = () => {
 
   const columns = [
     {
-      title: 'Make - Model',
+      title: 'Order',
       dataIndex: 'id',
       key: 'id',
     },
     {
-      title: 'Year',
+      title: 'Vendor',
       dataIndex: 'vendor',
       key: 'vendor',
     },
     {
-      title: 'Price',
+      title: 'Order Status',
       dataIndex: 'orderStatus',
       key: 'orderStatus',
     },
     {
-      title: 'Status',
-      dataIndex: 'id',
-      key: 'id',
+      title: 'Created',
+      dataIndex: 'created',
+      key: 'created',
     },
     {
-      title: 'Shipper',
+      title: 'Expected',
       dataIndex: 'expected',
       key: 'expected',
     },
     {
-      title: 'Consignee',
-      dataIndex: 'totalCost',
-      key: 'totalCost',
+      title: 'Inventory Status',
+      dataIndex: 'inventoryStatus',
+      key: 'inventoryStatus',
+      render: (inventoryStatus: string) => (
+        <div style={{ display: 'flex', alignItems: 'center'}}>
+          <BsBoxes/> 
+          <span style={{ marginLeft: 5 }}>  {inventoryStatus} </span>
+        </div>
+      )
     },
     {
-      title: 'Delivery Destination',
-      dataIndex: 'totalCost',
-      key: 'totalCost',
+      title: 'Inventory Received',
+      dataIndex: 'receivedOrdered',
+      key: 'receivedOrdered',
+      render: (receivedOrdered: string) => (
+        <div style={{ display: 'flex', alignItems: 'center'}}>
+          <Progress percent={100} size="small" />
+          <span style={{ marginLeft: 5 }}>  {receivedOrdered} </span>
+        </div>
+      )
     },
     {
-      title: 'Expected Arrival',
+      title: 'Total Cost',
       dataIndex: 'totalCost',
       key: 'totalCost',
-    },
-    {
-      title: 'Details',
-      dataIndex: 'totalCost',
-      key: 'totalCost',
-      render: (key: string) => {
-        return (
-          <Button key="setting" style={{ width: '90%', borderRadius: 20 }} type='primary'> View More </Button>
-        )
-      }
     },
   ];
 
@@ -103,14 +107,14 @@ const OrderTable = () => {
   ];
 
   return (
-    <Table 
-      dataSource={data} 
-      columns={columns} 
-      size='small'
-      bordered
-      rowClassName={rowClassName}
-    />
+    <div style={{ display: 'flex', justifyContent: 'center'}}>
+      <Image
+        style={{ borderRadius: 25}}
+        width={'100%'}
+        src="https://ci.encar.com/carpicture/carpicture03/pic3593/35931075_001.jpg?impolicy=heightRate&rh=480&cw=640&ch=480&cg=Center&wtmk=https://ci.encar.com/wt_mark/w_mark_03.png&t=20230912193136"
+      />
+    </div>
   );
 }
 
-export default OrderTable
+export default VehicleImages
