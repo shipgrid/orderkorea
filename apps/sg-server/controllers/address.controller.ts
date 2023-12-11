@@ -141,7 +141,7 @@ const deleteAddressController = async (
 
     const {
       address_id
-    } = req.body
+    } = req.params
 
     const data = await deleteAddress({
       address_id

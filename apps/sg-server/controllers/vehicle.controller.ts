@@ -70,7 +70,7 @@ const deleteVehicleController = async (
   try {
     const {
       vehicle_id
-    } = req.body
+    } = req.params
 
     await deleteVehicle({
       vehicle_id

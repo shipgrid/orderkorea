@@ -44,19 +44,19 @@ routes.post('/login', loginCustomer)
 routes.get('/vehicles', validateToken, getVehiclesController)
 routes.get('/vehicles/:vehicle_id', getVehicleByIdController)
 routes.post('/vehicles', createVehicleController)
-routes.delete('/vehicles', deleteVehicleController)
+routes.delete('/vehicles/:vehicle_id', deleteVehicleController)
 routes.put('/vehicles', updateVehicleController)
 
 routes.get('/orders', getOrdersController)
 routes.get('/orders/:order_id', getOrderByIdController)
 routes.post('/orders', createOrderController)
-routes.delete('/orders', deleteOrderController)
+routes.delete('/orders/:order_id', deleteOrderController)
 
 routes.get('/addresses', getAddressesController)
 routes.get('/addresses/:address_id', getAddressByIdController)
 routes.put('/addresses', updateAddressController)
 routes.post('/addresses', createAddressController)
-routes.delete('/addresses', deleteAddressController)
+routes.delete('/addresses/:address_id', deleteAddressController)
 
 
 export default routes

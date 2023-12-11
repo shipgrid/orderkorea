@@ -82,7 +82,7 @@ const deleteOrderController = async (
 
     const {
       order_id
-    } = req.body
+    } = req.params
     
     const data = await deleteOrder({
       order_id
