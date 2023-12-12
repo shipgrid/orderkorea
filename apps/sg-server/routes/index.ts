@@ -45,7 +45,7 @@ routes.get('/vehicles', validateToken, getVehiclesController)
 routes.get('/vehicles/:vehicle_id', validateToken, getVehicleByIdController)
 routes.post('/vehicles', validateToken, createVehicleController)
 routes.delete('/vehicles/:vehicle_id', validateToken, deleteVehicleController)
-routes.put('/vehicles', validateToken, updateVehicleController)
+routes.put('/vehicles/:vehicle_id', validateToken, updateVehicleController)
 
 routes.get('/orders', validateToken, getOrdersController)
 routes.get('/orders/:order_id', validateToken, getOrderByIdController)

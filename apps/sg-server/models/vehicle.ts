@@ -32,7 +32,7 @@ class Vehicle extends Model implements Vehicle {
 
   static get relationMappings() {
     return {
-      vehicleImages: {
+      images: {
         relation: Model.HasManyRelation,
         modelClass: VehicleImage,
         join: {
@@ -58,7 +58,7 @@ class Vehicle extends Model implements Vehicle {
         vin_number: { type: 'string', minLength: 1, maxLength: 255 },
         transmission_type: { type: 'string', minLength: 1, maxLength: 255 },
         mileage: { type: 'number' },
-        description: { type: 'string', minLength: 1, maxLength: 255 },
+        description: { type: 'string' },
         last_login: { type: ['string', 'null'] },
         created_on: { type: 'string' },
         updated_on: { type: 'string' },

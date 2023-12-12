@@ -8,7 +8,10 @@ const getVehicles = async ({
   try {
     const vehicles = await Vehicle
       .query()
-      .withGraphFetched('vehicleImages');
+      .withGraphFetched('images')
+      .modifyGraph('images', builder => {
+        builder.select('image_url');
+      })
     return vehicles;
   } catch(e) {
     logger.error('Error getting user by username:', e);
@@ -23,7 +26,7 @@ const getVehicleById = async ({
     const vehicle = await Vehicle
       .query()
       .findById(vehicle_id)
-      .withGraphFetched('vehicleImages');
+      .withGraphFetched('images');
 
     if(!vehicle) {
       throw new Error('Vehicle not found');

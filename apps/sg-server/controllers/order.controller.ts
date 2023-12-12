@@ -17,6 +17,7 @@ const getOrdersController = async (
   next: NextFunction
 ) => {
 
+
   try {
     const orders = await getOrders({})
 
@@ -55,15 +56,15 @@ const createOrderController = async (
 ) => {
 
   try {
+    const customer = req.customer
 
     const {
-      vehicle_id,
-      customer_id 
+      vehicle_id, 
     } = req.body
     
     const data = await createOrder({
       vehicle_id,
-      customer_id 
+      customer_id: customer.customer_id
     })
 
     res.status(200).json({ data: data, success: true });

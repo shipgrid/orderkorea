@@ -92,6 +92,9 @@ const updateVehicleController = async (
 
     const {
       vehicle_id,
+    } = req.params
+    
+    const {
       make,
       model,
       year,

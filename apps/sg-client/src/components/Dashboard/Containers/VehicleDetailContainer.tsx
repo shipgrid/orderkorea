@@ -3,16 +3,10 @@ import {
   Divider,
 } from '@chakra-ui/react';
 
-import {
-  Switch
-} from 'antd'
-
 import DashboardHeader from '../Layout/DashboardHeader';
 import DashboardContent from '../Layout/DashboardContent';
-import ShippingCalculator from '../ShippingCalculator/ShippingRates';
-import ShippingCalculatorForm from '../Forms/ShippingCalculatorForm';
 import Grid from '../../Shared/Grid';
-import VehicleImages from '../VehicleDetail/VehicleDetail';
+import VehicleDetail from '../VehicleDetail/VehicleDetail';
 
 const ShippingCalculatorContainer = () => {
 
@@ -28,7 +22,7 @@ const ShippingCalculatorContainer = () => {
           title="2023 Mazda - Mazda 3"
           content={
             <div>
-              <VehicleImages/>
+              <VehicleDetail/>
             </div>
           }
         />

@@ -15,7 +15,7 @@ const privateRoutes: RouteObject[] = [
     element: <Dashboard />,
     children: [
       { path: '/', element: <HomeContainer /> },
-      { path: '/vehicle-detail', element: <VehicleDetailContainer /> },
+      { path: '/vehicle', element: <VehicleDetailContainer /> },
       { path: '/order-detail', element: <OrderDetailContainer /> },
       // { path: '/inventory', element: <InventoryContainer /> },
       // { path: '/create-shipment', element: <SOMContainer /> },

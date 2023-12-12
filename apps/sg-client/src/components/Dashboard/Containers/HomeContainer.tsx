@@ -12,7 +12,9 @@ import {
 import {
   Card,
   Button,
-  Image
+  Image,
+  Col,
+  Row
 } from 'antd'
 
 import { 
@@ -27,13 +29,17 @@ import agent from '../../../api/agent';
 const { Meta } = Card;
 
 interface Vehicle {
-  id: number;
+  vehicle_id: number;
   make: string;
   model: string;
   year: number;
   mileage: number;
   price: number;
-  images: string[];
+  images: Image[];
+}
+
+interface Image {
+  image_url: string;
 }
 
 interface ResponseBody {
@@ -55,8 +61,6 @@ const HomeContainer = () => {
   };
 
   const navigate = useNavigate();
-
-
 
   useEffect(() => {
     getVehicles();
@@ -98,17 +102,27 @@ const HomeContainer = () => {
           }
         /> */}
         <p style={{ fontWeight: 'bold', margin: 5, marginTop: 20, marginBottom: 20,  fontSize: 18 }}> Inventory </p>
-        <div style={{ display: 'flex', margin: 5 }}>
+        <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap', justifyContent: 'space-between' }}>
           {
             vehicles.map((vehicle) => {
               return (
                 <Card
-                  onClick={() => startTransition(() => navigate('/vehicle-detail'))}
                   hoverable
-                  style={{ width: 220, flex: 1, margin: 5 }}
-                  cover={<Image height={260} alt="example" src="https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8aHl1bmRhaXxlbnwwfHwwfHx8MA%3D%3D" />}
+                  style={{ width: 220, flex: '0 0 calc(25% - 10px)'}}
+                  cover={
+                    <Image.PreviewGroup
+                      items={
+                        vehicle.images.map((image) => {
+                          return { src: image.image_url }
+                        })
+                      }
+                      fallback='https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
+                    >
+                      <Image  fallback='https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png' height={260} src={vehicle.images[0]?.image_url} style={{ borderRadius: 8 }}/>
+                    </Image.PreviewGroup>
+                  }                  
                   actions={[
-                    <Button key="setting" style={{ width: '90%', borderRadius: 20 }} type='primary'> View More </Button>,
+                    <Button key="setting" style={{ width: '90%', borderRadius: 20 }} type='primary'  onClick={() => startTransition(() => navigate(`/vehicle?vehicle_id=${vehicle.vehicle_id}`))}> View More </Button>,
                   ]}
                 >
                   <Meta title={`${vehicle.year} ${vehicle.make} ${vehicle.model} - USD 19,000`} description="89,000 KM" />
@@ -116,25 +130,6 @@ const HomeContainer = () => {
               )
             })
           }
-        </div>
-        <div style={{ display: 'flex', margin: 5 }}>
-        {
-          vehicles.map((vehicle) => {
-            return (
-              <Card
-                onClick={() => startTransition(() => navigate('/vehicle-detail'))}
-                hoverable
-                style={{ width: 220, flex: 1, margin: 5 }}
-                cover={<Image height={260} alt="example" src="https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8aHl1bmRhaXxlbnwwfHwwfHx8MA%3D%3D" />}
-                actions={[
-                  <Button key="setting" style={{ width: '90%', borderRadius: 20 }} type='primary'> View More </Button>,
-                ]}
-              >
-                <Meta title={`${vehicle.year} ${vehicle.make} ${vehicle.model} - USD 19,000`} description="89,000 KM" />
-              </Card>
-            )
-          })
-        }
         </div>
       </DashboardContent>
     </Stack>

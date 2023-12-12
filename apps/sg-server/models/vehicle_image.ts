@@ -39,7 +39,6 @@ class VehicleImage extends Model implements VehicleImage {
     return {
       type: 'object',
       required: ['vehicle_id', 'image_url'],
-
       properties: {
         vehicle_image_id: { type: 'integer' },
         vehicle_id: { type: 'integer' },
