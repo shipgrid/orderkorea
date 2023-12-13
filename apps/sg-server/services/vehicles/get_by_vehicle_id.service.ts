@@ -1,7 +1,6 @@
 import {
   Logger,
   Vehicle,
-  KnexClient
 } from '../../models'
 
 export default async ({
