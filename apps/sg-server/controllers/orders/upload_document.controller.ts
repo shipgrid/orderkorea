@@ -16,7 +16,7 @@ const uploadDocumentController = async (
 ) => {
 
   try {
-    console.log('req file:', req.file)
+    
     const {
       file
     } = req

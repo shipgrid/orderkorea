@@ -14,7 +14,7 @@ import validateToken from '../middlewares/validate_token'
 
 const routes = Router()
 
-routes.get('/', list)
+routes.get('/', validateToken, list)
 routes.get('/:vehicle_id', validateToken, get)
 routes.post('/', validateToken, create)
 routes.delete('/:vehicle_id', validateToken, remove)

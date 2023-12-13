@@ -36,7 +36,6 @@ app.use('/', routes);
 // Not found handler
 // If no routes triggered, send 404
 app.use((req, res) => {
-  console.log('no route found')
   res.status(404).send()
 })
 

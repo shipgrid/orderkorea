@@ -28,10 +28,8 @@ export default async ({
 
   try {
 
-    console.log('hit register11', { first_name, last_name, username, password })
     let password_hash = await bcrypt.hash(password, 10);
 
-    console.log('b')
     if(!password_hash) {
       throw new Error('Error hashing password');
     }
