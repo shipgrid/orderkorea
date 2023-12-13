@@ -4,7 +4,6 @@ import Sku from '../models/sku'
 import knexClient from '../models/knex_client'
 import logger from '../models/logger'
 
-
 interface ICreatePurchaseOrder {
   sku_id: string;  
   name: string;

@@ -38,6 +38,11 @@ const account = {
   login: (body: any): Promise<AxiosResponse<ResponseBody>> => requests.post(`/login`, body),
 };
 
+const system = {
+  getPresignedUrls: (body: any): Promise<AxiosResponse<ResponseBody>> => requests.post('/system/s3/presignUrl', body),
+}
+
 export default {
   account,
+  system
 };

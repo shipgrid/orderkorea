@@ -33,6 +33,10 @@ import {
   updateAddressController
 } from '../controllers/address.controller'
 
+import {
+  getPresignedUrlsController
+} from '../controllers/system.controller'
+
 import validateToken from '../middlewares/validate_token'
 
 const routes = Router()
@@ -58,5 +62,6 @@ routes.put('/addresses', updateAddressController)
 routes.post('/addresses', createAddressController)
 routes.delete('/addresses', deleteAddressController)
 
+routes.post('/system/s3/presignUrl', getPresignedUrlsController)
 
 export default routes

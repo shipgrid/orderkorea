@@ -15,6 +15,8 @@ const registerCustomer = async (
   next: NextFunction
 ) => {
 
+  console.log('hit register', req.body)
+
   try {
     const {
       first_name,
@@ -32,6 +34,7 @@ const registerCustomer = async (
 
     res.status(200).json({ message: 'User added successfully'});
   } catch (e) {
+    console.log('err:', e)
     next(e)
   }
 }

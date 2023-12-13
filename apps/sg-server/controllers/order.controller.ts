@@ -8,7 +8,8 @@ import {
   getOrders,
   createOrder,
   deleteOrder,
-  getOrderById
+  getOrderById,
+  uploadDocument
 } from '../services/order.service'
 
 const getOrdersController = async (
@@ -94,9 +95,32 @@ const deleteOrderController = async (
   }
 }
 
+const uploadDocumentController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+
+  try {
+
+    console.log('upload doc controller req', req)
+    // const {
+    //   document_url
+    // } = req.body
+    
+    // const data = await uploadDocument({
+    //   order_id
+    // })
+
+    res.status(200).json({ success: true });
+  } catch (e) {
+    next(e)
+  }
+}
 export {
   getOrdersController,
   createOrderController,
   deleteOrderController,
-  getOrderByIdController
+  getOrderByIdController,
+  uploadDocumentController
 }

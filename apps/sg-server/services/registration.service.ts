@@ -25,11 +25,15 @@ const register = async ({
 
   try {
 
+    console.log('hit register11', { first_name, last_name, username, password })
     let password_hash = await bcrypt.hash(password, 10);
 
+    console.log('b')
     if(!password_hash) {
       throw new Error('Error hashing password');
     }
+
+    console.log('c')
 
     const user = await createUserCustomer({
       first_name,
@@ -39,9 +43,12 @@ const register = async ({
       last_login: convertToLocalDateString(new Date()),
     })
 
+    console.log('d!', user)
+
     logger.info('User added successfully', user);
 
   } catch(e) {
+    console.log('err: ', e)
     logger.error('Error registering user:', e);
     throw e
   }

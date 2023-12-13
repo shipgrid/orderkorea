@@ -18,11 +18,13 @@
     "@types/node": "^20.3.0",
     "mocha": "^10.2.0",
     "morgan": "^1.10.0",
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.2"
   },
   "dependencies": {
     "@hyperdx/node-opentelemetry": "^0.3.3",
     "@types/bcryptjs": "^2.4.6",
+    "aws-sdk": "^2.1515.0",
     "axios": "^1.4.0",
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
