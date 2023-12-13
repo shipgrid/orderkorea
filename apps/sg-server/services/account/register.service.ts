@@ -1,11 +1,9 @@
-import logger from '../models/logger'
-import {
-  createUserCustomer
-} from './user.service'
+import logger from '../../models/logger'
+import createUserCustomer from '../customers/create_customer.service'
 
 import {
   convertToLocalDateString
-} from '../utils/dates'
+} from '../../utils/dates'
 
 import bcrypt from 'bcryptjs'
 
@@ -16,7 +14,7 @@ interface IRegisterUser {
   password: string;
 }
 
-const register = async ({
+export default async ({
   first_name,
   last_name,
   username,
@@ -45,8 +43,4 @@ const register = async ({
     logger.error('Error registering user:', e);
     throw e
   }
-}
-
-export {
-  register
 }

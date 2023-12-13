@@ -35,8 +35,8 @@ const requests = {
 };
 
 const account = {
-  login: (body: any): Promise<AxiosResponse<ResponseBody>> => requests.post(`/login`, body),
-  register: (body: any): Promise<AxiosResponse<ResponseBody>> => requests.post(`/register`, body),
+  login: (body: any): Promise<AxiosResponse<ResponseBody>> => requests.post(`/account/login`, body),
+  register: (body: any): Promise<AxiosResponse<ResponseBody>> => requests.post(`/account/register`, body),
 };
 
 const vehicles = {

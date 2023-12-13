@@ -5,11 +5,11 @@ import {
   NextFunction 
 } from 'express'
 
-import {
-  register
-} from '../services/registration.service'
+import { 
+  account 
+} from '../../services'
 
-const registerCustomer = async (
+export default async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -23,7 +23,7 @@ const registerCustomer = async (
       password,
     } = req.body
 
-    await register({
+    await account.register({
       first_name,
       last_name,
       username,
@@ -34,8 +34,4 @@ const registerCustomer = async (
   } catch (e) {
     next(e)
   }
-}
-
-export {
-  registerCustomer
 }

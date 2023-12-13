@@ -1,11 +1,14 @@
-import logger from '../models/logger'
+import logger from '../../models/logger'
+
 import {
-  updateUser,
-  getUserCustomerByUsername
-} from './user.service'
+  customers,
+  users
+} from '../../services'
+
+
 import {
   convertToLocalDateString
-} from '../utils/dates'
+} from '../../utils/dates'
 
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
@@ -15,14 +18,14 @@ interface ILoginUser {
   password: string;
 }
 
-const login = async ({
+export default async ({
   username,
   password
 }: ILoginUser) => {
 
   try {
 
-    const user = await getUserCustomerByUsername({
+    const user = await customers.getByUsername({
       username
     });
 
@@ -42,7 +45,7 @@ const login = async ({
 
     const last_login = convertToLocalDateString(new Date());
 
-    await updateUser({
+    await users.update({
       user_id: user.user_id,
       last_login
     });
@@ -76,8 +79,4 @@ const login = async ({
     logger.error('Error registering user:', e);
     throw e
   }
-}
-
-export {
-  login
 }
