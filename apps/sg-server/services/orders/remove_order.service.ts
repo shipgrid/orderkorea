@@ -1,6 +1,8 @@
-import Order from '../../models/order';
-import KnexClient from '../../models/knex_client';
-import logger from '../../models/logger'
+import {
+  Logger,
+  Order,
+  KnexClient
+} from '../../models'
 
 export default async ({  
   order_id
@@ -13,7 +15,7 @@ export default async ({
 
     return;
   } catch(e) {
-    logger.error('Error deleting order:', e);
+    Logger.error('Error deleting order:', e);
     throw e
   }
 }

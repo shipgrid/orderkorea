@@ -1,5 +1,8 @@
-import Vehicle from '../../models/vehicle'
-import logger from '../../models/logger'
+import {
+  Logger,
+  Vehicle,
+  KnexClient
+} from '../../models'
 
 export default async ({
   vehicle_id
@@ -16,7 +19,7 @@ export default async ({
 
     return vehicle;
   } catch(e) {
-    logger.error('Error getting vehicle by id:', e);
+    Logger.error('Error getting vehicle by id:', e);
     throw e
   }
 }

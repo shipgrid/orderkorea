@@ -1,6 +1,8 @@
-import Order from '../../models/order';
-import KnexClient from '../../models/knex_client';
-import logger from '../../models/logger'
+import {
+  Logger,
+  Order,
+  KnexClient
+} from '../../models'
 
 export default async ({
   vehicle_id,
@@ -23,7 +25,7 @@ export default async ({
 
     return createdOrder;
   } catch(e) {
-    logger.error('Error creating order:', e);
+    Logger.error('Error creating order:', e);
     throw e
   }
 }

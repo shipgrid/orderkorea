@@ -1,6 +1,8 @@
-import OrderEvent from '../../models/order_event';
-import KnexClient from '../../models/knex_client';
-import logger from '../../models/logger'
+import {
+  Logger,
+  KnexClient,
+  OrderEvent
+} from '../../models'
 
 export default async ({
   order_id,
@@ -23,7 +25,7 @@ export default async ({
 
     return createdOrderEvent;
   } catch(e) {
-    logger.error('Error creating orderEvent:', e);
+    Logger.error('Error creating orderEvent:', e);
     throw e
   }
 }

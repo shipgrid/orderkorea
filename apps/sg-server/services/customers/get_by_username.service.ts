@@ -1,8 +1,10 @@
-import User from '../../models/user'
-import UserCustomer from '../../models/user_customer'
+import {
+  User,
+  Customer,
+} from '../../models'
 
 interface UserWithUserCustomer extends User {
-  userCustomer: UserCustomer; 
+  userCustomer: Customer
 }
 
 export default async ({

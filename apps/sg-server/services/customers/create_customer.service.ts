@@ -1,7 +1,9 @@
-import User from '../../models/user'
-import UserCustomer from '../../models/user_customer'
-import knexClient from '../../models/knex_client'
-import logger from '../../models/logger'
+import {
+  User,
+  Customer,
+  KnexClient,
+  Logger
+} from '../../models'
 
 export default async ({
   first_name,
@@ -12,7 +14,7 @@ export default async ({
 }) => {
 
   try {
-    await knexClient.transaction(async (trx) => {
+    await KnexClient.transaction(async (trx) => {
 
       const newUser = {
         first_name,
@@ -28,14 +30,14 @@ export default async ({
         user_id: user.user_id, 
       };
 
-      const userCustomer = await UserCustomer.query(trx).insert(newUserCustomer);
+      const userCustomer = await Customer.query(trx).insert(newUserCustomer);
 
       await trx.commit();
 
-      logger.info('User and UserCustomer created:', user, userCustomer);
+      Logger.info('User and UserCustomer created:', user, userCustomer);
     });
   } catch(e) {
-    logger.error('Error creating User and UserCustomer:', e);
+    Logger.error('Error creating User and UserCustomer:', e);
     throw e
   }
 }

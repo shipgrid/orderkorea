@@ -1,5 +1,7 @@
-import Address from '../../models/address';
-import logger from '../../models/logger'
+import {
+  Address,
+  Logger
+} from '../../models'
 
 export default async ({}) => {
 
@@ -7,7 +9,7 @@ export default async ({}) => {
     const addresses = await Address.query();
     return addresses;
   } catch(e) {
-    logger.error('Error getting user by username:', e);
+    Logger.error('Error getting user by username:', e);
     throw e
   }
 }

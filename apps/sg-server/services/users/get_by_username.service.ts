@@ -1,5 +1,7 @@
-import User from '../../models/user'
-import logger from '../../models/logger'
+import {
+  Logger,
+  User,
+} from '../../models'
 
 export default async ({
   username,
@@ -14,7 +16,7 @@ export default async ({
 
     return user;
   } catch(e) {
-    logger.error('Error getting user by username:', e);
+    Logger.error('Error getting user by username:', e);
     throw e
   }
 }

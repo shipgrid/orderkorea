@@ -1,6 +1,8 @@
-import User from '../../models/user'
-import knexClient from '../../models/knex_client'
-import logger from '../../models/logger'
+import {
+  Logger,
+  User,
+  KnexClient
+} from '../../models'
 
 export default async ({
   user_id,
@@ -8,7 +10,7 @@ export default async ({
 }) => {
 
   try {
-    await knexClient.transaction(async (trx) => {
+    await KnexClient.transaction(async (trx) => {
 
       const updatedUser = {
         last_login,
@@ -18,10 +20,10 @@ export default async ({
 
       await trx.commit();
 
-      logger.info('User updated:', user);
+      Logger.info('User updated:', user);
     });
   } catch(e) {
-    logger.error('Error updating User:', e);
+    Logger.error('Error updating User:', e);
     throw e
   }
 }

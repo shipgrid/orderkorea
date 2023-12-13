@@ -1,10 +1,11 @@
-import logger from '../../models/logger'
+import {
+  Logger
+} from '../../models'
 
 import {
   customers,
   users
 } from '../../services'
-
 
 import {
   convertToLocalDateString
@@ -33,7 +34,7 @@ export default async ({
       throw new Error('User not found');
     }
 
-    logger.info('User fetched successfully', user);
+    Logger.info('User fetched successfully', user);
 
     const results = await bcrypt.compare(password, user.password_hash);
 
@@ -41,7 +42,7 @@ export default async ({
       throw new Error('Invalid password');
     }
 
-    logger.info('Password compared successfully', results);
+    Logger.info('Password compared successfully', results);
 
     const last_login = convertToLocalDateString(new Date());
 
@@ -50,7 +51,7 @@ export default async ({
       last_login
     });
 
-    logger.info('User last login', last_login);
+    Logger.info('User last login', last_login);
 
     let token;
 
@@ -65,18 +66,18 @@ export default async ({
         { expiresIn: '1h' }
       );
     } catch (error) {
-      logger.error('Error while signing JWT:', error);
+      Logger.error('Error while signing JWT:', error);
       throw error
     }
     
-    logger.info(`Token created successfully`);
+    Logger.info(`Token created successfully`);
 
     return {
       token
     };
 
   } catch(e) {
-    logger.error('Error registering user:', e);
+    Logger.error('Error registering user:', e);
     throw e
   }
 }

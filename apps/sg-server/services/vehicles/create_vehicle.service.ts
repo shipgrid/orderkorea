@@ -1,6 +1,8 @@
-import Vehicle from '../../models/vehicle'
-import logger from '../../models/logger'
-import knexClient from '../../models/knex_client'
+import {
+  Logger,
+  Vehicle,
+  KnexClient
+} from '../../models'
 
 export default async ({
   make,
@@ -15,7 +17,7 @@ export default async ({
 
     let createdVehicle;
 
-    await knexClient.transaction(async (trx) => {
+    await KnexClient.transaction(async (trx) => {
 
       const newVehicle = {
         make,
@@ -31,13 +33,13 @@ export default async ({
       createdVehicle = vehicle;
       await trx.commit();
       
-      logger.info('Vehicle created:', vehicle);
+      Logger.info('Vehicle created:', vehicle);
     });
 
     return createdVehicle
 
   } catch(e) {
-    logger.error('Error creating vehicle:', e);
+    Logger.error('Error creating vehicle:', e);
     throw e
   }
 }

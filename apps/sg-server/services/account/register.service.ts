@@ -1,5 +1,10 @@
-import logger from '../../models/logger'
-import createUserCustomer from '../customers/create_customer.service'
+import {
+  Logger
+} from '../../models'
+
+import {
+  customers
+} from '../../services'
 
 import {
   convertToLocalDateString
@@ -29,7 +34,7 @@ export default async ({
       throw new Error('Error hashing password');
     }
 
-    const user = await createUserCustomer({
+    const user = await customers.create({
       first_name,
       last_name,
       username,
@@ -37,10 +42,10 @@ export default async ({
       last_login: convertToLocalDateString(new Date()),
     })
 
-    logger.info('User added successfully', user);
+    Logger.info('User added successfully', user);
 
   } catch(e) {
-    logger.error('Error registering user:', e);
+    Logger.error('Error registering user:', e);
     throw e
   }
 }

@@ -1,4 +1,8 @@
-import Address from '../../models/address';
+import {
+  Address
+} from '../../models'
+
+
 import KnexClient from '../../models/knex_client';
 import logger from '../../models/logger'
 

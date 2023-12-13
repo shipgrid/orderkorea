@@ -1,5 +1,7 @@
-import Order from '../../models/order';
-import logger from '../../models/logger'
+import {
+  Logger,
+  Order,
+} from '../../models'
 
 export default async ({
   order_id
@@ -13,7 +15,7 @@ export default async ({
     return order;
 
   } catch(e) {
-    logger.error('Error getting order by order_id', e);
+    Logger.error('Error getting order by order_id', e);
     throw e
   }
 }

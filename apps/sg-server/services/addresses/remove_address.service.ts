@@ -1,6 +1,8 @@
-import Address from '../../models/address';
-import KnexClient from '../../models/knex_client';
-import logger from '../../models/logger'
+import {
+  Address,
+  Logger,
+  KnexClient
+} from '../../models'
 
 export default async ({
   address_id
@@ -8,11 +10,10 @@ export default async ({
   try {
 
     await KnexClient.transaction(async (trx) => {
-
       await Address.query(trx).deleteById(address_id);
     });
   } catch(e) {
-    logger.error('Error deleting address:', e);
+    Logger.error('Error deleting address:', e);
     throw e
   }
 }

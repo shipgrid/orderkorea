@@ -1,6 +1,8 @@
-import Vehicle from '../../models/vehicle'
-import logger from '../../models/logger'
-import knexClient from '../../models/knex_client'
+import {
+  Logger,
+  Vehicle,
+  KnexClient
+} from '../../models'
 
 export default async ({
   vehicle_id,
@@ -16,7 +18,7 @@ export default async ({
 
     let vehicle; 
 
-    await knexClient.transaction(async (trx) => {
+    await KnexClient.transaction(async (trx) => {
 
       vehicle = await Vehicle.query(trx).patchAndFetchById(vehicle_id, {
         make,
@@ -30,12 +32,12 @@ export default async ({
 
       await trx.commit();
 
-      logger.info('Vehicle updated:', vehicle);
+      Logger.info('Vehicle updated:', vehicle);
     });
 
     return vehicle;
   } catch(e) {
-    logger.error('Error updating vehicle:', e);
+    Logger.error('Error updating vehicle:', e);
     throw e
   } 
 }

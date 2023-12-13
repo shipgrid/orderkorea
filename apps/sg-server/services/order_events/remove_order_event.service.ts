@@ -1,5 +1,7 @@
-import OrderEvent from '../../models/order_event';
-import logger from '../../models/logger'
+import {
+  Logger,
+  OrderEvent
+} from '../../models'
 
 export default async ({
   order_event_id
@@ -12,7 +14,7 @@ export default async ({
     return deletedOrderEvent;
 
   } catch(e) {
-    logger.error('Error deleting orderEvent by order_event_id', e);
+    Logger.error('Error deleting orderEvent by order_event_id', e);
     throw e
   }
 }

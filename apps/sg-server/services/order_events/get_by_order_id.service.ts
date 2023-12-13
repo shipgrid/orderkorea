@@ -1,5 +1,7 @@
-import OrderEvent from '../../models/order_event';
-import logger from '../../models/logger'
+import {
+  Logger,
+  OrderEvent
+} from '../../models'
 
 export default async ({}) => {
 
@@ -7,7 +9,7 @@ export default async ({}) => {
     const orderEvents = await OrderEvent.query();
     return orderEvents;
   } catch(e) {
-    logger.error('Error getting user by username:', e);
+    Logger.error('Error getting user by username:', e);
     throw e
   }
 }
