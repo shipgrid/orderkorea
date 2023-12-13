@@ -52,6 +52,7 @@ const orders = {
   details: (id: string): Promise<AxiosResponse<ResponseBody>> => requests.get(`/orders/${id}`),
   create: (body: any): Promise<AxiosResponse<ResponseBody>> => requests.post(`/orders`, body),
   delete: (id: string): Promise<AxiosResponse<ResponseBody>> => requests.del(`/orders/${id}`),
+  uploadDocument: (body: any): Promise<AxiosResponse<ResponseBody>> => requests.post('/orders/document', body),
 };
 
 const addresses = {
@@ -62,14 +63,9 @@ const addresses = {
   delete: (id: string): Promise<AxiosResponse<ResponseBody>> => requests.del(`/addresses/${id}`),
 };
 
-const system = {
-  uploadDocuments: (body: any): Promise<AxiosResponse<ResponseBody>> => requests.post('/documents', body),
-}
-
 export default {
   account,
   vehicles,
   orders,
-  addresses,
-  system
+  addresses
 };

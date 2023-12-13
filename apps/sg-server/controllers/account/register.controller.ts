@@ -15,8 +15,6 @@ export default async (
   next: NextFunction
 ) => {
 
-  console.log('hit register', req.body)
-
   try {
     const {
       first_name,
@@ -34,7 +32,6 @@ export default async (
 
     res.status(200).json({ message: 'User added successfully'});
   } catch (e) {
-    console.log('err:', e)
     next(e)
   }
 }

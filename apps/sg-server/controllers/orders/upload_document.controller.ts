@@ -16,11 +16,11 @@ const uploadDocumentController = async (
 ) => {
 
   try {
+    console.log('req file:', req.file)
     const {
       file
     } = req
 
-    console.log('fioleeee', file)
     if (!file) {
       throw new Error('Please provide a valid file to upload')
     }

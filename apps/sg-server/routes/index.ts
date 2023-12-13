@@ -6,7 +6,6 @@ import account from './account'
 import addresses from './addresses'
 import orders from './orders'
 import vehicles from './vehicles'
-import system from './system'
 
 import validateToken from '../middlewares/validate_token'
 
@@ -17,6 +16,5 @@ routes.use('/account', account);
 routes.use('/vehicles', vehicles);
 routes.use('/orders', orders);
 routes.use('/addresses', addresses);
-routes.use('/system', system);
 
 export default routes

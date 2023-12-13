@@ -7,7 +7,7 @@ const { Dragger } = Upload;
 const props: UploadProps = {
   name: 'file',
   multiple: true,
-  action: 'http://localhost:4000/system/documents',
+  action: 'http://localhost:4000/orders/document',
   onChange(info) {
     const { status } = info.file;
     if (status !== 'uploading') {
