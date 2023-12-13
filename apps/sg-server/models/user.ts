@@ -1,5 +1,6 @@
 import { Model } from 'objection';
 import knexClient from './knex_client'
+import UserCustomer from './user_customer';
 
 Model.knex(knexClient);
 
@@ -25,11 +26,23 @@ class User extends Model implements User {
     return 'user_id';
   }
 
+  static get relationMappings() {
+    return {
+      userCustomer: {
+        relation: Model.HasOneRelation,
+        modelClass: UserCustomer,
+        join: {
+          from: 'users.user_id',
+          to: 'user_customers.user_id',
+        },
+      },
+    };
+  }
+
   static get jsonSchema() {
     return {
       type: 'object',
       required: ['first_name', 'last_name', 'username', 'password_hash'],
-
       properties: {
         user_id: { type: 'integer' },
         rate_card_id: { type: 'integer' },

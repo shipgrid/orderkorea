@@ -47,26 +47,26 @@ const {
 } = Layout;
 
 const navItems = [
-  // {
-  //   label: 'Home',
-  //   icon: <FiHome/>,
-  //   path: '/',
-  // },
-  // {
-  //   label: 'Orders',
-  //   icon: <FaWpforms/>,
-  //   path: '/orders',
-  // },
   {
-    label: 'Inventory',
-    icon: <BsBoxes/>,
-    path: '/inventory',
+    label: 'Home',
+    icon: <FiHome/>,
+    path: '/',
   },
   {
-    label: 'Shipments',
-    icon: <RiShipLine/>,
-    path: '/shipments',
+    label: 'Orders',
+    icon: <FaWpforms/>,
+    path: '/orders',
   },
+  // {
+  //   label: 'Inventory',
+  //   icon: <BsBoxes/>,
+  //   path: '/inventory',
+  // },
+  // {
+  //   label: 'Shipments',
+  //   icon: <RiShipLine/>,
+  //   path: '/shipments',
+  // },
   // {
   //   label: 'Billing',
   //   icon: <LiaFileInvoiceDollarSolid/>,
@@ -94,12 +94,11 @@ const NavbarHeader = ({ }) => {
         alignItems: 'flex-end',
         justifyContent: 'center',
         height: 100,
-        // backgroundColor: 'white',
+        backgroundColor: '#013A20',
       }}
     >
       <div style={{width: 1280, display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-        <p style={{ color: 'white', fontSize: '32px', fontWeight: 'bolder' }}> ShipGrid</p>
-        {/* <Image src={logo} preview={false} style={{ height: 50, paddingRight: 10 }}/> */}
+        <p style={{ color: '#CDD193', fontSize: '32px', fontWeight: 'bolder', paddingRight: 10 }}> ShipGrid</p>
         <Menu 
           theme='dark' 
           mode="horizontal" 
@@ -109,7 +108,6 @@ const NavbarHeader = ({ }) => {
           onClick={(e) => startTransition(() => navigate(e.key))}
         />
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          {/* <OrderDropdownMenu/> */}
           <UserNavbarDropdownMenu/>
         </div>
       </div>

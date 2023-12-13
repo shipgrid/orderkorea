@@ -21,38 +21,55 @@ import {
   RiLogoutBoxRLine,
 } from "react-icons/ri";
 
+import {
+  connect,
+} from 'react-redux'
+
 import { 
   useNavigate 
 } from 'react-router-dom'
 
-const UserNavbarDropdownMenu = ({ }) => {
+import { 
+  Dispatch 
+} from 'redux';
+
+interface LogoutAction {
+  type: string;
+}
+
+interface UserNavbarDropdownMenuProps {
+  logout: () => void;
+}
+
+const mapDispatchToProps = (dispatch: Dispatch<LogoutAction>) => ({
+  logout: () => dispatch({ type: 'LOGOUT'}),
+});
+
+const UserNavbarDropdownMenu = ({ 
+  logout
+}: UserNavbarDropdownMenuProps) => {
 
   const navigate = useNavigate();
 
   const userDropdownItems: MenuProps['items'] = [
-    // {
-    //   key: '1',
-    //   label: (
-    //     <div style={{ display: 'flex', alignItems: 'center'}}>
-    //       <RiShipLine/> 
-    //       <span style={{ marginLeft: 5 }} onClick={() => startTransition(() => navigate('/shipping-calculator'))}>  Shipping Calculator </span>
-    //     </div>
-    //   ),
-    // },
     {
       key: '2',
       label: (
         <div style={{ display: 'flex', alignItems: 'center'}}>
           <RiLogoutBoxRLine/> 
-          <span style={{ marginLeft: 5 }}>  Sign Out </span>
+          <span style={{ marginLeft: 5 }} onClick={(e) => {e.stopPropagation; logout();}}>  Sign Out </span>
         </div>
       ),
     },
   ];
 
+  const menuProps = {
+    items: userDropdownItems,
+  };
+
   return (
     <Dropdown
-      overlay={<Menu items={userDropdownItems} />}
+      menu={menuProps}
       trigger={['click']}
       placement="bottomLeft"
       arrow
@@ -62,4 +79,4 @@ const UserNavbarDropdownMenu = ({ }) => {
   );
 };
 
-export default UserNavbarDropdownMenu;
+export default (connect(null, mapDispatchToProps)(UserNavbarDropdownMenu))

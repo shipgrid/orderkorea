@@ -1,39 +1,44 @@
-import AWS from 'aws-sdk'
+import AWS from 'aws-sdk';
+import axios from 'axios';
 
 AWS.config.update({
   accessKeyId: process.env.AWS_ACCESS, 
   secretAccessKey: process.env.AWS_SECRET,
   region: process.env.AWS_REGION
-})
+});
 
-const s3 = new AWS.S3()
+const s3 = new AWS.S3();
 
-const getPresignedUrls = async ({
-  file
-}) => {
+const getPresignedUrls = async ({ file }) => {
   return new Promise((resolve, reject) => {
-    try {
+    s3.getSignedUrl('putObject', {
+      Bucket: process.env.S3_STATIC_BUCKET,
+      ContentType: file.mimetype, 
+      Key: file.originalname
+    }, (err, url) => {
+      if (err) {
+        reject(err)
+      } else {
+        resolve({ url, key: file.originalname })
+      }
+    });
+  });
+};
 
-      const key = file.name
+const uploadFileToS3 = async ({ file }) => {
+  const presignedUrls: any = await getPresignedUrls({ file });
+  const url = presignedUrls.url;
 
-      s3.getSignedUrl('putObject', {
-        Bucket: process.env.S3_STATIC_BUCKET,
-        ContentType: 'jpeg',
-        Key: key
-      }, (err, url) => {
-        if(err) {
-          throw new Error('Get signed url error')
-        }
-        resolve({ url, key  })
-      })
-   
-    } catch(e) {
-      console.log('err:', e)
-      reject(e)
+  const response = await axios.put(url, file.buffer, { 
+    headers: {
+      'Content-Type': file.mimetype 
     }
-  }) 
-}
+  });
 
-export {
-  getPresignedUrls
-}
+  return response;
+};
+
+export { 
+  getPresignedUrls, 
+  uploadFileToS3 
+};

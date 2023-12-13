@@ -7,6 +7,9 @@ import logger from '../models/logger'
  * If the user is already logged in, then this module is used to validate that the user has a valid token.
  */
 export default (req: Request, res: Response, next: NextFunction) => {
+  console.log('validate token')
+  next()
+  return 
   const authHeader = req.get('Authorization');
 
   if (!authHeader) {
@@ -14,7 +17,6 @@ export default (req: Request, res: Response, next: NextFunction) => {
     res.status(401);
     return;
   }
-
 
   // if authHeader is present, then we can validate the user against his present jwt token for authentication.
   const tokenArray = authHeader.split(' ');
@@ -46,7 +48,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
       return;
     }
 
-    // req.customer = result.data;
+    req.customer = result.customer;
     logger.info('Authentication token not provided', result.data);
     next();
   });

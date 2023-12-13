@@ -14,17 +14,6 @@ const APP_PORT = process.env.APP_PORT || 4000;
 // Initialize Express server
 const app = express();
 
-// CORS options
-// const corsOptions = {
-//   origin: function (origin, callback) {
-//     if (origin === ALLOWED_ORIGIN || !origin) {  // Allow requests with no origin, like mobile apps or curl requests
-//       callback(null, true);
-//     } else {
-//       callback(new internal_server_error('Not allowed by CORS'));
-//     }
-//   }
-// };
-
 app.use(compression())
 app.use(morgan('combined'))
 
@@ -47,6 +36,7 @@ app.use('/', routes);
 // Not found handler
 // If no routes triggered, send 404
 app.use((req, res) => {
+  console.log('no route found')
   res.status(404).send()
 })
 

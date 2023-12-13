@@ -1,5 +1,6 @@
 import { Model } from 'objection';
 import knexClient from './knex_client'
+import OrderEvent from './order_event';
 
 Model.knex(knexClient);
 
@@ -20,6 +21,19 @@ class Order extends Model implements Order {
 
   static get idColumn() {
     return 'order_id';
+  }
+
+  static get relationMappings() {
+    return {
+      orderEvents: {
+        relation: Model.HasManyRelation,
+        modelClass: OrderEvent,
+        join: {
+          from: 'orders.order_id',
+          to: 'order_events.order_id'
+        }
+      },
+    }
   }
 
   static get jsonSchema() {

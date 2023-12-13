@@ -35,14 +35,41 @@ const requests = {
 };
 
 const account = {
-  login: (body: any): Promise<AxiosResponse<ResponseBody>> => requests.post(`/login`, body),
+  login: (body: any): Promise<AxiosResponse<ResponseBody>> => requests.post(`/account/login`, body),
+  register: (body: any): Promise<AxiosResponse<ResponseBody>> => requests.post(`/account/register`, body),
+};
+
+const vehicles = {
+  list: (): Promise<AxiosResponse<ResponseBody>> => requests.get(`/vehicles`),
+  details: (id: string): Promise<AxiosResponse<ResponseBody>> => requests.get(`/vehicles/${id}`),
+  create: (body: any): Promise<AxiosResponse<ResponseBody>> => requests.post(`/vehicles`, body),
+  update: (id: string, body: any): Promise<AxiosResponse<ResponseBody>> => requests.put(`/vehicles/${id}`, body),
+  delete: (id: string): Promise<AxiosResponse<ResponseBody>> => requests.del(`/vehicles/${id}`),
+};
+
+const orders = {
+  list: (): Promise<AxiosResponse<ResponseBody>> => requests.get(`/orders`),
+  details: (id: string): Promise<AxiosResponse<ResponseBody>> => requests.get(`/orders/${id}`),
+  create: (body: any): Promise<AxiosResponse<ResponseBody>> => requests.post(`/orders`, body),
+  delete: (id: string): Promise<AxiosResponse<ResponseBody>> => requests.del(`/orders/${id}`),
+};
+
+const addresses = {
+  list: (): Promise<AxiosResponse<ResponseBody>> => requests.get(`/addresses`),
+  details: (id: string): Promise<AxiosResponse<ResponseBody>> => requests.get(`/addresses/${id}`),
+  create: (body: any): Promise<AxiosResponse<ResponseBody>> => requests.post(`/addresses`, body),
+  update: (id: string, body: any): Promise<AxiosResponse<ResponseBody>> => requests.put(`/addresses/${id}`, body),
+  delete: (id: string): Promise<AxiosResponse<ResponseBody>> => requests.del(`/addresses/${id}`),
 };
 
 const system = {
-  getPresignedUrls: (body: any): Promise<AxiosResponse<ResponseBody>> => requests.post('/system/s3/presignUrl', body),
+  uploadDocuments: (body: any): Promise<AxiosResponse<ResponseBody>> => requests.post('/documents', body),
 }
 
 export default {
   account,
+  vehicles,
+  orders,
+  addresses,
   system
 };
