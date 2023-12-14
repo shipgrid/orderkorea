@@ -10,7 +10,7 @@ import {
 import DashboardHeader from '../Layout/DashboardHeader';
 import DashboardContent from '../Layout/DashboardContent';
 import Grid from '../../Shared/Grid';
-import PurchaseForm from '../Forms/PurchaseForm';
+import PurchaseForm from '../Forms/AddressForm';
 
 const PurchaseOrderContainer = () => {
 

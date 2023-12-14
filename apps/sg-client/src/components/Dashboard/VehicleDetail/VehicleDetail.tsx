@@ -1,7 +1,4 @@
 import {
-  Table,
-  Progress,
-  Card,
   Image,
   Descriptions,
   Button,
