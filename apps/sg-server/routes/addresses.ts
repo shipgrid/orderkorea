@@ -14,10 +14,10 @@ import validateToken from '../middlewares/validate_token'
 
 const routes = Router()
 
-routes.get('/addresses', validateToken, create)
-routes.get('/addresses/:address_id', validateToken, get)
-routes.put('/addresses', validateToken, list)
-routes.post('/addresses', validateToken, update)
-routes.delete('/addresses/:address_id', validateToken, remove)
+routes.get('/', validateToken, create)
+routes.get('/:address_id', validateToken, get)
+routes.put('/', validateToken, list)
+routes.post('/', validateToken, update)
+routes.delete('/:address_id', validateToken, remove)
 
 export default routes
