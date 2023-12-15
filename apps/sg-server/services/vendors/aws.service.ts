@@ -28,8 +28,6 @@ const getPresignedUrls = async ({ file }) => {
   });
 };
 
-// ...
-
 const uploadFileToS3 = async ({ file }) => {
   const presignedUrls: any = await getPresignedUrls({ file });
   const uploadUrl = presignedUrls.url;

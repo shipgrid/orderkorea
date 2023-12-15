@@ -27,21 +27,16 @@ const uploadDocumentController = async (
       order_id
     } = req
 
-    console.log('upload document:', order_id, file)
     if (!file) {
       throw new Error('Please provide a valid file to upload')
     }
 
     const document_url = await uploadFileToS3({ file })
 
-    console.log('document_url:', document_url)
-
     const data = await documents.create({
       order_id,
       document_url
     })
-
-    console.log('data:', data)
 
     res.status(200).json({ data: data, success: true });
   } catch (e) {
