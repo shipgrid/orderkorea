@@ -11,32 +11,38 @@ const s3 = new AWS.S3();
 
 const getPresignedUrls = async ({ file }) => {
   return new Promise((resolve, reject) => {
+    const fileKey = file.originalname;
     s3.getSignedUrl('putObject', {
       Bucket: process.env.S3_STATIC_BUCKET,
       ContentType: file.mimetype, 
-      Key: file.originalname
+      Key: fileKey
     }, (err, url) => {
       if (err) {
         reject(err)
       } else {
-        resolve({ url, key: file.originalname })
+        // Construct the URL to access the file
+        const accessUrl = `https://${process.env.S3_STATIC_BUCKET}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileKey}`;
+        resolve({ url, key: fileKey, accessUrl })
       }
     });
   });
 };
 
+// ...
+
 const uploadFileToS3 = async ({ file }) => {
   const presignedUrls: any = await getPresignedUrls({ file });
-  const url = presignedUrls.url;
-
-  const response = await axios.put(url, file.buffer, { 
+  const uploadUrl = presignedUrls.url;
+  const fileUrl = presignedUrls.accessUrl; 
+  await axios.put(uploadUrl, file.buffer, { 
     headers: {
       'Content-Type': file.mimetype 
     }
   });
 
-  return response;
+  return fileUrl 
 };
+
 
 export { 
   getPresignedUrls, 

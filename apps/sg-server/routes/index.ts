@@ -6,8 +6,7 @@ import account from './account'
 import addresses from './addresses'
 import orders from './orders'
 import vehicles from './vehicles'
-
-import validateToken from '../middlewares/validate_token'
+import documents from './documents'
 
 const routes = Router()
 
@@ -16,5 +15,5 @@ routes.use('/account', account);
 routes.use('/vehicles', vehicles);
 routes.use('/orders', orders);
 routes.use('/addresses', addresses);
-
+routes.use('/documents', documents)
 export default routes

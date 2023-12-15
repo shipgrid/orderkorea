@@ -51,8 +51,7 @@ const orders = {
   list: (): Promise<AxiosResponse<ResponseBody>> => requests.get(`/orders`),
   details: (id: string): Promise<AxiosResponse<ResponseBody>> => requests.get(`/orders/${id}`),
   create: (body: any): Promise<AxiosResponse<ResponseBody>> => requests.post(`/orders`, body),
-  delete: (id: string): Promise<AxiosResponse<ResponseBody>> => requests.del(`/orders/${id}`),
-  uploadDocument: (body: any): Promise<AxiosResponse<ResponseBody>> => requests.post('/orders/document', body),
+  delete: (id: string): Promise<AxiosResponse<ResponseBody>> => requests.del(`/orders/${id}`)
 };
 
 const addresses = {
