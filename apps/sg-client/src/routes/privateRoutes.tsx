@@ -9,19 +9,19 @@ const VehicleDetailContainer = lazy(() => import("../components/Dashboard/Contai
 const OrderDetailContainer = lazy(() => import("../components/Dashboard/Containers/OrderDetailContainer"));
 const DeliveryDestinationContainer = lazy(() => import("../components/Dashboard/Containers/DeliveryDestinationContainer"));
 
-const privateRoutes: RouteObject[] = [
-  {
-    path: '/',
-    element: <Dashboard />,
-    children: [
-      { path: '/', element: <HomeContainer /> },
-      { path: '/vehicle', element: <VehicleDetailContainer /> },
-      { path: '/order-detail', element: <OrderDetailContainer /> },
-      { path: '/orders', element: <OrderContainer /> },
-      { path: '/delivery-destination', element: <DeliveryDestinationContainer /> },
-      { path: "*", element: <Navigate to="/login" replace /> },
-    ],
-  },
-];
-
-export default privateRoutes;
+export default function routes() {
+  return [
+    {
+      path: '/',
+      element: <Dashboard />,
+      children: [
+        { path: '/', element: <HomeContainer /> },
+        { path: '/vehicle', element: <VehicleDetailContainer /> },
+        { path: '/order-detail', element: <OrderDetailContainer /> },
+        { path: '/orders', element: <OrderContainer /> },
+        { path: '/delivery-destination', element: <DeliveryDestinationContainer /> },
+        { path: "*", element: <Navigate to="/login" replace /> },
+      ],
+    }
+  ]
+}

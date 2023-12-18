@@ -10,14 +10,12 @@ import {
   remove
 } from '../controllers/addresses'
 
-import validateToken from '../middlewares/validate_token'
-
 const routes = Router()
 
-routes.get('/', validateToken, create)
-routes.get('/:address_id', validateToken, get)
-routes.put('/', validateToken, list)
-routes.post('/', validateToken, update)
-routes.delete('/:address_id', validateToken, remove)
+routes.get('/', create)
+routes.get('/:address_id', get)
+routes.put('/', list)
+routes.post('/', update)
+routes.delete('/:address_id', remove)
 
 export default routes

@@ -17,39 +17,20 @@ import {
 } from 'react-icons/fi'
 
 import { 
-  RiShipLine,
   RiLogoutBoxRLine,
 } from "react-icons/ri";
 
 import {
-  connect,
+  useDispatch,
 } from 'react-redux'
 
-import { 
-  useNavigate 
-} from 'react-router-dom'
-
-import { 
-  Dispatch 
-} from 'redux';
-
-interface LogoutAction {
-  type: string;
-}
-
-interface UserNavbarDropdownMenuProps {
-  logout: () => void;
-}
-
-const mapDispatchToProps = (dispatch: Dispatch<LogoutAction>) => ({
-  logout: () => dispatch({ type: 'LOGOUT'}),
-});
+import { useFirebase } from 'react-redux-firebase'
 
 const UserNavbarDropdownMenu = ({ 
-  logout
-}: UserNavbarDropdownMenuProps) => {
+}) => {
 
-  const navigate = useNavigate();
+  const firebase = useFirebase();
+  const dispatch = useDispatch();
 
   const userDropdownItems: MenuProps['items'] = [
     {
@@ -57,7 +38,7 @@ const UserNavbarDropdownMenu = ({
       label: (
         <div style={{ display: 'flex', alignItems: 'center'}}>
           <RiLogoutBoxRLine/> 
-          <span style={{ marginLeft: 5 }} onClick={(e) => {e.stopPropagation; logout();}}>  Sign Out </span>
+          <span style={{ marginLeft: 5 }} onClick={(e) => {e.stopPropagation; firebase.logout(); dispatch({ type: 'LOGOUT' });}}>  Sign Out </span>
         </div>
       ),
     },
@@ -79,4 +60,4 @@ const UserNavbarDropdownMenu = ({
   );
 };
 
-export default (connect(null, mapDispatchToProps)(UserNavbarDropdownMenu))
+export default UserNavbarDropdownMenu

@@ -25,7 +25,7 @@ export default async (
       address_id
     })
 
-    res.status(200).json({ data: data, success: true });
+    res.status(200).json({ success: true });
   } catch (e) {
     next(e)
   }

@@ -13,9 +13,9 @@ import validateToken from '../middlewares/validate_token'
 
 const routes = Router()
 
-routes.get('/', validateToken, list)
-routes.get('/:order_id', validateToken, get)
-routes.post('/', validateToken, create)
-routes.delete('/:order_id', validateToken, remove)
+routes.get('/', list)
+routes.get('/:order_id', get)
+routes.post('/', create)
+routes.delete('/:order_id', remove)
 
 export default routes

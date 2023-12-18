@@ -19,7 +19,8 @@
     "noEmit": false,
     "importsNotUsedAsValues": "remove",    
     "isolatedModules": true,                          
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
   },
   "exclude": ["node_modules", "**/*.spec.ts"]
 }

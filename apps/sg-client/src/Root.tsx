@@ -2,36 +2,43 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import PublicRoute from "./routes/publicRoutes";
 import PrivateRoute from './routes/privateRoutes'
+import { useSelector } from 'react-redux'
+import { useState, useEffect } from "react";
+import Loader from './components/Shared/Loader'
+import { isLoaded } from 'react-redux-firebase'
 
-import { 
-  connect 
-} from 'react-redux';
+const App = () => {
 
-const App = ({
-  isAuth
-}: any) => {
+  const auth = useSelector((state: any) => state.firebase.auth)
+  const [routes, setRoutes] = useState<any>(null);
 
-  const routes = isAuth ? [
-    ...PrivateRoute,
-    ...PublicRoute()
-  ] : [
-    {},
-    ...PublicRoute()
-  ]
+  const privateRoutes = !!auth && !!auth.uid ? [...PrivateRoute()] : []
 
-  const router = createBrowserRouter(routes);
+  const allRoutes = ([
+    ...privateRoutes,
+    ...PublicRoute(),
+  ]);
+
+  useEffect(() => {
+    if (isLoaded(auth)) {
+      const createdRoutes = createBrowserRouter(allRoutes);
+      setRoutes(createdRoutes);
+    }
+  }, [auth]);
 
   return (
     <>
-      <RouterProvider router={router} />
+    {
+      routes ? (
+        <RouterProvider 
+          router={routes} 
+          fallbackElement={<Loader />}
+        />
+      ) : <Loader />
+    }
     </>
   )
 }
 
-const mapStateToProps = (state:any) => {
-  return {
-    isAuth: state.session.isAuth, // Replace with your actual authentication state property
-  };
-};
 
-export default connect(mapStateToProps)(App);
+export default App;

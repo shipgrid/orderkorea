@@ -1,37 +1,22 @@
-
 import { 
   Button,
-  Checkbox, 
   Form, 
-  Input 
+  Input,
+  Divider,
+  message
 } from 'antd';
 
-import agent from '../../../api/agent'
-
 import {
-  connect,
+  useDispatch,
 } from 'react-redux'
 
-import { 
-  Dispatch 
-} from 'redux';
-
 import {
-  useNavigate
+  Link
 } from 'react-router-dom'
 
-interface LoginAction {
-  type: string;
-  payload: any; // Define the payload type here
-}
-
-const mapStateToProps = (state: LoginAction) => ({ store: state });
-
-const mapDispatchToProps = (dispatch: Dispatch<LoginAction>) => ({
-  login: (loginData: any) => dispatch({ type: 'LOGIN', payload: loginData }),
-});
-
-export { mapStateToProps, mapDispatchToProps };
+import agent from '../../../api/agent'
+import { FaGoogle } from "react-icons/fa";
+import { useFirebase } from 'react-redux-firebase'
 
 type FieldType = {
   username?: string;
@@ -39,15 +24,25 @@ type FieldType = {
   remember?: string;
 };
 
-interface LoginFormProps {
-  login: (loginData: any) => void;
-}
+const LoginForm = ({}) => {
+  const firebase = useFirebase();
 
-const LoginForm = ({
-  login
-}: LoginFormProps) => {
+  const dispatch = useDispatch();
 
-  const navigate = useNavigate()
+  const signInWithGoogle = async () => {
+    const response = await firebase.login({ provider: 'google', type: 'popup' })
+  
+    if(response?.additionalUserInfo?.isNewUser) {
+
+      await agent.account.register({
+        first_name: response?.additionalUserInfo?.profile?.given_name,
+        username: response?.user?.email,
+        password: 'secret',
+      })
+    }
+    const firebaseToken = await firebase.auth().currentUser?.getIdToken()
+    dispatch({ type: 'LOGIN', payload: { token: firebaseToken } })
+  };
 
   const onFinish = async (values: any) => {    
     const {
@@ -56,63 +51,61 @@ const LoginForm = ({
     } = values;
 
     try {
-      const response = await agent.account.login({
-        username,
-        password
+      
+      await firebase.login({  
+        email: username,
+        password: password
       })
 
-      login(response.data)
-      navigate('/')
+      const firebaseToken = await firebase.auth().currentUser?.getIdToken()
+      dispatch({ type: 'LOGIN', payload: { token: firebaseToken } })
 
-    } catch(e) {
-      console.log(e)
+    } catch(e:any) {
+      message.error({ content: e.message, duration: 2 })    
     }
   };
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
-  };
-
   return (
-    <Form
-      name="basic"
-      labelCol={{ span: 8 }}
-      wrapperCol={{ span: 16 }}
-      style={{ maxWidth: 600 }}
-      initialValues={{ remember: true }}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-      autoComplete="off"
-    >
-      <Form.Item<FieldType>
-        label="Username"
-        name="username"
-        rules={[{ required: true, message: 'Please input your username!' }]}
+    <div style={{ display: 'flex', flexDirection: 'column'}}>
+      <Form
+        name="basic"
+        labelCol={{ span: 8 }}
+        wrapperCol={{ span: 16 }}
+        style={{ maxWidth: 600 }}
+        initialValues={{ remember: true }}
+        onFinish={onFinish}
+        autoComplete="off"
       >
-        <Input />
-      </Form.Item>
+        <Form.Item<FieldType>
+          label="Email"
+          name="username"
+          rules={[{ required: true, message: 'Please input your email' }]}
+        >
+          <Input />
+        </Form.Item>
 
-      <Form.Item<FieldType>
-        label="Password"
-        name="password"
-        rules={[{ required: true, message: 'Please input your password!' }]}
-      >
-        <Input.Password />
-      </Form.Item>
-      <Form.Item<FieldType>
-        name="remember"
-        valuePropName="checked"
-        wrapperCol={{ offset: 8, span: 16 }}
-      >
-        <Checkbox>Remember me</Checkbox>
-      </Form.Item>
-      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
-    </Form> 
+        <Form.Item<FieldType>
+          label="Password"
+          name="password"
+          rules={[{ required: true, message: 'Please input your password' }]}
+        >
+          <Input.Password />
+        </Form.Item>
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
+            Submit
+          </Button>
+        </Form.Item>
+      </Form> 
+      <Divider/>
+      <div style={{display: 'flex', flexDirection: 'column'}}>
+        <Button icon={<FaGoogle/>} onClick={signInWithGoogle}> Sign in with Google </Button>
+        <p color="gray.500" style={{ marginTop: 10 }}>
+          Don't have an account? <Link to="/signup">Sign up</Link>
+        </p>
+      </div>
+    </div>
   )
 }
   
-export default (connect(mapStateToProps, mapDispatchToProps)(LoginForm))
+export default LoginForm

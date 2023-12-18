@@ -17,7 +17,8 @@ type SessionAction = {
 // Define the session reducer
 const sessionReducer = (state: SessionState = initialState, action: SessionAction): SessionState => {
   switch (action.type) {
-    case 'LOGIN':      
+    case 'LOGIN':    
+
       return { 
         ...state, 
         isAuth: true, 

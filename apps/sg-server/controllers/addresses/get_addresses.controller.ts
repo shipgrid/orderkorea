@@ -17,7 +17,7 @@ export default async (
   try {
     const data = await addresses.list({})
 
-    res.status(200).json({ data: data, success: true });
+    res.status(200).json({ ...data, success: true });
   } catch (e) {
     next(e)
   }

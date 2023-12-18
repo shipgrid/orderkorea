@@ -1,15 +1,29 @@
 import { Provider } from "react-redux";
-import { configureStore } from "./redux/configureStore";
 import configureAxios from "./utils/configureAxios";
 import { ConfigProvider } from 'antd';
 import Root from './Root'
 import React from 'react';
+import Loader from './components/Shared/Loader'
+
+import {
+  ReactReduxFirebaseProvider,
+} from 'react-redux-firebase'
+
+import { PersistGate } from 'redux-persist/integration/react'
+import AuthLoader from './components/Shared/AuthLoader'
+
+import {
+  persistStore,
+} from 'redux-persist'
+
+import {
+  store,
+  rrfProps
+} from './redux/configureStore'
 
 const App = () => {
-
-  const store = configureStore();
   configureAxios(store)
-
+  
   type ThemeData = {
     borderRadius: number;
     colorPrimary: string;
@@ -32,22 +46,28 @@ const App = () => {
   return (
     <>
       <Provider store={store}>
-        <ConfigProvider
-          theme={{
-            token: {
-              colorPrimary: data.colorPrimary,
-              borderRadius: data.borderRadius,
-            },
-            components: {
-              Menu: {
+        <PersistGate loading={<Loader/>} persistor={persistStore(store)}>
+          <ConfigProvider
+            theme={{
+              token: {
                 colorPrimary: data.colorPrimary,
-                darkItemBg: '#013A2',
+                borderRadius: data.borderRadius,
               },
-            },
-          }}
-        >
-          <Root/>
-        </ConfigProvider>
+              components: {
+                Menu: {
+                  colorPrimary: data.colorPrimary,
+                  darkItemBg: '#013A2',
+                },
+              },
+            }}
+          >
+            <ReactReduxFirebaseProvider {...rrfProps}>
+              <AuthLoader>
+                <Root/>
+              </AuthLoader>
+            </ReactReduxFirebaseProvider>
+          </ConfigProvider>
+        </PersistGate>
       </Provider>
     </>
   )

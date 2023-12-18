@@ -23,7 +23,10 @@ import {
 import DashboardHeader from '../Layout/DashboardHeader';
 import DashboardContent from '../Layout/DashboardContent';
 
-import agent from '../../../api/agent';
+import { 
+  useGetVehiclesQuery
+} from '../../../hooks/useVehicles';
+
 
 const { Meta } = Card;
 
@@ -41,29 +44,11 @@ interface Image {
   image_url: string;
 }
 
-interface ResponseBody {
-  data: Vehicle[];
-  success: boolean;
-}
-
 const HomeContainer = () => {
-
-  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
-
-  const getVehicles = async () => {
-    const response = await agent.vehicles.list();
-    const {
-      data, 
-      success
-    } = response.data as ResponseBody; // Access 'data' directly from 'response'
-    setVehicles(data);
-  };
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    getVehicles();
-  }, []);
+  const { data:vehicles, error, isLoading } = useGetVehiclesQuery({});
 
   return (
     <Stack minH={'100vh'}>
@@ -101,17 +86,18 @@ const HomeContainer = () => {
           }
         />
         <p style={{ fontWeight: 'bold', margin: 5, marginTop: 20, marginBottom: 20,  fontSize: 18 }}> Inventory </p>
-        <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap' }}>
           {
-            vehicles.map((vehicle) => {
+            vehicles && vehicles.map((vehicle: any, i: number) => {
               return (
                 <Card
+                  key={i}
                   hoverable
                   style={{ width: 220, flex: '0 0 calc(25% - 10px)'}}
                   cover={
                     <Image.PreviewGroup
                       items={
-                        vehicle.images.map((image) => {
+                        vehicle.images.map((image: any) => {
                           return { src: image.image_url }
                         })
                       }

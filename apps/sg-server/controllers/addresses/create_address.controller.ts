@@ -42,7 +42,7 @@ export default async (
       customer_id,
     })
 
-    res.status(200).json({ data: data, success: true });
+    res.status(200).json({ ...data, success: true });
   } catch (e) {
     next(e)
   }

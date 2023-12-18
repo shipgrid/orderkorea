@@ -5,16 +5,11 @@ import {
   Avatar
 } from 'antd'
 
-import {
-  useEffect,
-  useState
-} from 'react'
-
 import { useLocation } from 'react-router-dom';
 
 import '../../../assets/index.css'
+import useVehicle from '../../../hooks/useVehicles';
 
-import agent from '../../../api/agent';
 
 interface Vehicle {
   vehicle_id: number;
@@ -36,30 +31,38 @@ interface ResponseBody {
 }
 
 const VehicleDetail = () => {
-  const [ vehicle, setVehicle ] = useState<Vehicle>(undefined as any as Vehicle);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
 
   const vehicleId = searchParams.get('vehicle_id');
 
-  const getVehicle = async () => {
-
-    if(!vehicleId) {
-      return;
-    }
-
-    const response = await agent.vehicles.details(vehicleId);
-
-    const {
-      data, 
-    } = response.data as ResponseBody;
-
-    setVehicle(data)
+  if(!vehicleId) {
+    return 'No vehicle id found'
   }
 
-  useEffect(() =>{
-    getVehicle();
-  },[])
+  const {
+    useGetVehicleQuery,
+    useCreateVehicleMutation
+  } = useVehicle();
+
+  const [
+    createVehicle,
+    { isLoading: isCreatingVehicle }
+  ] = useCreateVehicleMutation();
+  
+  const { data: vehicle, error, isLoading } = useGetVehicleQuery(vehicleId);
+
+  const handleReserve = () => {
+    createVehicle({
+      make: 'Hyundai',
+      model: 'Elantra',
+      year: "2018",
+      mileage: 12391,
+      description: 'This is a test description',
+      exterior_color: 'Black',
+      transmission_type: 'Automatic',
+    })
+  }
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column'}}>
@@ -91,7 +94,7 @@ const VehicleDetail = () => {
         </Descriptions>
       </div>
       <div>
-        <Button type="primary" style={{ marginTop: 20, marginBottom: 20, width: '100%', height: 50, borderRadius: 20 }}> Reserve Now </Button>
+        <Button type="primary" style={{ marginTop: 20, marginBottom: 20, width: '100%', height: 50, borderRadius: 20 }} onClick={handleReserve}> Reserve Now </Button>
       </div>
     </div>
   );
