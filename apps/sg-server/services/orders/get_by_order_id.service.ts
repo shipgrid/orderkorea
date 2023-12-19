@@ -11,6 +11,15 @@ export default async ({
     const order = await Order
       .query()
       .withGraphFetched('orderEvents')
+      .withGraphFetched('thirdParties.[address]')
+      .withGraphFetched('documents')
+      .withGraphFetched('vehicles.[images]')
+      .modifyGraph('vehicles.[images]', builder => {
+        builder.select('image_url');
+      })
+      .modifyGraph('documents', builder => {
+        builder.select('file_url');
+      })
       .findById(order_id);
     return order;
 

@@ -14,7 +14,7 @@ const routes = Router()
 
 routes.get('/test', (req, res) => res.status(200).send('OK'))
 routes.use('/account', account);
-routes.use('/vehicles', validateFirebaseToken, vehicles);
+routes.use('/vehicles', vehicles);
 routes.use('/orders', orders);
 routes.use('/addresses', addresses);
 

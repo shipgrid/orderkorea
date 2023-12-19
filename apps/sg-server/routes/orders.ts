@@ -9,8 +9,6 @@ import {
   list
 } from '../controllers/orders'
 
-import validateToken from '../middlewares/validate_token'
-
 const routes = Router()
 
 routes.get('/', list)

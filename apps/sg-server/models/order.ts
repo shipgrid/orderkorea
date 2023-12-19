@@ -1,6 +1,9 @@
 import { Model } from 'objection';
 import knexClient from './knex_client'
 import OrderEvent from './order_event';
+import ThirdParty from './third_party'
+import Document from './document'
+import Vehicle from './vehicle'
 
 Model.knex(knexClient);
 
@@ -33,6 +36,30 @@ class Order extends Model implements Order {
           to: 'order_events.order_id'
         }
       },
+      thirdParties: {
+        relation: Model.HasManyRelation,
+        modelClass: ThirdParty,
+        join: {
+          from: 'orders.order_id',
+          to: 'third_parties.order_id'
+        }
+      },
+      documents: {
+        relation: Model.HasManyRelation,
+        modelClass: Document,
+        join: {
+          from: 'orders.order_id',
+          to: 'documents.order_id'
+        }
+      },
+      vehicles: {
+        relation: Model.HasManyRelation,
+        modelClass: Vehicle,
+        join: {
+          from: 'orders.order_id',
+          to: 'vehicles.order_id'
+        }
+      }
     }
   }
 

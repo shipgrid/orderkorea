@@ -27,7 +27,8 @@ const OrderDetailContainer = () => {
           description={'View your order details'}
         />
         <Divider my={3}/>
-        <Button style={{marginBottom: 5 }}> Edit </Button>
+        <Button style={{marginBottom: 5, marginRight: 5 }}> Edit </Button>
+        <Button style={{marginBottom: 5, marginRight: 5 }}> Set Status </Button>
         <Grid          
         title='Shipment Details'
           content={
