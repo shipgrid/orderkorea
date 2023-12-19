@@ -1,16 +1,18 @@
-import { Provider } from "react-redux";
-import configureAxios from "./utils/configureAxios";
-import { ConfigProvider } from 'antd';
-import Root from './Root'
-import React from 'react';
-import Loader from './components/Shared/Loader'
+import { 
+  Provider 
+} from "react-redux";
+
+import { 
+  ConfigProvider 
+} from 'antd';
 
 import {
   ReactReduxFirebaseProvider,
 } from 'react-redux-firebase'
 
-import { PersistGate } from 'redux-persist/integration/react'
-import AuthLoader from './components/Shared/AuthLoader'
+import { 
+  PersistGate 
+} from 'redux-persist/integration/react'
 
 import {
   persistStore,
@@ -21,27 +23,15 @@ import {
   rrfProps
 } from './redux/configureStore'
 
+import Root from './Root'
+import Loader from './components/Shared/Loader'
+import AuthLoader from './components/Shared/AuthLoader'
+
+import {
+  ThemeData
+} from './theme'
+
 const App = () => {
-  configureAxios(store)
-  
-  type ThemeData = {
-    borderRadius: number;
-    colorPrimary: string;
-    Button?: {
-      colorPrimary: string;
-      algorithm?: boolean;
-    };
-  };
-
-  const defaultData: ThemeData = {
-    borderRadius: 6,
-    colorPrimary: '#1677ff',
-    Button: {
-      colorPrimary: '#BACC81',
-    },
-  };
-
-  const [data, setData] = React.useState<ThemeData>(defaultData);
 
   return (
     <>
@@ -50,12 +40,12 @@ const App = () => {
           <ConfigProvider
             theme={{
               token: {
-                colorPrimary: data.colorPrimary,
-                borderRadius: data.borderRadius,
+                colorPrimary: ThemeData.colorPrimary,
+                borderRadius: ThemeData.borderRadius,
               },
               components: {
                 Menu: {
-                  colorPrimary: data.colorPrimary,
+                  colorPrimary: ThemeData.colorPrimary,
                   darkItemBg: '#013A2',
                 },
               },

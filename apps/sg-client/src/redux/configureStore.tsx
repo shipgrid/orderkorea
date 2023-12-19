@@ -19,21 +19,25 @@ import {
   Reducer 
 }  from "redux";
 
-import { setupListeners } from '@reduxjs/toolkit/query'
+import { 
+  setupListeners 
+} from '@reduxjs/toolkit/query'
 
-import { configureStore } from '@reduxjs/toolkit'
+import { 
+  configureStore 
+} from '@reduxjs/toolkit'
+
+
+import session from './reducers/session'
+import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2'
+import localStorage from 'redux-persist/lib/storage' 
+
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth';
 
-import session from './reducers/session'
-
-import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2'
-
-import localStorage from 'redux-persist/lib/storage' 
-
 import {
   vehicleApi
-} from '../hooks/useVehicles'
+} from '../services/vehicleApi'
 
 const firebaseConfig = {
   apiKey: "AIzaSyCYLoJUVGHCybEjP-aK5nhfQ5Jjfs5wwHY",
@@ -68,12 +72,8 @@ const persistConfig = {
   ]
 }
 
-const rrfConfig = {}
- 
-const persistedReducer = persistReducer(persistConfig, rootReducer)
-
 const store = configureStore({
-  reducer: persistedReducer,
+  reducer: persistReducer(persistConfig, rootReducer),
   devTools: process.env.NODE_ENV !== 'production',
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -95,6 +95,8 @@ const store = configureStore({
 })
 
 setupListeners(store.dispatch)
+
+const rrfConfig = {}
 
 const rrfProps = {
   firebase,

@@ -21,7 +21,6 @@ const App: React.FC = () => {
   };
 
   const handleCancel = () => {
-    console.log('Clicked cancel button');
     setOpen(false);
   };
 

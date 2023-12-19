@@ -1,10 +1,16 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { 
+  createApi, 
+  fetchBaseQuery 
+} from '@reduxjs/toolkit/query/react'
 
 interface Vehicle {
   vehicle_id: number;
   make: string;
   model: string;
   year: number;
+  description: string;
+  exterior_color: string;
+  transmission_type: string;
   mileage: number;
   price: number;
   images: Image[];

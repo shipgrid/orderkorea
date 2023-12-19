@@ -4,7 +4,6 @@ import {
 } from '@chakra-ui/react';
 
 import {
-  Switch,
   Button
 } from 'antd'
 
@@ -32,9 +31,7 @@ const OrderDetailContainer = () => {
         <Grid          
         title='Shipment Details'
           content={
-            <div>
-              <OrderDetail/>
-            </div>
+            <OrderDetail/>
           }
         />
         <Divider my={3}/>
@@ -42,9 +39,7 @@ const OrderDetailContainer = () => {
         <Grid
           title='Shipper, Consignee and Contacts'
           content={
-            <div>
-              <ThirdPartyTable/>
-            </div>
+            <ThirdPartyTable/>
           }
         />
         <Divider my={3}/>
@@ -52,18 +47,14 @@ const OrderDetailContainer = () => {
         <Grid
           title='Documents'
           content={
-            <div>
-              <DocumentTable/>
-            </div>
+            <DocumentTable/>
           }
         />
       <Divider my={3}/>
         <Grid
           title='Vehicles'
           content={
-            <div>
-              <VehicleTable/>
-            </div>
+            <VehicleTable/>
           }
         />
       </DashboardContent>

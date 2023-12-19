@@ -27,7 +27,6 @@ interface Shipper {
   postalCode: string;
 }
 
-
 const OrderTable = () => {
 
   const navigate = useNavigate();

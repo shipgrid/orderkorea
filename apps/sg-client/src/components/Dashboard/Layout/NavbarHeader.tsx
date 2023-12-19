@@ -5,7 +5,6 @@ import {
 import { 
   Layout, 
   Menu,
-  Image,
 } from 'antd';
 
 import type { 
@@ -13,34 +12,19 @@ import type {
 } from 'antd';
 
 import {
-  FiTruck,
   FiHome
 } from 'react-icons/fi'
-
-import { 
-  BsBoxes 
-} from "react-icons/bs";
 
 import { 
   FaWpforms 
 } from "react-icons/fa";
 
 import { 
-  RiShipLine,
-} from "react-icons/ri";
-
-import { 
-  LiaFileInvoiceDollarSolid 
-} from "react-icons/lia";
-
-import { 
   useNavigate 
 } from 'react-router-dom'
 
-import OrderDropdownMenu from '../../Shared/OrderDropdownMenu';
 import UserNavbarDropdownMenu from './UserNavbarDropdownMenu';
-
-import logo from '../../../assets/images/white-logo-no-bg.png'
+import { IoCarSportSharp } from "react-icons/io5";
 
 const { 
   Header 
@@ -53,25 +37,15 @@ const navItems = [
     path: '/',
   },
   {
+    label: 'Inventory',
+    icon: <IoCarSportSharp/>,
+    path: '/inventory',
+  },
+  {
     label: 'Orders',
     icon: <FaWpforms/>,
     path: '/orders',
-  },
-  // {
-  //   label: 'Inventory',
-  //   icon: <BsBoxes/>,
-  //   path: '/inventory',
-  // },
-  // {
-  //   label: 'Shipments',
-  //   icon: <RiShipLine/>,
-  //   path: '/shipments',
-  // },
-  // {
-  //   label: 'Billing',
-  //   icon: <LiaFileInvoiceDollarSolid/>,
-  //   path: '/billing',
-  // },
+  }
 ];
 
 const items: MenuProps['items'] = navItems.map((item, index) => ({

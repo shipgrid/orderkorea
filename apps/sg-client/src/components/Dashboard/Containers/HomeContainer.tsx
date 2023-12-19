@@ -4,16 +4,13 @@ import {
 } from '@chakra-ui/react';
 
 import {
-  startTransition,
-  useEffect,
-  useState
+  startTransition
 } from 'react';
 
 import {
   Card,
   Button,
   Image,
-  Alert
 } from 'antd'
 
 import { 
@@ -25,41 +22,25 @@ import DashboardContent from '../Layout/DashboardContent';
 
 import { 
   useGetVehiclesQuery
-} from '../../../hooks/useVehicles';
+} from '../../../services/vehicleApi';
+
+import InventorySpotlight from '../Home/InventorySpotlight';
 
 
 const { Meta } = Card;
 
-interface Vehicle {
-  vehicle_id: number;
-  make: string;
-  model: string;
-  year: number;
-  mileage: number;
-  price: number;
-  images: Image[];
-}
-
-interface Image {
-  image_url: string;
-}
-
 const HomeContainer = () => {
-
-  const navigate = useNavigate();
-
-  const { data:vehicles, error, isLoading } = useGetVehiclesQuery({});
 
   return (
     <Stack minH={'100vh'}>
       <DashboardContent>
         <DashboardHeader
             title={'Home Overview'}
-            description="Here’s the latest overview for your ."
+            description="Here’s the best match for you."
           />
         <Divider my={5}/>
-        <Card title="Welcome to ShipGrid, start your first order now!" style={{ margin: 5 }} extra={<Button type='primary' style={{ borderRadius: 20}}> Get Started </Button>}>
-          <p>We guarauntee your first order. If you are not satisfied, we will give you a full refund</p>
+        <Card title="Welcome to ShipGrid" style={{ margin: 5 }} extra={<Button type='primary' style={{ borderRadius: 20}}> Get Started </Button>}>
+          <p>We are the #1 auto trading platform in Korea</p>
         </Card>
         <div style={{ display: 'flex', marginTop: 10 }}>
           <Card title="Your Total Orders" style={{ flex: 1, margin: 5}}>
@@ -73,49 +54,8 @@ const HomeContainer = () => {
             <p>Card content</p>
           </Card>
         </div>
-        <Alert
-          message="Refer a friend and get $10 off your next order!"
-          description="Additional description and information about copywriting."
-          type="info"
-          showIcon
-          style={{ margin: 5 }}
-          action={
-            <Button size="small" type="primary">
-              Get Started
-            </Button>
-          }
-        />
-        <p style={{ fontWeight: 'bold', margin: 5, marginTop: 20, marginBottom: 20,  fontSize: 18 }}> Inventory </p>
-        <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap' }}>
-          {
-            vehicles && vehicles.map((vehicle: any, i: number) => {
-              return (
-                <Card
-                  key={i}
-                  hoverable
-                  style={{ width: 220, flex: '0 0 calc(25% - 10px)'}}
-                  cover={
-                    <Image.PreviewGroup
-                      items={
-                        vehicle.images.map((image: any) => {
-                          return { src: image.image_url }
-                        })
-                      }
-                      fallback='https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
-                    >
-                      <Image  fallback='https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png' height={260} src={vehicle.images[0]?.image_url} style={{ borderRadius: 8 }}/>
-                    </Image.PreviewGroup>
-                  }                  
-                  actions={[
-                    <Button key="setting" style={{ width: '90%', borderRadius: 20 }} type='primary'  onClick={() => startTransition(() => navigate(`/vehicle?vehicle_id=${vehicle.vehicle_id}`))}> View More </Button>,
-                  ]}
-                >
-                  <Meta title={`${vehicle.year} ${vehicle.make} ${vehicle.model} - USD 19,000`} description="89,000 KM" />
-                </Card>
-              )
-            })
-          }
-        </div>
+        <p style={{ fontWeight: 'bold', margin: 5, marginTop: 20, marginBottom: 20,  fontSize: 18 }}> Inventory Spotlight </p>
+        <InventorySpotlight/>
       </DashboardContent>
     </Stack>
   );

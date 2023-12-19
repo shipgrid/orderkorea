@@ -21,9 +21,7 @@ const ShippingCalculatorContainer = () => {
         <Grid
           title="2023 Mazda - Mazda 3"
           content={
-            <div>
-              <VehicleDetail/>
-            </div>
+            <VehicleDetail/>
           }
         />
         <Divider my={5}/>
