@@ -5,11 +5,11 @@ import {
   NextFunction 
 } from 'express'
 
-import {
-  login
-} from '../services/authentication.service'
+import { 
+  account 
+} from '../../services'
 
-const loginCustomer = async (
+export default async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -24,7 +24,7 @@ const loginCustomer = async (
 
     const { 
       token
-    } = await login({
+    } = await account.login({
       username,
       password,
     })
@@ -33,8 +33,4 @@ const loginCustomer = async (
   } catch (e) {
     next(e)
   }
-}
-
-export {
-  loginCustomer
 }

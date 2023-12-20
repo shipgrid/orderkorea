@@ -1,11 +1,14 @@
-import logger from '../models/logger'
 import {
-  createUserCustomer
-} from './user.service'
+  Logger
+} from '../../models'
+
+import {
+  customers
+} from '../../services'
 
 import {
   convertToLocalDateString
-} from '../utils/dates'
+} from '../../utils/dates'
 
 import bcrypt from 'bcryptjs'
 
@@ -16,7 +19,7 @@ interface IRegisterUser {
   password: string;
 }
 
-const register = async ({
+export default async ({
   first_name,
   last_name,
   username,
@@ -31,7 +34,7 @@ const register = async ({
       throw new Error('Error hashing password');
     }
 
-    const user = await createUserCustomer({
+    const user = await customers.create({
       first_name,
       last_name,
       username,
@@ -39,14 +42,10 @@ const register = async ({
       last_login: convertToLocalDateString(new Date()),
     })
 
-    logger.info('User added successfully', user);
+    Logger.info('User added successfully', user);
 
   } catch(e) {
-    logger.error('Error registering user:', e);
+    Logger.error('Error registering user:', e);
     throw e
   }
-}
-
-export {
-  register
 }

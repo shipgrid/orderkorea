@@ -1,9 +1,10 @@
-import Order from '../models/order'
-import OrderSku from '../models/order_sku'
-import Sku from '../models/sku'
-import knexClient from '../models/knex_client'
-import logger from '../models/logger'
-
+import {
+  Order, 
+  OrderSku, 
+  Sku, 
+  KnexClient, 
+  Logger
+} from '../../models'
 
 interface ICreatePurchaseOrder {
   sku_id: string;  
@@ -16,21 +17,7 @@ interface ICreatePurchaseOrder {
   customer_id: number;
 }
 
-const getOrder = async ({
-  customer_id
-}) => {
-
-  try {
-
-    const ordersWithSKUs = await Order.query().where('customer_id', customer_id).withGraphFetched('skus');
-    return ordersWithSKUs
-  } catch(e) {
-    logger.error('Error getting order:', e);
-    throw e;
-  }
-}
-
-const createPurchaseOrder = async ({
+export default async ({
   sku_id, 
   name,
   description,
@@ -44,7 +31,7 @@ const createPurchaseOrder = async ({
   let order; 
 
   try {
-    await knexClient.transaction(async (trx) => {
+    await KnexClient.transaction(async (trx) => {
 
       const newOrder = {
         type: type,
@@ -81,17 +68,13 @@ const createPurchaseOrder = async ({
 
       await trx.commit();
 
-      logger.info('Order and OrderSku created:', order, orderSku);
+      Logger.info('Order and OrderSku created:', order, orderSku);
     })
     
     return order
   } catch(e) {
-    logger.error('Error creating Order and OrderSku:', e);
+    Logger.error('Error creating Order and OrderSku:', e);
     throw e
   }
 }
 
-export {
-  createPurchaseOrder,
-  getOrder
-}
