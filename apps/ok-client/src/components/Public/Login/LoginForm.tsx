@@ -50,7 +50,6 @@ const LoginForm = ({
   const navigate = useNavigate()
 
   const onFinish = async (values: any) => {
-    console.log('Success:', values);
     
     const {
       username,
@@ -62,8 +61,6 @@ const LoginForm = ({
         username,
         password
       })
-
-      console.log('response:', response.data)
 
       login(response.data)
       navigate('/')
