@@ -2,25 +2,14 @@ import {
   Router 
 } from 'express'
 
-import {
-  registerCustomer
-} from '../controllers/registration.controller'
+import account from './account'
 
-import {
-  loginCustomer
-} from '../controllers/login.controller'
-
-import {
-  purchaseOrder,
-  getOrdersByCustomerId
-} from '../controllers/order.controller'
+import validateToken from '../middlewares/validate_token'
+import validateFirebaseToken from '../middlewares/validate_firebase_token'
 
 const routes = Router()
 
 routes.get('/test', (req, res) => res.status(200).send('OK'))
-routes.post('/register', registerCustomer)
-routes.post('/login', loginCustomer)
-
-
+routes.use('/account', account);
 
 export default routes
