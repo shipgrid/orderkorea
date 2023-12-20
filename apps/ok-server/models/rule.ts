@@ -3,27 +3,30 @@ import knexClient from './knex_client';
 
 Model.knex(knexClient);
 
-interface RateCard {
-  rate_card_id: number;
+interface Rule {
+  rule_id: number;
+  name: string;
   created_on: string;
   updated_on: string;
   deleted_on: string | null;
 }
 
-class RateCard extends Model implements RateCard {
+class Rule extends Model implements Rule {
   static get tableName() {
-    return 'rate_cards';
+    return 'rules';
   }
 
   static get idColumn() {
-    return 'rate_card_id';
+    return 'rule_id';
   }
-  
+
   static get jsonSchema() {
     return {
       type: 'object',
+      required: ['name'],
       properties: {
-        rate_card_id: { type: 'integer' },
+        rule_id: { type: 'integer' },
+        name: { type: 'string', maxLength: 45 },
         created_on: { type: 'string' },
         updated_on: { type: 'string' },
         deleted_on: { type: ['string', 'null'] },
@@ -32,4 +35,4 @@ class RateCard extends Model implements RateCard {
   }
 }
 
-export default RateCard;
+export default Rule;
