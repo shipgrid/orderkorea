@@ -1,6 +1,7 @@
 import {
   Logger,
   User,
+  HttpError
 } from '../../models'
 
 export default async ({
@@ -8,10 +9,14 @@ export default async ({
 }) => {
 
   try {
+    if (!username) {
+      throw new HttpError(400, 'Username is required')
+    }
+
     const user = await User.query().where('username', username).first();
 
     if(!user) {
-      throw new Error('User not found');
+      throw new HttpError(404, 'User not found');
     }
 
     return user;

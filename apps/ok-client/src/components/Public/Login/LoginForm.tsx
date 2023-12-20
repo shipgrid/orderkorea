@@ -63,6 +63,8 @@ const LoginForm = ({
         password
       })
 
+      console.log('response:', response.data)
+
       login(response.data)
       navigate('/')
 

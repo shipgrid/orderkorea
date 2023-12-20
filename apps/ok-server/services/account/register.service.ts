@@ -1,5 +1,6 @@
 import {
-  Logger
+  Logger,
+  HttpError
 } from '../../models'
 
 import {
@@ -27,6 +28,22 @@ export default async ({
 }: IRegisterUser) => {
 
   try {
+
+    if (!first_name) {
+      throw new HttpError(400, 'First name is required')
+    }
+
+    if (!last_name) {
+      throw new HttpError(400, 'Last name is required')
+    }
+
+    if (!username) {
+      throw new HttpError(400, 'Username is required')
+    }
+
+    if (!password) {
+      throw new HttpError(400, 'Password is required')
+    }
 
     let password_hash = await bcrypt.hash(password, 10);
 

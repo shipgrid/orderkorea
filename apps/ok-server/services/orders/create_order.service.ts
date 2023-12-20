@@ -3,7 +3,8 @@ import {
   OrderSku, 
   Sku, 
   KnexClient, 
-  Logger
+  Logger,
+  HttpError
 } from '../../models'
 
 interface ICreatePurchaseOrder {
@@ -27,6 +28,38 @@ export default async ({
   type,
   customer_id
 }: ICreatePurchaseOrder) => {
+
+  if (!sku_id) {
+    throw new HttpError(400, 'Sku id is required')
+  }
+
+  if (!name) {
+    throw new HttpError(400, 'Name is required')
+  }
+
+  if (!description) {
+    throw new HttpError(400, 'Description is required')
+  }
+
+  if (!unit_price) {
+    throw new HttpError(400, 'Unit price is required')
+  }
+
+  if (!product_url) {
+    throw new HttpError(400, 'Product url is required')
+  }
+
+  if (!quantity) {
+    throw new HttpError(400, 'Quantity is required')
+  }
+
+  if (!type) {
+    throw new HttpError(400, 'Type is required')
+  }
+
+  if (!customer_id) {
+    throw new HttpError(400, 'Customer id is required')
+  }
 
   let order; 
 

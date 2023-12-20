@@ -1,7 +1,8 @@
 import {
   Logger,
   User,
-  KnexClient
+  KnexClient,
+  HttpError
 } from '../../models'
 
 export default async ({
@@ -10,6 +11,14 @@ export default async ({
 }) => {
 
   try {
+    if (!user_id) {
+      throw new HttpError(400, 'User ID is required')
+    }
+
+    if (!last_login) {
+      throw new HttpError(400, 'Last login is required')
+    }
+    
     await KnexClient.transaction(async (trx) => {
 
       const updatedUser = {

@@ -1,5 +1,6 @@
 import {
-  Logger
+  Logger,
+  HttpError
 } from '../../models'
 
 import {
@@ -25,13 +26,21 @@ export default async ({
 }: ILoginUser) => {
 
   try {
+    if (!username) {
+      throw new HttpError(400, 'Username is required')
+    }
+
+    if (!password) {
+      throw new HttpError(400, 'Password is required')
+    }
 
     const user = await customers.getByUsername({
       username
     });
 
+
     if(!user) {
-      throw new Error('User not found');
+      throw new HttpError(404, 'User not found');
     }
 
     Logger.info('User fetched successfully', user);
@@ -39,7 +48,7 @@ export default async ({
     const results = await bcrypt.compare(password, user.password_hash);
 
     if(!results) {
-      throw new Error('Invalid password');
+      throw new HttpError(400, 'Invalid password');
     }
 
     Logger.info('Password compared successfully', results);
@@ -77,6 +86,7 @@ export default async ({
     };
 
   } catch(e) {
+    console.log('err: ', e)
     Logger.error('Error registering user:', e);
     throw e
   }
