@@ -1,50 +1,112 @@
+import {
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist'
+
+import {
+  getFirebase,
+  firebaseReducer,
+  actionTypes as rrfActionTypes,
+} from 'react-redux-firebase'
+
 import { 
-  createStore, 
-  applyMiddleware, 
-  Store, 
-  Middleware 
-} from 'redux'; 
-
-import rootReducer, { 
-  RootState 
-} from './reducers/index'; 
+  combineReducers, 
+  Reducer 
+}  from "redux";
 
 import { 
-  loadState, 
-  saveState 
-} from '../utils/session'; 
+  setupListeners 
+} from '@reduxjs/toolkit/query'
 
 import { 
-  createLogger 
-} from 'redux-logger'; 
+  configureStore 
+} from '@reduxjs/toolkit'
 
-import throttle from 'lodash/throttle'; 
 
-export const configureStore = (): Store<RootState> => {
-  try {
-    const middlewares: Middleware[] = [];
+import session from './reducers/session'
+import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2'
+import localStorage from 'redux-persist/lib/storage' 
 
-    const persistedState = loadState();
-  
-    if (process.env.NODE_ENV !== 'production') {
-      middlewares.push(createLogger());
-    }
-  
-    const store = createStore(
-      rootReducer,
-      persistedState,
-      applyMiddleware(...middlewares)
-    );
-      
-    store.subscribe(
-      throttle(() => {
-        saveState(store.getState());
-      }, 1000)
-    );
-  
-    return store;
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/auth';
 
-  } catch(e) {
-    throw e;
-  }
+import {
+  api
+} from '../services/api'
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCYLoJUVGHCybEjP-aK5nhfQ5Jjfs5wwHY",
+  authDomain: "shipgrid-new-staging.firebaseapp.com",
+  projectId: "shipgrid-new-staging",
+  storageBucket: "shipgrid-new-staging.appspot.com",
+  messagingSenderId: "98969594634",
+  appId: "1:98969594634:web:79fb66995b1c41cd9768f3",
+  measurementId: "G-FDBDMXFFHB"
 };
+
+firebase.initializeApp(firebaseConfig)
+
+const rootReducer: Reducer = combineReducers({
+  [api.reducerPath]: api.reducer,
+  // [orderApi.reducerPath]: orderApi.reducer,
+  session,
+  firebase: persistReducer(
+    { key: 'firebaseState', storage: localStorage, stateReconciler: autoMergeLevel2 },
+    firebaseReducer
+  ),
+});
+
+const persistConfig = {
+  key: 'root',
+  version: 1,
+  timeout: 1000,
+  storage: localStorage,
+  blacklist: [
+    'firebase',
+    'firebaseState',
+    api.reducerPath,
+  ]
+}
+
+const store = configureStore({
+  reducer: persistReducer(persistConfig, rootReducer),
+  devTools: process.env.NODE_ENV !== 'production',
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [
+          FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER,
+          ...Object.keys(rrfActionTypes).map(
+            (type) => `@@reactReduxFirebase/${type}`
+          ),
+        ],
+        ignoredPaths: ['firebase', 'firestore'],
+      },
+      thunk: {
+        extraArgument: {
+          getFirebase,
+        },
+      },
+    })
+    .concat(api.middleware)
+})
+
+setupListeners(store.dispatch)
+
+const rrfConfig = {}
+
+const rrfProps = {
+  firebase,
+  config: rrfConfig,
+  dispatch: store.dispatch
+}
+
+export {
+  store,
+  rrfProps
+}

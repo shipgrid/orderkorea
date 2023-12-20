@@ -35,7 +35,7 @@ const requests = {
 };
 
 const account = {
-  login: (body: any): Promise<AxiosResponse<ResponseBody>> => requests.post(`/login`, body),
+  login: (body: any): Promise<AxiosResponse<ResponseBody>> => requests.post(`/account/login`, body),
 };
 
 export default {
