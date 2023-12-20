@@ -6,8 +6,8 @@ export interface RootState {
   session: SessionState;
 }
 
-const rootReducer: Reducer<RootState> = combineReducers({
-  session,
+const rootReducer: Reducer<RootState> = combineReducers<RootState>({
+  session: session,
 });
 
 export default rootReducer;
