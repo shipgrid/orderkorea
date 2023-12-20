@@ -6,10 +6,6 @@ import {
 
 import '../../../assets/index.css'
 
-import { 
-  BsBoxes 
-} from "react-icons/bs";
-
 import {
   startTransition
 } from 'react';
@@ -17,6 +13,11 @@ import {
 import { 
   useNavigate 
 } from 'react-router-dom'
+
+import {
+  useGetOrdersQuery
+} from '../../../services/api';
+
 
 interface Shipper {
   name: string;
@@ -27,37 +28,116 @@ interface Shipper {
   postalCode: string;
 }
 
+interface Order {
+  order_id: number;
+  customer_id: number | null;
+  port_of_loading: string | null;
+  container_number: string | null;
+  port_of_arrival: string | null;
+  loaded_on: string | null;
+  orderEvents: OrderEvent[];
+  thirdParties: ThirdParty[];
+  documents: Document[];
+  vehicles: Vehicle[];
+  created_on: string;
+  updated_on: string;
+  deleted_on: string | null;
+}
+
+interface OrderEvent {
+  order_event_id: number;
+  name: string;
+  created_on: string;
+  updated_on: string;
+  deleted_on: string | null;
+}
+
+interface Vehicle {
+  vehicle_id: number;
+  make: string;
+  model: string;
+  year: number;
+  description: string;
+  exterior_color: string;
+  transmission_type: string;
+  mileage: number;
+  price: number;
+  images: Image[];
+}
+
+interface Image {
+  image_url: string;
+}
+
+interface ThirdParty {
+  third_party_id: number;
+  address: Address;
+  order_id: number;
+  type: string;
+  created_on: string;
+  updated_on: string;
+  deleted_on: string | null;
+}
+
+interface Address {
+  address_id: number;
+  name: string;
+  line1: string;
+  line2: string | null;
+  city: string;
+  state_code: string;
+  country_code: string;
+  postal_code: string;
+  email: string | null;
+  phone: string | null;
+  customer_id: number | null;
+  created_on: string;
+  updated_on: string;
+  deleted_on: string | null;
+}
+
+interface Document {
+  document_id: number;
+  order_id: number;
+  file_url: number;
+  created_on: string;
+  updated_on: string;
+  deleted_on: string | null;
+}
+
 const OrderTable = () => {
 
   const navigate = useNavigate();
+
+  const { data:orders, error, isLoading } = useGetOrdersQuery();
 
   const rowClassName = () => {
     return 'fixed-height-row';
   };
 
   const columns = [
+    // {
+    //   title: 'Make - Model',
+    //   dataIndex: 'id',
+    //   key: 'id',
+    //   render: (key: string) => {
+    //     return (
+    //       <div style={{ display: 'flex', alignItems: 'center' }}>
+    //         <BsBoxes style={{ marginRight: 10 }}/>
+    //         <span> 2008 Hyundai Elentra </span>
+    //       </div>
+    //     )
+    //   }
+    // },
+    // {
+    //   title: 'Vehicles',
+    //   dataIndex: 'vehicles',
+    //   key: 'vehicles',
+    // },
     {
-      title: 'Make - Model',
-      dataIndex: 'id',
-      key: 'id',
-      render: (key: string) => {
-        return (
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <BsBoxes style={{ marginRight: 10 }}/>
-            <span> 2008 Hyundai Elentra </span>
-          </div>
-        )
-      }
-    },
-    {
-      title: 'Year',
-      dataIndex: 'year',
-      key: 'year',
-    },
-    {
-      title: 'Price',
-      dataIndex: 'price',
-      key: 'price',
+      title: 'Shipment Type',
+      dataIndex: 'shipment_type',
+      key: 'shipment_type',
     },
     {
       title: 'Status',
@@ -76,13 +156,17 @@ const OrderTable = () => {
       title: 'Shipper',
       dataIndex: 'shipper',
       key: 'shipper',
-      render: (key: Shipper) => {
+      render: (key: Shipper, record: Order) => {
+
+        const shipper = record?.thirdParties?.find((thirdParty: ThirdParty) => thirdParty.type === 'shipper')
+        const address = shipper?.address
+
         return (
           <div style={{ display: 'flex', flexDirection:'column' }}>
-            <p style={{fontSize: 14}}> {key?.name} </p>
-            <p style={{fontSize: 12, color: 'gray'}}> {key?.line1} </p>
-            <p style={{fontSize: 12, color: 'gray'}}> {key?.city}, {key?.stateCode} </p>
-            <p style={{fontSize: 12, color: 'gray'}}> {key?.postalCode} </p>
+            <p style={{fontSize: 14}}> {address?.name} </p>
+            <p style={{fontSize: 12, color: 'gray'}}> {address?.line1} </p>
+            <p style={{fontSize: 12, color: 'gray'}}> {address?.city}, {address?.state_code} </p>
+            <p style={{fontSize: 12, color: 'gray'}}> {address?.postal_code} </p>
           </div>
         )
       }
@@ -91,13 +175,17 @@ const OrderTable = () => {
       title: 'Consignee',
       dataIndex: 'consignee',
       key: 'consignee',
-      render:(key: Shipper) => {
+      render:(key: Shipper, record: Order) => {
+
+        const consignee = record?.thirdParties?.find((thirdParty: ThirdParty) => thirdParty.type === 'consignee')
+        const address = consignee?.address
+
         return (
           <div style={{ display: 'flex', flexDirection:'column' }}>
-            <p style={{fontSize: 14}}> {key?.name} </p>
-            <p style={{fontSize: 12, color: 'gray'}}> {key?.line1} </p>
-            <p style={{fontSize: 12, color: 'gray'}}> {key?.city}, {key?.stateCode} </p>
-            <p style={{fontSize: 12, color: 'gray'}}> {key?.postalCode} </p>
+            <p style={{fontSize: 14}}> {address?.name} </p>
+            <p style={{fontSize: 12, color: 'gray'}}> {address?.line1} </p>
+            <p style={{fontSize: 12, color: 'gray'}}> {address?.city}, {address?.state_code} </p>
+            <p style={{fontSize: 12, color: 'gray'}}> {address?.postal_code} </p>
           </div>
         )
       }
@@ -111,96 +199,18 @@ const OrderTable = () => {
       title: 'Details',
       dataIndex: 'totalCost',
       key: 'totalCost',
-      render: (key: string) => {
+      render: (key: string, record: Order) => {
         return (
-          <Button key="setting" style={{ width: '90%', borderRadius: 20 }} type='primary' onClick={() => startTransition(() => navigate('/order-detail'))}> View More </Button>
+          <Button key="setting" style={{ width: '90%', borderRadius: 20 }} type='primary' onClick={() => startTransition(() => navigate(`/orders?order_id=${record.order_id}`))}> View More </Button>
         )
       }
     },
   ];
 
-
-  const data = [
-    {
-      id: 10,
-      make: 'Mazda',
-      model: 'Mazda 3',
-      year: 2023,
-      price: 'USD 19,000',
-      status: 'In Transit',
-      shipper: {
-        name: 'Joe Fong (Richmond, BC)',
-        line1: '7831 Garden City Road',
-        countryCode: 'CA',
-        stateCode: 'BC',
-        city: 'Richmond',
-        postalCode: 'V6Y 0K2',
-      },
-      consignee: {
-        name: 'Monica Wu (Toronto, ON)',
-        line1: '7831 Garden City Road',
-        countryCode: 'CA',
-        stateCode: 'BC',
-        city: 'Richmond',
-        postalCode: 'V6Y 0K2',
-      },
-      expected_arrival: new Date().toISOString(),
-    },
-    {
-      id: 11,
-      make: 'Mazda',
-      model: 'Mazda 3',
-      year: 2023,
-      price: 'USD 19,000',
-      status: 'In Transit',
-      shipper: {
-        name: 'Joe Fong (Richmond, BC)',
-        line1: '7831 Garden City Road',
-        countryCode: 'CA',
-        stateCode: 'BC',
-        city: 'Richmond',
-        postalCode: 'V6Y 0K2',
-      },
-      consignee: {
-        name: 'Monica Wu (Toronto, ON)',
-        line1: '7831 Garden City Road',
-        countryCode: 'CA',
-        stateCode: 'BC',
-        city: 'Richmond',
-        postalCode: 'V6Y 0K2',
-      },
-      expected_arrival: new Date().toISOString(),
-    },
-    {
-      id: 12,
-      make: 'Mazda',
-      model: 'Mazda 3',
-      year: 2023,
-      price: 'USD 19,000',
-      status: 'In Transit',
-      shipper: {
-        name: 'Joe Fong (Richmond, BC)',
-        line1: '7831 Garden City Road',
-        countryCode: 'CA',
-        stateCode: 'BC',
-        city: 'Richmond',
-        postalCode: 'V6Y 0K2',
-      },
-      consignee: {
-        name: 'Monica Wu (Toronto, ON)',
-        line1: '7831 Garden City Road',
-        countryCode: 'CA',
-        stateCode: 'BC',
-        city: 'Richmond',
-        postalCode: 'V6Y 0K2',
-      },
-      expected_arrival: new Date().toISOString(),
-    },
-  ];
-
   return (
     <Table 
-      dataSource={data} 
+      dataSource={orders}
+      loading={isLoading} 
       columns={columns} 
       rowClassName={rowClassName}
     />

@@ -1,11 +1,10 @@
 import { Model } from 'objection';
 import knexClient from './knex_client'
 import Order from './order'
-import Address from './address'
 
 Model.knex(knexClient);
 
-interface ThirdParty {
+interface Document {
   document_id: number;
   order_id: number;
   file_url: number;
@@ -14,7 +13,7 @@ interface ThirdParty {
   deleted_on: string | null;
 }
 
-class ThirdParty extends Model implements ThirdParty {
+class Document extends Model implements Document {
   static get tableName() {
     return 'documents';
   }
@@ -52,4 +51,4 @@ class ThirdParty extends Model implements ThirdParty {
   }
 }
 
-export default ThirdParty;
+export default Document;

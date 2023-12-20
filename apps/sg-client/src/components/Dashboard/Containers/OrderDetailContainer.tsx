@@ -17,7 +17,15 @@ import AddDocumentModal from '../OrderDetail/AddDocumentModal';
 import VehicleTable from '../OrderDetail/VehicleTable';
 import DocumentTable from '../OrderDetail/DocumentTable';
 
+import {
+  useGetOrderQuery
+} from '../../../services/api'
+
 const OrderDetailContainer = () => {
+
+  const { data:order, error, isLoading } = useGetOrderQuery({});
+
+  console.log(order, error, isLoading)
 
   return (
     <Stack minH={'100vh'}>

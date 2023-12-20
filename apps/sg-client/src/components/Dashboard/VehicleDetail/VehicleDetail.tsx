@@ -9,7 +9,7 @@ import { useLocation } from 'react-router-dom';
 
 import {
   useGetVehicleQuery,
-} from '../../../services/vehicleApi';
+} from '../../../services/api';
 
 import '../../../assets/index.css'
 

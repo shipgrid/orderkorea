@@ -10,8 +10,12 @@ Model.knex(knexClient);
 interface Order {
   order_id: number;
   customer_id: number | null;
-  staff_id: number | null;
-  shipment_id: number | null;
+  shipment_type: string;
+  port_of_loading: string | null;
+  container_number: string | null;
+  port_of_arrival: string | null;
+  expected_arrival: string | null;
+  loaded_on: string | null;
   created_on: string;
   updated_on: string;
   deleted_on: string | null;
@@ -66,13 +70,16 @@ class Order extends Model implements Order {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['vehicle_id', 'customer_id'],
+      required: ['customer_id'],
       properties: {
         order_id: { type: 'integer' },
-        vehicle_id: { type: 'integer' },
         customer_id: { type: ['integer', 'null'] },
-        staff_id: { type: ['integer', 'null'] },
-        shipment_id: { type: ['integer', 'null'] },
+        shipment_type: { type: 'string', maxLength: 255 },
+        port_of_loading: { type: ['string', 'null'], maxLength: 255 },
+        container_number: { type: ['string', 'null'], maxLength: 255 },
+        port_of_arrival: { type: ['string', 'null'], maxLength: 255 },
+        loaded_on: { type: ['string', 'null'], maxLength: 255 },
+        expected_arrival: { type: ['string', 'null'] },
         created_on: { type: 'string' },
         updated_on: { type: 'string' },
         deleted_on: { type: ['string', 'null'] },

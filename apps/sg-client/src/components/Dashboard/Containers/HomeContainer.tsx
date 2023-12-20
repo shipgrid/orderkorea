@@ -4,30 +4,13 @@ import {
 } from '@chakra-ui/react';
 
 import {
-  startTransition
-} from 'react';
-
-import {
   Card,
   Button,
-  Image,
 } from 'antd'
-
-import { 
-  useNavigate 
-} from 'react-router-dom'
 
 import DashboardHeader from '../Layout/DashboardHeader';
 import DashboardContent from '../Layout/DashboardContent';
-
-import { 
-  useGetVehiclesQuery
-} from '../../../services/vehicleApi';
-
 import InventorySpotlight from '../Home/InventorySpotlight';
-
-
-const { Meta } = Card;
 
 const HomeContainer = () => {
 

@@ -9,7 +9,7 @@ export interface ITheme {
 
 const ThemeData: ITheme = {
   borderRadius: 6,
-  colorPrimary: '#1677ff',
+  colorPrimary: '#0e1111',
   Button: {
     colorPrimary: '#BACC81',
   },

@@ -3,6 +3,30 @@ import {
   fetchBaseQuery 
 } from '@reduxjs/toolkit/query/react'
 
+interface Order {
+  order_id: number;
+  customer_id: number | null;
+  port_of_loading: string | null;
+  container_number: string | null;
+  port_of_arrival: string | null;
+  loaded_on: string | null;
+  orderEvents: OrderEvent[];
+  thirdParties: ThirdParty[];
+  documents: Document[];
+  vehicles: Vehicle[];
+  created_on: string;
+  updated_on: string;
+  deleted_on: string | null;
+}
+
+interface OrderEvent {
+  order_event_id: number;
+  name: string;
+  created_on: string;
+  updated_on: string;
+  deleted_on: string | null;
+}
+
 interface Vehicle {
   vehicle_id: number;
   make: string;
@@ -16,6 +40,45 @@ interface Vehicle {
   images: Image[];
 }
 
+interface Image {
+  image_url: string;
+}
+
+interface ThirdParty {
+  third_party_id: number;
+  address: Address;
+  order_id: number;
+  type: string;
+  created_on: string;
+  updated_on: string;
+  deleted_on: string | null;
+}
+
+interface Address {
+  address_id: number;
+  name: string;
+  line1: string;
+  line2: string | null;
+  city: string;
+  state_code: string;
+  country_code: string;
+  postal_code: string;
+  email: string | null;
+  phone: string | null;
+  customer_id: number | null;
+  created_on: string;
+  updated_on: string;
+  deleted_on: string | null;
+}
+
+interface Document {
+  document_id: number;
+  order_id: number;
+  file_url: number;
+  created_on: string;
+  updated_on: string;
+  deleted_on: string | null;
+}
 interface Image {
   image_url: string;
 }
@@ -35,7 +98,7 @@ interface CreateVehicleParams {
   transmission_type: string;
 }
 
-const vehicleApi = createApi({
+const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:4000',
     prepareHeaders: (headers, { getState }: any) => {
@@ -50,6 +113,14 @@ const vehicleApi = createApi({
   }),
   tagTypes: ['vehicles'],
   endpoints: (build) => ({
+    getOrders: build.query({
+      query: () => 'orders',
+      transformResponse: (response: { data: Order[] }) => response.data,
+    }),
+    getOrder: build.query({
+      query: (orderId) => `orders/${orderId}`,
+      transformResponse: (response: { data: Order[] }) => response.data,
+    }),
     getVehicles: build.query({
       query: () => 'vehicles',
       transformResponse: (response: { data: Vehicle[] }) => response.data,
@@ -70,13 +141,17 @@ const vehicleApi = createApi({
 })
 
 const { 
+  useGetOrderQuery,
+  useGetOrdersQuery,
   useGetVehiclesQuery, 
   useGetVehicleQuery,
   useCreateVehicleMutation
-} = vehicleApi
+} = api
 
 export {
-  vehicleApi,
+  api,
+  useGetOrderQuery,
+  useGetOrdersQuery,
   useGetVehiclesQuery,
   useGetVehicleQuery,
   useCreateVehicleMutation

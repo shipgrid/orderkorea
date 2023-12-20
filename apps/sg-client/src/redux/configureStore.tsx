@@ -36,8 +36,8 @@ import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth';
 
 import {
-  vehicleApi
-} from '../services/vehicleApi'
+  api
+} from '../services/api'
 
 const firebaseConfig = {
   apiKey: "AIzaSyCYLoJUVGHCybEjP-aK5nhfQ5Jjfs5wwHY",
@@ -52,7 +52,8 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 
 const rootReducer: Reducer = combineReducers({
-  [vehicleApi.reducerPath]: vehicleApi.reducer,
+  [api.reducerPath]: api.reducer,
+  // [orderApi.reducerPath]: orderApi.reducer,
   session,
   firebase: persistReducer(
     { key: 'firebaseState', storage: localStorage, stateReconciler: autoMergeLevel2 },
@@ -68,7 +69,7 @@ const persistConfig = {
   blacklist: [
     'firebase',
     'firebaseState',
-    vehicleApi.reducerPath
+    api.reducerPath,
   ]
 }
 
@@ -91,7 +92,8 @@ const store = configureStore({
           getFirebase,
         },
       },
-    }).concat(vehicleApi.middleware),
+    })
+    .concat(api.middleware)
 })
 
 setupListeners(store.dispatch)

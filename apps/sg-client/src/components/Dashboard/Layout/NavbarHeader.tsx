@@ -68,7 +68,7 @@ const NavbarHeader = ({ }) => {
         alignItems: 'flex-end',
         justifyContent: 'center',
         height: 100,
-        backgroundColor: '#013A20',
+        backgroundColor: '#0e1111',
       }}
     >
       <div style={{width: 1280, display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
