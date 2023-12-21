@@ -14,7 +14,7 @@ interface UserCustomer {
 
 class UserCustomer extends Model implements UserCustomer {
   static get tableName() {
-    return 'user_customer';
+    return 'user_customers';
   }
 
   static get idColumn() {
@@ -27,7 +27,7 @@ class UserCustomer extends Model implements UserCustomer {
         relation: Model.BelongsToOneRelation,
         modelClass: User,
         join: {
-          from: 'user_customer.user_id',
+          from: 'user_customers.user_id',
           to: 'users.user_id',
         },
       },

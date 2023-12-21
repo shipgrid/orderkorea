@@ -1,6 +1,7 @@
 import {
   User,
   Customer,
+  HttpError
 } from '../../models'
 
 interface UserWithUserCustomer extends User {
@@ -10,6 +11,11 @@ interface UserWithUserCustomer extends User {
 export default async ({
   username,
 }):Promise<UserWithUserCustomer> => {
+
+  if (!username) {
+    throw new HttpError(400, 'Username is required')
+  }
+  
   try {
     const user = await User.query()
       .withGraphFetched('userCustomer')

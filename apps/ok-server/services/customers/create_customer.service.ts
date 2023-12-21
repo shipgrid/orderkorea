@@ -2,7 +2,8 @@ import {
   User,
   Customer,
   KnexClient,
-  Logger
+  Logger,
+  HttpError
 } from '../../models'
 
 export default async ({
@@ -14,6 +15,27 @@ export default async ({
 }) => {
 
   try {
+
+    if (!first_name) {
+      throw new HttpError(400, 'First name is required')
+    }
+
+    if (!last_name) {
+      throw new HttpError(400, 'Last name is required')
+    }
+
+    if (!username) {
+      throw new HttpError(400, 'Username is required')
+    }
+
+    if (!password_hash) {
+      throw new HttpError(400, 'Password is required')
+    }
+
+    if (!last_login) {
+      throw new HttpError(400, 'Last login is required')
+    }
+    
     await KnexClient.transaction(async (trx) => {
 
       const newUser = {

@@ -1,16 +1,26 @@
-class HttpError {
-  /**
-   * @param {number} statusCode Http Status Code (e.g. 400, 404, 500)
-   * @param {string} serverMessage Internal server error message.
-   * @param {string} [clientMessage] (OPTIONAL) - Error message to display to the client. Defaults to serverMessage if empty.
-   * @param {any} data Additional data associated with the error (OPTIONAL).
-   */
+class HttpError extends Error {
+  public statusCode: number;
+  public serverMessage: string;
+  public clientMessage: string;
+  public data?: any;
+
   constructor(
-    public statusCode: number,
-    public serverMessage: string,
-    public clientMessage?: string,
-    public data?: any
-  ) {}
+    statusCode: number,
+    serverMessage: string,
+    clientMessage?: string,
+    data?: any
+  ) {
+    super(clientMessage || serverMessage);
+    this.statusCode = statusCode;
+    this.serverMessage = serverMessage;
+    this.clientMessage = clientMessage || serverMessage;
+    this.data = data;
+    this.name = 'HttpError';
+    // Maintaining proper stack trace for where our error was thrown (only available on V8)
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, HttpError);
+    }
+  }
 }
 
 export default HttpError;
