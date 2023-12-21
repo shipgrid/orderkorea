@@ -18,7 +18,6 @@ const OrderTable = () => {
   const [orders, setOrders] = useState<any[]>([]); // Update type and initialize as empty array
   const { data, error, isLoading } = useGetOrdersQuery({ customer_id: 1 });
 
-  console.log('data:', data)
   useEffect(() => {
     if (data) {
       setOrders(data); // Update state with fetched data
@@ -84,7 +83,7 @@ const OrderTable = () => {
   
   const columns = [
     {
-      title: 'ID',
+      title: 'Order ID',
       dataIndex: 'order_id',
       key: 'order_id',
     },

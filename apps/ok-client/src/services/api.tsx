@@ -37,8 +37,6 @@ const api = createApi({
   }),
 })
 
-console.log('api:', api)
-
 const { 
   useGetOrdersQuery,
 } = api

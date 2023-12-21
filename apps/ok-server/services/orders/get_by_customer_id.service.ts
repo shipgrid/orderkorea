@@ -17,8 +17,6 @@ export default async ({
     const ordersWithSKUs = await Order.query()
     .where('customer_id', customer_id)
     .withGraphFetched('[skus, order_sku]');
-
-    console.log('orderswithSkus', ordersWithSKUs)
     
     return ordersWithSKUs
   } catch(e) {
