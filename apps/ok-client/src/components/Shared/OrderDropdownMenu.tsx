@@ -60,7 +60,7 @@ const OrderDropdownMenu = ({ }) => {
       placement="bottomLeft"
       arrow
     >
-      <Button icon={<FiPlus/>} style={{ marginRight: 10 }}> Create Order </Button>
+      <Button icon={<FiPlus/>} style={{ marginRight: 10 }}> Start A New Order! </Button>
     </Dropdown>
   );
 };

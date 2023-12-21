@@ -28,27 +28,23 @@ const api = createApi({
       return headers
     },
   }),
-  tagTypes: ['vehicles'],
+  tagTypes: ['orders'],
   endpoints: (build) => ({
-    getOrders: build.query({
-      query: () => 'orders',
-      transformResponse: (response: { data: Order[] }) => response.data,
-    }),
-    getOrder: build.query({
-      query: (orderId) => `orders/${orderId}`,
+    getOrders: build.query<Order[], { customer_id: number }>({
+      query: ({ customer_id }) => `orders/${customer_id}`,
       transformResponse: (response: { data: Order[] }) => response.data,
     }),
   }),
 })
 
+console.log('api:', api)
+
 const { 
-  useGetOrderQuery,
   useGetOrdersQuery,
 } = api
 
 export {
   api,
-  useGetOrderQuery,
   useGetOrdersQuery,
 }
 

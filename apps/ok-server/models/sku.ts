@@ -27,7 +27,7 @@ interface Sku {
 
 class Sku extends Model implements Sku {
   static get tableName() {
-    return 'sku';
+    return 'skus';
   }
 
   static get idColumn() {

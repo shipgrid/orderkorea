@@ -1,7 +1,7 @@
-import create from './create_order.service'
+import createPurchaseOrder from './create_purchase_order.service'
 import getByCustomerId from './get_by_customer_id.service'
 
 export {
-  create,
+  createPurchaseOrder,
   getByCustomerId
 }

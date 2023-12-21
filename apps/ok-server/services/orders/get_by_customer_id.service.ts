@@ -14,7 +14,10 @@ export default async ({
       throw new HttpError(400, 'Customer id is required')
     }
 
-    const ordersWithSKUs = await Order.query().where('customer_id', customer_id).withGraphFetched('skus');
+    const ordersWithSKUs = await Order.query()
+    .where('customer_id', customer_id)
+    .withGraphFetched('[skus, order_sku]');
+
     console.log('orderswithSkus', ordersWithSKUs)
     
     return ordersWithSKUs
