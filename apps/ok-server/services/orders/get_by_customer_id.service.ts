@@ -1,8 +1,15 @@
+import Joi from 'joi'
+
 import {
   Logger, 
   Order,
   HttpError
 } from '../../models'
+
+const getOrdersByCustomerIdSchema = Joi.object({
+  customer_id: Joi.string().required()
+})
+
 
 export default async ({
   customer_id
@@ -10,8 +17,10 @@ export default async ({
 
   try {
 
-    if (!customer_id) {
-      throw new HttpError(400, 'Customer id is required')
+    const { error } = getOrdersByCustomerIdSchema.validate({ customer_id });
+    
+    if (error) {
+      throw new HttpError(400, error.details[0].message);
     }
 
     const ordersWithSKUs = await Order.query()

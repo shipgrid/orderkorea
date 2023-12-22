@@ -1,3 +1,4 @@
+import Joi from 'joi'
 
 import {
   HttpError
@@ -13,6 +14,11 @@ import {
   orders 
 } from '../../services'
 
+
+const getOrdersByCustomerIdSchema = Joi.object({
+  customer_id: Joi.string().required()
+})
+
 export default async (
   req: Request,
   res: Response,
@@ -21,10 +27,12 @@ export default async (
 
   try {
 
-    const { customer_id } = req.params 
+    const { error } = getOrdersByCustomerIdSchema.validate(req.params)
 
-    if (!customer_id) {
-      throw new HttpError(400, 'Customer id is required')
+    const { customer_id } = req.params
+
+    if (error) {
+      throw new HttpError(400, error.details[0].message)
     }
 
     const data = await orders.getByCustomerId({ customer_id })
