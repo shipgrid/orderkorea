@@ -25,7 +25,7 @@ import {
   useNavigate 
 } from 'react-router-dom'
 
-const UserNavbarDropdownMenu = ({ }) => {
+const UserNavbarDropdownMenu = () => {
 
   const navigate = useNavigate();
 
@@ -35,7 +35,7 @@ const UserNavbarDropdownMenu = ({ }) => {
       label: (
         <div style={{ display: 'flex', alignItems: 'center'}}>
           <RiShipLine/> 
-          <span style={{ marginLeft: 5 }} onClick={() => startTransition(() => navigate('/shipping-calculator'))}>  Shipping Calculator </span>
+          <span style={{ marginLeft: 5 }} onClick={() => startTransition(() => navigate('/shipping-calculator'))}> Shipping Calculator </span>
         </div>
       ),
     },
@@ -44,7 +44,7 @@ const UserNavbarDropdownMenu = ({ }) => {
       label: (
         <div style={{ display: 'flex', alignItems: 'center'}}>
           <RiLogoutBoxRLine/> 
-          <span style={{ marginLeft: 5 }}>  Sign Out </span>
+          <span style={{ marginLeft: 5 }} onClick={() => startTransition(() => navigate('/login'))}> Sign Out </span>
         </div>
       ),
     },

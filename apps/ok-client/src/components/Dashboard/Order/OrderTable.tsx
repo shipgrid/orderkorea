@@ -1,3 +1,7 @@
+import { 
+  useState,
+  useEffect
+} from 'react';
 import {
   Table,
   Progress
@@ -8,23 +12,86 @@ import '../../../assets/index.css'
 import { 
   BsBoxes 
 } from "react-icons/bs";
+import { useGetOrdersQuery } from '../../../services/api';
 
 const OrderTable = () => {
+  const [orders, setOrders] = useState<any[]>([]); // Update type and initialize as empty array
+  const { data, error, isLoading } = useGetOrdersQuery({ customer_id: 1 });
+
+  useEffect(() => {
+    if (data) {
+      setOrders(data); // Update state with fetched data
+    }
+  }, [data]);
 
   const rowClassName = () => {
     return 'fixed-height-row';
   };
 
+  const renderProductUrl = (text: any) => {
+    const url = text.length > 0 ? text[0].product_url : '';
+    return url ? (
+      <a 
+        href={url} 
+        target="_blank" 
+        rel="noopener noreferrer"
+        style={{ color: 'blue', textDecoration: 'underline' }}
+      >
+        {url}
+      </a>
+    ) : 'N/A';
+  
+  };
+
+  
+  const renderInventoryStatus = (text, record) => {
+    if (record.order_sku && record.order_sku.length > 0) {
+      const { quantity, quantity_received } = record.order_sku[0];
+      const percent = quantity ? (quantity_received / quantity) * 100 : 0;
+      return (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <Progress percent={percent} size="small" />
+        </div>
+      );
+    } else {
+      return 'N/A';
+    }
+  };
+  
+  const renderReceivedOrdered = (text, record) => {
+    if (record.order_sku && record.order_sku.length > 0) {
+      const { quantity, quantity_received } = record.order_sku[0];
+      return `${quantity_received || 0} / ${quantity || 0}`;
+    } else {
+      return 'N/A';
+    }
+  };
+  
+  const renderTotalCost = (_: any, record: any) => {
+    // Check if both quantity and unit_price are available
+    if (record.order_sku && record.order_sku.length > 0 && record.skus && record.skus.length > 0) {
+      const quantity = record.order_sku[0].quantity;
+      const unitPrice = record.skus[0].unit_price;
+  
+      // Calculate total cost
+      const totalCost = quantity * unitPrice;
+      return totalCost.toFixed(2); // Formats the cost to 2 decimal places
+    } else {
+      return 'N/A'; // Return 'N/A' if the necessary data is missing
+    }
+  };
+  
   const columns = [
     {
-      title: 'Order',
-      dataIndex: 'id',
-      key: 'id',
+      title: 'Order ID',
+      dataIndex: 'order_id',
+      key: 'order_id',
     },
     {
-      title: 'Vendor',
-      dataIndex: 'vendor',
-      key: 'vendor',
+      title: 'URL',
+      dataIndex: 'skus',
+      key: 'product_url',
+      render: renderProductUrl, // Use the custom render function here
     },
     {
       title: 'Order Status',
@@ -33,80 +100,35 @@ const OrderTable = () => {
     },
     {
       title: 'Created',
-      dataIndex: 'created',
-      key: 'created',
+      dataIndex: 'created_on',
+      key: 'created_on',
     },
-    {
-      title: 'Expected',
-      dataIndex: 'expected',
-      key: 'expected',
-    },
+    // {
+    //   title: 'Expected',
+    //   dataIndex: 'expected',
+    //   key: 'expected',
+    // },
     {
       title: 'Inventory Status',
-      dataIndex: 'inventoryStatus',
+      dataIndex: 'order_sku',
       key: 'inventoryStatus',
-      render: (inventoryStatus: string) => (
-        <div style={{ display: 'flex', alignItems: 'center'}}>
-          <BsBoxes/> 
-          <span style={{ marginLeft: 5 }}>  {inventoryStatus} </span>
-        </div>
-      )
+      render: renderInventoryStatus,
     },
     {
       title: 'Inventory Received',
-      dataIndex: 'receivedOrdered',
+      dataIndex: 'order_sku',
       key: 'receivedOrdered',
-      render: (receivedOrdered: string) => (
-        <div style={{ display: 'flex', alignItems: 'center'}}>
-          <Progress percent={100} size="small" />
-          <span style={{ marginLeft: 5 }}>  {receivedOrdered} </span>
-        </div>
-      )
+      render: renderReceivedOrdered,
     },
     {
       title: 'Total Cost',
-      dataIndex: 'totalCost',
-      key: 'totalCost',
-    },
-  ];
-
-
-  const data = [
-    {
-      id: 10,
-      vendor: 'Coupang',
-      orderStatus: 'Pending',
-      created: new Date().toISOString(),
-      expected: new Date().toISOString(),
-      inventoryStatus: 'Over Received',
-      receivedOrdered: '6/3',
-      totalCost: 'USD 139.99',
-    },
-    {
-      id: 11,
-      vendor: 'Coupang',
-      orderStatus: 'Complete',
-      created: new Date().toISOString(),
-      expected: new Date().toISOString(),
-      inventoryStatus: 'Partially Received',
-      receivedOrdered: '80/120',
-      totalCost: 'USD 120.99',
-    },
-    {
-      id: 12,
-      vendor: 'Coupang',
-      orderStatus: 'Pending',
-      created: new Date().toISOString(),
-      expected: new Date().toISOString(),
-      inventoryStatus: 'Received',
-      receivedOrdered: '60/60',
-      totalCost: 'USD 59.99',
+      render: renderTotalCost, // Use the custom render function here
     },
   ];
 
   return (
     <Table 
-      dataSource={data} 
+      dataSource={orders} 
       columns={columns} 
       size='small'
       bordered

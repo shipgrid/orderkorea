@@ -1,6 +1,7 @@
 import { Model } from 'objection';
 import knexClient from './knex_client'
 import Sku from './sku'
+import OrderSku from './order_sku';
 
 Model.knex(knexClient);
 
@@ -34,7 +35,15 @@ class Order extends Model implements Order {
             from: 'order_sku.order_id',
             to: 'order_sku.sku_id'
           },
-          to: 'sku.sku_id'
+          to: 'skus.sku_id'
+        }
+      },
+      order_sku: {
+        relation: Model.HasManyRelation,
+        modelClass: OrderSku,
+        join: {
+          from: 'orders.order_id',
+          to: 'order_sku.order_id'
         }
       }
     };

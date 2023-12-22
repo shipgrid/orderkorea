@@ -9,6 +9,7 @@ interface OrderSku {
   sku_id: string;
   order_id: number;
   quantity: number;
+  quantity_received: number;
   contact_email: string;
   contact_phone: string;
   contact_name: string;
@@ -55,6 +56,7 @@ class OrderSku extends Model implements OrderSku {
         sku_id: { type: 'string', minLength: 1, maxLength: 255 },
         order_id: { type: 'integer' },
         quantity: { type: 'integer' },
+        quantity_received: { type: 'integer' },
         contact_email: { type: 'string', minLength: 1, maxLength: 255 },
         contact_phone: { type: 'string', minLength: 1, maxLength: 255 },
         contact_name: { type: 'string', minLength: 1, maxLength: 255 },
