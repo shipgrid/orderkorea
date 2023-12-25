@@ -23,9 +23,19 @@ import {
 
 const OrderDetailContainer = () => {
 
-  const { data:order, error, isLoading } = useGetOrderQuery({});
+  const searchParams = new URLSearchParams(location.search);
 
-  console.log(order, error, isLoading)
+  const orderId = searchParams.get('order_id');
+
+  if(!orderId) {
+    return 'No order found'
+  }
+
+  const { data:order, error, isLoading } = useGetOrderQuery(orderId);
+
+  if(!order) {
+    return 'No order found'
+  }
 
   return (
     <Stack minH={'100vh'}>
@@ -40,7 +50,9 @@ const OrderDetailContainer = () => {
         <Grid          
         title='Shipment Details'
           content={
-            <OrderDetail/>
+            <OrderDetail
+              order={order}
+            />
           }
         />
         <Divider my={3}/>
@@ -48,7 +60,9 @@ const OrderDetailContainer = () => {
         <Grid
           title='Shipper, Consignee and Contacts'
           content={
-            <ThirdPartyTable/>
+            <ThirdPartyTable
+              thirdParties={order.thirdParties}
+            />
           }
         />
         <Divider my={3}/>
@@ -56,14 +70,18 @@ const OrderDetailContainer = () => {
         <Grid
           title='Documents'
           content={
-            <DocumentTable/>
+            <DocumentTable
+              documents={order.documents}
+            />
           }
         />
       <Divider my={3}/>
         <Grid
           title='Vehicles'
           content={
-            <VehicleTable/>
+            <VehicleTable
+              vehicles={order.vehicles}
+            />
           }
         />
       </DashboardContent>

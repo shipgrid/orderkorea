@@ -109,31 +109,13 @@ const OrderTable = () => {
 
   const navigate = useNavigate();
 
-  const { data:orders, error, isLoading } = useGetOrdersQuery();
+  const { data:orders, error, isLoading } = useGetOrdersQuery({});
 
   const rowClassName = () => {
     return 'fixed-height-row';
   };
 
   const columns = [
-    // {
-    //   title: 'Make - Model',
-    //   dataIndex: 'id',
-    //   key: 'id',
-    //   render: (key: string) => {
-    //     return (
-    //       <div style={{ display: 'flex', alignItems: 'center' }}>
-    //         <BsBoxes style={{ marginRight: 10 }}/>
-    //         <span> 2008 Hyundai Elentra </span>
-    //       </div>
-    //     )
-    //   }
-    // },
-    // {
-    //   title: 'Vehicles',
-    //   dataIndex: 'vehicles',
-    //   key: 'vehicles',
-    // },
     {
       title: 'Shipment Type',
       dataIndex: 'shipment_type',
@@ -201,7 +183,7 @@ const OrderTable = () => {
       key: 'totalCost',
       render: (key: string, record: Order) => {
         return (
-          <Button key="setting" style={{ width: '90%', borderRadius: 20 }} type='primary' onClick={() => startTransition(() => navigate(`/orders?order_id=${record.order_id}`))}> View More </Button>
+          <Button key="setting" style={{ width: '90%', borderRadius: 20 }} type='primary' onClick={() => startTransition(() => navigate(`/order?order_id=${record.order_id}`))}> View More </Button>
         )
       }
     },

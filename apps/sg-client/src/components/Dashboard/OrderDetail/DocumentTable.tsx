@@ -11,9 +11,19 @@ interface DataType {
   type: string;
 }
 
+import {
+  Document
+} from '../../../services/api'
+
 import { FaFilePdf } from "react-icons/fa6";
 
-const InventoryTable = () => {
+interface DocumentTableProps {
+  documents: Document[]; 
+}
+
+const DocumentTable: React.FC<DocumentTableProps> = ({
+  documents
+}) => {
 
   const rowClassName = () => {
     return 'fixed-height-row';
@@ -36,44 +46,25 @@ const InventoryTable = () => {
     {
       title: 'Type',
       key: 'type',
-      dataIndex: 'type'
+      dataIndex: 'type' 
     },
     {
       title: 'Download',
+      dataIndex: 'file_url',
       key: 'type',
       render:(key: string, record: object) => (
         <Button>
-          <a href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" download>
+          <a href={key} download>
             Download
           </a>
         </Button>
-
       )
     },
   ];
 
-  const data: DataType[] = [
-    {
-      key: 1,
-      name: 'Bill of Lading',
-      type: 'pdf'
-    },
-    {
-      key: 2,
-      name: 'Proof of Delivery',
-      type: 'pdf'
-
-    },
-    {
-      key: 3,
-      name: 'ProForma Invoice',
-      type: 'pdf'
-    },
-  ]
-
   return (
     <Table 
-      dataSource={data} 
+      dataSource={documents} 
       columns={columns} 
       size='small'
       bordered
@@ -82,4 +73,4 @@ const InventoryTable = () => {
   );
 }
 
-export default InventoryTable
+export default DocumentTable

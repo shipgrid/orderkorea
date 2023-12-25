@@ -8,7 +8,7 @@ import DashboardContent from '../Layout/DashboardContent';
 import Grid from '../../Shared/Grid';
 import VehicleDetail from '../VehicleDetail/VehicleDetail';
 
-const ShippingCalculatorContainer = () => {
+const VehicleDetailContainer = () => {
 
   return (
     <Stack minH={'100vh'}>
@@ -30,4 +30,4 @@ const ShippingCalculatorContainer = () => {
   );
 }
 
-export default ShippingCalculatorContainer
+export default VehicleDetailContainer

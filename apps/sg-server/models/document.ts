@@ -7,6 +7,7 @@ Model.knex(knexClient);
 interface Document {
   document_id: number;
   order_id: number;
+  name: string;
   file_url: number;
   created_on: string;
   updated_on: string;
@@ -42,6 +43,7 @@ class Document extends Model implements Document {
       properties: {
         document_id: { type: ['integer'] },
         order_id: { type: ['integer'] },
+        name: { type: 'string', minLength: 1, maxLength: 255 },
         file_url: { type: 'string', minLength: 1, maxLength: 255 },
         created_on: { type: 'string' },
         updated_on: { type: 'string' },

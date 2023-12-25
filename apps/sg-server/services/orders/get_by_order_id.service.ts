@@ -17,9 +17,6 @@ export default async ({
       .modifyGraph('vehicles.[images]', builder => {
         builder.select('image_url');
       })
-      .modifyGraph('documents', builder => {
-        builder.select('file_url');
-      })
       .findById(order_id);
     return order;
 

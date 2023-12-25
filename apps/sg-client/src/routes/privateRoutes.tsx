@@ -1,5 +1,4 @@
 import { lazy } from "react";
-import { RouteObject } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import Dashboard from "../pages/Dashboard";
 
@@ -17,7 +16,7 @@ export default function routes() {
       children: [
         { path: '/', element: <HomeContainer /> },
         { path: '/vehicle', element: <VehicleDetailContainer /> },
-        { path: '/order-detail', element: <OrderDetailContainer /> },
+        { path: '/order', element: <OrderDetailContainer /> },
         { path: '/orders', element: <OrderContainer /> },
         { path: '/delivery-destination', element: <DeliveryDestinationContainer /> },
         { path: "*", element: <Navigate to="/login" replace /> },

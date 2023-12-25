@@ -3,9 +3,10 @@ import {
   fetchBaseQuery 
 } from '@reduxjs/toolkit/query/react'
 
-interface Order {
+export interface Order {
   order_id: number;
   customer_id: number | null;
+  shipment_type: string | null;
   port_of_loading: string | null;
   container_number: string | null;
   port_of_arrival: string | null;
@@ -14,12 +15,13 @@ interface Order {
   thirdParties: ThirdParty[];
   documents: Document[];
   vehicles: Vehicle[];
+  expected_arrival: string | null;
   created_on: string;
   updated_on: string;
   deleted_on: string | null;
 }
 
-interface OrderEvent {
+export interface OrderEvent {
   order_event_id: number;
   name: string;
   created_on: string;
@@ -27,7 +29,7 @@ interface OrderEvent {
   deleted_on: string | null;
 }
 
-interface Vehicle {
+export interface Vehicle {
   vehicle_id: number;
   make: string;
   model: string;
@@ -37,14 +39,14 @@ interface Vehicle {
   transmission_type: string;
   mileage: number;
   price: number;
-  images: Image[];
+  images: VehicleImage[];
 }
 
-interface Image {
+export interface VehicleImage {
   image_url: string;
 }
 
-interface ThirdParty {
+export interface ThirdParty {
   third_party_id: number;
   address: Address;
   order_id: number;
@@ -54,7 +56,7 @@ interface ThirdParty {
   deleted_on: string | null;
 }
 
-interface Address {
+export interface Address {
   address_id: number;
   name: string;
   line1: string;
@@ -71,7 +73,7 @@ interface Address {
   deleted_on: string | null;
 }
 
-interface Document {
+export interface Document {
   document_id: number;
   order_id: number;
   file_url: number;
@@ -111,7 +113,7 @@ const api = createApi({
       return headers
     },
   }),
-  tagTypes: ['vehicles'],
+  // tagTypes: ['vehicles'],
   endpoints: (build) => ({
     getOrders: build.query({
       query: () => 'orders',
@@ -119,7 +121,7 @@ const api = createApi({
     }),
     getOrder: build.query({
       query: (orderId) => `orders/${orderId}`,
-      transformResponse: (response: { data: Order[] }) => response.data,
+      transformResponse: (response: { data: Order }) => response.data,
     }),
     getVehicles: build.query({
       query: () => 'vehicles',

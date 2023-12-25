@@ -1,18 +1,13 @@
 import {
   Table,
-  Image,
 } from 'antd'
 
 import '../../../assets/index.css'
 
-interface Address {
-  name: string;
-  line1: string;
-  countryCode: string;
-  stateCode: string;
-  city: string;
-  postalCode: string;
-}
+import {
+  ThirdParty,
+  Address
+} from '../../../services/api'
 
 interface Contact {
   name: string;
@@ -20,15 +15,13 @@ interface Contact {
   email: string;
 }
 
-interface DataType {
-  key: React.Key;
-  type: string;
-  name: string;
-  address: Address;
-  contact: Contact;
+interface ThirdPartyTableProps {
+  thirdParties: ThirdParty[]; 
 }
 
-const InventoryTable = () => {
+const ThirdPartyTable: React.FC<ThirdPartyTableProps> = ({
+  thirdParties
+}) => {
 
   const rowClassName = () => {
     return 'fixed-height-row';
@@ -42,8 +35,11 @@ const InventoryTable = () => {
     },
     {
       title: 'Name',
-      dataIndex: 'name',
+      dataIndex: 'address',
       key: 'name',
+      render: (key:Address) => (
+        <p style={{ fontSize: 14 }}> {key.name} </p>
+      )
     },
     {
       title: 'Address',
@@ -54,8 +50,8 @@ const InventoryTable = () => {
           <div style={{ display: 'flex', flexDirection:'column' }}>
             <p style={{fontSize: 14}}> {key?.name} </p>
             <p style={{fontSize: 12, color: 'gray'}}> {key?.line1} </p>
-            <p style={{fontSize: 12, color: 'gray'}}> {key?.city}, {key?.stateCode} </p>
-            <p style={{fontSize: 12, color: 'gray'}}> {key?.postalCode} </p>
+            <p style={{fontSize: 12, color: 'gray'}}> {key?.city}, {key?.state_code}, {key?.country_code} </p>
+            <p style={{fontSize: 12, color: 'gray'}}> {key?.postal_code} </p>
           </div>
         )
       }
@@ -76,66 +72,9 @@ const InventoryTable = () => {
     },
   ];
 
-  const data: DataType[] = [
-    {
-      key: 1,
-      type: 'Shipper',
-      name: 'Joe Fong',
-      address: {
-        name: 'Joe Fong (Richmond, BC)',
-        line1: '7831 Garden City Road',
-        countryCode: 'CA',
-        stateCode: 'BC',
-        city: 'Richmond',
-        postalCode: 'V6Y 0K2',
-      },
-      contact: {
-        name: 'Joe Fong (Richmond, BC)',
-        phone: '604-123-4567',
-        email: 'joecofg@gmail.com'
-      },
-    },
-    {
-      key: 1,
-      type: 'Consignee',
-      name: 'Monica Wu',
-      address: {
-        name: 'Joe Fong (Richmond, BC)',
-        line1: '7831 Garden City Road',
-        countryCode: 'CA',
-        stateCode: 'BC',
-        city: 'Richmond',
-        postalCode: 'V6Y 0K2',
-      },
-      contact: {
-        name: 'Joe Fong (Richmond, BC)',
-        phone: '604-123-4567',
-        email: 'joecofg@gmail.com'
-      },
-    },
-    {
-      key: 1,
-      type: 'Delivery Destination',
-      name: 'Nigera Auto 1 Dealership',
-      address: {
-        name: 'Joe Fong (Richmond, BC)',
-        line1: '7831 Garden City Road',
-        countryCode: 'CA',
-        stateCode: 'BC',
-        city: 'Richmond',
-        postalCode: 'V6Y 0K2',
-      },
-      contact: {
-        name: 'Joe Fong (Richmond, BC)',
-        phone: '604-123-4567',
-        email: 'joecofg@gmail.com'
-      },
-    },
-  ]
-
   return (
     <Table 
-      dataSource={data} 
+      dataSource={thirdParties} 
       columns={columns} 
       size='small'
       bordered
@@ -144,4 +83,4 @@ const InventoryTable = () => {
   );
 }
 
-export default InventoryTable
+export default ThirdPartyTable

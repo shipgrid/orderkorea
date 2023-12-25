@@ -5,19 +5,18 @@ import {
 
 import '../../../assets/index.css'
 
-interface DataType {
-  key: React.Key;
-  images: string[];
-  make: string;
-  model: string;
-  year: string; 
-  exterior_color: string;
-  vin_number:string;
-  price: string;
-  mileage: string;
+import {
+  Vehicle,
+  VehicleImage
+} from '../../../services/api'
+
+interface VehicleTableProps {
+  vehicles: Vehicle[]; 
 }
 
-const InventoryTable = () => {
+const VehicleTable: React.FC<VehicleTableProps> = ({
+  vehicles
+}) => {
 
   const rowClassName = () => {
     return 'fixed-height-row';
@@ -28,16 +27,19 @@ const InventoryTable = () => {
       title: 'Image',
       dataIndex: 'images',
       key: 'images',
-      render: (key: string[]) => {
+      render: (key: VehicleImage[]) => {
+        
+        const images = key.map((image: VehicleImage) => image.image_url)
+
         return (
           <Image.PreviewGroup
             items={
-              key.map((image: string) => {
+              images.map((image: string) => {
                 return { src: image }
               })
             }
           >
-            <Image width={55} src={key[0]} style={{ borderRadius: 8 }}/>
+            <Image width={55} src={images[0]} style={{ borderRadius: 8 }}/>
           </Image.PreviewGroup>
         )
       }
@@ -45,10 +47,10 @@ const InventoryTable = () => {
     {
       title: 'Make - Model',
       key: 'name',
-      render: (key: string, record: object) => {
+      render: (key: string, record: Vehicle) => {
         return (
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <span> Hyundai Elentra </span>
+            <span> { `${record.make} ${record.model}` } </span>
           </div>
         )
       }
@@ -80,51 +82,9 @@ const InventoryTable = () => {
     },
   ];
 
-  const data: DataType[] = [
-    {
-      key: 1,
-      images: [
-        'https://ci.encar.com/carpicture/carpicture03/pic3593/35931075_001.jpg?impolicy=heightRate&rh=480&cw=640&ch=480&cg=Center&wtmk=https://ci.encar.com/wt_mark/w_mark_03.png&t=20230912193136'
-      ],
-      make: 'Mazda',
-      model: 'Mazda 3',
-      year: '2023',
-      exterior_color: 'Black',
-      vin_number: '123456789',
-      price: 'USD 10,000',
-      mileage: '59,728km',
-    },
-    {
-      key: 2,
-      images: [
-        'https://www.usnews.com/cmsmedia/56/44/fc92b01c4006b46932e72ac46fe8/2023-hyundai-tucson-hybrid-8.jpg'
-      ],
-      make: 'Mazda',
-      model: 'Mazda 3',
-      year: '2023',
-      exterior_color: 'Black',
-      vin_number: '123456789',
-      price: 'USD 10,000',
-      mileage: '59,728km',
-    },
-    {
-      key: 3,
-      images: [
-        'https://ci.encar.com/carpicture/carpicture03/pic3593/35931075_001.jpg?impolicy=heightRate&rh=480&cw=640&ch=480&cg=Center&wtmk=https://ci.encar.com/wt_mark/w_mark_03.png&t=20230912193136'
-      ],
-      make: 'Mazda',
-      model: 'Mazda 3',
-      year: '2023',
-      exterior_color: 'Black',
-      vin_number: '123456789',
-      price: 'USD 10,000',
-      mileage: '59,728km',
-    },
-  ]
-
   return (
     <Table 
-      dataSource={data} 
+      dataSource={vehicles} 
       columns={columns} 
       size='small'
       bordered
@@ -133,4 +93,4 @@ const InventoryTable = () => {
   );
 }
 
-export default InventoryTable
+export default VehicleTable

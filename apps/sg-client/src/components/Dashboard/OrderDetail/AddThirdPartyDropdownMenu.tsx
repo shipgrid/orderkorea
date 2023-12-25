@@ -17,14 +17,6 @@ import {
 } from 'react-icons/fi'
 
 import { 
-  RiInformationLine
-} from "react-icons/ri";
-
-import { 
-  MdShoppingCartCheckout 
-} from "react-icons/md";
-
-import { 
   useNavigate 
 } from 'react-router-dom'
 
