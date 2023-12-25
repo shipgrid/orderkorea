@@ -81,13 +81,14 @@ export interface Document {
   updated_on: string;
   deleted_on: string | null;
 }
-interface Image {
-  image_url: string;
-}
 
-interface CreateVehicleResponse {
+interface ApiResponse {
   success: boolean;
   data: number;
+}
+
+interface CreateThirdPartyParams {
+
 }
 
 interface CreateVehicleParams {
@@ -131,13 +132,21 @@ const api = createApi({
       query: (vehicleId) => `vehicles/${vehicleId}`,
       transformResponse: (response: { data: Vehicle }) => response.data,
     }),
-    createVehicle: build.mutation<CreateVehicleResponse, CreateVehicleParams>({
+    createVehicle: build.mutation<ApiResponse, CreateVehicleParams>({
       query: (body) => ({
         url: `vehicles`,
         method: 'POST',
         body,
       }),
       transformResponse: (response: { data: any }, meta, arg) => response.data,
+    }),
+    createThirdParty: build.mutation<ApiResponse, CreateThirdPartyParams>({
+      query: (body) => ({
+        url: `third-parties`,
+        method: 'POST',
+        body,
+      }),
+      transformResponse: (response: { data: any }, meta, arg) => {  console.log(response.data); return response.data},
     })
   }),
 })
@@ -147,7 +156,8 @@ const {
   useGetOrdersQuery,
   useGetVehiclesQuery, 
   useGetVehicleQuery,
-  useCreateVehicleMutation
+  useCreateVehicleMutation,
+  useCreateThirdPartyMutation  
 } = api
 
 export {
@@ -156,6 +166,7 @@ export {
   useGetOrdersQuery,
   useGetVehiclesQuery,
   useGetVehicleQuery,
-  useCreateVehicleMutation
+  useCreateVehicleMutation,
+  useCreateThirdPartyMutation
 }
 

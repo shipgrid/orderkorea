@@ -5,7 +5,7 @@ import {
 } from 'express'
 
 import {
-  addresses
+  thirdParties
 } from '../../services'
 
 export default async (
@@ -18,29 +18,33 @@ export default async (
 
     const {
       name,
+      type,
       line1,
       line2,
       city,
       state_code,
       country_code,
       postal_code,
-      email,
-      phone,
+      email, 
+      phone, 
+      order_id
     } = req.body
-
-    const data = await addresses.create({
+    
+    const data = await thirdParties.create({
       name,
+      type,
       line1,
       line2,
       city,
       state_code,
       country_code,
       postal_code,
-      email,
-      phone,
+      email, 
+      phone, 
+      order_id
     })
 
-    res.status(200).json({ ...data, success: true });
+    res.status(200).json({ success: true });
   } catch (e) {
     next(e)
   }

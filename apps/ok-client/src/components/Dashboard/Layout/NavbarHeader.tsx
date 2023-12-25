@@ -94,7 +94,6 @@ const NavbarHeader = ({ }) => {
         alignItems: 'flex-end',
         justifyContent: 'center',
         height: 100,
-        // backgroundColor: 'white',
       }}
     >
       <div style={{width: 1280, display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>

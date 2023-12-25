@@ -1,5 +1,4 @@
 import admin from 'firebase-admin'
-import logger from '../models/logger'
 
 admin.initializeApp({
   credential: admin.credential.cert('./firebase-admin-config.json')
@@ -20,8 +19,9 @@ export default async (req, res, next) => {
     const tokenArray = authHeader.split(' ');
     const token = tokenArray[1].replace(/[^a-zA-Z0-9_+.\-]/g, '');
   
-    await admin.auth().verifyIdToken(token)
+    const response = await admin.auth().verifyIdToken(token)
 
+    req.uid = response.uid
     next()
   } catch(e) {
     next(e)

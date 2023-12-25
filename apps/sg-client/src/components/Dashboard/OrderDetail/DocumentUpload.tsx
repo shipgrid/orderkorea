@@ -26,7 +26,7 @@ const props: UploadProps = {
 
 const App: React.FC = () => (
   <Dragger {...props}>
-    {/* <p className="ant-upload-text">Click or drag file to this area to upload</p> */}
+    <p className="ant-upload-text">Click or drag file to this area to upload</p>
     <p className="ant-upload-hint">
       Click or drag file here to upload
     </p>

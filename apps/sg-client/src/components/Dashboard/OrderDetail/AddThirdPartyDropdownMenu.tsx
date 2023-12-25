@@ -20,7 +20,13 @@ import {
   useNavigate 
 } from 'react-router-dom'
 
-const AddThirdPartyDropdownMenu = ({ }) => {
+interface AddThirdPartyDropdownMenuProps {
+  orderId: string; 
+}
+
+const AddThirdPartyDropdownMenu: React.FC<AddThirdPartyDropdownMenuProps> = ({ 
+  orderId
+}) => {
 
   const navigate = useNavigate();
 
@@ -28,21 +34,21 @@ const AddThirdPartyDropdownMenu = ({ }) => {
     {
       key: '1',
       label: (
-        <div style={{ display: 'flex', alignItems: 'center'}} onClick={() => startTransition(() => navigate('/delivery-destination'))}>
+        <div style={{ display: 'flex', alignItems: 'center'}} onClick={() => startTransition(() => navigate(`/delivery-destination?order_id=${orderId}`))}>
           <FiPlus/>
           <span style={{ marginLeft: 5 }}>  Add Delivery Destination </span>
         </div>
       ),
     },
-    // {
-    //   key: '2',
-    //   label: (
-    //     <div style={{ display: 'flex', alignItems: 'center'}} onClick={() => startTransition(() => navigate('/inform-order'))}>
-    //       <FiPlus/>
-    //       <span style={{ marginLeft: 5 }}>  Add Notify Party </span>
-    //     </div>
-    //   ),
-    // },
+    {
+      key: '2',
+      label: (
+        <div style={{ display: 'flex', alignItems: 'center'}} onClick={() => startTransition(() => navigate(`/notify-party?order_id=${orderId}`))}>
+          <FiPlus/>
+          <span style={{ marginLeft: 5 }}>  Add Notify Party </span>
+        </div>
+      ),
+    },
   ];
 
   return (

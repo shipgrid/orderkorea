@@ -9,6 +9,8 @@ import {
   Address
 } from '../../../services/api'
 
+import TableActionDropdown from '../../Shared/TableActionDropdown';
+
 interface Contact {
   name: string;
   phone: string;
@@ -67,6 +69,15 @@ const ThirdPartyTable: React.FC<ThirdPartyTableProps> = ({
             <p style={{fontSize: 12, color: 'gray'}}> {key?.phone} </p>
             <p style={{fontSize: 12, color: 'gray'}}> {key?.email} </p>
           </div>
+        )
+      }
+    },
+    {
+      key: 'action',
+      width: 50,
+      render: (key: string) => {
+        return (
+          <TableActionDropdown/>
         )
       }
     },

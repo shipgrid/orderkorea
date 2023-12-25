@@ -48,12 +48,15 @@ class ThirdParty extends Model implements ThirdParty {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['order_id', 'name'],
+      required: ['order_id', 'address_id', 'type'],
       properties: {
         third_party_id: { type: ['integer'] },
         address_id: { type: ['integer'] },
         order_id: { type: ['integer'] },
-        type: { type: 'string', minLength: 1, maxLength: 255 },
+        type: { 
+          type: 'string',  
+          enum: ['shipper', 'consignee', 'notify_party', 'delivery_destination'],
+        },
         created_on: { type: 'string' },
         updated_on: { type: 'string' },
         deleted_on: { type: ['string', 'null'] },

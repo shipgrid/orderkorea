@@ -10,6 +10,9 @@ import {
   VehicleImage
 } from '../../../services/api'
 
+import TableActionDropdown from '../../Shared/TableActionDropdown';
+
+
 interface VehicleTableProps {
   vehicles: Vehicle[]; 
 }
@@ -79,6 +82,15 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
       title: 'Vin Number',
       key: 'vin_number',
       dataIndex: 'vin_number'
+    },
+    {
+      key: 'action',
+      width: 50,
+      render: (key: string) => {
+        return (
+          <TableActionDropdown/>
+        )
+      }
     },
   ];
 

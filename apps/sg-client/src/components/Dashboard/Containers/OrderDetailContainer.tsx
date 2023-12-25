@@ -56,7 +56,9 @@ const OrderDetailContainer = () => {
           }
         />
         <Divider my={3}/>
-        <AddThirdPartyDropdownMenu/>
+        <AddThirdPartyDropdownMenu
+          orderId={orderId}
+        />
         <Grid
           title='Shipper, Consignee and Contacts'
           content={

@@ -32,7 +32,7 @@ class Address extends Model implements Address {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['name', 'line1', 'city', 'state_code', 'country_code', 'postal_code', 'customer_id'],
+      required: ['name', 'line1', 'city', 'state_code', 'country_code', 'postal_code'],
       properties: {
         address_id: { type: 'integer' },
         name: { type: 'string', minLength: 1, maxLength: 255 },
@@ -44,7 +44,6 @@ class Address extends Model implements Address {
         postal_code: { type: 'string', minLength: 1, maxLength: 45 },
         email: { type: ['string', 'null'], maxLength: 255 },
         phone: { type: ['string', 'null'], maxLength: 255 },
-        customer_id: { type: ['integer'] },
         created_on: { type: 'string' },
         updated_on: { type: 'string' },
         deleted_on: { type: ['string', 'null'] },

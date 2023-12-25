@@ -5,11 +5,7 @@ import {
 
 import '../../../assets/index.css'
 
-interface DataType {
-  key: React.Key;
-  name: string;
-  type: string;
-}
+import TableActionDropdown from '../../Shared/TableActionDropdown';
 
 import {
   Document
@@ -59,6 +55,15 @@ const DocumentTable: React.FC<DocumentTableProps> = ({
           </a>
         </Button>
       )
+    },
+    {
+      key: 'action',
+      width: 50,
+      render: (key: string) => {
+        return (
+          <TableActionDropdown/>
+        )
+      }
     },
   ];
 

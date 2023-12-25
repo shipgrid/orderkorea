@@ -7,6 +7,7 @@ const OrderContainer = lazy(() => import("../components/Dashboard/Containers/Ord
 const VehicleDetailContainer = lazy(() => import("../components/Dashboard/Containers/VehicleDetailContainer"));
 const OrderDetailContainer = lazy(() => import("../components/Dashboard/Containers/OrderDetailContainer"));
 const DeliveryDestinationContainer = lazy(() => import("../components/Dashboard/Containers/DeliveryDestinationContainer"));
+const NotifyPartyContainer = lazy(() => import("../components/Dashboard/Containers/NotifyPartyContainer"));
 
 export default function routes() {
   return [
@@ -19,6 +20,7 @@ export default function routes() {
         { path: '/order', element: <OrderDetailContainer /> },
         { path: '/orders', element: <OrderContainer /> },
         { path: '/delivery-destination', element: <DeliveryDestinationContainer /> },
+        { path: '/notify-party', element: <NotifyPartyContainer /> },
         { path: "*", element: <Navigate to="/login" replace /> },
       ],
     }

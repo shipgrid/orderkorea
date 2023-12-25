@@ -37,14 +37,14 @@ const InventorySpotlight = () => {
   if(isLoading) {
     return (
       <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap' }}>
-        <Skeleton.Image style={{ width: 310, height: 260, flex: '0 0 calc(25% - 10px)'}} active/>
-        <Skeleton.Image style={{ width: 310, height: 260, flex: '0 0 calc(25% - 10px)'}} active/>
-        <Skeleton.Image style={{ width: 310, height: 260, flex: '0 0 calc(25% - 10px)'}} active/>
-        <Skeleton.Image style={{ width: 310, height: 260, flex: '0 0 calc(25% - 10px)'}} active/>
-        <Skeleton.Image style={{ width: 310, height: 260, flex: '0 0 calc(25% - 10px)'}} active/>
-        <Skeleton.Image style={{ width: 310, height: 260, flex: '0 0 calc(25% - 10px)'}} active/>
-        <Skeleton.Image style={{ width: 310, height: 260, flex: '0 0 calc(25% - 10px)'}} active/>
-        <Skeleton.Image style={{ width: 310, height: 260, flex: '0 0 calc(25% - 10px)'}} active/>
+        <Skeleton.Image style={{ width: 310, height: 260, flex: '0 0 calc(33% - 10px)'}} active/>
+        <Skeleton.Image style={{ width: 310, height: 260, flex: '0 0 calc(33% - 10px)'}} active/>
+        <Skeleton.Image style={{ width: 310, height: 260, flex: '0 0 calc(33% - 10px)'}} active/>
+        <Skeleton.Image style={{ width: 310, height: 260, flex: '0 0 calc(33% - 10px)'}} active/>
+        <Skeleton.Image style={{ width: 310, height: 260, flex: '0 0 calc(33% - 10px)'}} active/>
+        <Skeleton.Image style={{ width: 310, height: 260, flex: '0 0 calc(33% - 10px)'}} active/>
+        <Skeleton.Image style={{ width: 310, height: 260, flex: '0 0 calc(33% - 10px)'}} active/>
+        <Skeleton.Image style={{ width: 310, height: 260, flex: '0 0 calc(33% - 10px)'}} active/>
       </div>
     )
   }
@@ -57,7 +57,7 @@ const InventorySpotlight = () => {
             <Card
               key={i}
               hoverable
-              style={{ width: 220, flex: '0 0 calc(25% - 10px)'}}
+              style={{ width: 220, flex: '1 0 calc(33% - 10px)'}}
               cover={
                 <Image.PreviewGroup
                   items={

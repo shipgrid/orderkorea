@@ -16,7 +16,7 @@ import {
   useCreateThirdPartyMutation
 } from '../../../services/api'
 
-const DeliveryDestinationContainer = () => {
+const NotifyPartyContainer = () => {
 
   const searchParams = new URLSearchParams(location.search);
   const orderId = searchParams.get('order_id');
@@ -29,9 +29,9 @@ const DeliveryDestinationContainer = () => {
 
   const handleCreateThirdParty = async (values: any) => {
     
-    const response = await createThirdParty({
+    await createThirdParty({
       order_id: parseInt(orderId),
-      type: 'delivery_destination',
+      type: 'notify_party',
       ...values
     })
   }
@@ -40,12 +40,12 @@ const DeliveryDestinationContainer = () => {
     <Stack minH={'100vh'}>
       <DashboardContent>
         <DashboardHeader
-          title={'Delivery Destination'}
-          description={'Add a delivery destination to your shipment'}
+          title={'Notify Party'}
+          description={'Add a notifying party to your shipment'}
         />
         <Divider my={5}/>
         <Grid
-          title="Add New Delivery Destination"
+          title="Add New Notify Party"
           actionButtons={[
             <div style={{ display: 'flex' }}>
                 <p style={{ marginRight: 10 }}> Show all fields </p>
@@ -67,4 +67,4 @@ const DeliveryDestinationContainer = () => {
   );
 }
 
-export default DeliveryDestinationContainer
+export default NotifyPartyContainer

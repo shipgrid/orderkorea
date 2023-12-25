@@ -1,12 +1,16 @@
 import {
+  Logger,
+  ThirdParty,
+  KnexClient
+} from '../../models'
+
+import {
   Address
 } from '../../models'
 
-
-import KnexClient from '../../models/knex_client';
-import logger from '../../models/logger'
-
 export default async ({
+  order_id,
+  type,
   name,
   line1,
   line2,
@@ -14,12 +18,14 @@ export default async ({
   state_code,
   country_code,
   postal_code,
-  email,
-  phone,
+  email, 
+  phone, 
 }) => {
+
   try {
 
-    let createdAddress;
+    let createdThirdParty;
+    let createdAddress; 
 
     await KnexClient.transaction(async (trx) => {
 
@@ -37,11 +43,20 @@ export default async ({
 
       const address = await Address.query(trx).insert(newAddress);
       createdAddress = address;
+
+      const thirdParty = await ThirdParty.query(trx).insert({
+        address_id: createdAddress.address_id,
+        type,
+        order_id,
+      });
+      
+      createdThirdParty = thirdParty;
     });
 
-    return createdAddress;
+    return createdThirdParty;
+    
   } catch(e) {
-    logger.error('Error creating address:', e);
+    Logger.error('Error creating order:', e);
     throw e
   }
 }
