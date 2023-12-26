@@ -27,7 +27,7 @@ const HomeContainer = () => {
         <Card title="Welcome to OrderKorea, start your first order now!" style={{ margin: 5}} extra={<Button type='primary'> Get Started </Button>}>
           <p>We guarauntee your first order. If you are not satisfied, we will give you a full refund</p>
         </Card>
-        <div style={{ display: 'flex', marginTop: 10 }}>
+        {/* <div style={{ display: 'flex', marginTop: 10 }}>
           <Card title="Your Total Orders" style={{ flex: 1, margin: 5}}>
             <p>Card content</p>
             <p>Card content</p>
@@ -38,8 +38,8 @@ const HomeContainer = () => {
             <p>Card content</p>
             <p>Card content</p>
           </Card>
-        </div>
-        <Alert
+        </div> */}
+        {/* <Alert
           message="Refer a friend and get $10 off your next order!"
           description="Additional description and information about copywriting."
           type="info"
@@ -50,8 +50,8 @@ const HomeContainer = () => {
               Get Started
             </Button>
           }
-        />
-        <p style={{ fontWeight: 'bold', margin: 5, marginTop: 20, marginBottom: 20,  fontSize: 18 }}> Popular Items </p>
+        /> */}
+        {/* <p style={{ fontWeight: 'bold', margin: 5, marginTop: 20, marginBottom: 20,  fontSize: 18 }}> Popular Items </p>
         <div style={{ display: 'flex', margin: 5 }}>
           <Card
             hoverable
@@ -74,8 +74,8 @@ const HomeContainer = () => {
           >
             <Meta title="Europe Street beat" description="www.instagram.com" />
           </Card>
-        </div>
-        <p style={{ fontWeight: 'bold', margin: 5, marginTop: 20, marginBottom: 20,  fontSize: 18 }}> For you </p>
+        </div> */}
+        {/* <p style={{ fontWeight: 'bold', margin: 5, marginTop: 20, marginBottom: 20,  fontSize: 18 }}> For you </p>
         <div style={{ display: 'flex', margin: 5 }}>
           <Card
             hoverable
@@ -98,7 +98,7 @@ const HomeContainer = () => {
           >
             <Meta title="Europe Street beat" description="www.instagram.com" />
           </Card>
-        </div>
+        </div> */}
       </DashboardContent>
     </Stack>
   );

@@ -1,3 +1,4 @@
+import Joi from 'joi'
 
 import { 
   Request, 
@@ -5,10 +6,22 @@ import {
   NextFunction 
 } from 'express'
 
+import {
+  HttpError
+} from '../../models'
+
 import { 
   orders 
 } from '../../services'
+
 import getVendorNameByProductUrl from '../../utils/url/get_vendor_name_by_product_url'
+
+const createPurchaseOrder = Joi.object({
+  customer_id: Joi.number().required(),
+  description: Joi.string().required(),
+  product_url: Joi.string().required(),
+  quantity: Joi.number().required(),
+})
 
 export default async (
   req: Request,
@@ -17,28 +30,36 @@ export default async (
 ) => {
 
   try {
+
+    const { error } = createPurchaseOrder.validate(req.body)
+    
+    console.log('errorr!!!', error)
+    if (error) {
+      throw new HttpError(400, error.details[0].message)
+    }
+
     const {
+      customer_id, 
       description, 
-      productUrl, 
+      product_url, 
       quantity
     } = req.body
 
-    const vendorName = getVendorNameByProductUrl(productUrl)
+    const vendorName = getVendorNameByProductUrl(product_url)
 
     console.log(vendorName)
 
     const productName = vendorName + description 
 
+    const data = await orders.createPurchaseOrder({
+      name: productName,
+      description,
+      product_url,
+      quantity,
+      customer_id
+    })
 
-
-    // await orders.createPurchaseOrder({
-    //   first_name,
-    //   last_name,
-    //   username,
-    //   password,
-    // })
-
-    res.status(200).json({ message: 'Purchase Order Created Successfully'});
+    res.status(200).json({ message: 'Purchase Order Created Successfully', data });
   } catch (e) {
     next(e)
   }

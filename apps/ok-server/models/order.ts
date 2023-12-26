@@ -1,21 +1,13 @@
+// Order.js
+
 import { Model } from 'objection';
-import knexClient from './knex_client'
-import Sku from './sku'
+import knexClient from './knex_client';
+import Sku from './sku';
 import OrderSku from './order_sku';
 
 Model.knex(knexClient);
 
-interface Order {
-  order_id: number;
-  type: string;
-  staff_id: number | null;
-  customer_id: number;
-  created_on: string;
-  updated_on: string;
-  deleted_on: string | null; // Assuming deleted_on can be null
-}
-
-class Order extends Model implements Order {
+class Order extends Model {
   static get tableName() {
     return 'orders';
   }
@@ -33,19 +25,19 @@ class Order extends Model implements Order {
           from: 'orders.order_id',
           through: {
             from: 'order_sku.order_id',
-            to: 'order_sku.sku_id'
+            to: 'order_sku.sku_id',
           },
-          to: 'skus.sku_id'
-        }
+          to: 'skus.sku_id',
+        },
       },
-      order_sku: {
+      order_skus: {
         relation: Model.HasManyRelation,
         modelClass: OrderSku,
         join: {
           from: 'orders.order_id',
-          to: 'order_sku.order_id'
-        }
-      }
+          to: 'order_sku.order_id',
+        },
+      },
     };
   }
 
