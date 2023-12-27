@@ -70,7 +70,7 @@ class Order extends Model implements Order {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['customer_id'],
+      // required: ['customer_id'],
       properties: {
         order_id: { type: 'integer' },
         customer_id: { type: ['integer', 'null'] },

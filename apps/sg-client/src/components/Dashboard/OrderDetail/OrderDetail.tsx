@@ -28,7 +28,7 @@ const OrderDetail: React.FC<OrderDetailProps> = ({ order }) => {
           <Descriptions column={2} bordered layout='vertical' size="small">
             <Descriptions.Item label="SHIPMENT TYPE">{ order.shipment_type } </Descriptions.Item>
             <Descriptions.Item label="CITY_OF_LOADING">{ order.port_of_loading }</Descriptions.Item>
-            <Descriptions.Item label="Container Number">1V291028921</Descriptions.Item>
+            <Descriptions.Item label="Container Number"> { order.container_number }</Descriptions.Item>
             <Descriptions.Item label="PORT OF ARRIVAL">{ order.port_of_arrival }</Descriptions.Item>
             <Descriptions.Item label="CREATED">{ order.created_on }</Descriptions.Item>
             <Descriptions.Item label="LOADED ON">{ order.loaded_on } </Descriptions.Item>

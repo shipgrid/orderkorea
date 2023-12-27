@@ -8,30 +8,49 @@ import {
   RiSave3Line 
 } from "react-icons/ri";
 
+import {
+  Address
+} from '../../../services/api'
+
+import { 
+  useEffect
+} from 'react'
 
 interface AddressFormProps {
+  address: Address | undefined;
   createThirdParty: (values: any) => void;
+  updateAddress: (values: any) => void;
   isLoading?: boolean;
 }
 
 const AddressForm: React.FC<AddressFormProps> = ({
+  address,
   createThirdParty,
+  updateAddress,
   isLoading
 }) => {
 
   const onFinish = async (values: any) => {
-    const address = {
-      ...values
+
+    if(!address) {
+      await createThirdParty({
+        ...values
+     })
+     return;
     }
 
-    await createThirdParty({
-      ...address
-    })
+    await updateAddress({
+      address_id: address.address_id,
+      ...values
+   })
   };
   
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
   };
+
+  useEffect(() => {
+  }, [address])
 
   return (
     <Form
@@ -40,6 +59,7 @@ const AddressForm: React.FC<AddressFormProps> = ({
       style={{ flex: 1, padding: 10, borderRadius: 10,  }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
+      initialValues={address}
     >
       <Form.Item label="Name" name='name'>
         <Input/>

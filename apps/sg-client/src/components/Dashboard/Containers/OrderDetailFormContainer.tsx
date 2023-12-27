@@ -10,42 +10,38 @@ import {
 import DashboardHeader from '../Layout/DashboardHeader';
 import DashboardContent from '../Layout/DashboardContent';
 import Grid from '../../Shared/Grid';
-import AddressForm from '../Forms/AddressForm';
+import OrderDetailForm from '../Forms/OrderDetailForm';
 
 import {
-  useCreateThirdPartyMutation
+  useGetOrderQuery
 } from '../../../services/api'
 
-const DeliveryDestinationContainer = () => {
+const OrderDetailFormContainer = () => {
 
   const searchParams = new URLSearchParams(location.search);
+
   const orderId = searchParams.get('order_id');
 
   if(!orderId) {
     return 'No order found'
   }
 
-  const [createThirdParty, { isLoading }] = useCreateThirdPartyMutation();
+  const { data:order, error, isLoading } = useGetOrderQuery(orderId);
 
-  const handleCreateThirdParty = async (values: any) => {
-    
-    const response = await createThirdParty({
-      order_id: parseInt(orderId),
-      type: 'delivery_destination',
-      ...values
-    })
+  if(!order) {
+    return 'No order found'
   }
-
+  console.log(order)
   return (
     <Stack minH={'100vh'}>
       <DashboardContent>
         <DashboardHeader
-          title={'Delivery Destination'}
-          description={'Add a delivery destination to your shipment'}
+          title={'Order Details'}
+          description={'Update your order details'}
         />
         <Divider my={5}/>
         <Grid
-          title="Add New Delivery Destination"
+          title={`Order Details: ${orderId}`}
           actionButtons={[
             <div style={{ display: 'flex' }}>
                 <p style={{ marginRight: 10 }}> Show all fields </p>
@@ -55,9 +51,8 @@ const DeliveryDestinationContainer = () => {
           centerContent={true}
           content={
             <div style={{ display: 'flex', width: 800 }}>
-              <AddressForm 
-                createThirdParty={handleCreateThirdParty}
-                isLoading={isLoading}
+              <OrderDetailForm 
+                order={order}
               />
             </div>
           }
@@ -67,4 +62,4 @@ const DeliveryDestinationContainer = () => {
   );
 }
 
-export default DeliveryDestinationContainer
+export default OrderDetailFormContainer

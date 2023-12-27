@@ -6,8 +6,8 @@ const HomeContainer = lazy(() => import("../components/Dashboard/Containers/Home
 const OrderContainer = lazy(() => import("../components/Dashboard/Containers/OrderContainer"));
 const VehicleDetailContainer = lazy(() => import("../components/Dashboard/Containers/VehicleDetailContainer"));
 const OrderDetailContainer = lazy(() => import("../components/Dashboard/Containers/OrderDetailContainer"));
-const DeliveryDestinationContainer = lazy(() => import("../components/Dashboard/Containers/DeliveryDestinationContainer"));
-const NotifyPartyContainer = lazy(() => import("../components/Dashboard/Containers/NotifyPartyContainer"));
+const OrderDetailFormContainer = lazy(() => import("../components/Dashboard/Containers/OrderDetailFormContainer"));
+const ThirdPartyContainer = lazy(() => import("../components/Dashboard/Containers/ThirdPartyContainer"));
 
 export default function routes() {
   return [
@@ -18,9 +18,9 @@ export default function routes() {
         { path: '/', element: <HomeContainer /> },
         { path: '/vehicle', element: <VehicleDetailContainer /> },
         { path: '/order', element: <OrderDetailContainer /> },
+        { path: '/order-detail', element: <OrderDetailFormContainer /> },
         { path: '/orders', element: <OrderContainer /> },
-        { path: '/delivery-destination', element: <DeliveryDestinationContainer /> },
-        { path: '/notify-party', element: <NotifyPartyContainer /> },
+        { path: '/third-party', element: <ThirdPartyContainer /> },
         { path: "*", element: <Navigate to="/login" replace /> },
       ],
     }

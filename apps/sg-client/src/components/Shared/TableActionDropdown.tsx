@@ -18,25 +18,50 @@ import {
   Menu
 } from 'antd'
 
-const items: MenuProps['items'] = [
-  {
-    label: 'View',
-    key: '1',
-    icon: <GrFormView />,
-  },
-  {
-    label: 'Edit',
-    key: '2',
-    icon: <MdOutlineEdit />,
-  },
-  {
-    label: 'Remove',
-    key: '3',
-    icon: <MdDeleteOutline />,
-  }
-];
+interface TableActionDropdownMenuItemProps {
+  label: string;
+  action: () => void;
+}
 
-const TableActionDropdown: React.FC = () => {
+interface TableActionDropdownProps {
+  actions: TableActionDropdownMenuItemProps[]
+}
+
+const TableActionDropdown: React.FC<TableActionDropdownProps> = ({
+  actions=[]
+}) => {
+
+  const items = actions.map((action, index) => {
+
+    if(!action.label) return null
+
+    if(action.label.toLowerCase() === 'edit') return ({
+      label: action.label,
+      key: `${index}`,
+      icon: <MdOutlineEdit style={{ fontSize: 20 }}/>,
+      onClick: action.action
+    })
+
+    if(action.label.toLowerCase()  === 'view') return ({
+      label: action.label,
+      key: `${index}`,
+      icon: <GrFormView style={{ fontSize: 20 }}/>,
+      onClick: action.action
+    })
+
+    if(action.label.toLowerCase()  === 'remove') return ({
+      label: action.label,
+      key: `${index}`,
+      icon: <MdDeleteOutline style={{ fontSize: 20 }}/>,
+      onClick: action.action
+    })
+
+    return {
+      label: action.label,
+      key: `${index}`,
+      onClick: action.action
+    }
+  })
 
   return (
     <div

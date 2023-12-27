@@ -12,6 +12,13 @@ import {
 
 import TableActionDropdown from '../../Shared/TableActionDropdown';
 
+import {
+  startTransition,
+} from 'react'
+
+import {
+  useNavigate
+} from 'react-router-dom'
 
 interface VehicleTableProps {
   vehicles: Vehicle[]; 
@@ -20,6 +27,8 @@ interface VehicleTableProps {
 const VehicleTable: React.FC<VehicleTableProps> = ({
   vehicles
 }) => {
+
+  const navigate = useNavigate()
 
   const rowClassName = () => {
     return 'fixed-height-row';
@@ -86,9 +95,16 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
     {
       key: 'action',
       width: 50,
-      render: (key: string) => {
+      render: (key: string, record: Vehicle) => {
         return (
-          <TableActionDropdown/>
+          <TableActionDropdown
+            actions={[
+              {
+                label: 'View',
+                action: () => startTransition(() => navigate(`/vehicle?vehicle_id=${record.vehicle_id}`))
+              },
+            ]}
+          />
         )
       }
     },

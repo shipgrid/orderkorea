@@ -18,7 +18,6 @@ export default async (
   try {
 
     const {
-      address_id,
       name,
       line1,
       line2,
@@ -28,8 +27,11 @@ export default async (
       postal_code,
       email,
       phone,
-      customer_id,
     } = req.body
+
+    const {
+      address_id
+    } = req.params
 
     const data = await addresses.update({
       address_id,
@@ -42,7 +44,6 @@ export default async (
       postal_code,
       email,
       phone,
-      customer_id,
     })
 
     res.status(200).json({ success: true });

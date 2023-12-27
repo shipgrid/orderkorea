@@ -15,7 +15,6 @@ export default async ({
   postal_code,
   email,
   phone,
-  customer_id,
 }) => {
   try {
 
@@ -33,7 +32,6 @@ export default async ({
         postal_code,
         email,
         phone,
-        customer_id,
       };
 
       const address = await Address.query(trx).update(newAddress).where('address_id', address_id);

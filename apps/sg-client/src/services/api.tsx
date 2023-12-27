@@ -48,6 +48,7 @@ export interface VehicleImage {
 
 export interface ThirdParty {
   third_party_id: number;
+  address_id: number;
   address: Address;
   order_id: number;
   type: string;
@@ -91,6 +92,10 @@ interface CreateThirdPartyParams {
 
 }
 
+interface removeThirdPartyParams {
+  third_party_id: number;
+}
+
 interface CreateVehicleParams {
   make: string;
   model: string;
@@ -124,6 +129,14 @@ const api = createApi({
       query: (orderId) => `orders/${orderId}`,
       transformResponse: (response: { data: Order }) => response.data,
     }),
+    updateOrder: build.mutation<ApiResponse, Order>({
+      query: (body) => ({
+        url: `orders/${body.order_id}`,
+        method: 'PUT',
+        body,
+      }),
+      transformResponse: (response: { data: any }, meta, arg) => response.data,
+    }),
     getVehicles: build.query({
       query: () => 'vehicles',
       transformResponse: (response: { data: Vehicle[] }) => response.data,
@@ -146,8 +159,28 @@ const api = createApi({
         method: 'POST',
         body,
       }),
-      transformResponse: (response: { data: any }, meta, arg) => {  console.log(response.data); return response.data},
-    })
+      transformResponse: (response: { data: any }, meta, arg) => response.data,
+    }),
+    removeThirdParty: build.mutation<ApiResponse, removeThirdPartyParams>({
+      query: (body) => ({
+        url: `third-parties/${body.third_party_id}`,
+        method: 'DELETE',
+        body,
+      }),
+      transformResponse: (response: { data: any }, meta, arg) => response.data,
+    }),
+    getAddress: build.query({
+      query: (addressId) => `addresses/${addressId}`,
+      transformResponse: (response: { data: Address }) => response.data,
+    }),
+    updateAddress: build.mutation<ApiResponse, Address>({
+      query: (body) => ({
+        url: `addresses/${body.address_id}`,
+        method: 'PUT',
+        body,
+      }),
+      transformResponse: (response: { data: any }, meta, arg) => response.data,
+    }),
   }),
 })
 
@@ -157,7 +190,11 @@ const {
   useGetVehiclesQuery, 
   useGetVehicleQuery,
   useCreateVehicleMutation,
-  useCreateThirdPartyMutation  
+  useCreateThirdPartyMutation,
+  useRemoveThirdPartyMutation,
+  useGetAddressQuery,
+  useUpdateAddressMutation,
+  useUpdateOrderMutation
 } = api
 
 export {
@@ -167,6 +204,10 @@ export {
   useGetVehiclesQuery,
   useGetVehicleQuery,
   useCreateVehicleMutation,
-  useCreateThirdPartyMutation
+  useCreateThirdPartyMutation,
+  useRemoveThirdPartyMutation,
+  useGetAddressQuery,
+  useUpdateAddressMutation,
+  useUpdateOrderMutation
 }
 

@@ -59,9 +59,16 @@ const DocumentTable: React.FC<DocumentTableProps> = ({
     {
       key: 'action',
       width: 50,
-      render: (key: string) => {
+      render: (key: string, record: any) => {
         return (
-          <TableActionDropdown/>
+          <TableActionDropdown
+            actions={[
+              {
+                label: 'Remove',
+                action: () => console.log(record)
+              },
+            ]}
+          />
         )
       }
     },

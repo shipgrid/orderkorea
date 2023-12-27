@@ -11,6 +11,18 @@ import {
 
 import TableActionDropdown from '../../Shared/TableActionDropdown';
 
+import {
+  useRemoveThirdPartyMutation
+} from '../../../services/api'
+
+import {
+  startTransition,
+} from 'react'
+
+import {
+  useNavigate
+} from 'react-router-dom'
+
 interface Contact {
   name: string;
   phone: string;
@@ -24,6 +36,9 @@ interface ThirdPartyTableProps {
 const ThirdPartyTable: React.FC<ThirdPartyTableProps> = ({
   thirdParties
 }) => {
+
+  const navigate = useNavigate();
+  const [removeThirdParty, { isLoading }] = useRemoveThirdPartyMutation();
 
   const rowClassName = () => {
     return 'fixed-height-row';
@@ -75,9 +90,24 @@ const ThirdPartyTable: React.FC<ThirdPartyTableProps> = ({
     {
       key: 'action',
       width: 50,
-      render: (key: string) => {
+      render: (key: string, record: ThirdParty) => {
         return (
-          <TableActionDropdown/>
+          <TableActionDropdown
+            actions={[
+              {
+                label: 'View',
+                action: () => { console.log(record) }
+              },
+              {
+                label: 'Edit',
+                action: () => { startTransition(() => navigate(`/third-party?order_id=${record.order_id}&address_id=${record.address_id}&type=${record.type}`)) }
+              },
+              {
+                label: 'Remove',
+                action: () => removeThirdParty({ third_party_id: record.third_party_id })
+              },
+            ]}
+          />
         )
       }
     },
@@ -89,6 +119,7 @@ const ThirdPartyTable: React.FC<ThirdPartyTableProps> = ({
       columns={columns} 
       size='small'
       bordered
+      loading={isLoading}
       rowClassName={rowClassName}
     />
   );

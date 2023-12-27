@@ -18,10 +18,20 @@ import VehicleTable from '../OrderDetail/VehicleTable';
 import DocumentTable from '../OrderDetail/DocumentTable';
 
 import {
+  startTransition,
+} from 'react'
+
+import {
+  useNavigate
+} from 'react-router-dom'
+
+import {
   useGetOrderQuery
 } from '../../../services/api'
 
 const OrderDetailContainer = () => {
+
+  const navigate = useNavigate();
 
   const searchParams = new URLSearchParams(location.search);
 
@@ -45,7 +55,7 @@ const OrderDetailContainer = () => {
           description={'View your order details'}
         />
         <Divider my={3}/>
-        <Button style={{marginBottom: 5, marginRight: 5 }}> Edit </Button>
+        <Button style={{marginBottom: 5, marginRight: 5 }} onClick={ () => startTransition(() => navigate(`/order-detail?order_id=${order.order_id}`)) }> Edit </Button>
         <Button style={{marginBottom: 5, marginRight: 5 }}> Set Status </Button>
         <Grid          
         title='Shipment Details'

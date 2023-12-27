@@ -34,7 +34,7 @@ const AddThirdPartyDropdownMenu: React.FC<AddThirdPartyDropdownMenuProps> = ({
     {
       key: '1',
       label: (
-        <div style={{ display: 'flex', alignItems: 'center'}} onClick={() => startTransition(() => navigate(`/delivery-destination?order_id=${orderId}`))}>
+        <div style={{ display: 'flex', alignItems: 'center'}} onClick={() => startTransition(() => navigate(`/third-party?order_id=${orderId}&type=delivery_destination`))}>
           <FiPlus/>
           <span style={{ marginLeft: 5 }}>  Add Delivery Destination </span>
         </div>
@@ -43,7 +43,7 @@ const AddThirdPartyDropdownMenu: React.FC<AddThirdPartyDropdownMenuProps> = ({
     {
       key: '2',
       label: (
-        <div style={{ display: 'flex', alignItems: 'center'}} onClick={() => startTransition(() => navigate(`/notify-party?order_id=${orderId}`))}>
+        <div style={{ display: 'flex', alignItems: 'center'}} onClick={() => startTransition(() => navigate(`/third-party?order_id=${orderId}&type=notify_party`))}>
           <FiPlus/>
           <span style={{ marginLeft: 5 }}>  Add Notify Party </span>
         </div>

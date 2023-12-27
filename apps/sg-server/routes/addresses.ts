@@ -12,10 +12,10 @@ import {
 
 const routes = Router()
 
-routes.get('/', create)
+routes.get('/', list)
 routes.get('/:address_id', get)
-routes.put('/', list)
-routes.post('/', update)
+routes.put('/:address_id', update)
+routes.post('/', create)
 routes.delete('/:address_id', remove)
 
 export default routes
