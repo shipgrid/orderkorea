@@ -16,7 +16,7 @@ export default async ({
 }) => {
 
   try {
-
+    
     const { error } = getOrdersByCustomerIdSchema.validate({ customer_id });
     
     if (error) {

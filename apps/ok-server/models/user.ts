@@ -42,13 +42,14 @@ class User extends Model implements User {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['first_name', 'username', 'password_hash'],
+      required: ['first_name', 'username', 'email', 'password_hash'],
       properties: {
         user_id: { type: 'integer' },
         rate_card_id: { type: 'integer' },
         first_name: { type: 'string', minLength: 1, maxLength: 255 },
         last_name: { type: 'string', minLength: 1, maxLength: 255 },
         username: { type: 'string', minLength: 1, maxLength: 255 },
+        email: { type: 'string', minLength: 1, maxLength: 255 },
         password_hash: { type: 'string', minLength: 1, maxLength: 255 },
         last_login: { type: ['string', 'null'] },
         created_on: { type: 'string' },

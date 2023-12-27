@@ -7,7 +7,7 @@ import Order from './order';
 Model.knex(knexClient);
 
 interface Sku {
-  sku_id: string | null;
+  sku_id: string;
   name: string;
   description: string;
   unit_price: number | null;

@@ -6,12 +6,15 @@ import {
   Sku, 
   KnexClient, 
   Logger,
-  HttpError
+  HttpError,
+  Customer
 } from '../../models'
 
 import {
+  customers,
   skus
 } from '../../services'
+import { dispatchOrderReceivedEmail, dispatchStaffNewOrderEmail } from '../emails';
 
 interface ICreatePurchaseOrder {
   name: string;
@@ -50,10 +53,18 @@ export default async ({
   }
 
   try {
-
+    
     let order; 
-
+  
     await KnexClient.transaction(async (trx) => {
+
+      const customer = await customers.getByCustomerId({ customer_id });
+
+      console.log('customer', customer)
+      
+      if (!customer) {
+        throw new HttpError(400, 'Customer does not exist');
+      }
 
       const newOrder = {
         type: 'purchase',
@@ -63,14 +74,14 @@ export default async ({
       order = await Order.query(trx).insert(newOrder);
       
       if(!order) {
-        throw new Error('Error creating order');
+        throw new HttpError(500, 'Error creating order');
       }
 
       const newSku = {
         sku_id: name,
-        name: name,
-        description: description,
-        product_url: product_url
+        name,
+        description,
+        product_url
       }
 
       let sku = await skus.getSkuById({ sku_id: name })
@@ -80,7 +91,7 @@ export default async ({
       }
 
       if(!sku) {
-        throw new Error('Error creating sku');
+        throw new HttpError(500, 'Error creating sku');
       }
 
       const newOrderSku = {
@@ -91,14 +102,30 @@ export default async ({
 
       const orderSku = await OrderSku.query(trx).insert(newOrderSku);
 
+      if(!orderSku) {
+        throw new HttpError(500, 'Error creating order sku');
+      }
+
+      await dispatchStaffNewOrderEmail({
+        customer, 
+        order, 
+        sku
+      })
+
+      await dispatchOrderReceivedEmail({
+        customer, 
+        order, 
+        sku
+      })
+
       await trx.commit();
 
-      Logger.info('Order and OrderSku created:', order, orderSku);
+      Logger.info('Purchase Order Created', order, orderSku, sku);
     })
     
     return order
   } catch(e) {
-    Logger.error('Error creating Order and OrderSku:', e);
+    // Logger.error('Error creating Order and OrderSku:', e);
     throw e
   }
 }

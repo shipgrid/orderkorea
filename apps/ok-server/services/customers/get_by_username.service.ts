@@ -16,13 +16,9 @@ export default async ({
     throw new HttpError(400, 'Username is required')
   }
   
-  try {
-    const user = await User.query()
-      .withGraphFetched('userCustomer')
-      .where('username', username).first();
+  const user = await User.query()
+    .withGraphFetched('userCustomer')
+    .where('username', username).first();
 
-    return user as UserWithUserCustomer;
-  } catch (error) {
-    throw error;
-  }
+  return user as UserWithUserCustomer
 }
