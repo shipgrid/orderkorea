@@ -8,7 +8,7 @@ interface Document {
   document_id: number;
   order_id: number;
   name: string;
-  file_url: number;
+  file_url: string;
   created_on: string;
   updated_on: string;
   deleted_on: string | null;
@@ -39,7 +39,7 @@ class Document extends Model implements Document {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['order_id', 'name'],
+      required: ['order_id', 'name', 'file_url'],
       properties: {
         document_id: { type: ['integer'] },
         order_id: { type: ['integer'] },

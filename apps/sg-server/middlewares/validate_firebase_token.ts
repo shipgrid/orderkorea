@@ -1,10 +1,5 @@
 import admin from 'firebase-admin'
 
-admin.initializeApp({
-  credential: admin.credential.cert('./firebase-admin-config.json')
-});
-
-
 export default async (req, res, next) => {
 
   try {
@@ -20,7 +15,7 @@ export default async (req, res, next) => {
     const token = tokenArray[1].replace(/[^a-zA-Z0-9_+.\-]/g, '');
   
     const response = await admin.auth().verifyIdToken(token)
-
+    
     req.uid = response.uid
     next()
   } catch(e) {

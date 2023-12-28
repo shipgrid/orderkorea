@@ -11,7 +11,13 @@ import {
   Document
 } from '../../../services/api'
 
-import { FaFilePdf } from "react-icons/fa6";
+import { 
+  FaFilePdf 
+} from "react-icons/fa6";
+
+import {
+  useRemoveDocumentMutation
+} from '../../../services/api'
 
 interface DocumentTableProps {
   documents: Document[]; 
@@ -20,6 +26,8 @@ interface DocumentTableProps {
 const DocumentTable: React.FC<DocumentTableProps> = ({
   documents
 }) => {
+
+  const [removeDocument,  { isLoading } ] = useRemoveDocumentMutation();
 
   const rowClassName = () => {
     return 'fixed-height-row';
@@ -38,11 +46,6 @@ const DocumentTable: React.FC<DocumentTableProps> = ({
           </div>
         )
       }
-    },
-    {
-      title: 'Type',
-      key: 'type',
-      dataIndex: 'type' 
     },
     {
       title: 'Download',
@@ -65,7 +68,10 @@ const DocumentTable: React.FC<DocumentTableProps> = ({
             actions={[
               {
                 label: 'Remove',
-                action: () => console.log(record)
+                action: () => removeDocument({
+                  order_id: record.order_id,
+                  document_id: record.document_id
+                })
               },
             ]}
           />

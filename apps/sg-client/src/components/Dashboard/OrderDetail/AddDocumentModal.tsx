@@ -1,18 +1,25 @@
 import React, { useState } from 'react';
-import { Button, Modal } from 'antd';
+import { 
+  Button, 
+  Modal 
+} from 'antd';
 import DocumentUpload from './DocumentUpload';
 
-const App: React.FC = () => {
+interface AddDocumentModalProps {
+  orderId: string;
+}
+
+const AddDocumentModal: React.FC<AddDocumentModalProps> = ({
+  orderId
+}) => {
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const [modalText, setModalText] = useState('Content of the modal');
 
   const showModal = () => {
     setOpen(true);
   };
 
   const handleOk = () => {
-    setModalText('The modal will be closed after two seconds');
     setConfirmLoading(true);
     setTimeout(() => {
       setOpen(false);
@@ -36,10 +43,12 @@ const App: React.FC = () => {
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
       >
-        <DocumentUpload/>
+        <DocumentUpload
+          orderId={orderId}
+        />
       </Modal>
     </>
   );
 };
 
-export default App;
+export default AddDocumentModal;

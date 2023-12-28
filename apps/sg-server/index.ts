@@ -5,8 +5,14 @@ import cors from 'cors';
 import morgan from 'morgan'
 import dotenv from 'dotenv';
 import routes from './routes'
+import admin from 'firebase-admin'
 
 dotenv.config();
+
+admin.initializeApp({
+  credential: admin.credential.cert('./firebase-admin-config.json'),
+  storageBucket: 'shipgrid-new-staging.appspot.com',
+});
 
 const APP_PORT = process.env.APP_PORT || 4000;
 // const ALLOWED_ORIGIN = process.env.ALLOW_APP_ORIGIN  // Default to localhost:3000 if env variable is not set

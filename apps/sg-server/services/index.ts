@@ -6,6 +6,8 @@ import * as orderEvents from './order_events';
 import * as orders from './orders';
 import * as vehicles from './vehicles';
 import * as thirdParties from './third_parties';
+import * as firebase from './vendors/firebase';
+import * as documents from './documents';
 
 export { account };
 export { users };
@@ -15,3 +17,5 @@ export { orderEvents };
 export { orders };
 export { vehicles };
 export { thirdParties };
+export { firebase };
+export { documents };

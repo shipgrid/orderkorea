@@ -30,11 +30,8 @@ import {
 } from '../../../services/api'
 
 const OrderDetailContainer = () => {
-
   const navigate = useNavigate();
-
   const searchParams = new URLSearchParams(location.search);
-
   const orderId = searchParams.get('order_id');
 
   if(!orderId) {
@@ -78,7 +75,9 @@ const OrderDetailContainer = () => {
           }
         />
         <Divider my={3}/>
-        <AddDocumentModal/>
+        <AddDocumentModal
+          orderId={orderId}
+        />
         <Grid
           title='Documents'
           content={

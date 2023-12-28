@@ -34,6 +34,7 @@ import localStorage from 'redux-persist/lib/storage'
 
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth';
+import "firebase/compat/storage";
 
 import {
   api
@@ -43,7 +44,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyCYLoJUVGHCybEjP-aK5nhfQ5Jjfs5wwHY",
   authDomain: "shipgrid-new-staging.firebaseapp.com",
   projectId: "shipgrid-new-staging",
-  storageBucket: "shipgrid-new-staging.appspot.com",
+  storageBucket: "shipgrid-new-staging.appspot.com",  
   messagingSenderId: "98969594634",
   appId: "1:98969594634:web:79fb66995b1c41cd9768f3",
   measurementId: "G-FDBDMXFFHB"

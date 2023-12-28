@@ -1,36 +1,57 @@
 import React from 'react';
 import type { UploadProps } from 'antd';
-import { message, Upload } from 'antd';
+import { Upload } from 'antd';
+import axios from 'axios'
 
 const { Dragger } = Upload;
 
-const props: UploadProps = {
-  name: 'file',
-  multiple: true,
-  action: 'https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188',
-  onChange(info) {
-    const { status } = info.file;
-    if (status !== 'uploading') {
-      console.log(info.file, info.fileList);
-    }
-    if (status === 'done') {
-      message.success(`${info.file.name} file uploaded successfully.`);
-    } else if (status === 'error') {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
-  onDrop(e) {
-    console.log('Dropped files', e.dataTransfer.files);
-  },
+interface DocumentUploadProps {
+  orderId: string
+}
+
+const DocumentUpload: React.FC<DocumentUploadProps> = ({
+  orderId
+}) => {
+
+  const props: UploadProps = {
+    accept: "application/pdf",
+    name: 'file',
+    multiple: false,
+    customRequest: async (options) => { 
+      const { file, onSuccess, onError } = options
+
+      const fileName = (file as File).name;
+
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('name', fileName);
+
+      const response = await axios.post(`http://localhost:4000/orders/${orderId}/documents`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      if(response.data.success) {
+        if (onSuccess) {
+          onSuccess(response.data);
+        }
+      } else {
+        if (onError) {
+          onError(response.data);
+        }
+      }
+    },
+  };
+
+  return (
+    <Dragger {...props}>
+      <p className="ant-upload-text">Click this area to upload</p>
+      <p className="ant-upload-hint">
+        Click here to upload
+      </p>
+    </Dragger>
+  )
 };
 
-const App: React.FC = () => (
-  <Dragger {...props}>
-    <p className="ant-upload-text">Click or drag file to this area to upload</p>
-    <p className="ant-upload-hint">
-      Click or drag file here to upload
-    </p>
-  </Dragger>
-);
-
-export default App;
+export default DocumentUpload;

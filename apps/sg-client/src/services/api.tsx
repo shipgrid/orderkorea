@@ -96,6 +96,11 @@ interface removeThirdPartyParams {
   third_party_id: number;
 }
 
+interface removeDocumentParams {
+  document_id: number;
+  order_id: number;
+}
+
 interface CreateVehicleParams {
   make: string;
   model: string;
@@ -169,6 +174,14 @@ const api = createApi({
       }),
       transformResponse: (response: { data: any }, meta, arg) => response.data,
     }),
+    removeDocument: build.mutation<ApiResponse, removeDocumentParams>({
+      query: (body) => ({
+        url: `orders/${body.order_id}/documents/${body.document_id}`,
+        method: 'DELETE',
+        body,
+      }),
+      transformResponse: (response: { data: any }, meta, arg) => response.data,
+    }),
     getAddress: build.query({
       query: (addressId) => `addresses/${addressId}`,
       transformResponse: (response: { data: Address }) => response.data,
@@ -194,7 +207,8 @@ const {
   useRemoveThirdPartyMutation,
   useGetAddressQuery,
   useUpdateAddressMutation,
-  useUpdateOrderMutation
+  useUpdateOrderMutation,
+  useRemoveDocumentMutation
 } = api
 
 export {
@@ -208,6 +222,7 @@ export {
   useRemoveThirdPartyMutation,
   useGetAddressQuery,
   useUpdateAddressMutation,
-  useUpdateOrderMutation
+  useUpdateOrderMutation,
+  useRemoveDocumentMutation
 }
 
