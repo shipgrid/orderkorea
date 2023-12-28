@@ -80,7 +80,7 @@ const InventorySpotlight = () => {
                 <Button key="setting" style={{ width: '90%', borderRadius: 20 }} type='primary'  onClick={() => startTransition(() => navigate(`/vehicle?vehicle_id=${vehicle.vehicle_id}`))}> Details </Button>,
               ]}
             >
-              <Meta title={`${vehicle.year} ${vehicle.make} ${vehicle.model} - USD 19,000`} description="89,000 KM" />
+              <Meta title={`${vehicle.year} ${vehicle.make} ${vehicle.model} - USD ${vehicle.price}`} description={`${vehicle.mileage} KM`} />
             </Card>
           )
         })

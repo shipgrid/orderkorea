@@ -25,7 +25,7 @@ const HomeContainer = () => {
         <Card title="Welcome to ShipGrid" style={{ margin: 5 }} extra={<Button type='primary' style={{ borderRadius: 20}}> Get Started </Button>}>
           <p>We are the #1 auto trading platform in Korea</p>
         </Card>
-        <div style={{ display: 'flex', marginTop: 10 }}>
+        {/* <div style={{ display: 'flex', marginTop: 10 }}>
           <Card title="Your Total Orders" style={{ flex: 1, margin: 5}}>
             <p>Card content</p>
             <p>Card content</p>
@@ -36,7 +36,7 @@ const HomeContainer = () => {
             <p>Card content</p>
             <p>Card content</p>
           </Card>
-        </div>
+        </div> */}
         <p style={{ fontWeight: 'bold', margin: 5, marginTop: 20, marginBottom: 20,  fontSize: 18 }}> Inventory Spotlight </p>
         <InventorySpotlight/>
       </DashboardContent>

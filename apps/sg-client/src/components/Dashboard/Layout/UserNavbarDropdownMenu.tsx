@@ -61,7 +61,7 @@ const UserNavbarDropdownMenu = ({
       label: (
         <div style={{ display: 'flex', alignItems: 'center'}}>
           <FaWpforms/> 
-          <span style={{ marginLeft: 5 }} onClick={(e) => {e.stopPropagation; firebase.logout(); dispatch({ type: 'LOGOUT' });}}>  Create Order </span>
+          <span style={{ marginLeft: 5 }} onClick={(e) => startTransition(() => navigate('create-order'))}>  Create Order </span>
         </div>
       ),
     },
