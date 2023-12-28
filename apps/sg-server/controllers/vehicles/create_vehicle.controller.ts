@@ -23,7 +23,10 @@ export default async (
       exterior_color,
       transmission_type,
       mileage,
-      description
+      price,
+      description,
+      fuel_type,
+      images
     } = req.body
 
     const data = await vehicles.create({
@@ -33,7 +36,10 @@ export default async (
       exterior_color,
       transmission_type,
       mileage,
-      description
+      price,
+      description,
+      fuel_type,
+      images
     })
 
     res.status(200).json({ data, success: true });

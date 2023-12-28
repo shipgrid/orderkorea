@@ -94,6 +94,11 @@ interface CreateDocumentParams {
   file: FormData;
 }
 
+
+interface UploadParams {
+  file: FormData;
+}
+
 interface CreateThirdPartyParams {
 
 }
@@ -115,6 +120,9 @@ interface CreateVehicleParams {
   description: string;
   exterior_color: string;
   transmission_type: string;
+  price: number;
+  fuel_type: string;
+  images: VehicleImage[];
 }
 
 interface RegisterParams {
@@ -140,6 +148,14 @@ const api = createApi({
   }),
   tagTypes: ['orders', 'order', 'vehicles', 'thirdParties', 'addresses', 'documents'],
   endpoints: (build) => ({
+    upload: build.mutation<ApiResponse, UploadParams>({
+      query: (body) => ({
+        url: 'storage/upload',
+        method: 'POST',
+        body: body.file,
+      }),
+      transformResponse: (response: { data: any }, meta, arg) => response.data,
+    }),
     register: build.mutation<ApiResponse, RegisterParams>({
       query: (body) => ({
         url: 'account/register',
@@ -247,7 +263,8 @@ const {
   useUpdateOrderMutation,
   useRemoveDocumentMutation,
   useCreateDocumentMutation,
-  useRegisterMutation
+  useRegisterMutation,
+  useUploadMutation
 } = api
 
 export {
@@ -264,6 +281,7 @@ export {
   useUpdateOrderMutation,
   useRemoveDocumentMutation,
   useCreateDocumentMutation,
-  useRegisterMutation
+  useRegisterMutation,
+  useUploadMutation
 }
 

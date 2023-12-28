@@ -1,6 +1,7 @@
 import {
   Logger,
   Vehicle,
+  VehicleImage,
   KnexClient
 } from '../../models'
 
@@ -11,7 +12,10 @@ export default async ({
   exterior_color,
   transmission_type,
   mileage,
-  description
+  price,
+  description,
+  fuel_type,
+  images
 }) => {
   try {
 
@@ -26,14 +30,22 @@ export default async ({
         exterior_color,
         transmission_type,
         mileage,
-        description
+        price,
+        fuel_type,
+        description,
+        images: images.map((image) => {
+          return {
+            image_url: image.image_url
+          }
+        })
       };
 
-      const vehicle = await Vehicle.query(trx).insert(newVehicle);
-      createdVehicle = vehicle;
+      const newVehicles = await Vehicle.query(trx).insertGraph(newVehicle, { relate: true });
+
+      createdVehicle = newVehicles;
       await trx.commit();
       
-      Logger.info('Vehicle created:', vehicle);
+      Logger.info('Vehicle created:', newVehicles);
     });
 
     return createdVehicle

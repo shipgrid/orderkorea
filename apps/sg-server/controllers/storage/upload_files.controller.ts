@@ -17,12 +17,16 @@ export default async (
   try {
 
     const {
+      name
+    } = req.body
+
+    const {
       success,
       data
     } = await firebase.upload_files({
       file: req.file,
       destination: 'test',
-      filename: 'dummy.pdf',
+      filename: name,
     })
 
     res.status(200).json({ success, data });
