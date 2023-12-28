@@ -39,6 +39,7 @@ export interface Vehicle {
   transmission_type: string;
   mileage: number;
   price: number;
+  fuel_type: string;
   images: VehicleImage[];
 }
 
@@ -85,7 +86,12 @@ export interface Document {
 
 interface ApiResponse {
   success: boolean;
-  data: number;
+  data: number | string | null;
+}
+
+interface CreateDocumentParams {
+  order_id: number;
+  file: FormData;
 }
 
 interface CreateThirdPartyParams {
@@ -124,15 +130,17 @@ const api = createApi({
       return headers
     },
   }),
-  // tagTypes: ['vehicles'],
+  tagTypes: ['orders', 'order', 'vehicles', 'thirdParties', 'addresses', 'documents'],
   endpoints: (build) => ({
     getOrders: build.query({
       query: () => 'orders',
       transformResponse: (response: { data: Order[] }) => response.data,
+      providesTags: ['orders'],
     }),
     getOrder: build.query({
       query: (orderId) => `orders/${orderId}`,
       transformResponse: (response: { data: Order }) => response.data,
+      providesTags: ['order'],
     }),
     updateOrder: build.mutation<ApiResponse, Order>({
       query: (body) => ({
@@ -165,6 +173,7 @@ const api = createApi({
         body,
       }),
       transformResponse: (response: { data: any }, meta, arg) => response.data,
+      invalidatesTags: ['order'],
     }),
     removeThirdParty: build.mutation<ApiResponse, removeThirdPartyParams>({
       query: (body) => ({
@@ -173,6 +182,16 @@ const api = createApi({
         body,
       }),
       transformResponse: (response: { data: any }, meta, arg) => response.data,
+      invalidatesTags: ['order'],
+    }),
+    createDocument: build.mutation<ApiResponse, CreateDocumentParams>({
+      query: (body) => ({
+        url: `orders/${body.order_id}/documents`,
+        method: 'POST',
+        body: body.file,
+      }),
+      transformResponse: (response: { data: any }, meta, arg) => response.data,
+      invalidatesTags: ['order'],
     }),
     removeDocument: build.mutation<ApiResponse, removeDocumentParams>({
       query: (body) => ({
@@ -181,6 +200,7 @@ const api = createApi({
         body,
       }),
       transformResponse: (response: { data: any }, meta, arg) => response.data,
+      invalidatesTags: ['order'],
     }),
     getAddress: build.query({
       query: (addressId) => `addresses/${addressId}`,
@@ -192,6 +212,7 @@ const api = createApi({
         method: 'PUT',
         body,
       }),
+      invalidatesTags: ['order'],
       transformResponse: (response: { data: any }, meta, arg) => response.data,
     }),
   }),
@@ -208,7 +229,8 @@ const {
   useGetAddressQuery,
   useUpdateAddressMutation,
   useUpdateOrderMutation,
-  useRemoveDocumentMutation
+  useRemoveDocumentMutation,
+  useCreateDocumentMutation
 } = api
 
 export {
@@ -223,6 +245,7 @@ export {
   useGetAddressQuery,
   useUpdateAddressMutation,
   useUpdateOrderMutation,
-  useRemoveDocumentMutation
+  useRemoveDocumentMutation,
+  useCreateDocumentMutation
 }
 

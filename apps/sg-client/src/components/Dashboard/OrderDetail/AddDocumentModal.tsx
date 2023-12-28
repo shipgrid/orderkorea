@@ -20,11 +20,7 @@ const AddDocumentModal: React.FC<AddDocumentModalProps> = ({
   };
 
   const handleOk = () => {
-    setConfirmLoading(true);
-    setTimeout(() => {
-      setOpen(false);
-      setConfirmLoading(false);
-    }, 2000);
+    setOpen(false);
   };
 
   const handleCancel = () => {

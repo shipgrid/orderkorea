@@ -29,6 +29,8 @@ import {
   useGetOrderQuery
 } from '../../../services/api'
 
+import ApiLoader from '../../Shared/ApiLoader';
+
 const OrderDetailContainer = () => {
   const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
@@ -40,8 +42,8 @@ const OrderDetailContainer = () => {
 
   const { data:order, error, isLoading } = useGetOrderQuery(orderId);
 
-  if(!order) {
-    return 'No order found'
+  if(!order || isLoading) {
+    return <ApiLoader />
   }
 
   return (

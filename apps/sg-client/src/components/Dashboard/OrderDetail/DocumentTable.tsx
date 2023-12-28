@@ -87,6 +87,7 @@ const DocumentTable: React.FC<DocumentTableProps> = ({
       size='small'
       bordered
       rowClassName={rowClassName}
+      loading={isLoading}
     />
   );
 }

@@ -25,13 +25,13 @@ export default async (
       name
     } = req.body
 
-    const data = await documents.create({
+    const { document_id } = await documents.create({
       name: name,
       file: req.file,
       order_id: order_id,
     })
 
-    res.status(200).json({ data, success: true });
+    res.status(200).json({ data: document_id, success: true });
   } catch (e) {
     next(e)
   }

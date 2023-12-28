@@ -15,6 +15,8 @@ interface Vehicle {
   vin_number: string | null; 
   transmission_type: string; 
   mileage: string | null; 
+  price: string | null;
+  fuel_type: string | null; 
   description: string | null; 
   created_on: string;
   updated_on: string;
@@ -59,6 +61,8 @@ class Vehicle extends Model implements Vehicle {
         transmission_type: { type: 'string', minLength: 1, maxLength: 255 },
         mileage: { type: 'number' },
         description: { type: 'string' },
+        price: { type: 'string' },
+        fuel_type: { type: 'string' },
         last_login: { type: ['string', 'null'] },
         created_on: { type: 'string' },
         updated_on: { type: 'string' },
