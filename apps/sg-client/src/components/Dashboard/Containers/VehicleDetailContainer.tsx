@@ -3,18 +3,20 @@ import {
   Divider,
 } from '@chakra-ui/react';
 
-import { useLocation } from 'react-router-dom';
-
-import DashboardHeader from '../Layout/DashboardHeader';
-import DashboardContent from '../Layout/DashboardContent';
-import Grid from '../../Shared/Grid';
-import VehicleDetail from '../VehicleDetail/VehicleDetail';
+import { 
+  useLocation 
+} from 'react-router-dom';
 
 import {
   useGetVehicleQuery,
 } from '../../../services/api';
 
+import DashboardHeader from '../Layout/DashboardHeader';
+import DashboardContent from '../Layout/DashboardContent';
+import Grid from '../../Shared/Grid';
+import VehicleDetail from '../VehicleDetail/VehicleDetail';
 import ApiLoader from '../../Shared/ApiLoader';
+import ResourceNotFound from '../../Shared/ResourceNotFound';
 
 const VehicleDetailContainer = () => {
 
@@ -24,15 +26,31 @@ const VehicleDetailContainer = () => {
   const vehicleId = searchParams.get('vehicle_id');
 
   if(!vehicleId) {
-    return 'No vehicle id found'
+    return  (
+      <Stack minH={'100vh'}>
+        <ResourceNotFound />
+      </Stack>
+    )
   }
   
-  const { data: vehicle, error, isLoading } = useGetVehicleQuery(vehicleId);
+  const { 
+    data: vehicle, 
+    error, 
+    isLoading 
+  } = useGetVehicleQuery(vehicleId);
 
-  if(!vehicle || isLoading) {
+  if(isLoading) {
     return <ApiLoader />
   }
-  console.log(vehicle)
+
+  if(!vehicle || error) {
+    return  (
+      <Stack minH={'100vh'}>
+        <ResourceNotFound />
+      </Stack>
+    )
+  }
+
   return (
     <Stack minH={'100vh'}>
       <DashboardContent>

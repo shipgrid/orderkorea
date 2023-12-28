@@ -7,31 +7,62 @@ import {
   Switch,
 } from 'antd';
 
+import {
+  useGetOrderQuery,
+  useUpdateOrderMutation
+} from '../../../services/api'
+
 import DashboardHeader from '../Layout/DashboardHeader';
 import DashboardContent from '../Layout/DashboardContent';
 import Grid from '../../Shared/Grid';
 import OrderDetailForm from '../Forms/OrderDetailForm';
-
-import {
-  useGetOrderQuery
-} from '../../../services/api'
+import ApiLoader from '../../Shared/ApiLoader';
+import ResourceNotFound from '../../Shared/ResourceNotFound';
 
 const OrderDetailFormContainer = () => {
 
   const searchParams = new URLSearchParams(location.search);
-
   const orderId = searchParams.get('order_id');
 
   if(!orderId) {
-    return 'No order found'
+    return  (
+      <Stack minH={'100vh'}>
+        <ResourceNotFound />
+      </Stack>
+    )
   }
 
-  const { data:order, error, isLoading } = useGetOrderQuery(orderId);
+  const { 
+    data:order, 
+    error, 
+    isLoading 
+  } = useGetOrderQuery(orderId);
 
-  if(!order) {
-    return 'No order found'
+  const [
+    updateOrder, { 
+      isLoading: updateOrderLoading 
+    }
+  ] = useUpdateOrderMutation();
+
+  const handleUpdateOrder = async (values: any) => {
+    await updateOrder({
+      order_id: parseInt(orderId),
+      ...values
+    })
   }
-  console.log(order)
+
+  if(isLoading) {
+    return <ApiLoader />
+  }
+
+  if(!order || error) {
+    return  (
+      <Stack minH={'100vh'}>
+        <ResourceNotFound />
+      </Stack>
+    )
+  }
+
   return (
     <Stack minH={'100vh'}>
       <DashboardContent>
@@ -53,6 +84,8 @@ const OrderDetailFormContainer = () => {
             <div style={{ display: 'flex', width: 800 }}>
               <OrderDetailForm 
                 order={order}
+                updateOrder={handleUpdateOrder}
+                isLoading={updateOrderLoading}
               />
             </div>
           }

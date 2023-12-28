@@ -7,16 +7,18 @@ import {
   Switch,
 } from 'antd';
 
-import DashboardHeader from '../Layout/DashboardHeader';
-import DashboardContent from '../Layout/DashboardContent';
-import Grid from '../../Shared/Grid';
-import AddressForm from '../Forms/AddressForm';
-
 import {
   useUpdateAddressMutation,
   useCreateThirdPartyMutation,
   useGetAddressQuery
 } from '../../../services/api'
+
+import DashboardHeader from '../Layout/DashboardHeader';
+import DashboardContent from '../Layout/DashboardContent';
+import Grid from '../../Shared/Grid';
+import AddressForm from '../Forms/AddressForm';
+import ApiLoader from '../../Shared/ApiLoader';
+import ResourceNotFound from '../../Shared/ResourceNotFound';
 
 const ThirdPartyContainer = () => {
 
@@ -26,20 +28,40 @@ const ThirdPartyContainer = () => {
   const type = searchParams.get('type');
 
   if(!orderId) {
-    return 'No order found'
+    return (
+      <Stack minH={'100vh'}>
+        <ResourceNotFound />
+      </Stack>
+    )
   }
 
   if(!type) {
-    return 'No type found'
+    return (
+      <Stack minH={'100vh'}>
+        <ResourceNotFound />
+      </Stack>
+    )
   }
 
-  const { data:address, error, isLoading: getAddressLoading } = useGetAddressQuery(addressId);
+  const { 
+    data:address, 
+    error, 
+    isLoading 
+  } = useGetAddressQuery(addressId);
 
-  const [createThirdParty, { isLoading }] = useCreateThirdPartyMutation();
-  const [updateAddress, { isLoading: updateAddressLoading }] = useUpdateAddressMutation();
+  const [
+    createThirdParty, { 
+      isLoading: createThirdPartyLoading 
+    }
+  ] = useCreateThirdPartyMutation();
+
+  const [
+    updateAddress, { 
+      isLoading: updateAddressLoading 
+    }
+  ] = useUpdateAddressMutation();
 
   const handleCreateThirdParty = async (values: any) => {
-    
     await createThirdParty({
       order_id: parseInt(orderId),
       type: type,
@@ -47,8 +69,16 @@ const ThirdPartyContainer = () => {
     })
   }
 
-  if(addressId && !address) {
-    return 'No address found'
+  if(isLoading) {
+    return <ApiLoader />
+  }
+
+  if((addressId && !address) || error) {
+    return  (
+      <Stack minH={'100vh'}>
+        <ResourceNotFound />
+      </Stack>
+    )
   }
 
   return (
@@ -63,8 +93,8 @@ const ThirdPartyContainer = () => {
           title="Add New Delivery Destination"
           actionButtons={[
             <div style={{ display: 'flex' }}>
-                <p style={{ marginRight: 10 }}> Show all fields </p>
-               <Switch />
+              <p style={{ marginRight: 10 }}> Show all fields </p>
+              <Switch />
             </div>
           ]}
           centerContent={true}
@@ -74,7 +104,7 @@ const ThirdPartyContainer = () => {
                 address={address}
                 createThirdParty={handleCreateThirdParty}
                 updateAddress={updateAddress}
-                isLoading={isLoading}
+                isLoading={createThirdPartyLoading || updateAddressLoading}
               />
             </div>
           }

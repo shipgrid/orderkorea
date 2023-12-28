@@ -27,6 +27,9 @@ import {
   configureStore 
 } from '@reduxjs/toolkit'
 
+import {
+  api
+} from '../services/api'
 
 import session from './reducers/session'
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2'
@@ -35,10 +38,6 @@ import localStorage from 'redux-persist/lib/storage'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth';
 import "firebase/compat/storage";
-
-import {
-  api
-} from '../services/api'
 
 const firebaseConfig = {
   apiKey: "AIzaSyCYLoJUVGHCybEjP-aK5nhfQ5Jjfs5wwHY",
@@ -54,7 +53,6 @@ firebase.initializeApp(firebaseConfig)
 
 const rootReducer: Reducer = combineReducers({
   [api.reducerPath]: api.reducer,
-  // [orderApi.reducerPath]: orderApi.reducer,
   session,
   firebase: persistReducer(
     { key: 'firebaseState', storage: localStorage, stateReconciler: autoMergeLevel2 },

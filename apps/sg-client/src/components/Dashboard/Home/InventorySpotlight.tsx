@@ -18,18 +18,24 @@ import {
   useGetVehiclesQuery
 } from '../../../services/api';
 
+import SomethingWentWrong from '../../Shared/SomethingWentWrong';
+
 const { Meta } = Card;
 
 const InventorySpotlight = () => {
 
   const navigate = useNavigate();
 
-  const { data:vehicles, error, isLoading } = useGetVehiclesQuery({});
+  const { 
+    data:vehicles, 
+    error, 
+    isLoading 
+  } = useGetVehiclesQuery({});
 
   if(error) {
     return (
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <Empty description='Something went wrong. Please try again later.'/>
+       <SomethingWentWrong/>
       </div>
     )
   }

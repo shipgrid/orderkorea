@@ -21,6 +21,7 @@ export default async (
       last_name,
       username,
       password,
+      uid
     } = req.body
 
     await account.register({
@@ -28,6 +29,7 @@ export default async (
       last_name,
       username,
       password,
+      uid
     })
 
     res.status(200).json({ message: 'User added successfully'});

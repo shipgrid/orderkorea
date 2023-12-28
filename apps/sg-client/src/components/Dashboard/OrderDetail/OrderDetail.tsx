@@ -5,11 +5,11 @@ import {
   Collapse
 } from 'antd'
 
-import '../../../assets/index.css'
-
 import {
   Order
 } from '../../../services/api'
+
+import '../../../assets/index.css'
 
 interface OrderDetailProps {
   order: Order; 

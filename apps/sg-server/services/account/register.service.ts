@@ -17,13 +17,15 @@ interface IRegisterUser {
   last_name: string;
   username: string;
   password: string;
+  uid: string;
 }
 
 export default async ({
   first_name,
   last_name,
   username,
-  password
+  password,
+  uid
 }: IRegisterUser) => {
 
   try {
@@ -38,6 +40,7 @@ export default async ({
       first_name,
       last_name,
       username,
+      uid,
       password_hash: password_hash,
       last_login: convertToLocalDateString(new Date()),
     })

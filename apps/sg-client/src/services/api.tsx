@@ -117,6 +117,14 @@ interface CreateVehicleParams {
   transmission_type: string;
 }
 
+interface RegisterParams {
+  first_name: string;
+  last_name?: string;
+  username: string | null | undefined;
+  password: string;
+  uid: string | null | undefined;
+}
+
 const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:4000',
@@ -132,6 +140,14 @@ const api = createApi({
   }),
   tagTypes: ['orders', 'order', 'vehicles', 'thirdParties', 'addresses', 'documents'],
   endpoints: (build) => ({
+    register: build.mutation<ApiResponse, RegisterParams>({
+      query: (body) => ({
+        url: 'account/register',
+        method: 'POST',
+        body,
+      }),
+      transformResponse: (response: { data: any }, meta, arg) => response.data,
+    }),
     getOrders: build.query({
       query: () => 'orders',
       transformResponse: (response: { data: Order[] }) => response.data,
@@ -230,7 +246,8 @@ const {
   useUpdateAddressMutation,
   useUpdateOrderMutation,
   useRemoveDocumentMutation,
-  useCreateDocumentMutation
+  useCreateDocumentMutation,
+  useRegisterMutation
 } = api
 
 export {
@@ -246,6 +263,7 @@ export {
   useUpdateAddressMutation,
   useUpdateOrderMutation,
   useRemoveDocumentMutation,
-  useCreateDocumentMutation
+  useCreateDocumentMutation,
+  useRegisterMutation
 }
 

@@ -9,6 +9,7 @@ export default async ({
   first_name,
   last_name,
   username,
+  uid,
   password_hash,
   last_login,
 }) => {
@@ -20,6 +21,7 @@ export default async ({
         first_name,
         last_name,
         username,
+        uid,
         password_hash,
         last_login,
       };

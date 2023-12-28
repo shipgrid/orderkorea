@@ -3,10 +3,6 @@ import {
   Button
 } from 'antd'
 
-import '../../../assets/index.css'
-
-import TableActionDropdown from '../../Shared/TableActionDropdown';
-
 import {
   Document
 } from '../../../services/api'
@@ -18,6 +14,9 @@ import {
 import {
   useRemoveDocumentMutation
 } from '../../../services/api'
+
+import TableActionDropdown from '../../Shared/TableActionDropdown';
+import '../../../assets/index.css'
 
 interface DocumentTableProps {
   documents: Document[]; 

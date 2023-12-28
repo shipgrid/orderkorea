@@ -18,16 +18,16 @@ import {
 
 interface AddressFormProps {
   address: Address | undefined;
+  isLoading?: boolean;
   createThirdParty: (values: any) => void;
   updateAddress: (values: any) => void;
-  isLoading?: boolean;
 }
 
 const AddressForm: React.FC<AddressFormProps> = ({
   address,
+  isLoading,
   createThirdParty,
   updateAddress,
-  isLoading
 }) => {
 
   const onFinish = async (values: any) => {

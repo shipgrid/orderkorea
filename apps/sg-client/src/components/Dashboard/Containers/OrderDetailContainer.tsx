@@ -7,16 +7,6 @@ import {
   Button
 } from 'antd'
 
-import DashboardHeader from '../Layout/DashboardHeader';
-import DashboardContent from '../Layout/DashboardContent';
-import Grid from '../../Shared/Grid';
-import OrderDetail from '../OrderDetail/OrderDetail';
-import ThirdPartyTable from '../OrderDetail/ThirdPartyTable';
-import AddThirdPartyDropdownMenu from '../OrderDetail/AddThirdPartyDropdownMenu';
-import AddDocumentModal from '../OrderDetail/AddDocumentModal';
-import VehicleTable from '../OrderDetail/VehicleTable';
-import DocumentTable from '../OrderDetail/DocumentTable';
-
 import {
   startTransition,
 } from 'react'
@@ -29,7 +19,17 @@ import {
   useGetOrderQuery
 } from '../../../services/api'
 
+import DashboardHeader from '../Layout/DashboardHeader';
+import DashboardContent from '../Layout/DashboardContent';
+import Grid from '../../Shared/Grid';
+import OrderDetail from '../OrderDetail/OrderDetail';
+import ThirdPartyTable from '../OrderDetail/ThirdPartyTable';
+import AddThirdPartyDropdownMenu from '../OrderDetail/AddThirdPartyDropdownMenu';
+import AddDocumentModal from '../OrderDetail/AddDocumentModal';
+import VehicleTable from '../OrderDetail/VehicleTable';
+import DocumentTable from '../OrderDetail/DocumentTable';
 import ApiLoader from '../../Shared/ApiLoader';
+import ResourceNotFound from '../../Shared/ResourceNotFound';
 
 const OrderDetailContainer = () => {
   const navigate = useNavigate();
@@ -37,13 +37,25 @@ const OrderDetailContainer = () => {
   const orderId = searchParams.get('order_id');
 
   if(!orderId) {
-    return 'No order found'
+    return  (
+      <Stack minH={'100vh'}>
+        <ResourceNotFound />
+      </Stack>
+    )
   }
 
   const { data:order, error, isLoading } = useGetOrderQuery(orderId);
 
-  if(!order || isLoading) {
+  if(isLoading) {
     return <ApiLoader />
+  }
+
+  if(!order || error) {
+    return  (
+      <Stack minH={'100vh'}>
+        <ResourceNotFound />
+      </Stack>
+    )
   }
 
   return (

@@ -3,7 +3,8 @@ import {
   Form, 
   Input,
   Divider,
-  message
+  message,
+  Spin
 } from 'antd';
 
 import {
@@ -14,9 +15,18 @@ import {
   Link
 } from 'react-router-dom'
 
-import agent from '../../../api/agent'
-import { FaGoogle } from "react-icons/fa";
-import { useFirebase } from 'react-redux-firebase'
+import { 
+  FaGoogle 
+} from "react-icons/fa";
+
+import { 
+  useFirebase 
+} from 'react-redux-firebase'
+
+import {
+  useRegisterMutation
+} from '../../../services/api'
+
 
 type FieldType = {
   username?: string;
@@ -26,20 +36,25 @@ type FieldType = {
 
 const LoginForm = ({}) => {
   const firebase = useFirebase();
-
   const dispatch = useDispatch();
+  const [register, { 
+      isLoading 
+    }
+  ] = useRegisterMutation()
 
   const signInWithGoogle = async () => {
     const response = await firebase.login({ provider: 'google', type: 'popup' })
-  
+
     if(response?.additionalUserInfo?.isNewUser) {
 
-      await agent.account.register({
+      await register({
         first_name: response?.additionalUserInfo?.profile?.given_name,
         username: response?.user?.email,
         password: 'secret',
+        uid: response?.user?.uid,
       })
     }
+
     const firebaseToken = await firebase.auth().currentUser?.getIdToken()
     dispatch({ type: 'LOGIN', payload: { token: firebaseToken } })
   };
@@ -67,43 +82,45 @@ const LoginForm = ({}) => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column'}}>
-      <Form
-        name="basic"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        style={{ maxWidth: 600 }}
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
-        autoComplete="off"
-      >
-        <Form.Item<FieldType>
-          label="Email"
-          name="username"
-          rules={[{ required: true, message: 'Please input your email' }]}
+      <Spin spinning={isLoading}>
+        <Form
+          name="basic"
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+          style={{ maxWidth: 600 }}
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
+          autoComplete="off"
         >
-          <Input />
-        </Form.Item>
+          <Form.Item<FieldType>
+            label="Email"
+            name="username"
+            rules={[{ required: true, message: 'Please input your email' }]}
+          >
+            <Input />
+          </Form.Item>
 
-        <Form.Item<FieldType>
-          label="Password"
-          name="password"
-          rules={[{ required: true, message: 'Please input your password' }]}
-        >
-          <Input.Password />
-        </Form.Item>
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
-            Submit
-          </Button>
-        </Form.Item>
-      </Form> 
-      <Divider/>
-      <div style={{display: 'flex', flexDirection: 'column'}}>
-        <Button icon={<FaGoogle/>} onClick={signInWithGoogle}> Sign in with Google </Button>
-        <p color="gray.500" style={{ marginTop: 10 }}>
-          Don't have an account? <Link to="/signup">Sign up</Link>
-        </p>
-      </div>
+          <Form.Item<FieldType>
+            label="Password"
+            name="password"
+            rules={[{ required: true, message: 'Please input your password' }]}
+          >
+            <Input.Password />
+          </Form.Item>
+          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
+              Submit
+            </Button>
+          </Form.Item>
+        </Form> 
+        <Divider/>
+        <div style={{display: 'flex', flexDirection: 'column'}}>
+          <Button icon={<FaGoogle/>} onClick={signInWithGoogle}> Sign in with Google </Button>
+          <p color="gray.500" style={{ marginTop: 10 }}>
+            Don't have an account? <Link to="/signup">Sign up</Link>
+          </p>
+        </div>
+      </Spin>
     </div>
   )
 }

@@ -17,29 +17,22 @@ import {
   useEffect
 } from 'react'
 
-import {
-  useUpdateOrderMutation
-} from '../../../services/api'
-
 interface OrderDetailFormProps {
   order: Order | undefined;
+  isLoading?: boolean;
+  updateOrder: (values: any) => void;
 }
 
 const OrderDetailForm: React.FC<OrderDetailFormProps> = ({
-  order
+  order,
+  updateOrder,
+  isLoading
 }) => {
 
-  const [updateOrder, { data, error, isLoading }] = useUpdateOrderMutation();
-
   const onFinish = async (values: any) => {
-
-    const updatedOrder = {
-      order_id: order?.order_id,
+    await updateOrder({
       ...values
-    }
-    console.log(updatedOrder)
-    const result = await updateOrder(updatedOrder)
-    console.log(result)
+    })
   };
   
   const onFinishFailed = (errorInfo: any) => {
@@ -74,7 +67,7 @@ const OrderDetailForm: React.FC<OrderDetailFormProps> = ({
         <Input/>
       </Form.Item>
       <Form.Item wrapperCol={{ offset: 5 }}>
-        <Button style={{ width: '100%'}} icon={<RiSave3Line />} type="primary" htmlType="submit"> Save </Button>
+        <Button style={{ width: '100%'}} icon={<RiSave3Line />} type="primary" htmlType="submit" loading={isLoading}> Save </Button>
       </Form.Item>
     </Form>
   );

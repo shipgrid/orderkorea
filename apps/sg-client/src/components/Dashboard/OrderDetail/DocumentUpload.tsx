@@ -1,7 +1,14 @@
 import React from 'react';
-import type { UploadProps } from 'antd';
-import { Upload } from 'antd';
-import axios from 'axios'
+
+import type { 
+  UploadProps 
+} from 'antd';
+
+import { 
+  Upload,
+  Spin
+} from 'antd';
+
 import {
   useCreateDocumentMutation,
 } from '../../../services/api'
@@ -16,14 +23,23 @@ const DocumentUpload: React.FC<DocumentUploadProps> = ({
   orderId
 }) => {
 
-  const [removeThirdParty, { isLoading }] = useCreateDocumentMutation();
+  const [
+    createDocument, { 
+      isLoading 
+    }
+  ] = useCreateDocumentMutation();
 
   const props: UploadProps = {
     accept: "application/pdf",
     name: 'file',
     multiple: false,
     customRequest: async (options) => { 
-      const { file, onSuccess, onError } = options
+      
+      const { 
+        file, 
+        onSuccess, 
+        onError 
+      } = options
 
       const fileName = (file as File).name;
 
@@ -31,7 +47,7 @@ const DocumentUpload: React.FC<DocumentUploadProps> = ({
       formData.append('file', file);
       formData.append('name', fileName);
 
-      const response = await removeThirdParty({
+      const response = await createDocument({
         order_id: parseInt(orderId),
         file: formData
       })
@@ -49,12 +65,14 @@ const DocumentUpload: React.FC<DocumentUploadProps> = ({
   };
 
   return (
-    <Dragger {...props}>
-      <p className="ant-upload-text">Click this area to upload</p>
-      <p className="ant-upload-hint">
-        Click here to upload
-      </p>
-    </Dragger>
+    <Spin spinning={isLoading}>
+      <Dragger {...props}>
+        <p className="ant-upload-text">Click this area to upload</p>
+        <p className="ant-upload-hint">
+          Click here to upload
+        </p>
+      </Dragger>
+    </Spin>
   )
 };
 

@@ -1,41 +1,28 @@
 
 import { 
   Button,
-  Checkbox, 
   Form, 
   Input,
-  message
+  message,
+  Spin
 } from 'antd';
-
-import agent from '../../../api/agent'
-
-import {
-  connect, useDispatch, useSelector,
-} from 'react-redux'
-
-import { 
-  Dispatch 
-} from 'redux';
 
 import {
   useNavigate
 } from 'react-router-dom'
 
+import {
+  useDispatch,
+} from 'react-redux'
 
-interface LoginAction {
-  type: string;
-  payload: any; // Define the payload type here
-}
+import { 
+  useFirebase 
+} from 'react-redux-firebase'
 
-import { useFirebase } from 'react-redux-firebase'
+import {
+  useRegisterMutation
+} from '../../../services/api'
 
-const mapStateToProps = (state: LoginAction) => ({ store: state });
-
-const mapDispatchToProps = (dispatch: Dispatch<LoginAction>) => ({
-  login: (loginData: any) => dispatch({ type: 'LOGIN', payload: loginData }),
-});
-
-export { mapStateToProps, mapDispatchToProps };
 
 type FieldType = {
   first_name?: string;
@@ -44,15 +31,17 @@ type FieldType = {
   password?: string;
 };
 
-interface LoginFormProps {
-  login: (loginData: any) => void;
-}
-
 const SignUpForm = ({}) => {
 
   const navigate = useNavigate()
-  const auth = useSelector((state: any) => state.firebase.auth)
   const firebase = useFirebase();
+  const dispatch = useDispatch();
+
+  const [
+    register, { 
+      isLoading 
+    }
+  ] = useRegisterMutation()
 
   const onFinish = async (values: any) => {    
     const {
@@ -63,16 +52,17 @@ const SignUpForm = ({}) => {
     } = values;
 
     try {      
-      await firebase.createUser({
+      const firebaseCreateUserResponse = await firebase.createUser({
         email: username,
         password: password
       })
       
-      await agent.account.register({
+      await register({
         first_name,
         last_name,
         username,
         password,
+        uid: firebaseCreateUserResponse.user.uid,
       })
       
       await firebase.login({  
@@ -80,6 +70,8 @@ const SignUpForm = ({}) => {
         password: password
       })
 
+      const firebaseToken = await firebase.auth().currentUser?.getIdToken()
+      dispatch({ type: 'LOGIN', payload: { token: firebaseToken } })
       navigate('/')
       navigate(0)
 
@@ -94,50 +86,52 @@ const SignUpForm = ({}) => {
 
   return (
     <>
-      <Form
-        name="basic"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        style={{ maxWidth: 600 }}
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off"
-      >
-        <Form.Item<FieldType>
-          label="First Name"
-          name="first_name"
-          rules={[{ required: true, message: 'Please input your email!' }]}
+      <Spin spinning={isLoading}>
+        <Form
+          name="basic"
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+          style={{ maxWidth: 600 }}
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
         >
-          <Input />
-        </Form.Item>
-        <Form.Item<FieldType>
-          label="Last Name"
-          name="last_name"
-          rules={[{ required: true, message: 'Please input your email!' }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item<FieldType>
-          label="Email"
-          name="username"
-          rules={[{ required: true, message: 'Please input your email!' }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item<FieldType>
-          label="Password"
-          name="password"
-          rules={[{ required: true, message: 'Please input your password!' }]}
-        >
-          <Input.Password />
-        </Form.Item>
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Form.Item>
-      </Form> 
+          <Form.Item<FieldType>
+            label="First Name"
+            name="first_name"
+            rules={[{ required: true, message: 'Please input your email!' }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item<FieldType>
+            label="Last Name"
+            name="last_name"
+            rules={[{ required: true, message: 'Please input your email!' }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item<FieldType>
+            label="Email"
+            name="username"
+            rules={[{ required: true, message: 'Please input your email!' }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item<FieldType>
+            label="Password"
+            name="password"
+            rules={[{ required: true, message: 'Please input your password!' }]}
+          >
+            <Input.Password />
+          </Form.Item>
+          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Button type="primary" htmlType="submit" loading={isLoading}>
+              Submit
+            </Button>
+          </Form.Item>
+        </Form> 
+      </Spin>
     </>
   )
 }

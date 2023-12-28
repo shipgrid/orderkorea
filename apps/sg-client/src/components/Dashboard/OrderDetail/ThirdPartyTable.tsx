@@ -2,8 +2,6 @@ import {
   Table,
 } from 'antd'
 
-import '../../../assets/index.css'
-
 import {
   ThirdParty,
   Address
@@ -22,6 +20,8 @@ import {
 import {
   useNavigate
 } from 'react-router-dom'
+
+import '../../../assets/index.css'
 
 interface Contact {
   name: string;

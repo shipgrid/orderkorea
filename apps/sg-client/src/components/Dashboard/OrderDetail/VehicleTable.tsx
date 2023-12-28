@@ -3,14 +3,10 @@ import {
   Image,
 } from 'antd'
 
-import '../../../assets/index.css'
-
 import {
   Vehicle,
   VehicleImage
 } from '../../../services/api'
-
-import TableActionDropdown from '../../Shared/TableActionDropdown';
 
 import {
   startTransition,
@@ -19,6 +15,9 @@ import {
 import {
   useNavigate
 } from 'react-router-dom'
+
+import TableActionDropdown from '../../Shared/TableActionDropdown';
+import '../../../assets/index.css'
 
 interface VehicleTableProps {
   vehicles: Vehicle[]; 

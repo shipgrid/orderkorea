@@ -109,7 +109,11 @@ const OrderTable = () => {
 
   const navigate = useNavigate();
 
-  const { data:orders, error, isLoading } = useGetOrdersQuery({});
+  const { 
+    data:orders, 
+    error, 
+    isLoading 
+  } = useGetOrdersQuery({});
 
   const rowClassName = () => {
     return 'fixed-height-row';
