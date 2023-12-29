@@ -2,6 +2,7 @@ import {
   Table,
   Button,
   Progress,
+  message,
   Image,
 } from 'antd'
 
@@ -24,12 +25,22 @@ import {
   VehicleImage
 } from '../../../services/api'
 
+import {
+  useDispatch,
+} from 'react-redux'
+
+import { 
+  useSelector 
+} from 'react-redux'
+
 import TableActionDropdown from '../../Shared/TableActionDropdown';
 
 const OrderTable = () => {
 
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  const order = useSelector((state: any) => state.order)
+  console.log(order)
   const { 
     data:vehicles, 
     error, 
@@ -39,6 +50,25 @@ const OrderTable = () => {
   const rowClassName = () => {
     return 'fixed-height-row';
   };
+
+  const handleAddToOrder = (vehicle: Vehicle) => {
+
+    const foundVehicle = order.vehicles.find((v: Vehicle) => v.vehicle_id === vehicle.vehicle_id) && message.error('Vehicle already added to order')
+
+    if(foundVehicle) {
+      return;
+    }
+
+    dispatch({
+      type: 'SET_ORDER',
+      payload: {
+        vehicles: [
+          ...order.vehicles,
+          vehicle
+        ]
+      }
+    })
+  }
 
   const columns = [
     {
@@ -111,7 +141,7 @@ const OrderTable = () => {
               },
               {
                 label: 'Add to Order',
-                action: () => startTransition(() => navigate(`/vehicle?vehicle_id=${record.vehicle_id}`))
+                action: () => handleAddToOrder(record)
               },
             ]}
           />

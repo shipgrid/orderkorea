@@ -1,15 +1,3 @@
-export interface CreateOrderBody {
-  customer_id: number | null;
-  shipment_type: string | null;
-  port_of_loading: string | null;
-  container_number: string | null;
-  port_of_arrival: string | null;
-  loaded_on: string | null;
-  thirdParties: CreateThirdPartyBody[];
-  documents: CreateDocumentBody[];
-  vehicles: CreateVehicleBody[];
-}
-
 export interface CreateThirdPartyBody {
   address: CreateAddressBody;
   order_id: number;
@@ -50,7 +38,15 @@ export interface VehicleImage {
 }
 
 export interface OrderState {
-  order: CreateOrderBody;
+  email: number | null;
+  shipment_type: string | null;
+  port_of_loading: string | null;
+  container_number: string | null;
+  port_of_arrival: string | null;
+  loaded_on: string | null;
+  thirdParties: CreateThirdPartyBody[];
+  documents: CreateDocumentBody[];
+  vehicles: CreateVehicleBody[];
 }
 
 export interface SessionState {

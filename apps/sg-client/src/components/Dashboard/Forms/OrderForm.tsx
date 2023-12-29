@@ -12,6 +12,10 @@ import type {
   SelectProps, 
 } from 'antd';
 
+import {
+  Vehicle
+} from '../../../services/api'
+
 import { 
   RiSave3Line 
 } from "react-icons/ri";
@@ -25,18 +29,29 @@ import {
 } from '../../../services/api'
 
 import {
-  startTransition
+  startTransition,
+  useEffect
 } from 'react';
 
 import { 
   useNavigate 
 } from 'react-router-dom'
 
+import {
+  useDispatch,
+} from 'react-redux'
+
+import { 
+  useSelector 
+} from 'react-redux'
+
 const VehicleForm = ({
 
 }) => {
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const order = useSelector((state: any) => state.order)
 
   const [ 
     createVehicle, { 
@@ -48,26 +63,59 @@ const VehicleForm = ({
     upload
   ] = useUploadMutation();
 
+  useEffect(() => {
+  }, [order.vehicles.length])
+
   const onFinish = async (values: any) => {
 
-    const requestBody = {
-      make: values.make,
-      model: values.model,
-      year: values.year,
-      mileage: parseFloat(values.mileage),
-      description: values.description,
-      exterior_color: values.exterior_color,
-      transmission_type: values.transmission_type,
-      price: values.price,
-      fuel_type: values.fuel_type,
-      images: values.vehicle_images.fileList.map((file: any) => {
-        return {
-          image_url: file.response
-        }
-      })
+    const consignee = {}
+    const shipper = {}
+
+    for(const properties in values) {
+      // console.log(consignee)
+      if(properties.includes('consignee')) {
+        const newProperty = properties.replace('consignee_', '')
+        consignee[newProperty] = values[properties];
+      }
+
+      if(properties.includes('shipper')) {
+        const newProperty = properties.replace('shipper_', '')
+        shipper[newProperty] = values[properties];
+      }
     }
 
-    await createVehicle(requestBody)
+    const orderDetails = {
+      email: values.email,
+      shipment_type: values.shipment_type,
+      port_of_loading: values.port_of_loading,
+      container_number: values.container_number,
+      port_of_arrival: values.port_of_arrival,
+      loaded_on: values.loaded_on,
+      thirdParties: [
+        {
+          address: consignee,
+          order_id: 1,
+          type: 'consignee'
+        },
+        {
+          address: shipper,
+          order_id: 1,
+          type: 'shipper'
+        }
+      ],
+      documents: [
+        {
+          file_url: values.documents.fileList.map((file: any) => {
+            return {
+              image_url: file.response
+            }
+          })
+        }
+      ],
+      vehicles: order.vehicles
+    }
+
+    console.log(orderDetails)
 
   };
   
@@ -152,17 +200,18 @@ const VehicleForm = ({
           <Select
             mode="multiple"
             placeholder="Please select"
-            defaultValue={['a10', 'c12']}
+            defaultValue={[`${order.vehicles.map((item:Vehicle) => `(${item.year} ${item.make} ${item.model})`)}`]}
             onChange={handleChange}
             style={{ width: '100%' }}
             options={options}
             disabled={true}
           />
           <Button style={{marginTop: 2}} onClick={() => startTransition(() => navigate(`/inventory`))}> Find Vehicles </Button>
+          <span> { order.vehicles?.length } Vehicles Selected </span>
         </Form.Item>
         <div style={{ fontSize: 20, fontWeight: 'bold' }}> Documents </div>
         <Divider/>
-        <Form.Item label="Upload Documents" name='vehicle_images'>
+        <Form.Item label="Upload Documents" name='documents'>
           <Upload
             { ...props }
           >

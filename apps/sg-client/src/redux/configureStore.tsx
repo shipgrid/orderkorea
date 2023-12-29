@@ -32,6 +32,7 @@ import {
 } from '../services/api'
 
 import session from './reducers/session'
+import order from './reducers/order'
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2'
 import localStorage from 'redux-persist/lib/storage' 
 
@@ -54,6 +55,7 @@ firebase.initializeApp(firebaseConfig)
 const rootReducer: Reducer = combineReducers({
   [api.reducerPath]: api.reducer,
   session,
+  order,
   firebase: persistReducer(
     { key: 'firebaseState', storage: localStorage, stateReconciler: autoMergeLevel2 },
     firebaseReducer
