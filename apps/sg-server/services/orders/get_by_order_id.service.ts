@@ -18,10 +18,14 @@ export default async ({
       .modifyGraph('vehicles.[images]', builder => {
         builder.select('image_url');
       })
-      .where('id', order_id)
+      .where('order_id', order_id)
       .where('customer_id', customer_id)
 
-    return order;
+      if(!order.length) {
+        throw new Error('Order not found')
+      }
+
+    return order[0];
 
   } catch(e) {
     Logger.error('Error getting order by order_id', e);

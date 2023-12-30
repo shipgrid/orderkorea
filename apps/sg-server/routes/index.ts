@@ -9,17 +9,16 @@ import vehicles from './vehicles'
 import thirdParties from './third_parties'
 import storage from './storage'
 
-import validateFirebaseToken from '../middlewares/validate_firebase_token'
-import getUserSession from '../middlewares/get_user_session'
+import authValidation from '../middlewares/auth_validation'
 
 const routes = Router()
 
 routes.get('/test', (req, res) => res.status(200).send('OK'))
 routes.use('/account', account);
-routes.use('/vehicles', validateFirebaseToken, getUserSession, vehicles);
-routes.use('/orders', validateFirebaseToken, getUserSession, orders);
-routes.use('/addresses', validateFirebaseToken, getUserSession, addresses);
-routes.use('/third-parties', validateFirebaseToken, getUserSession, thirdParties)
-routes.use('/storage', validateFirebaseToken, getUserSession, storage)
+routes.use('/vehicles', authValidation, vehicles);
+routes.use('/orders', authValidation, orders);
+routes.use('/addresses', authValidation, addresses);
+routes.use('/third-parties', authValidation, thirdParties)
+routes.use('/storage', authValidation, storage)
 
 export default routes

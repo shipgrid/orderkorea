@@ -18,6 +18,7 @@ export default async (req, res, next) => {
       .query()
       .findOne({ uid })
       .withGraphFetched('customer')
+      .withGraphFetched('staff')
 
     if(!user) {
       Logger.warn('No user found with uid', uid)

@@ -3,7 +3,8 @@ import { SessionState } from '../../types/root';
 // Define the initial state
 const initialState: SessionState = {
   isAuth: false,
-  token: ''
+  token: '',
+  fbToken: ''
 };
 
 // Define the action type
@@ -11,6 +12,7 @@ type SessionAction = {
   type: string;
   payload: {
     token: string;
+    fbToken: string;
   }
 };
 
@@ -22,11 +24,9 @@ const sessionReducer = (state: SessionState = initialState, action: SessionActio
       return { 
         ...state, 
         isAuth: true, 
-        token: action.payload.token
+        token: action.payload.token,
+        fbToken: action.payload.fbToken
       };
-
-    case 'LOGOUT':
-      return initialState;
 
     default:
       return state;

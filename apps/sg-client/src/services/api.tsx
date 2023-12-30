@@ -179,15 +179,21 @@ export interface CreateVehicleBody {
   images: VehicleImage[];
 }
 
+export interface FirebaseLogin {
+  firebase_token: string;
+}
+
 
 const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:4000',
     prepareHeaders: (headers, { getState }: any) => {
+      const fbToken = getState().session.fbToken
       const token = getState().session.token
 
-      if (token) {
+      if (fbToken) {
         headers.set('authorization', `Bearer ${token}`)
+        headers.set('x-fb-key', `${fbToken}`)
       }
   
       return headers
@@ -195,6 +201,14 @@ const api = createApi({
   }),
   tagTypes: ['orders', 'order', 'vehicles', 'thirdParties', 'addresses', 'documents'],
   endpoints: (build) => ({
+    firebaseLogin: build.mutation<ApiResponse, FirebaseLogin>({
+      query: (body) => ({
+        url: 'account/firebase-login',
+        method: 'POST',
+        body,
+      }),
+      transformResponse: (response: { data: any }, meta, arg) => response.data,
+    }),
     upload: build.mutation<ApiResponse, UploadParams>({
       query: (body) => ({
         url: 'storage/upload',
@@ -320,7 +334,8 @@ const {
   useCreateDocumentMutation,
   useRegisterMutation,
   useUploadMutation,
-  useCreateOrderMutation  
+  useCreateOrderMutation,
+  useFirebaseLoginMutation
 } = api
 
 export {
@@ -339,6 +354,7 @@ export {
   useCreateDocumentMutation,
   useRegisterMutation,
   useUploadMutation,
-  useCreateOrderMutation
+  useCreateOrderMutation,
+  useFirebaseLoginMutation
 }
 

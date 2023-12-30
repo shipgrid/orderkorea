@@ -1,18 +1,34 @@
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { 
+  createBrowserRouter, 
+  RouterProvider 
+} from "react-router-dom";
+
+import { 
+  useSelector 
+} from 'react-redux'
+
+import { 
+  useState, 
+  useEffect 
+} from "react";
+
+import { 
+  isLoaded 
+} from 'react-redux-firebase'
+
 import PublicRoute from "./routes/publicRoutes";
 import PrivateRoute from './routes/privateRoutes'
-import { useSelector } from 'react-redux'
-import { useState, useEffect } from "react";
 import Loader from './components/Shared/Loader'
-import { isLoaded } from 'react-redux-firebase'
 
 const App = () => {
 
   const auth = useSelector((state: any) => state.firebase.auth)
+  const session = useSelector((state: any) => state.session)
+
   const [routes, setRoutes] = useState<any>(null);
 
-  const privateRoutes = !!auth && !!auth.uid ? [...PrivateRoute()] : []
+  const privateRoutes = !!auth && !!session.token ? [...PrivateRoute()] : []
 
   const allRoutes = ([
     ...privateRoutes,
@@ -20,11 +36,11 @@ const App = () => {
   ]);
 
   useEffect(() => {
-    if (isLoaded(auth)) {
+    if(isLoaded(auth)) {
       const createdRoutes = createBrowserRouter(allRoutes);
       setRoutes(createdRoutes);
     }
-  }, [auth]);
+  }, [auth, session.token]);
 
   return (
     <>

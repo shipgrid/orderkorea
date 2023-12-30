@@ -15,7 +15,9 @@ interface OrderDetailProps {
   order: Order; 
 }
 
-const OrderDetail: React.FC<OrderDetailProps> = ({ order }) => {
+const OrderDetail: React.FC<OrderDetailProps> = ({ 
+  order 
+}) => {
 
   const onChange = (key: string | string[]) => {
     console.log(key);

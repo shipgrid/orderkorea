@@ -52,6 +52,7 @@ export interface OrderState {
 export interface SessionState {
   isAuth: boolean;
   token: string;
+  fbToken: string;
 }
 
 export interface RootState {

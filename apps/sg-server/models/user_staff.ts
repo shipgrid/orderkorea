@@ -14,11 +14,11 @@ interface UserStaff {
 
 class UserStaff extends Model implements UserStaff {
   static get tableName() {
-    return 'user_customer';
+    return 'user_staff';
   }
 
   static get idColumn() {
-    return 'customer_id';
+    return 'staff_id';
   }
 
   static get relationMappings() {
@@ -39,7 +39,7 @@ class UserStaff extends Model implements UserStaff {
       type: 'object',
       required: ['user_id'],
       properties: {
-        customer_id: { type: 'integer' },
+        staff_id: { type: 'integer' },
         user_id: { type: 'integer' },
         created_on: { type: 'string' },
         updated_on: { type: 'string' },

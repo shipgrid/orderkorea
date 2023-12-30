@@ -52,7 +52,7 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig)
 
-const rootReducer: Reducer = combineReducers({
+const appReducer: Reducer = combineReducers({
   [api.reducerPath]: api.reducer,
   session,
   order,
@@ -61,6 +61,15 @@ const rootReducer: Reducer = combineReducers({
     firebaseReducer
   ),
 });
+
+const rootReducer: Reducer = (state, action) => {
+  if (action.type === 'LOGOUT') {
+    localStorage.removeItem('persist:root')
+    state = undefined
+  }
+
+  return appReducer(state, action)
+}
 
 const persistConfig = {
   key: 'root',

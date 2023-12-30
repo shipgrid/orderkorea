@@ -24,7 +24,8 @@ import {
 } from 'react-redux-firebase'
 
 import {
-  useRegisterMutation
+  useRegisterMutation,
+  useFirebaseLoginMutation
 } from '../../../services/api'
 
 
@@ -42,6 +43,11 @@ const LoginForm = ({}) => {
     }
   ] = useRegisterMutation()
 
+  const [firebaseLogin, {
+      isLoading: firebaseLoginLoading 
+    }
+  ] = useFirebaseLoginMutation()
+
   const signInWithGoogle = async () => {
     const response = await firebase.login({ provider: 'google', type: 'popup' })
 
@@ -56,7 +62,18 @@ const LoginForm = ({}) => {
     }
 
     const firebaseToken = await firebase.auth().currentUser?.getIdToken()
-    dispatch({ type: 'LOGIN', payload: { token: firebaseToken } })
+
+    if(!firebaseToken) {
+      return;
+    }
+
+    const { 
+      data: token 
+    } = await firebaseLogin({
+      firebase_token: firebaseToken
+    })
+
+    dispatch({ type: 'LOGIN', payload: { token: token, fbToken: firebaseToken } })
   };
 
   const onFinish = async (values: any) => {    

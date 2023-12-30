@@ -1,6 +1,7 @@
 import { Model } from 'objection';
 import knexClient from './knex_client'
 import UserCustomer from './user_customer';
+import UserStaff from './user_staff';
 
 Model.knex(knexClient);
 
@@ -45,6 +46,14 @@ class User extends Model implements User {
           to: 'user_customers.user_id',
         },
       },
+      staff: {
+        relation: Model.HasOneRelation,
+        modelClass: UserStaff,
+        join: {
+          from: 'users.user_id',
+          to: 'user_staff.user_id',
+        },
+      }
     };
   }
 
