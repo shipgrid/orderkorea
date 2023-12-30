@@ -20,12 +20,23 @@ export default async (
     } = req.body
 
     const { 
-      token
+      token,
+      username,
+      is_staff,
+      is_customer
     } = await account.firebaseLogin({
       firebase_token
     })
 
-    res.status(200).json({ data: token });
+    res.status(200).json({ 
+      data: {
+        token,
+        username,
+        is_staff,
+        is_customer
+      },
+    });
+
   } catch (e) {
     next(e)
   }

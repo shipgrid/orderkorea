@@ -40,7 +40,7 @@ const OrderTable = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const order = useSelector((state: any) => state.order)
-  console.log(order)
+
   const { 
     data:vehicles, 
     error, 

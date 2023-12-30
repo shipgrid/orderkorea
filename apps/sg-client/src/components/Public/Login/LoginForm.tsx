@@ -67,13 +67,11 @@ const LoginForm = ({}) => {
       return;
     }
 
-    const { 
-      data: token 
-    } = await firebaseLogin({
+    const loginResponse = await firebaseLogin({
       firebase_token: firebaseToken
     })
-
-    dispatch({ type: 'LOGIN', payload: { token: token, fbToken: firebaseToken } })
+    console.log(loginResponse.data)
+    dispatch({ type: 'LOGIN', payload: { token: loginResponse.data.token, fbToken: firebaseToken } })
   };
 
   const onFinish = async (values: any) => {    

@@ -7,9 +7,6 @@ import {
   KnexClient
 } from '../../models'
 
-import { v4 as uuidv4 } from 'uuid';
-
-
 export default async ({
   email,
   shipment_type,

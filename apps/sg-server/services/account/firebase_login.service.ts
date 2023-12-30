@@ -21,7 +21,7 @@ export default async ({
 
   try {
 
-    let user;
+    let loginUser;
 
     const response = await admin.auth().verifyIdToken(firebase_token)
 
@@ -42,12 +42,16 @@ export default async ({
 
         const user_id = userWithUid.user_id;
     
-        user = await User.query(trx).patchAndFetchById(user_id, {
-          last_login
-        });
+        loginUser = await User
+          .query(trx)
+          .patchAndFetchById(user_id, {
+            last_login
+          })
+          .withGraphFetched('staff')
+          .withGraphFetched('customer')
 
         await trx.commit();
-        Logger.info('User updated:', user);
+        Logger.info('User updated:', loginUser);
 
       });
     } catch(e) {
@@ -63,7 +67,7 @@ export default async ({
       token = jwt.sign(
         { 
           customer: {
-            ...user.customer
+            ...loginUser.customer
           }
         },
         'YOUR_SECRET_KEY',
@@ -77,7 +81,10 @@ export default async ({
     Logger.info(`Token created successfully`);
 
     return {
-      token
+      token,
+      username: loginUser.username,
+      is_staff: !!loginUser.staff,
+      is_customer: !!loginUser.customer
     };
 
   } catch(e) {
