@@ -15,7 +15,16 @@ export default async (
 ) => {
 
   try {
-    const data = await orders.list({})
+
+    const user = req.user
+    
+    const {
+      customer
+    } = user 
+
+    const data = await orders.list({
+      customer_id: customer.customer_id
+    })
 
     res.status(200).json({ data, success: true });
   } catch (e) {

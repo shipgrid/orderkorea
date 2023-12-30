@@ -1,12 +1,25 @@
 import {
   Logger,
+  User,
   Order,
+  Address,
+  ThirdPartyAddress,
   KnexClient
 } from '../../models'
 
+import { v4 as uuidv4 } from 'uuid';
+
+
 export default async ({
-  vehicle_id,
-  customer_id,
+  email,
+  shipment_type,
+  port_of_loading,
+  container_number,
+  port_of_arrival,
+  loaded_on,
+  thirdParties,
+  documents,
+  vehicles
 }) => {
   try {
 
@@ -14,12 +27,33 @@ export default async ({
 
     await KnexClient.transaction(async (trx) => {
 
+      const user = await User
+        .query(trx)
+        .withGraphFetched('customer')
+        .where('username', email).first();
+
+      if(!user) {
+        throw new Error('User not found');
+      }
+
       const newOrder = {
-        vehicle_id,
-        customer_id,
+        customer_id: user.customer?.customer_id,
+        shipment_type,
+        port_of_loading,
+        container_number,
+        port_of_arrival,
+        loaded_on,
+        thirdParties,
+        documents,
+        vehicles,
+        orderEvents: [
+          {
+            name: 'ORDER_CREATED',
+          }
+        ]
       };
 
-      const order = await Order.query(trx).insert(newOrder);
+      const order = await Order.query(trx).upsertGraph(newOrder, { relate: true });
       createdOrder = order;
     });
 

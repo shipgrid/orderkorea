@@ -1,7 +1,7 @@
 import { Model } from 'objection';
 import knexClient from './knex_client'
 import Order from './order'
-import Address from './address'
+import Address from './address';
 
 Model.knex(knexClient);
 
@@ -35,11 +35,11 @@ class ThirdParty extends Model implements ThirdParty {
         },
       },
       address: {
-        relation: Model.HasOneRelation,
+        relation: Model.HasManyRelation,
         modelClass: Address,
         join: {
-          from: 'third_parties.address_id',
-          to: 'addresses.address_id',
+          from: 'third_parties.third_party_id',
+          to: 'addresses.third_party_id',
         },
       },
     };
@@ -48,7 +48,7 @@ class ThirdParty extends Model implements ThirdParty {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['order_id', 'address_id', 'type'],
+      required: ['order_id', 'type'],
       properties: {
         third_party_id: { type: ['integer'] },
         address_id: { type: ['integer'] },

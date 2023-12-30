@@ -71,7 +71,7 @@ interface Image {
 
 interface ThirdParty {
   third_party_id: number;
-  address: Address;
+  address: Address[];
   order_id: number;
   type: string;
   created_on: string;
@@ -121,6 +121,11 @@ const OrderTable = () => {
 
   const columns = [
     {
+      title: 'Order ID',
+      dataIndex: 'order_id',
+      key: 'order_id',
+    },
+    {
       title: 'Shipment Type',
       dataIndex: 'shipment_type',
       key: 'shipment_type',
@@ -145,7 +150,7 @@ const OrderTable = () => {
       render: (key: Shipper, record: Order) => {
 
         const shipper = record?.thirdParties?.find((thirdParty: ThirdParty) => thirdParty.type === 'shipper')
-        const address = shipper?.address
+        const address = shipper?.address[0]
 
         return (
           <div style={{ display: 'flex', flexDirection:'column' }}>
@@ -164,7 +169,7 @@ const OrderTable = () => {
       render:(key: Shipper, record: Order) => {
 
         const consignee = record?.thirdParties?.find((thirdParty: ThirdParty) => thirdParty.type === 'consignee')
-        const address = consignee?.address
+        const address = consignee?.address[0]
 
         return (
           <div style={{ display: 'flex', flexDirection:'column' }}>

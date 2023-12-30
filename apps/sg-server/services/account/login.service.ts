@@ -59,7 +59,7 @@ export default async ({
       token = jwt.sign(
         { 
           customer: {
-            ...user.userCustomer
+            ...user.customer
           }
         },
         'YOUR_SECRET_KEY',

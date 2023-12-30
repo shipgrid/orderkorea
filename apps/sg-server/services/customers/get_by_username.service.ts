@@ -4,7 +4,7 @@ import {
 } from '../../models'
 
 interface UserWithUserCustomer extends User {
-  userCustomer: Customer
+  customer: Customer
 }
 
 export default async ({
@@ -12,7 +12,7 @@ export default async ({
 }):Promise<UserWithUserCustomer> => {
   try {
     const user = await User.query()
-      .withGraphFetched('userCustomer')
+      .withGraphFetched('customer')
       .where('username', username).first();
 
     return user as UserWithUserCustomer;

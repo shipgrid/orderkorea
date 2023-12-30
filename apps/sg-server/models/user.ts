@@ -4,6 +4,14 @@ import UserCustomer from './user_customer';
 
 Model.knex(knexClient);
 
+interface IUserCustomer {
+  customer_id: number;
+  user_id: number;
+  created_on: string;
+  updated_on: string;
+  deleted_on: string | null; // Assuming deleted_on can be null
+}
+
 // Define an interface that represents your User model properties
 interface User {
   user_id: number;
@@ -12,6 +20,7 @@ interface User {
   username: string;
   password_hash: string;
   last_login: string | null; // Assuming last_login can be null
+  customer?: IUserCustomer;
   created_on: string;
   updated_on: string;
   deleted_on: string | null; // Assuming deleted_on can be null
@@ -28,7 +37,7 @@ class User extends Model implements User {
 
   static get relationMappings() {
     return {
-      userCustomer: {
+      customer: {
         relation: Model.HasOneRelation,
         modelClass: UserCustomer,
         join: {

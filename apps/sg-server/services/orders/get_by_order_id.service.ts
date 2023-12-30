@@ -4,7 +4,8 @@ import {
 } from '../../models'
 
 export default async ({
-  order_id
+  order_id,
+  customer_id
 }) => {
 
   try {
@@ -17,7 +18,9 @@ export default async ({
       .modifyGraph('vehicles.[images]', builder => {
         builder.select('image_url');
       })
-      .findById(order_id);
+      .where('id', order_id)
+      .where('customer_id', customer_id)
+
     return order;
 
   } catch(e) {

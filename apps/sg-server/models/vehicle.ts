@@ -49,7 +49,6 @@ class Vehicle extends Model implements Vehicle {
     return {
       type: 'object',
       required: ['make', 'model', 'year', 'exterior_color', 'transmission_type'],
-
       properties: {
         vehicle_id: { type: 'integer' },
         order_id: { type: 'integer' },
@@ -57,7 +56,7 @@ class Vehicle extends Model implements Vehicle {
         model: { type: 'string', minLength: 1, maxLength: 255 },
         year: { type: 'string', minLength: 1, maxLength: 255 },
         exterior_color: { type: 'string', minLength: 1, maxLength: 255 },
-        vin_number: { type: 'string', minLength: 1, maxLength: 255 },
+        vin_number: { type: ['string', 'null'], minLength: 1, maxLength: 255 },
         transmission_type: { type: 'string', minLength: 1, maxLength: 255 },
         mileage: { type: 'number' },
         description: { type: 'string' },

@@ -399,6 +399,9 @@ importers:
       stripe:
         specifier: ^13.2.0
         version: 13.2.0
+      uuid:
+        specifier: ^9.0.1
+        version: 9.0.1
       winston:
         specifier: ^3.11.0
         version: 3.11.0

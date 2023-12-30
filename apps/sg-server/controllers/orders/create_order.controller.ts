@@ -18,12 +18,27 @@ export default async (
     const customer = req.customer
 
     const {
-      vehicle_id, 
+        email,
+        shipment_type,
+        port_of_loading,
+        container_number,
+        port_of_arrival,
+        loaded_on,
+        thirdParties,
+        documents,
+        vehicles
     } = req.body
     
     const data = await orders.create({
-      vehicle_id,
-      customer_id: customer.customer_id
+      email,
+      shipment_type,
+      port_of_loading,
+      container_number,
+      port_of_arrival,
+      loaded_on,
+      thirdParties,
+      documents,
+      vehicles
     })
 
     res.status(200).json({ data, success: true });

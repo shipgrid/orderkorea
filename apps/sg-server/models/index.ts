@@ -8,6 +8,7 @@ import VehicleImage from './vehicle_image';
 import Vehicle from './vehicle';
 import ThirdParty from './third_party';
 import Document from './document'
+import ThirdPartyAddress from './third_party_address';
 import KnexClient from './knex_client';
 import HttpError from './http_error';
 import Logger from './logger';
@@ -23,6 +24,7 @@ export {
   VehicleImage,
   Vehicle,
   Document,
+  ThirdPartyAddress,
   KnexClient,
   HttpError,
   Logger

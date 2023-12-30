@@ -55,7 +55,7 @@ const ThirdPartyTable: React.FC<ThirdPartyTableProps> = ({
       dataIndex: 'address',
       key: 'name',
       render: (key:Address) => (
-        <p style={{ fontSize: 14 }}> {key.name} </p>
+        <p style={{ fontSize: 14 }}> {key[0]?.name} </p>
       )
     },
     {
@@ -65,10 +65,10 @@ const ThirdPartyTable: React.FC<ThirdPartyTableProps> = ({
       render:(key: Address) => {
         return (
           <div style={{ display: 'flex', flexDirection:'column' }}>
-            <p style={{fontSize: 14}}> {key?.name} </p>
-            <p style={{fontSize: 12, color: 'gray'}}> {key?.line1} </p>
-            <p style={{fontSize: 12, color: 'gray'}}> {key?.city}, {key?.state_code}, {key?.country_code} </p>
-            <p style={{fontSize: 12, color: 'gray'}}> {key?.postal_code} </p>
+            <p style={{fontSize: 14}}> {key[0]?.name} </p>
+            <p style={{fontSize: 12, color: 'gray'}}> {key[0]?.line1} </p>
+            <p style={{fontSize: 12, color: 'gray'}}> {key[0]?.city}, {key[0]?.state_code}, {key[0]?.country_code} </p>
+            <p style={{fontSize: 12, color: 'gray'}}> {key[0]?.postal_code} </p>
           </div>
         )
       }

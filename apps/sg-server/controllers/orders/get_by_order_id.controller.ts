@@ -16,12 +16,19 @@ export default async (
 
   try {
 
+    const user = req.user
+    
+    const {
+      customer
+    } = user 
+
     const {
       order_id
     } = req.params
     
     const data = await orders.getByOrderId({
-      order_id
+      order_id,
+      customer_id: customer.id
     })
 
     res.status(200).json({ data, success: true });

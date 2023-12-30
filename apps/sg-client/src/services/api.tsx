@@ -133,6 +133,53 @@ interface RegisterParams {
   uid: string | null | undefined;
 }
 
+export interface CreateOrderParams {
+  email: number | null;
+  shipment_type: string | null;
+  port_of_loading: string | null;
+  container_number: string | null;
+  port_of_arrival: string | null;
+  loaded_on: string | null;
+  thirdParties: CreateThirdPartyBody[];
+  documents: CreateDocumentBody[];
+  vehicles: CreateVehicleBody[];
+}
+
+export interface CreateThirdPartyBody {
+  address: CreateAddressBody;
+  type: string;
+}
+
+export interface CreateAddressBody {
+  name: string;
+  line1: string;
+  line2: string | null;
+  city: string;
+  state_code: string;
+  country_code: string;
+  postal_code: string;
+  email: string | null;
+  phone: string | null;
+}
+
+export interface CreateDocumentBody {
+  file_url: number;
+}
+
+export interface CreateVehicleBody {
+  make: string;
+  model: string;
+  year: number;
+  description: string;
+  exterior_color: string;
+  transmission_type: string;
+  mileage: number;
+  price: number;
+  fuel_type: string;
+  images: VehicleImage[];
+}
+
+
 const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:4000',
@@ -178,6 +225,14 @@ const api = createApi({
       query: (body) => ({
         url: `orders/${body.order_id}`,
         method: 'PUT',
+        body,
+      }),
+      transformResponse: (response: { data: any }, meta, arg) => response.data,
+    }),
+    createOrder: build.mutation<ApiResponse, CreateOrderParams>({
+      query: (body) => ({
+        url: `orders`,
+        method: 'POST',
         body,
       }),
       transformResponse: (response: { data: any }, meta, arg) => response.data,
@@ -264,7 +319,8 @@ const {
   useRemoveDocumentMutation,
   useCreateDocumentMutation,
   useRegisterMutation,
-  useUploadMutation
+  useUploadMutation,
+  useCreateOrderMutation  
 } = api
 
 export {
@@ -282,6 +338,7 @@ export {
   useRemoveDocumentMutation,
   useCreateDocumentMutation,
   useRegisterMutation,
-  useUploadMutation
+  useUploadMutation,
+  useCreateOrderMutation
 }
 

@@ -67,7 +67,7 @@ const OrderDetailContainer = () => {
         />
         <Divider my={3}/>
         <Button style={{marginBottom: 5, marginRight: 5 }} onClick={ () => startTransition(() => navigate(`/order-detail?order_id=${order.order_id}`)) }> Edit </Button>
-        <Button style={{marginBottom: 5, marginRight: 5 }}> Set Status </Button>
+        <Button style={{marginBottom: 5, marginRight: 5 }}> Create Event </Button>
         <Grid          
         title='Shipment Details'
           content={

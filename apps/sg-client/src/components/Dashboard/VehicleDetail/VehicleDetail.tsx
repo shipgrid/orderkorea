@@ -63,7 +63,7 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
         </Descriptions>
       </div>
       <div>
-        <Button type="primary" style={{ marginTop: 20, marginBottom: 20, width: '100%', height: 50, borderRadius: 20 }}> Reserve Now </Button>
+        <Button type="primary" style={{ marginTop: 20, marginBottom: 20, width: '100%', height: 50, borderRadius: 20 }}> Buy </Button>
       </div>
     </div>
   );

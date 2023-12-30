@@ -1,7 +1,6 @@
 import {
   Logger,
   Vehicle,
-  VehicleImage,
   KnexClient
 } from '../../models'
 

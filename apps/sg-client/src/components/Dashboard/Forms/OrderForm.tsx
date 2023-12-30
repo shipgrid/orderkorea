@@ -25,10 +25,6 @@ import {
 } from '../../../services/api'
 
 import {
-  useCreateVehicleMutation
-} from '../../../services/api'
-
-import {
   startTransition,
   useEffect
 } from 'react';
@@ -45,6 +41,12 @@ import {
   useSelector 
 } from 'react-redux'
 
+import {
+  useCreateOrderMutation,
+  CreateOrderParams,
+  CreateAddressBody
+} from '../../../services/api'
+
 const VehicleForm = ({
 
 }) => {
@@ -53,11 +55,7 @@ const VehicleForm = ({
   const dispatch = useDispatch();
   const order = useSelector((state: any) => state.order)
 
-  const [ 
-    createVehicle, { 
-      isLoading: createVehicleLoading 
-    }
-  ] = useCreateVehicleMutation();
+  const [ createOrder, { isLoading } ] = useCreateOrderMutation();
 
   const [
     upload
@@ -68,8 +66,29 @@ const VehicleForm = ({
 
   const onFinish = async (values: any) => {
 
-    const consignee = {}
-    const shipper = {}
+    const consignee:CreateAddressBody = {
+      name: '',
+      line1: '',
+      line2: '',
+      city: '',
+      state_code: '',
+      country_code: '',
+      postal_code: '',
+      email: '',
+      phone: ''
+    }
+
+    const shipper:CreateAddressBody = {
+      name: '',
+      line1: '',
+      line2: '',
+      city: '',
+      state_code: '',
+      country_code: '',
+      postal_code: '',
+      email: '',
+      phone: ''
+    }
 
     for(const properties in values) {
       // console.log(consignee)
@@ -84,7 +103,7 @@ const VehicleForm = ({
       }
     }
 
-    const orderDetails = {
+    const orderDetails: CreateOrderParams = {
       email: values.email,
       shipment_type: values.shipment_type,
       port_of_loading: values.port_of_loading,
@@ -93,30 +112,24 @@ const VehicleForm = ({
       loaded_on: values.loaded_on,
       thirdParties: [
         {
-          address: consignee,
-          order_id: 1,
+          address: consignee, // Cast the consignee address as CreateAddressBody
           type: 'consignee'
         },
         {
-          address: shipper,
-          order_id: 1,
+          address: shipper, // Cast the shipper address as CreateAddressBody
           type: 'shipper'
         }
       ],
-      documents: [
-        {
-          file_url: values.documents.fileList.map((file: any) => {
-            return {
-              image_url: file.response
-            }
-          })
+      documents: values.documents.fileList.map((file: any) => {
+        return {
+          name: file.originFileObj.name,
+          file_url: file.response
         }
-      ],
+      }),
       vehicles: order.vehicles
-    }
+    };
 
-    console.log(orderDetails)
-
+    await createOrder(orderDetails);
   };
   
   const onFinishFailed = (errorInfo: any) => {
@@ -277,7 +290,7 @@ const VehicleForm = ({
           <Input placeholder='optional'/>
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 5 }}>
-          <Button style={{ width: '100%'}} icon={<RiSave3Line />} type="primary" htmlType="submit" loading={createVehicleLoading}> Save </Button>
+          <Button style={{ width: '100%'}} icon={<RiSave3Line />} type="primary" htmlType="submit" loading={isLoading}> Save </Button>
         </Form.Item>
       </Form>
     </>
