@@ -1,3 +1,5 @@
+import Joi from 'joi'
+
 import { 
   Request, 
   Response, 
@@ -7,6 +9,20 @@ import {
 import {
   thirdParties
 } from '../../services'
+
+const bodySchema = Joi.object({
+  name: Joi.string().required(),
+  type: Joi.string().required().valid('shipper', 'consignee', 'delivery_destination', 'notify_party'),
+  line1: Joi.string().required(),
+  line2: Joi.string().allow('', null),
+  city: Joi.string().required(),
+  state_code: Joi.string().required(),
+  country_code: Joi.string().required(),
+  postal_code: Joi.string().required(),
+  email: Joi.string().allow('', null),
+  phone: Joi.string().allow('', null),
+  order_id: Joi.number().required()
+})
 
 export default async (
   req: Request,

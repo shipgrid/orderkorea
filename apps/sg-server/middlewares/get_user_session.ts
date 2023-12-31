@@ -5,6 +5,9 @@ export default async (req, res, next) => {
 
   try {
 
+    // Delete this 
+    req.uid = '7zGzxOs1HshqNFmmZpf98b0Fc8J2'
+    
     const {
       uid
     } = req

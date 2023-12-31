@@ -1,3 +1,4 @@
+import Joi from 'joi'
 
 import { 
   Request, 
@@ -9,11 +10,21 @@ import {
   account 
 } from '../../services'
 
+const bodySchema = Joi.object({
+  firebase_token: Joi.string().required() 
+})
+
 export default async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
+
+  const { error } = bodySchema.validate(req.body)
+
+  if (error) {
+    throw new Error(error.details[0].message) 
+  }
 
   try {
     const {

@@ -1,3 +1,5 @@
+import Joi from 'joi'
+
 import { 
   Request, 
   Response, 
@@ -8,6 +10,21 @@ import {
   addresses
 } from '../../services'
 
+const paramsSchema = Joi.object({
+  address_id: Joi.string().required() 
+})
+
+const bodySchema = Joi.object({
+  name: Joi.string(),
+  line1: Joi.string(),
+  line2: Joi.string(),
+  city: Joi.string(),
+  state_code: Joi.string(),
+  country_code: Joi.string(),
+  postal_code: Joi.string(),
+  email: Joi.string(),
+  phone: Joi.string()
+})
 
 export default async (
   req: Request,
@@ -16,6 +33,20 @@ export default async (
 ) => {
 
   try {
+
+    const paramsValidation = paramsSchema.validate(req.params)
+    if (paramsValidation.error) {
+      throw new Error(paramsValidation.error.details[0].message)
+    }
+    
+    const bodyValidation = bodySchema.validate(req.body)
+    if (bodyValidation.error) {
+      throw new Error(bodyValidation.error.details[0].message)
+    }
+
+    const {
+      address_id
+    } = req.params
 
     const {
       name,
@@ -29,9 +60,6 @@ export default async (
       phone,
     } = req.body
 
-    const {
-      address_id
-    } = req.params
 
     const data = await addresses.update({
       address_id,

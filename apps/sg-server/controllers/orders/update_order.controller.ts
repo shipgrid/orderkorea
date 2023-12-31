@@ -1,3 +1,5 @@
+import Joi from 'joi'
+
 import { 
   Request, 
   Response, 
@@ -8,16 +10,40 @@ import {
   orders
 } from '../../services'
 
+const paramsSchema = Joi.object({
+  order_id: Joi.number().required()
+})
+
+const bodySchema = Joi.object({
+  shipment_type: Joi.string().required().valid('ocean', 'air'),
+  container_number: Joi.string().allow('', null),
+  port_of_loading: Joi.string().allow('', null),
+  port_of_arrival: Joi.string().allow('', null),
+  loaded_on: Joi.string().allow('', null)
+})
+
 export default async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-
   try {
 
+    const paramsValidation = paramsSchema.validate(req.params)
+    if (paramsValidation.error) {
+      throw new Error(paramsValidation.error.details[0].message) 
+    }
+
+    const bodyValidation = bodySchema.validate(req.body)
+    if (bodyValidation.error) {
+      throw new Error(bodyValidation.error.details[0].message) 
+    }
+
+    const { 
+      order_id
+    } = req.params
+
     const {
-      order_id,
       shipment_type,
       container_number,
       port_of_loading,
