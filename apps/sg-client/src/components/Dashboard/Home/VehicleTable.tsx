@@ -53,8 +53,6 @@ const VehicleTable = () => {
   };
 
   const handleViewVehicle = (vehicle_id: number) => {
-    console.log('vehicle_id:', vehicle_id)
-
     navigate(`/vehicle?vehicle_id=${vehicle_id}`);
   }
 
