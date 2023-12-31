@@ -16,10 +16,10 @@ const paramsSchema = Joi.object({
 
 const bodySchema = Joi.object({
   shipment_type: Joi.string().required().valid('ocean', 'air'),
-  container_number: Joi.string().allow('', null),
-  port_of_loading: Joi.string().allow('', null),
-  port_of_arrival: Joi.string().allow('', null),
-  loaded_on: Joi.string().allow('', null)
+  container_number: Joi.string().required(),
+  port_of_loading: Joi.string().required(),
+  port_of_arrival: Joi.string().required(),
+  loaded_on: Joi.string().required()
 })
 
 export default async (

@@ -18,8 +18,8 @@ const bodySchema = Joi.object({
   state_code: Joi.string().required(),
   country_code: Joi.string().required(),
   postal_code: Joi.string().required(),
-  email: Joi.string(),
-  phone: Joi.string()
+  email: Joi.string().allow('', null),
+  phone: Joi.string().allow('', null)
 })
 
 export default async (

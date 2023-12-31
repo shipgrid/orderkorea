@@ -32,6 +32,12 @@ export default async (
 
   try {
 
+    const { error } = bodySchema.validate(req.body)
+
+    if (error) {
+      throw new Error(error.details[0].message) 
+    }
+    
     const {
       name,
       type,

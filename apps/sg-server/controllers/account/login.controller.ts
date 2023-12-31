@@ -1,4 +1,3 @@
-
 import Joi from 'joi'
 
 import { 
@@ -32,17 +31,17 @@ export default async (
 
     const {
       username,
-      password,
+      password
     } = req.body
 
     const { 
       token
     } = await account.login({
       username,
-      password,
+      password
     })
 
-    res.status(200).json({ token });
+    res.status(200).json({ token })
   } catch (e) {
     next(e)
   }

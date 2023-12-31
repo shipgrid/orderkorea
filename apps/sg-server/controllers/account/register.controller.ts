@@ -11,7 +11,11 @@ import {
 } from '../../services'
 
 const bodySchema = Joi.object({
-  firebase_token: Joi.string().required() 
+  last_name: Joi.string().required(),
+  first_name: Joi.string().required(),
+  username: Joi.string().required(),
+  password: Joi.string().required(),
+  uid: Joi.string().required()
 })
 
 export default async (
@@ -43,7 +47,7 @@ export default async (
       uid
     })
 
-    res.status(200).json({ message: 'User added successfully'});
+    res.status(200).json({ success: true })
   } catch (e) {
     next(e)
   }

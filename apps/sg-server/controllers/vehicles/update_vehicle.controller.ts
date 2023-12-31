@@ -16,16 +16,16 @@ const paramsSchema = Joi.object({
 })
 
 const bodySchema = Joi.object({
-  make: Joi.string(),
-  model: Joi.string(),
-  year: Joi.number(),
-  exterior_color: Joi.string(),
-  vin_number: Joi.string(),
-  transmission_type: Joi.string().valid('automatic', 'manual'),
-  mileage: Joi.number(),
-  price: Joi.number(),
-  description: Joi.string(),
-  fuel_type: Joi.string().valid('gasoline', 'diesel'),
+  make: Joi.string().required(),
+  model: Joi.string().required(),
+  year: Joi.number().required(),
+  exterior_color: Joi.string().required(),
+  vin_number: Joi.string().required(),
+  transmission_type: Joi.string().valid('automatic', 'manual').required(),
+  mileage: Joi.number().required(),
+  price: Joi.number().required(),
+  description: Joi.string().required(),
+  fuel_type: Joi.string().valid('gasoline', 'diesel').required(),
 })
 
 export default async (  

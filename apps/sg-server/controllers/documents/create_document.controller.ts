@@ -61,7 +61,7 @@ export default async (
     const { document_id } = await documents.create({
       name: name,
       file: req.file,
-      order_id,
+      order_id
     })
 
     res.status(200).json({ data: document_id, success: true });

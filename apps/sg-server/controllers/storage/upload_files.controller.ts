@@ -30,8 +30,6 @@ export default async (
 ) => {
 
   try {
-
-    console.log('Upload document req file', req.file)
     
     const bodyValidation = bodySchema.validate(req.body)
     if (bodyValidation.error) {
