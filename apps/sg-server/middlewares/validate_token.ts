@@ -11,8 +11,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
 
   if (!authHeader) {
     logger.info('Authentication token not provided', authHeader);
-    res.status(401);
-    return;
+    return res.status(401);
   }
 
   // if authHeader is present, then we can validate the user against his present jwt token for authentication.
@@ -21,28 +20,26 @@ export default (req: Request, res: Response, next: NextFunction) => {
 
   if (tokenArray[0] !== 'Bearer' && tokenArray[0] !== 'bearer') {
     logger.info('Malformed authentication header provided, does not begin with Bearer', authHeader);
-    res.status(401);
-    return;
+    return res.status(401);
   }
 
   if (!token || token.length > 1024) {
     logger.info('Malformed authentication header provided, does not begin with Bearer', authHeader);
-    res.status(401);
-    return;
+    return res.status(401);
   }
 
   jwt.verify(token, 'YOUR_SECRET_KEY', (error, result) => {
 
     if (error) {
       logger.info('Authentication token not provided', error);
-      res.status(401);
-      return;
+      return res.status(401).json({
+        message: 'Token expired'
+      })    
     }
 
     if (!result) {
       logger.info('Authentication token not provided', token);
-      res.status(401);
-      return;
+      return res.status(401);
     }
 
     req.customer = result.customer;

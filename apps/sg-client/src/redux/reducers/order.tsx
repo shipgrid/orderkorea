@@ -1,7 +1,9 @@
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { OrderState } from '../../types/root';
 
 // Define the initial state
 const initialState: OrderState = {
+  status: 'in_progress', // 'in_progress' | 'completed' | 'cancelled
   email: null,
   shipment_type: null,
   port_of_loading: null,
@@ -13,27 +15,19 @@ const initialState: OrderState = {
   vehicles: [],
 };
 
-// Define the action type
-type SessionAction = {
-  type: string;
-  payload: {
-    token: string;
-  }
-};
-
-// Define the session reducer
-const orderReducer = (state: OrderState = initialState, action: SessionAction): OrderState => {
-  switch (action.type) {
-    case 'SET_ORDER':    
-    console.log(action.payload)
-      return { 
-        ...state, 
+// Create a slice for the order state and reducers
+const orderSlice = createSlice({
+  name: 'order',
+  initialState,
+  reducers: {
+    setOrder: (state, action: PayloadAction<OrderState>) => {
+      return {
+        ...state,
         ...action.payload,
       };
+    },
+  },
+});
 
-    default:
-      return state;
-  }
-};
-
-export default orderReducer;
+export const { setOrder } = orderSlice.actions;
+export default orderSlice.reducer;

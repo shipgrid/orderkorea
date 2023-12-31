@@ -1,7 +1,16 @@
 import { 
   createApi, 
-  fetchBaseQuery 
+  fetchBaseQuery,
+  BaseQueryFn,
+  FetchArgs,
+  FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react'
+
+import firebase from 'firebase/compat/app'
+
+import {
+  refreshToken
+} from '../redux/reducers/session'
 
 export interface Order {
   order_id: number;
@@ -183,22 +192,56 @@ export interface FirebaseLogin {
   firebase_token: string;
 }
 
+const baseQuery = fetchBaseQuery({
+  baseUrl: 'http://localhost:4000',
+  prepareHeaders: (headers, { getState }: any) => {
+    const fbToken = getState().session.fbToken
+    const token = getState().session.token
+
+    if (fbToken) {
+      headers.set('authorization', `Bearer ${token}`)
+      headers.set('x-fb-key', `${fbToken}`)
+    }
+
+    return headers
+  },
+})
+
+const baseQueryWithReauth: BaseQueryFn<
+  string | FetchArgs,
+  unknown,
+  FetchBaseQueryError
+> = async (args, api, extraOptions) => {
+  let result = await baseQuery(args, api, extraOptions)
+
+  if (result.error && result.error.status === 401) {
+
+    const firebaseToken = await firebase.auth().currentUser?.getIdToken()
+
+    if(!firebaseToken) {
+      return result;
+    } 
+
+    const refreshResult = await baseQuery(`/account/refresh-token/${firebaseToken}`, api, extraOptions)
+
+    if (refreshResult.data) {
+      // store the new token
+      api.dispatch(refreshToken({ 
+        fbToken: firebaseToken,
+        token: refreshResult.data.data.token
+      }));
+      
+      // retry the initial query
+      result = await baseQuery(args, api, extraOptions)
+    } else {
+      // api.dispatch(loggedOut())
+    }
+  }
+  return result
+}
 
 const api = createApi({
-  baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:4000',
-    prepareHeaders: (headers, { getState }: any) => {
-      const fbToken = getState().session.fbToken
-      const token = getState().session.token
-
-      if (fbToken) {
-        headers.set('authorization', `Bearer ${token}`)
-        headers.set('x-fb-key', `${fbToken}`)
-      }
-  
-      return headers
-    },
-  }),
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['orders', 'order', 'vehicles', 'thirdParties', 'addresses', 'documents'],
   endpoints: (build) => ({
     firebaseLogin: build.mutation<ApiResponse, FirebaseLogin>({

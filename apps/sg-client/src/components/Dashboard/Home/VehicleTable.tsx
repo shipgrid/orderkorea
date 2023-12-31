@@ -33,6 +33,10 @@ import {
   useSelector 
 } from 'react-redux'
 
+import {
+  setOrder
+} from '../../../redux/reducers/order'
+
 import TableActionDropdown from '../../Shared/TableActionDropdown';
 
 const OrderTable = () => {
@@ -58,6 +62,14 @@ const OrderTable = () => {
     if(foundVehicle) {
       return;
     }
+
+    dispatch(setOrder({ 
+      ...order,
+      vehicles: [
+        ...order.vehicles,
+        vehicle
+      ]
+    }));
 
     dispatch({
       type: 'SET_ORDER',

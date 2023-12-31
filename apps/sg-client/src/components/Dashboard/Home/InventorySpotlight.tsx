@@ -63,6 +63,7 @@ const InventorySpotlight = () => {
             <Card
               key={i}
               hoverable
+              title={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
               style={{ width: 220, flex: '1 0 calc(33% - 10px)'}}
               cover={
                 <Image.PreviewGroup
@@ -77,10 +78,10 @@ const InventorySpotlight = () => {
                 </Image.PreviewGroup>
               }                  
               actions={[
-                <Button key="setting" style={{ width: '90%', borderRadius: 20 }} type='primary'  onClick={() => startTransition(() => navigate(`/vehicle?vehicle_id=${vehicle.vehicle_id}`))}> Details </Button>,
+                <Button key="setting" style={{ width: '90%', borderRadius: 20 }} type='primary'  onClick={() => startTransition(() => navigate(`/vehicle?vehicle_id=${vehicle.vehicle_id}`))}> View </Button>,
               ]}
             >
-              <Meta title={`${vehicle.year} ${vehicle.make} ${vehicle.model} - USD ${vehicle.price}`} description={`${vehicle.mileage} KM`} />
+              <Meta title={`USD ${vehicle.price}`} description={`${vehicle.mileage} KM`} />
             </Card>
           )
         })

@@ -38,6 +38,7 @@ export interface VehicleImage {
 }
 
 export interface OrderState {
+  status: string;
   email: number | null;
   shipment_type: string | null;
   port_of_loading: string | null;
@@ -53,6 +54,9 @@ export interface SessionState {
   isAuth: boolean;
   token: string;
   fbToken: string;
+  username: string;
+  isCustomer: boolean;
+  isStaff: boolean;
 }
 
 export interface RootState {

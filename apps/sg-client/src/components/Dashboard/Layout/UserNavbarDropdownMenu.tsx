@@ -1,5 +1,5 @@
 import {
-  startTransition
+  startTransition,
 } from 'react';
 
 import { 
@@ -39,42 +39,56 @@ import {
   useFirebase 
 } from 'react-redux-firebase'
 
+import { 
+  useSelector 
+} from 'react-redux'
+
 const UserNavbarDropdownMenu = ({ 
 }) => {
 
   const navigate = useNavigate();
   const firebase = useFirebase();
   const dispatch = useDispatch();
+  const session = useSelector((state: any) => state.session);
 
-  const userDropdownItems: MenuProps['items'] = [
-    {
-      key: '1',
-      label: (
-        <div style={{ display: 'flex', alignItems: 'center'}}>
-          <IoCarSportSharp/> 
-          <span style={{ marginLeft: 5 }} onClick={(e) => startTransition(() => navigate('upload-vehicle'))}>  Upload Vehicle </span>
-        </div>
-      ),
-    },
-    {
-      key: '2',
-      label: (
-        <div style={{ display: 'flex', alignItems: 'center'}}>
-          <FaWpforms/> 
-          <span style={{ marginLeft: 5 }} onClick={(e) => startTransition(() => navigate('create-order'))}>  Create Order </span>
-        </div>
-      ),
-    },
+  const userDropdownItems: MenuProps['items'] = [];
+  
+  if(session?.isStaff) {
+    userDropdownItems.push(
+      {
+        key: '1',
+        label: (
+          <div style={{ display: 'flex', alignItems: 'center'}}>
+            <IoCarSportSharp/> 
+            <span style={{ marginLeft: 5 }} onClick={(e) => startTransition(() => navigate('upload-vehicle'))}>  Upload Vehicle </span>
+          </div>
+        ),
+      })
+
+    userDropdownItems.push(
+      {
+        key: '2',
+        label: (
+          <div style={{ display: 'flex', alignItems: 'center'}}>
+            <FaWpforms/> 
+            <span style={{ marginLeft: 5 }} onClick={(e) => startTransition(() => navigate('create-order'))}>  Create Order </span>
+          </div>
+        ),
+      }
+    )
+  }
+
+  userDropdownItems.push(
     {
       key: '3',
       label: (
-        <div style={{ display: 'flex', alignItems: 'center'}}>
+        <div style={{ display: 'flex', alignItems: 'center'}} onClick={(e) => {e.stopPropagation; firebase.logout(); dispatch({ type: 'LOGOUT' });}}>
           <RiLogoutBoxRLine/> 
-          <span style={{ marginLeft: 5 }} onClick={(e) => {e.stopPropagation; firebase.logout(); dispatch({ type: 'LOGOUT' });}}>  Sign Out </span>
+          <span style={{ marginLeft: 5 }}>  Sign Out </span>
         </div>
       ),
     },
-  ];
+  )
 
   const menuProps = {
     items: userDropdownItems,
@@ -87,7 +101,7 @@ const UserNavbarDropdownMenu = ({
       placement="bottomLeft"
       arrow
     >
-      <Button icon={<FiChevronDown/>} style={{ marginRight: 10 }}> Emma Kim </Button>
+      <Button icon={<FiChevronDown/>} style={{ marginRight: 10 }}> { session?.username } </Button>
     </Dropdown>
   );
 };

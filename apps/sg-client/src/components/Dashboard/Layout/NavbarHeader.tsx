@@ -5,6 +5,8 @@ import {
 import { 
   Layout, 
   Menu,
+  Button,
+  Space
 } from 'antd';
 
 import type { 
@@ -26,6 +28,10 @@ import {
 import { 
   IoCarSportSharp 
 } from "react-icons/io5";
+
+import {
+  useSelector
+} from 'react-redux'
 
 import UserNavbarDropdownMenu from './UserNavbarDropdownMenu';
 
@@ -60,7 +66,8 @@ const items: MenuProps['items'] = navItems.map((item, index) => ({
 const NavbarHeader = ({ }) => {
 
   const navigate = useNavigate();
-
+  const order = useSelector((state: any) => state.order);
+  console.log(order)
   return (
     <Header
       style={{
@@ -85,7 +92,10 @@ const NavbarHeader = ({ }) => {
           onClick={(e) => startTransition(() => navigate(e.key))}
         />
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <UserNavbarDropdownMenu/>
+          <Space size={10}>
+            <Button> Continue Order </Button>
+            <UserNavbarDropdownMenu/>
+          </Space>
         </div>
       </div>
     </Header>

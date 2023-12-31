@@ -28,6 +28,10 @@ import {
   useFirebaseLoginMutation
 } from '../../../services/api'
 
+import {
+  login
+} from '../../../redux/reducers/session'
+
 
 type FieldType = {
   username?: string;
@@ -70,8 +74,15 @@ const LoginForm = ({}) => {
     const loginResponse = await firebaseLogin({
       firebase_token: firebaseToken
     })
-    console.log(loginResponse.data)
-    dispatch({ type: 'LOGIN', payload: { token: loginResponse.data.token, fbToken: firebaseToken } })
+    console.log(loginResponse)
+
+    dispatch(login({ 
+      token: loginResponse.data.token, 
+      fbToken: firebaseToken,
+      username: loginResponse.data.username,
+      isCustomer: loginResponse.data.is_customer,
+      isStaff: loginResponse.data.is_staff
+    }));
   };
 
   const onFinish = async (values: any) => {    
@@ -88,8 +99,23 @@ const LoginForm = ({}) => {
       })
 
       const firebaseToken = await firebase.auth().currentUser?.getIdToken()
-      dispatch({ type: 'LOGIN', payload: { token: firebaseToken } })
 
+      if(!firebaseToken) {
+        return;
+      }
+  
+      const loginResponse = await firebaseLogin({
+        firebase_token: firebaseToken
+      })
+      
+      dispatch(login({ 
+        token: loginResponse.data.token, 
+        fbToken: firebaseToken,
+        username: loginResponse.data.username,
+        isCustomer: loginResponse.data.is_customer,
+        isStaff: loginResponse.data.is_staff
+      }));
+      
     } catch(e:any) {
       message.error({ content: e.message, duration: 2 })    
     }
@@ -130,7 +156,7 @@ const LoginForm = ({}) => {
         </Form> 
         <Divider/>
         <div style={{display: 'flex', flexDirection: 'column'}}>
-          <Button icon={<FaGoogle/>} onClick={signInWithGoogle}> Sign in with Google </Button>
+          <Button icon={<FaGoogle/>} onClick={signInWithGoogle} loading={firebaseLoginLoading}> Sign in with Google </Button>
           <p color="gray.500" style={{ marginTop: 10 }}>
             Don't have an account? <Link to="/signup">Sign up</Link>
           </p>
