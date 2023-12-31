@@ -3,7 +3,7 @@ import validateFirebaseToken from './validate_firebase_token'
 import validateToken from './validate_token'
 
 export default [
-  validateFirebaseToken,
-  validateToken,
+  // validateFirebaseToken,
+  // validateToken,
   getUserSession,
 ]

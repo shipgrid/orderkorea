@@ -19,12 +19,12 @@ const HomeContainer = () => {
             description="Here’s the best match for you."
           />
         <Divider my={5}/>
-        <Grid
+        {/* <Grid
           title='Search for a vehicle'
           content={
             <VehicleSearchForm/>
           }
-        />
+        /> */}
         <div style={{ marginTop: 10 }}></div>
         <Grid
           title='Inventory'

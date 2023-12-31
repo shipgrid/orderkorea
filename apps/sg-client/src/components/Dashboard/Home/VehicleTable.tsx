@@ -34,8 +34,9 @@ import {
 } from 'react-redux'
 
 import TableActionDropdown from '../../Shared/TableActionDropdown';
+import VehicleCard from '../../UI/VehicleCard';
 
-const OrderTable = () => {
+const VehicleTable = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -50,6 +51,12 @@ const OrderTable = () => {
   const rowClassName = () => {
     return 'fixed-height-row';
   };
+
+  const handleViewVehicle = (vehicle_id: number) => {
+    console.log('vehicle_id:', vehicle_id)
+
+    navigate(`/vehicle?vehicle_id=${vehicle_id}`);
+  }
 
   const handleAddToOrder = (vehicle: Vehicle) => {
 
@@ -70,94 +77,11 @@ const OrderTable = () => {
     })
   }
 
-  const columns = [
-    {
-      title: 'Image',
-      dataIndex: 'images',
-      key: 'images',
-      render: (key: VehicleImage[]) => {
-        
-        const images = key.map((image: VehicleImage) => image.image_url)
-
-        return (
-          <Image.PreviewGroup
-            items={
-              images.map((image: string) => {
-                return { src: image }
-              })
-            }
-          >
-            <Image width={55} src={images[0]} style={{ borderRadius: 8 }}/>
-          </Image.PreviewGroup>
-        )
-      }
-    },
-    {
-      title: 'Make - Model',
-      key: 'name',
-      render: (key: string, record: Vehicle) => {
-        return (
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <span> { `${record.make} ${record.model}` } </span>
-          </div>
-        )
-      }
-    },
-    {
-      title: 'Year',
-      key: 'year',
-      dataIndex: 'year'
-    },
-    {
-      title: 'Exterior Color',
-      key: 'exterior_color',
-      dataIndex: 'exterior_color'
-    },
-    {
-      title: 'Mileage',
-      key: 'mileage',
-      dataIndex: 'mileage'
-    },
-    {
-      title: 'Price',
-      key: 'price',
-      dataIndex: 'price'
-    },
-    {
-      title: 'Vin Number',
-      key: 'vin_number',
-      dataIndex: 'vin_number'
-    },
-    {
-      key: 'action',
-      width: 50,
-      render: (key: string, record: Vehicle) => {
-        return (
-          <TableActionDropdown
-            actions={[
-              {
-                label: 'View',
-                action: () => startTransition(() => navigate(`/vehicle?vehicle_id=${record.vehicle_id}`))
-              },
-              {
-                label: 'Add to Order',
-                action: () => handleAddToOrder(record)
-              },
-            ]}
-          />
-        )
-      }
-    },
-  ];
-
   return (
-    <Table 
-      dataSource={vehicles}
-      loading={isLoading} 
-      columns={columns} 
-      rowClassName={rowClassName}
-    />
+    <>
+      {vehicles?.length && vehicles.map((vehicle) => <VehicleCard vehicle={vehicle} images={[]} onClick={handleViewVehicle}/>)}
+    </>
   );
 }
 
-export default OrderTable
+export default VehicleTable
