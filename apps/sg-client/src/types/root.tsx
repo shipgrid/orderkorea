@@ -38,7 +38,6 @@ export interface VehicleImage {
 }
 
 export interface OrderState {
-  status: string;
   email: number | null;
   shipment_type: string | null;
   port_of_loading: string | null;

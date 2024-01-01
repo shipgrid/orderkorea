@@ -3,7 +3,6 @@ import { OrderState } from '../../types/root';
 
 // Define the initial state
 const initialState: OrderState = {
-  status: 'in_progress', // 'in_progress' | 'completed' | 'cancelled
   email: null,
   shipment_type: null,
   port_of_loading: null,

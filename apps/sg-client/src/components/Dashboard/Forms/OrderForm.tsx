@@ -5,12 +5,20 @@ import {
   Upload,
   Select,
   Divider,
+  Drawer,
+  Space,
+  Table,
+  message
 } from 'antd';
 
 import type { 
   UploadProps,
   SelectProps, 
 } from 'antd';
+
+import {
+  setOrder
+} from '../../../redux/reducers/order'
 
 import {
   Vehicle
@@ -25,8 +33,8 @@ import {
 } from '../../../services/api'
 
 import {
-  startTransition,
-  useEffect
+  useEffect,
+  useState
 } from 'react';
 
 import { 
@@ -42,6 +50,7 @@ import {
 } from 'react-redux'
 
 import {
+  useGetVehiclesQuery,
   useCreateOrderMutation,
   CreateOrderParams,
   CreateAddressBody
@@ -54,16 +63,66 @@ const VehicleForm = ({
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const order = useSelector((state: any) => state.order)
+  const [open, setOpen] = useState(false);
+  const [selectedVehicles, setSelectedVehicles] = useState<Vehicle[]>([]);
 
   const [ createOrder, { isLoading } ] = useCreateOrderMutation();
+
+  const { 
+    data:vehicles, 
+    error, 
+    isLoading:getVehiclesLoading 
+  } = useGetVehiclesQuery({});
 
   const [
     upload
   ] = useUploadMutation();
 
+  const handleAddToOrder = (vehicles: Vehicle[]) => {
+
+    dispatch(setOrder({ 
+      ...order,
+      vehicles: [
+        ...vehicles
+      ]
+    }));
+
+    dispatch({
+      type: 'SET_ORDER',
+      payload: {
+        vehicles: [
+          ...vehicles     
+        ]
+      }
+    })
+  }
+
   useEffect(() => {
   }, [order.vehicles.length])
 
+  const columns = [
+    {
+      title: 'Vehicle ID',
+      key: 'vehicle_id',
+      dataIndex: 'vehicle_id',
+    },
+    {
+      title: 'Name',
+      key: 'name',
+      dataIndex: 'make',
+    },
+    {
+      title: 'model',
+      key: 'model',
+      dataIndex: 'model',
+    },
+    {
+      title: 'Vin Number',
+      key: 'vin_number',
+      dataIndex: 'vin_number',
+    },
+  ];
+  console.log(order)
   const onFinish = async (values: any) => {
 
     const consignee:CreateAddressBody = {
@@ -126,7 +185,22 @@ const VehicleForm = ({
           file_url: file.response
         }
       }),
-      vehicles: order.vehicles
+      vehicles: order.vehicles.map((item:Vehicle) => {
+       
+        return {
+          vehicle_id: item.vehicle_id,
+          make: item.make,
+          model: item.model,
+          year: item.year,
+          description: item.description,
+          exterior_color: item.exterior_color,
+          transmission_type: item.transmission_type,
+          mileage: item.mileage,
+          price: item.price,
+          fuel_type: item.fuel_type,
+          images: item.images
+        }
+      })
     };
 
     await createOrder(orderDetails);
@@ -176,6 +250,22 @@ const VehicleForm = ({
     console.log(`Selected: ${value}`);
   };
 
+  const showDrawer = () => {
+    setOpen(true);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+
+    handleAddToOrder(selectedVehicles)
+  };
+
+  const rowSelection = {
+    onChange: (selectedRowKeys: React.Key[], selectedRows: Vehicle[]) => {
+      setSelectedVehicles(selectedRows)
+    }
+  };
+
   const options: SelectProps['options'] = [];
 
   return (
@@ -210,7 +300,7 @@ const VehicleForm = ({
         <div style={{ fontSize: 20, fontWeight: 'bold' }}> Vehicles </div>
         <Divider/>
         <Form.Item label="Vehicles" name='vehicles'>
-          <Select
+          {/* <Select
             mode="multiple"
             placeholder="Please select"
             defaultValue={[`${order.vehicles.map((item:Vehicle) => `(${item.year} ${item.make} ${item.model})`)}`]}
@@ -218,8 +308,8 @@ const VehicleForm = ({
             style={{ width: '100%' }}
             options={options}
             disabled={true}
-          />
-          <Button style={{marginTop: 2}} onClick={() => startTransition(() => navigate(`/inventory`))}> Find Vehicles </Button>
+          /> */}
+          <Button style={{marginTop: 2}} onClick={showDrawer}> Find Vehicles </Button>
           <span> { order.vehicles?.length } Vehicles Selected </span>
         </Form.Item>
         <div style={{ fontSize: 20, fontWeight: 'bold' }}> Documents </div>
@@ -293,8 +383,34 @@ const VehicleForm = ({
           <Button style={{ width: '100%'}} icon={<RiSave3Line />} type="primary" htmlType="submit" loading={isLoading}> Save </Button>
         </Form.Item>
       </Form>
+      <Drawer
+        title="Add vehicles to your order"
+        placement={'right'}
+        width={1000}
+        onClose={onClose}
+        open={open}
+        extra={
+          <Space>
+            <Button onClick={onClose}>Cancel</Button>
+            <Button type="primary" onClick={onClose}>
+              OK
+            </Button>
+          </Space>
+        }
+      >
+        <Table 
+          dataSource={vehicles} 
+          loading={getVehiclesLoading} 
+          columns={columns}
+          rowSelection={{
+            type: 'checkbox',
+            ...rowSelection,
+          }}
+        />
+      </Drawer>
     </>
   );
 }
 
 export default VehicleForm
+

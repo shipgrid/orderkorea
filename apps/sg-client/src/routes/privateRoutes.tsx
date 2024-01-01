@@ -10,6 +10,7 @@ const ThirdPartyContainer = lazy(() => import("../components/Dashboard/Container
 const UploadVehicleFormContainer = lazy(() => import("../components/Dashboard/Containers/UploadVehicleFormContainer"));
 const CreateOrderFormContainer = lazy(() => import("../components/Dashboard/Containers/CreateOrderFormContainer"));
 const InventoryContainer = lazy(() => import("../components/Dashboard/Containers/InventoryContainer"));
+const AdminContainer = lazy(() => import("../components/Dashboard/Containers/AdminContainer"));
 
 export default function routes() {
   return [
@@ -20,6 +21,7 @@ export default function routes() {
         { path: '/', element: <InventoryContainer /> },
         { path: '/vehicle', element: <VehicleDetailContainer /> },
         { path: '/order', element: <OrderDetailContainer /> },
+        { path: '/admin', element: <AdminContainer />},
         { path: '/order-detail', element: <OrderDetailFormContainer /> },
         { path: '/upload-vehicle', element: <UploadVehicleFormContainer /> },
         { path: '/create-order', element: <CreateOrderFormContainer /> },

@@ -61,8 +61,7 @@ const items: MenuProps['items'] = navItems.map((item, index) => ({
 const NavbarHeader = ({ }) => {
 
   const navigate = useNavigate();
-  const order = useSelector((state: any) => state.order);
-  console.log(order)
+
   return (
     <Header
       style={{
@@ -88,7 +87,6 @@ const NavbarHeader = ({ }) => {
         />
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <Space size={10}>
-            <Button> Continue Order </Button>
             <UserNavbarDropdownMenu/>
           </Space>
         </div>

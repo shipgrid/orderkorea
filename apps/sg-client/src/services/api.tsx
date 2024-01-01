@@ -296,7 +296,7 @@ const api = createApi({
     }),
     getVehicles: build.query({
       query: () => 'vehicles',
-      transformResponse: (response: { data: Vehicle[] }) => response.data,
+      transformResponse: (response: { data: Vehicle[] }) => response.data.map(item => ({ ...item, key: item.vehicle_id })),
     }),
     getVehicle: build.query<Vehicle, string>({
       query: (vehicleId) => `vehicles/${vehicleId}`,
