@@ -1,8 +1,11 @@
 .card-container {
   display: flex;
   flex-direction: column;
-  border: 1px solid #f0f0f0; /* Match to your screenshot border color */
+  border: 1px solid #cfcfcf; /* Match to your screenshot border color */
   margin-bottom: 16px; /* Spacing between items */
+  background-color: white;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .vehicle-card {
@@ -10,7 +13,6 @@
   justify-content: start;
   align-items: start;
   padding: 16px;
-  /* border: 1px solid #f0f0f0;  */
   margin-bottom: 16px; /* Spacing between items */
 }
 
@@ -22,8 +24,10 @@
 .vehicle-image img {
   min-width: 250px; 
   max-width: 250px;
+  max-height: 135px;
   height: auto;
   padding-right: 24px;
+  border-radius: 5px;
 }
 
 .vehicle-title-container {
@@ -58,8 +62,9 @@
 }
 
 .additional-image {
-  min-width: 100px; 
-  max-width: 100px;
+  border-radius: 5px;
+  width: 86px;
+  height: 60px;
   height: auto;
   margin-right: 8px; /* Space between images */
 }

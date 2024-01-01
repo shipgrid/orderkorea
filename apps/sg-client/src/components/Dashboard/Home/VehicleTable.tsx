@@ -48,12 +48,8 @@ const VehicleTable = () => {
     isLoading 
   } = useGetVehiclesQuery({});
 
-  const rowClassName = () => {
-    return 'fixed-height-row';
-  };
-
   const handleViewVehicle = (vehicle_id: number) => {
-    navigate(`/vehicle?vehicle_id=${vehicle_id}`);
+    startTransition(() => navigate(`/vehicle?vehicle_id=${vehicle_id}`))
   }
 
   const handleAddToOrder = (vehicle: Vehicle) => {
@@ -77,7 +73,7 @@ const VehicleTable = () => {
 
   return (
     <>
-      {vehicles?.length && vehicles.map((vehicle) => <VehicleCard vehicle={vehicle} images={[]} onClick={handleViewVehicle}/>)}
+      {vehicles?.length && vehicles.map((vehicle) => <VehicleCard vehicle={vehicle} onClick={handleViewVehicle}/>)}
     </>
   );
 }

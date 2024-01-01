@@ -44,7 +44,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, onClick }) => {
       className="card-container"
       onClick={handleItemClick}
     >
-      <div  className="vehicle-card">
+      <div className="vehicle-card">
         <div className="vehicle-image">
           <img
             src={mainImageUrl}
@@ -63,7 +63,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, onClick }) => {
             </Tag>
             {vin_number && (
               <Tag color="red" style={{ cursor: 'pointer' }} onClick={(e) => {
-                e.stopPropagation(); // Prevents the List.Item onClick from firing
+                e.stopPropagation(); 
                 copyToClipboard(vin_number);
               }}>
                 {`VIN: ${vin_number}`}

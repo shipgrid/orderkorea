@@ -2,7 +2,6 @@ import { lazy } from "react";
 import { Navigate } from "react-router-dom";
 import Dashboard from "../pages/Dashboard";
 
-const HomeContainer = lazy(() => import("../components/Dashboard/Containers/HomeContainer"));
 const OrderContainer = lazy(() => import("../components/Dashboard/Containers/OrderContainer"));
 const VehicleDetailContainer = lazy(() => import("../components/Dashboard/Containers/VehicleDetailContainer"));
 const OrderDetailContainer = lazy(() => import("../components/Dashboard/Containers/OrderDetailContainer"));
@@ -18,7 +17,7 @@ export default function routes() {
       path: '/',
       element: <Dashboard />,
       children: [
-        { path: '/', element: <HomeContainer /> },
+        { path: '/', element: <InventoryContainer /> },
         { path: '/vehicle', element: <VehicleDetailContainer /> },
         { path: '/order', element: <OrderDetailContainer /> },
         { path: '/order-detail', element: <OrderDetailFormContainer /> },

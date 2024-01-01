@@ -35,14 +35,9 @@ const {
 
 const navItems = [
   {
-    label: 'Home',
-    icon: <FiHome/>,
-    path: '/',
-  },
-  {
     label: 'Inventory',
     icon: <IoCarSportSharp/>,
-    path: '/inventory',
+    path: '/',
   },
   {
     label: 'Orders',
