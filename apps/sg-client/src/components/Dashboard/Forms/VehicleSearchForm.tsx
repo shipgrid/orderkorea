@@ -29,22 +29,10 @@ const VehicleForm = ({
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
       >       
-        <Form.Item label="Year" name='year'>
+        <Form.Item label="Make" name='make'>
           <Input/>
         </Form.Item>
-        <Form.Item label="Exterior Color" name='exterior_color'>
-          <Input/>
-        </Form.Item>
-        <Form.Item label="Mileage" name='mileage'>
-          <Input/>
-        </Form.Item>
-        <Form.Item label="Price" name='price'>
-          <Input/>
-        </Form.Item>
-        <Form.Item label="Transmission Type" name='transmission_type'>
-          <Input/>
-        </Form.Item>
-        <Form.Item label="Fuel Type" name='fuel_type'>
+        <Form.Item label="Model" name='model'>
           <Input/>
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 5 }}>

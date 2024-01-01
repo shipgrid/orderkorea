@@ -17,7 +17,7 @@ export default async (
 
   try {
     const data = await vehicles.list({})
-
+    
     res.status(200).json({ data: data, success: true });
   } catch (e) {
     next(e)

@@ -26,12 +26,9 @@ const HomeContainer = () => {
           }
         />
         <div style={{ marginTop: 10 }}></div>
-        <Grid
-          title='Inventory'
-          content={
-            <VehicleTable/>
-          }
-        />
+        <div>
+          <VehicleTable/>
+        </div>
       </DashboardContent>
     </Stack>
   );

@@ -1,0 +1,92 @@
+.card-container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #cfcfcf; /* Match to your screenshot border color */
+  margin-bottom: 16px; /* Spacing between items */
+  background-color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.vehicle-card {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  padding: 16px;
+  margin-bottom: 16px; /* Spacing between items */
+}
+
+.vehicle-info {
+  display: flex; 
+  flex-direction: column;
+}
+
+.vehicle-image img {
+  min-width: 250px; 
+  max-width: 250px;
+  max-height: 135px;
+  height: auto;
+  padding-right: 24px;
+  border-radius: 5px;
+}
+
+.vehicle-title-container {
+  flex: 1;
+  margin-bottom: 4px;
+}
+
+.vehicle-details {
+  margin-bottom: 16px;
+}
+
+.vehicle-title {
+  font-size: 22px;
+}
+
+.vehicle-price-container {
+  align-self: flex-start; /* Align to the top */
+  margin-left: auto; /* This pushes the container to the right */
+}
+
+.vehicle-price {
+  color: #389e0d; /* Or any color you prefer for the price */
+  font-size: 20px; 
+  margin-bottom: 4px;
+  white-space: nowrap; 
+}
+
+.additional-images-container {
+  display: flex;
+  overflow-x: auto; /* Allows horizontal scrolling if many images */
+  padding: 16px; /* Space from the main content */
+}
+
+.additional-image {
+  border-radius: 5px;
+  width: 86px;
+  height: 60px;
+  height: auto;
+  margin-right: 8px; /* Space between images */
+}
+
+.detail-tag {
+  cursor: pointer;
+}
+
+.detail-tag-blue {
+  margin-right: 8px;
+  color: blue; /* or any specific shade of blue you prefer */
+}
+
+.detail-tag-red {
+  color: red; /* or any specific shade of red you prefer */
+}
+
+.icon-spacing {
+  margin-right: 2px;
+}
+
+.copy-icon {
+  margin-left: 8px;
+}
+
