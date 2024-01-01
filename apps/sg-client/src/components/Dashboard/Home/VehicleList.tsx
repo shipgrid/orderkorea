@@ -1,10 +1,10 @@
 import {
-  Table,
-  Button,
-  Progress,
-  message,
-  Image,
+  Skeleton
 } from 'antd'
+
+import {
+  Stack,
+} from '@chakra-ui/react';
 
 import '../../../assets/index.css'
 
@@ -21,11 +21,6 @@ import {
 } from '../../../services/api';
 
 import {
-  Vehicle,
-  VehicleImage
-} from '../../../services/api'
-
-import {
   useDispatch,
 } from 'react-redux'
 
@@ -33,12 +28,8 @@ import {
   useSelector 
 } from 'react-redux'
 
-import {
-  setOrder
-} from '../../../redux/reducers/order'
-
-import TableActionDropdown from '../../Shared/TableActionDropdown';
 import VehicleCard from '../../UI/VehicleCard';
+import ResourceNotFound from '../../Shared/ResourceNotFound';
 
 const VehicleTable = () => {
 
@@ -56,31 +47,24 @@ const VehicleTable = () => {
     startTransition(() => navigate(`/vehicle?vehicle_id=${vehicle_id}`))
   }
 
-  const handleAddToOrder = (vehicle: Vehicle) => {
+  if(isLoading) {
+    return  (
+    <Stack minH={'100vh'}>
+      <Skeleton.Button style={{ width: '100%', height: 175 }} active/>
+      <Skeleton.Button style={{ width: '100%', height: 175 }} active/>
+      <Skeleton.Button style={{ width: '100%', height: 175 }} active/>
+      <Skeleton.Button style={{ width: '100%', height: 175 }} active/>
+      <Skeleton.Button style={{ width: '100%', height: 175 }} active/>
+      <Skeleton.Button style={{ width: '100%', height: 175 }} active/>
+    </Stack>)
+  }
 
-    const foundVehicle = order.vehicles.find((v: Vehicle) => v.vehicle_id === vehicle.vehicle_id) && message.error('Vehicle already added to order')
-
-    if(foundVehicle) {
-      return;
-    }
-
-    dispatch(setOrder({ 
-      ...order,
-      vehicles: [
-        ...order.vehicles,
-        vehicle
-      ]
-    }));
-
-    dispatch({
-      type: 'SET_ORDER',
-      payload: {
-        vehicles: [
-          ...order.vehicles,
-          vehicle
-        ]
-      }
-    })
+  if(!vehicles || error) {
+    return  (
+      <Stack minH={'100vh'}>
+        <ResourceNotFound />
+      </Stack>
+    )
   }
 
   return (

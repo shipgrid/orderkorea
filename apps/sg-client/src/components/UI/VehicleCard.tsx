@@ -1,7 +1,19 @@
 import '../../assets/vehicle_card.css';
 import React from 'react';
-import { List, Typography, Tag, message } from 'antd';
-import { DashboardOutlined, CopyOutlined } from '@ant-design/icons'; // Importing Dashboard icon
+
+import { 
+  List, 
+  Typography, 
+  Tag, 
+  message,
+  Image,
+  Space
+} from 'antd';
+
+import { 
+  DashboardOutlined, 
+  CopyOutlined 
+} from '@ant-design/icons';
 
 const { Text } = Typography;
 
@@ -85,10 +97,15 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, onClick }) => {
       </div>
       <div className="additional-images-container">
         {images.slice(1).map((image, index) => (
-          <img
+          <Image
             key={index}
-            className="additional-image"
+            style={{ borderRadius: 5 }}
+            width={135}
             src={image.image_url}
+            preview={{
+              src: 'https://via.placeholder.com/135x90?text=No+Image?',
+            }}
+            fallback={`https://via.placeholder.com/135x90?text=No+Image`}
             alt={`Additional view ${index + 1}`}
           />
         ))}

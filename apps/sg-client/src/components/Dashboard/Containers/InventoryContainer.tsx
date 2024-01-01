@@ -7,7 +7,7 @@ import DashboardHeader from '../Layout/DashboardHeader';
 import DashboardContent from '../Layout/DashboardContent';
 import Grid from '../../Shared/Grid';
 import VehicleSearchForm from '../Forms/VehicleSearchForm';
-import VehicleTable from '../Home/VehicleTable'
+import VehicleList from '../Home/VehicleList'
 
 const HomeContainer = () => {
 
@@ -26,9 +26,7 @@ const HomeContainer = () => {
           }
         />
         <div style={{ marginTop: 10 }}></div>
-        <div>
-          <VehicleTable/>
-        </div>
+        <VehicleList/>
       </DashboardContent>
     </Stack>
   );

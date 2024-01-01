@@ -20,12 +20,8 @@ import {
 } from "react-icons/ri";
 
 import { 
-  FaWpforms 
-} from "react-icons/fa";
-
-import { 
-  IoCarSportSharp 
-} from "react-icons/io5";
+  MdOutlineAdminPanelSettings 
+} from "react-icons/md";
 
 import {
   useDispatch,
@@ -58,24 +54,12 @@ const UserNavbarDropdownMenu = ({
       {
         key: '1',
         label: (
-          <div style={{ display: 'flex', alignItems: 'center'}}>
-            <IoCarSportSharp/> 
-            <span style={{ marginLeft: 5 }} onClick={(e) => startTransition(() => navigate('upload-vehicle'))}>  Upload Vehicle </span>
+          <div style={{ display: 'flex', alignItems: 'center'}} onClick={(e) => startTransition(() => navigate('admin'))}>
+            <MdOutlineAdminPanelSettings/> 
+            <span style={{ marginLeft: 5 }}>  Admin </span>
           </div>
         ),
       })
-
-    userDropdownItems.push(
-      {
-        key: '2',
-        label: (
-          <div style={{ display: 'flex', alignItems: 'center'}}>
-            <FaWpforms/> 
-            <span style={{ marginLeft: 5 }} onClick={(e) => startTransition(() => navigate('create-order'))}>  Create Order </span>
-          </div>
-        ),
-      }
-    )
   }
 
   userDropdownItems.push(
