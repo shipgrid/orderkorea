@@ -7,7 +7,6 @@ import {
   Tag, 
   message,
   Image,
-  Space
 } from 'antd';
 
 import { 

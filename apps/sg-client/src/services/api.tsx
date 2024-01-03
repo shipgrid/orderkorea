@@ -256,7 +256,7 @@ const api = createApi({
         method: 'POST',
         body,
       }),
-      transformResponse: (response: { data: any }, meta, arg) => response.data,
+      transformResponse: (response: { data: any }) => response.data,
     }),
     upload: build.mutation<ApiResponse, UploadParams>({
       query: (body) => ({
@@ -264,7 +264,7 @@ const api = createApi({
         method: 'POST',
         body: body.file,
       }),
-      transformResponse: (response: { data: any }, meta, arg) => response.data,
+      transformResponse: (response: { data: any }) => response.data,
     }),
     register: build.mutation<ApiResponse, RegisterParams>({
       query: (body) => ({
@@ -272,7 +272,7 @@ const api = createApi({
         method: 'POST',
         body,
       }),
-      transformResponse: (response: { data: any }, meta, arg) => response.data,
+      transformResponse: (response: { data: any }) => response.data,
     }),
     getOrders: build.query({
       query: () => 'orders',
@@ -290,7 +290,7 @@ const api = createApi({
         method: 'PUT',
         body,
       }),
-      transformResponse: (response: { data: any }, meta, arg) => response.data,
+      transformResponse: (response: { data: any }) => response.data,
     }),
     createOrder: build.mutation<ApiResponse, CreateOrderParams>({
       query: (body) => ({
@@ -298,7 +298,7 @@ const api = createApi({
         method: 'POST',
         body,
       }),
-      transformResponse: (response: { data: any }, meta, arg) => response.data,
+      transformResponse: (response: { data: any }) => response.data,
     }),
     getVehicles: build.query({
       query: () => 'vehicles',
@@ -314,7 +314,7 @@ const api = createApi({
         method: 'POST',
         body,
       }),
-      transformResponse: (response: { data: any }, meta, arg) => response.data,
+      transformResponse: (response: { data: any }) => response.data,
     }),
     createThirdParty: build.mutation<ApiResponse, CreateThirdPartyParams>({
       query: (body) => ({
@@ -322,7 +322,7 @@ const api = createApi({
         method: 'POST',
         body,
       }),
-      transformResponse: (response: { data: any }, meta, arg) => response.data,
+      transformResponse: (response: { data: any }) => response.data,
       invalidatesTags: ['order'],
     }),
     removeThirdParty: build.mutation<ApiResponse, removeThirdPartyParams>({
@@ -331,7 +331,7 @@ const api = createApi({
         method: 'DELETE',
         body,
       }),
-      transformResponse: (response: { data: any }, meta, arg) => response.data,
+      transformResponse: (response: { data: any }) => response.data,
       invalidatesTags: ['order'],
     }),
     createDocument: build.mutation<ApiResponse, CreateDocumentParams>({
@@ -340,7 +340,7 @@ const api = createApi({
         method: 'POST',
         body: body.file,
       }),
-      transformResponse: (response: { data: any }, meta, arg) => response.data,
+      transformResponse: (response: { data: any }) => response.data,
       invalidatesTags: ['order'],
     }),
     removeDocument: build.mutation<ApiResponse, removeDocumentParams>({
@@ -349,7 +349,7 @@ const api = createApi({
         method: 'DELETE',
         body,
       }),
-      transformResponse: (response: { data: any }, meta, arg) => response.data,
+      transformResponse: (response: { data: any }) => response.data,
       invalidatesTags: ['order'],
     }),
     getAddress: build.query({
@@ -363,7 +363,7 @@ const api = createApi({
         body,
       }),
       invalidatesTags: ['order'],
-      transformResponse: (response: { data: any }, meta, arg) => response.data,
+      transformResponse: (response: { data: any }) => response.data,
     }),
   }),
 })

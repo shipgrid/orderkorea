@@ -13,7 +13,6 @@ import type {
 } from 'antd';
 
 import {
-  FiTruck,
   FiHome
 } from 'react-icons/fi'
 

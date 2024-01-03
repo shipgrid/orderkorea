@@ -10,6 +10,7 @@ export default async ({
   model,
   year,
   price, 
+  is_new,
   mileage, 
   exterior_color,
   interior_color,
@@ -18,7 +19,6 @@ export default async ({
   trim, 
   drivetrain, 
   vin_number, 
-  is_new,
   fuel_type, 
   description
 }) => {
@@ -33,6 +33,7 @@ export default async ({
         model,
         year,
         price, 
+        is_new,
         mileage, 
         exterior_color,
         interior_color,
@@ -40,13 +41,10 @@ export default async ({
         doors, 
         trim, 
         drivetrain, 
-        is_new,
         vin_number, 
+        description,
         fuel_type, 
-        description
-      });
-
-      await trx.commit();
+      })
 
       Logger.info('Vehicle updated:', vehicle);
     });

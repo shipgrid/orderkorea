@@ -3,12 +3,10 @@ import {
   Form,
   Input,
   Upload,
-  Select,
   Divider,
   Drawer,
   Space,
   Table,
-  message
 } from 'antd';
 
 import type { 
@@ -37,10 +35,6 @@ import {
   useState
 } from 'react';
 
-import { 
-  useNavigate 
-} from 'react-router-dom'
-
 import {
   useDispatch,
 } from 'react-redux'
@@ -60,7 +54,6 @@ const VehicleForm = ({
 
 }) => {
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const order = useSelector((state: any) => state.order)
   const [open, setOpen] = useState(false);
@@ -70,7 +63,6 @@ const VehicleForm = ({
 
   const { 
     data:vehicles, 
-    error, 
     isLoading:getVehiclesLoading 
   } = useGetVehiclesQuery({});
 
@@ -179,7 +171,7 @@ const VehicleForm = ({
           type: 'shipper'
         }
       ],
-      documents: values.documents.fileList.map((file: any) => {
+      documents: values.documents?.fileList.map((file: any) => {
         return {
           name: file.originFileObj.name,
           file_url: file.response

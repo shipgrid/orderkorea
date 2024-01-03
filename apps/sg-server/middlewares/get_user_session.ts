@@ -4,7 +4,7 @@ import { User } from '../models'
 export default async (req, res, next) => {
 
   try {
-
+    
     const {
       uid
     } = req
