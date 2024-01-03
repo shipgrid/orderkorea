@@ -53,7 +53,7 @@ const LoginForm = ({}) => {
   ] = useFirebaseLoginMutation()
 
   const signInWithGoogle = async () => {
-    const response = await firebase.login({ provider: 'google', type: 'popup' })
+    const response: any = await firebase.login({ provider: 'google', type: 'popup' })
 
     if(response?.additionalUserInfo?.isNewUser) {
 
@@ -71,7 +71,7 @@ const LoginForm = ({}) => {
       return;
     }
 
-    const loginResponse = await firebaseLogin({
+    const loginResponse: any = await firebaseLogin({
       firebase_token: firebaseToken
     })
     console.log(loginResponse)

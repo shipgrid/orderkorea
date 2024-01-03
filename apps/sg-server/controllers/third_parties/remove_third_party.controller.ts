@@ -1,3 +1,5 @@
+import Joi from 'joi'
+
 import { 
   Request, 
   Response, 
@@ -8,6 +10,10 @@ import {
   thirdParties
 } from '../../services'
 
+const paramsSchema = Joi.object({
+  third_party_id: Joi.number().required()
+})
+
 export default async (
   req: Request,
   res: Response,
@@ -15,6 +21,11 @@ export default async (
 ) => {
 
   try {
+
+    const { error } = paramsSchema.validate(req.params)
+    if (error) {
+      throw new Error(error.details[0].message) 
+    }
 
     const {
       third_party_id,

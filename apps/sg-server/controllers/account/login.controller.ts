@@ -1,3 +1,5 @@
+import Joi from 'joi'
+
 import { 
   Request, 
   Response, 
@@ -8,6 +10,11 @@ import {
   account 
 } from '../../services'
 
+const bodySchema = Joi.object({
+  username: Joi.string().required(),
+  password: Joi.string().required()
+})
+
 export default async (
   req: Request,
   res: Response,
@@ -16,19 +23,25 @@ export default async (
 
   try {
 
+    const { error } = bodySchema.validate(req.body)
+    
+    if (error) {
+      throw new Error(error.details[0].message)
+    }
+
     const {
       username,
-      password,
+      password
     } = req.body
 
     const { 
       token
     } = await account.login({
       username,
-      password,
+      password
     })
 
-    res.status(200).json({ token });
+    res.status(200).json({ token })
   } catch (e) {
     next(e)
   }

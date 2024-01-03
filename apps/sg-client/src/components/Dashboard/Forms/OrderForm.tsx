@@ -171,7 +171,7 @@ const VehicleForm = ({
           type: 'shipper'
         }
       ],
-      documents: values.documents.fileList.map((file: any) => {
+      documents: values.documents?.fileList.map((file: any) => {
         return {
           name: file.originFileObj.name,
           file_url: file.response

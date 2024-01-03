@@ -1,4 +1,6 @@
 
+import Joi from 'joi'
+
 import { 
   Request, 
   Response, 
@@ -9,6 +11,24 @@ import {
   vehicles
 } from '../../services'
 
+const _imageSchema = Joi.object({
+  image_url: Joi.string().required()
+})
+
+const bodySchema = Joi.object({
+  make: Joi.string().required(),
+  model: Joi.string().required(),
+  year: Joi.number().required(),
+  exterior_color: Joi.string().required(),
+  vin_number: Joi.string().required(),
+  transmission_type: Joi.string().required(),
+  mileage: Joi.number().required(),
+  price: Joi.number().required(),
+  description: Joi.string().required(),
+  fuel_type: Joi.string().required(),
+  images: Joi.array().items(_imageSchema).min(1).required(),
+})
+
 export default async (
   req: Request,
   res: Response,
@@ -16,11 +36,19 @@ export default async (
 ) => {
 
   try {
+
+    const { error } = bodySchema.validate(req.body)
+
+    if (error) {
+      throw new Error(error.details[0].message) 
+    }
+
     const {
       make,
       model,
       year,
       exterior_color,
+      vin_number,
       transmission_type,
       mileage,
       price,
@@ -34,6 +62,7 @@ export default async (
       model,
       year,
       exterior_color,
+      vin_number,
       transmission_type,
       mileage,
       price,

@@ -1,3 +1,5 @@
+import Joi from 'joi'
+
 import { 
   Request, 
   Response, 
@@ -8,6 +10,9 @@ import {
   addresses
 } from '../../services'
 
+const paramsSchema = Joi.object({
+  address_id: Joi.string().required() 
+})
 
 export default async (
   req: Request,
@@ -16,6 +21,12 @@ export default async (
 ) => {
 
   try {
+
+    const { error } = paramsSchema.validate(req.params)
+
+    if (error) {
+      throw new Error(error.details[0].message) 
+    }
 
     const {
       address_id
