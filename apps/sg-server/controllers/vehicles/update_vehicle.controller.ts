@@ -1,4 +1,3 @@
-
 import Joi from 'joi'
 
 import { 
@@ -19,13 +18,18 @@ const bodySchema = Joi.object({
   make: Joi.string().required(),
   model: Joi.string().required(),
   year: Joi.number().required(),
-  exterior_color: Joi.string().required(),
-  vin_number: Joi.string().required(),
-  transmission_type: Joi.string().valid('automatic', 'manual').required(),
-  mileage: Joi.number().required(),
   price: Joi.number().required(),
-  description: Joi.string().required(),
+  mileage: Joi.number().required(),
+  exterior_color: Joi.string().required(),
+  interior_color: Joi.string().required(),
+  transmission_type: Joi.string().valid('automatic', 'manual').required(),
+  doors: Joi.number().required(),
+  trim: Joi.string().required(),
+  drivetrain: Joi.string().valid('FWD', 'AWD', 'RWD', '4WD').required(),
+  is_new: Joi.boolean().required(),
+  vin_number: Joi.string().required(),
   fuel_type: Joi.string().valid('gasoline', 'diesel').required(),
+  description: Joi.string().required(),
 })
 
 export default async (  
@@ -53,13 +57,18 @@ export default async (
       make,
       model,
       year,
-      exterior_color,
-      vin_number,
-      transmission_type,
-      mileage,
       price, 
-      description,
+      mileage,
+      exterior_color,
+      interior_color, 
+      transmission_type, 
+      doors,
+      trim,
+      drivetrain, 
+      is_new,
+      vin_number,
       fuel_type,
+      description
     } = req.body
 
     await vehicles.update({
@@ -67,13 +76,18 @@ export default async (
       make,
       model,
       year,
-      exterior_color,
-      vin_number,
-      transmission_type,
+      price, 
       mileage,
-      price,
-      description,
-      fuel_type
+      exterior_color,
+      interior_color, 
+      transmission_type, 
+      doors,
+      trim,
+      drivetrain, 
+      is_new,
+      vin_number,
+      fuel_type,
+      description
     })
 
     res.status(200).json({ success: true });

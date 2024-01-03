@@ -15,7 +15,6 @@ const paramsSchema = Joi.object({
   vehicle_id: Joi.number().required()
 })
 
-
 export default async (  
   req: Request,
   res: Response,
