@@ -18,6 +18,11 @@ import VehicleDetail from '../VehicleDetail/VehicleDetail';
 import ApiLoader from '../../Shared/ApiLoader';
 import ResourceNotFound from '../../Shared/ResourceNotFound';
 
+import {
+  formatNumberWithCommas
+} from '../../../utils/format_string'
+
+
 const VehicleDetailContainer = () => {
 
   const location = useLocation();
@@ -58,9 +63,13 @@ const VehicleDetailContainer = () => {
           title={'Vehicle Details'}
           description={'View your vehicle details'}
         />
-        <Divider my={5}/>
         <Grid
           title={`${vehicle.year} ${vehicle.make} - ${vehicle.model}`}
+          titleSize="32px"
+          boldTitle={true}
+          subtitle={`$${formatNumberWithCommas(vehicle.price)}`}
+          subtitleSize="24px"
+          subtitleColor="#389e0d"
           content={
             <VehicleDetail
               vehicle={vehicle}

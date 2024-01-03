@@ -9,9 +9,17 @@ export default async ({
   make,
   model,
   year,
+  price, 
+  mileage, 
   exterior_color,
+  interior_color,
   transmission_type,
-  mileage,
+  doors, 
+  trim, 
+  drivetrain, 
+  vin_number, 
+  is_new,
+  fuel_type, 
   description
 }) => {
   try {
@@ -24,9 +32,17 @@ export default async ({
         make,
         model,
         year,
+        price, 
+        mileage, 
         exterior_color,
+        interior_color,
         transmission_type,
-        mileage,
+        doors, 
+        trim, 
+        drivetrain, 
+        is_new,
+        vin_number, 
+        fuel_type, 
         description
       });
 

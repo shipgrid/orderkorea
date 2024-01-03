@@ -1,4 +1,3 @@
-
 import { 
   Request, 
   Response, 
@@ -25,22 +24,39 @@ export default async (
       make,
       model,
       year,
+      price, 
+      is_new,
+      mileage, 
       exterior_color,
+      interior_color,
       transmission_type,
-      mileage,
+      doors, 
+      trim, 
+      drivetrain, 
+      vin_number, 
+      fuel_type, 
       description
     } = req.body
 
-    await vehicles.update({
+    const data = await vehicles.update({
       vehicle_id,
       make,
       model,
       year,
+      is_new,
+      price, 
+      mileage, 
       exterior_color,
+      interior_color,
       transmission_type,
-      mileage,
+      doors, 
+      trim, 
+      drivetrain, 
+      vin_number, 
+      fuel_type, 
       description
     })
+  
 
     res.status(200).json({ success: true });
   } catch (e) {

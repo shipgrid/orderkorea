@@ -42,14 +42,20 @@ export interface Vehicle {
   vehicle_id: number;
   make: string;
   model: string;
-  year: number;
-  description: string;
-  exterior_color: string;
-  transmission_type: string;
-  mileage: number;
-  price: number;
-  fuel_type: string;
-  images: VehicleImage[];
+  year: string;
+  price: string;
+  mileage: string; 
+  exterior_color: string; 
+  interior_color: string; 
+  transmission_type: string; 
+  doors: number; 
+  trim: string; 
+  drivetrain: string 
+  vin_number: string | null; 
+  is_new: boolean;
+  fuel_type: string; 
+  description: string; 
+  images: VehicleImage[]
 }
 
 export interface VehicleImage {

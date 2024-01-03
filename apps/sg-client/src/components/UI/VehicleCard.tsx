@@ -24,6 +24,7 @@ interface VehicleCardProps {
     model: string,
     year: number,
     vin_number?: string 
+    exterior_color: string,
     mileage: number,
     price: number,
     description: string,
