@@ -25,7 +25,7 @@ interface InventoryRow {
 
 const SOMContainer = () => {
 
-  const [selectedInventory, setSelectedInventory] = useState<InventoryRow[]>(
+  const [ selectedInventory ] = useState<InventoryRow[]>(
     [
       {
         id: 1,

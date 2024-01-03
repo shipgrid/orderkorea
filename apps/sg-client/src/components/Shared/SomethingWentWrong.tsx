@@ -1,5 +1,7 @@
 import React from 'react';
-import { Button, Result } from 'antd';
+import { 
+  Result 
+} from 'antd';
 
 const SomethingWentWrong: React.FC = () => (
   <Result

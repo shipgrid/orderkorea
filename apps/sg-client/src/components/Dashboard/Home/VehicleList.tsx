@@ -20,22 +20,12 @@ import {
   useGetVehiclesQuery
 } from '../../../services/api';
 
-import {
-  useDispatch,
-} from 'react-redux'
-
-import { 
-  useSelector 
-} from 'react-redux'
-
 import VehicleCard from '../../UI/VehicleCard';
 import ResourceNotFound from '../../Shared/ResourceNotFound';
 
 const VehicleTable = () => {
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const order = useSelector((state: any) => state.order)
 
   const { 
     data:vehicles, 

@@ -6,7 +6,7 @@ WORKDIR /root/shipgrid
 ARG PACKAGE_PATH
 COPY . ./
 RUN npm -g install typescript
-RUN pnpm install --filter "client.landing..."
+RUN pnpm install --filter "sg-client..."
  
 RUN pnpm --filter "sg-client..." build:prod
 WORKDIR /root/shipgrid/sg-client

@@ -25,7 +25,6 @@ const Grid: FC<GridProps> = ({
   content = null,
   centerContent = false,
   actionButtons = [],
-  ...props
 }) => {
   if (isHidden) {
     return null;
