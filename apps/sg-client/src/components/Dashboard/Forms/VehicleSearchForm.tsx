@@ -142,16 +142,16 @@ const VehicleSearchForm = ({ onFiltersChange }) => {
       key: '1',
       children: activeKey === '1' ? (!viewingModelsMake ? renderMakesCheckboxes() : renderModelsCheckboxes(viewingModelsMake)) : null
     },
-    {
-      label: (
-        <span style={{ display: 'flex', alignItems: 'center' }}>
-          <RiCalendar2Line style={{ marginRight: '8px' }} />
-          Year & Mileage
-        </span>
-      ),
-      key: '2',
-      children: <div>Year & Mileage content goes here...</div>
-    }
+    // {
+    //   label: (
+    //     <span style={{ display: 'flex', alignItems: 'center' }}>
+    //       <RiCalendar2Line style={{ marginRight: '8px' }} />
+    //       Year & Mileage
+    //     </span>
+    //   ),
+    //   key: '2',
+    //   children: <div>Year & Mileage content goes here...</div>
+    // }
   ]
 
   return (
