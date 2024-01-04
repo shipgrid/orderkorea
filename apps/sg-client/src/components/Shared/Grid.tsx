@@ -35,7 +35,7 @@ const Grid: FC<GridProps> = ({
 
   const titleStyle = {
     fontWeight: boldTitle ? '700' : 'normal',
-    fontSize: titleSize,
+    fontSize: titleSize
   };
 
   const subtitleStyle = {
