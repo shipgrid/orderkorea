@@ -18,14 +18,22 @@ const { Text } = Typography;
 
 interface VehicleCardProps {
   vehicle: {
-    vehicle_id: number,
-    make: string,
-    model: string,
-    year: number,
-    vin_number?: string 
-    mileage: number,
-    price: number,
-    description: string,
+    vehicle_id: number;
+    make: string;
+    model: string;
+    year: string;
+    price: string;
+    mileage: string; 
+    exterior_color: string; 
+    interior_color: string; 
+    transmission_type: string; 
+    doors: number; 
+    trim: string; 
+    drivetrain: string 
+    vin_number: string | null; 
+    is_new: boolean;
+    fuel_type: string; 
+    description: string; 
     images: {
       image_url: string
     }[]
