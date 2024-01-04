@@ -5,9 +5,7 @@ import ResourceNotFound from '../../Shared/ResourceNotFound';
 import { useNavigate } from 'react-router-dom';
 import { useGetVehiclesQuery } from '../../../services/api';
 
-const VehicleList = ({ filters }) => {
-  console.log('filters:', filters);
-  
+const VehicleList = ({ filters }) => {  
   const navigate = useNavigate();
   const { data: vehicles = [], error, isLoading } = useGetVehiclesQuery();
 

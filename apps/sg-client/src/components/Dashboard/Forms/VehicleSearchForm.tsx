@@ -15,7 +15,7 @@ const carModels = {
 };
 
 const VehicleSearchForm = ({ onFiltersChange }) => {
-  const [activeKey, setActiveKey] = useState(null);
+  const [activeKey, setActiveKey] = useState('1');
   const [selectedMakes, setSelectedMakes] = useState([]);
   const [selectedModels, setSelectedModels] = useState([]);
   const [viewingModelsMake, setViewingModelsMake] = useState('');
