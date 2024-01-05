@@ -47,7 +47,7 @@ const SignUpForm = ({}) => {
 
     try {      
 
-      const firebaseCreateUserResponse = await firebase.createUser({
+      const firebaseCreateUserResponse:any = await firebase.createUser({
         email: username,
         password: password
       })
