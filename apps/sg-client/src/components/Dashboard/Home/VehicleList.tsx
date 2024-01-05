@@ -1,15 +1,27 @@
-import React from 'react';
-import { Skeleton, Space } from 'antd';
+import { 
+  Skeleton, 
+  Space 
+} from 'antd';
+
+import { 
+  useNavigate 
+} from 'react-router-dom';
+
+import { 
+  useGetVehiclesQuery 
+} from '../../../services/api';
+
 import VehicleCard from '../../UI/VehicleCard';
 import ResourceNotFound from '../../Shared/ResourceNotFound';
-import { useNavigate } from 'react-router-dom';
-import { useGetVehiclesQuery } from '../../../services/api';
 
-const VehicleList = ({ filters }) => {  
+const VehicleList = ({ 
+  filters 
+}) => {  
+
   const navigate = useNavigate();
-  const { data: vehicles = [], error, isLoading } = useGetVehiclesQuery();
+  const { data: vehicles = [], error, isLoading } = useGetVehiclesQuery({});
 
-  const handleViewVehicle = (vehicleId) => {
+  const handleViewVehicle = (vehicleId: number) => {
     navigate(`/vehicle?vehicle_id=${vehicleId}`);
   }
 

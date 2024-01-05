@@ -57,6 +57,15 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({ images }) => {
   const secondaryImagesToShow = images.slice(1, Math.min(images.length, 4));
   const additionalImagesCount = images.length > 4 ? images.length - 4 : 0;
 
+  const handleSelectImage = () => {
+
+    if(!document) {
+      return; 
+    }
+    
+    document.querySelector(`[src="${img.image_url}"]`).click();
+  }
+
   return (
     <Row gutter={16}>
       <Col span={18} style={{ display: 'flex', flexDirection: 'column' }}>
@@ -91,25 +100,27 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({ images }) => {
               height={'auto'}
             />
             {additionalImagesCount > 0 && index === secondaryImagesToShow.length - 1 && (
-              <div style={{
-                position: 'absolute',
-                background: 'rgba(0, 0, 0, 0.5)',
-                color: 'white',
-                width: '100%',
-                height: '98%',
-                borderRadius: 10,
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                fontSize: '36px',
-                top: 0,
-                right: 0,
-                bottom: 0,
-                left: 0,
-                cursor: 'pointer', 
-              }} onClick={() => { 
-                document.querySelector(`[src="${img.image_url}"]`).click();
-              }}>
+              <div 
+                style={{
+                  position: 'absolute',
+                  background: 'rgba(0, 0, 0, 0.5)',
+                  color: 'white',
+                  width: '100%',
+                  height: '98%',
+                  borderRadius: 10,
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  fontSize: '36px',
+                  top: 0,
+                  right: 0,
+                  bottom: 0,
+                  left: 0,
+                  cursor: 'pointer', 
+                }} 
+                onClick={() => { 
+                  document.querySelector(`[src="${img.image_url}"]`).click();
+                }}>
                 +{additionalImagesCount}
               </div>
             )}

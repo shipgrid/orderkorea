@@ -20,14 +20,13 @@ import {
 } from "react-icons/ri";
 
 const carMakes = [
-  'BMW', 'Audi', 'Mercedes-Benz', // ... other car makes
+  'BMW', 'Audi', 'Mercedes-Benz', 
 ];
 
 const carModels = {
   BMW: ['1 Series', '2 Series', '3 Series', '4 Series', '5 Series', '6 Series', '7 Series', 'X Series', 'M Series', 'i Series'],
   Audi: ['A1', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'Q3', 'Q5', 'Q7'],
   "Mercedes-Benz": ['A-Class', 'B-Class', 'C-Class', 'E-Class', 'S-Class', 'G-Class', 'GLA', 'GLC', 'GLE', 'GLS'],
-  // ... other models for different car makes
 };
 
 const VehicleSearchForm = ({ onFiltersChange }) => {
@@ -83,7 +82,7 @@ const VehicleSearchForm = ({ onFiltersChange }) => {
 
   const renderMakesCheckboxes = () => (
     <Row gutter={[16, 16]}>
-      {carMakes.map((make) => (
+      {carMakes.map((make:string) => (
         <Col span={8} key={make}> {/* Adjusted the span to 8 to give more space */}
           <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'nowrap' }}>
             <Checkbox
@@ -142,7 +141,7 @@ const VehicleSearchForm = ({ onFiltersChange }) => {
     </div>
   );
 
-  const onTabChange = (key) => {
+  const onTabChange = (key: string) => {
     setActiveKey(key);
     setViewingModelsMake('');
   };

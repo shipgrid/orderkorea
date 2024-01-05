@@ -3,6 +3,7 @@ import {
   Button, 
   Modal 
 } from 'antd';
+
 import DocumentUpload from './DocumentUpload';
 
 interface AddDocumentModalProps {
@@ -13,7 +14,6 @@ const AddDocumentModal: React.FC<AddDocumentModalProps> = ({
   orderId
 }) => {
   const [open, setOpen] = useState(false);
-  const [confirmLoading, setConfirmLoading] = useState(false);
 
   const showModal = () => {
     setOpen(true);
@@ -36,7 +36,6 @@ const AddDocumentModal: React.FC<AddDocumentModalProps> = ({
         title="Create Document"
         open={open}
         onOk={handleOk}
-        confirmLoading={confirmLoading}
         onCancel={handleCancel}
       >
         <DocumentUpload

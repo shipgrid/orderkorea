@@ -3,16 +3,13 @@ import {
   Button
 } from 'antd'
 
-import {
-  Document
-} from '../../../services/api'
-
 import { 
   FaFilePdf 
 } from "react-icons/fa6";
 
 import {
-  useRemoveDocumentMutation
+  useRemoveDocumentMutation,
+  Document
 } from '../../../services/api'
 
 import TableActionDropdown from '../../Shared/TableActionDropdown';
@@ -50,7 +47,7 @@ const DocumentTable: React.FC<DocumentTableProps> = ({
       title: 'Download',
       dataIndex: 'file_url',
       key: 'type',
-      render:(key: string, record: object) => (
+      render:(key: string, _: Document) => (
         <Button>
           <a href={key} download>
             Download
@@ -61,7 +58,7 @@ const DocumentTable: React.FC<DocumentTableProps> = ({
     {
       key: 'action',
       width: 50,
-      render: (key: string, record: any) => {
+      render: (_: string, record: any) => {
         return (
           <TableActionDropdown
             actions={[

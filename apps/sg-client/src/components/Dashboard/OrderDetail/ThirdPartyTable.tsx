@@ -54,18 +54,24 @@ const ThirdPartyTable: React.FC<ThirdPartyTableProps> = ({
       title: 'Name',
       dataIndex: 'address',
       key: 'name',
-      render: (key:Address) => (
-        <p style={{ fontSize: 14 }}> {key[0]?.name} </p>
-      )
+      render: (key:Address[]) => {
+
+        if (!key || key.length === 0) {
+          // Handle the case when keys is undefined, null, or empty
+          return null; // or any other fallback UI you prefer
+        }
+        
+        return <p style={{ fontSize: 14 }}> {key[0]?.name} </p> 
+      }
     },
     {
       title: 'Address',
       dataIndex: 'address',
       key: 'address',
-      render:(key: Address | undefined ) => {
+      render:(key: Address[] | undefined ) => {
 
-        if (!key) {
-          // Handle the case when key is undefined or null
+        if (!key || key.length === 0) {
+          // Handle the case when keys is undefined, null, or empty
           return null; // or any other fallback UI you prefer
         }
         
@@ -96,7 +102,7 @@ const ThirdPartyTable: React.FC<ThirdPartyTableProps> = ({
     {
       key: 'action',
       width: 50,
-      render: (key: string, record: ThirdParty) => {
+      render: (_: string, record: ThirdParty) => {
         return (
           <TableActionDropdown
             actions={[

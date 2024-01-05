@@ -58,7 +58,7 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
     {
       title: 'Make - Model',
       key: 'name',
-      render: (key: string, record: Vehicle) => {
+      render: (_: string, record: Vehicle) => {
         return (
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <span> { `${record.make} ${record.model}` } </span>
@@ -94,7 +94,7 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
     {
       key: 'action',
       width: 50,
-      render: (key: string, record: Vehicle) => {
+      render: (_: string, record: Vehicle) => {
         return (
           <TableActionDropdown
             actions={[
