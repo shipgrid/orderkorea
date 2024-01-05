@@ -142,7 +142,7 @@ const VehicleForm = ({
     }
 
     for(const properties in values) {
-      // console.log(consignee)
+
       if(properties.includes('consignee')) {
         const newProperty = properties.replace('consignee_', '')
         consignee[newProperty] = values[properties];

@@ -62,7 +62,13 @@ const ThirdPartyTable: React.FC<ThirdPartyTableProps> = ({
       title: 'Address',
       dataIndex: 'address',
       key: 'address',
-      render:(key: Address) => {
+      render:(key: Address | undefined ) => {
+
+        if (!key) {
+          // Handle the case when key is undefined or null
+          return null; // or any other fallback UI you prefer
+        }
+        
         return (
           <div style={{ display: 'flex', flexDirection:'column' }}>
             <p style={{fontSize: 14}}> {key[0]?.name} </p>

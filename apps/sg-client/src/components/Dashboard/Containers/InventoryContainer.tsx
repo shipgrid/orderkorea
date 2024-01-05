@@ -1,5 +1,12 @@
-import React, { useState } from 'react';
-import { Stack, Divider } from '@chakra-ui/react';
+import { 
+  useState 
+} from 'react';
+
+import { 
+  Stack, 
+  Divider 
+} from '@chakra-ui/react';
+
 import DashboardHeader from '../Layout/DashboardHeader';
 import DashboardContent from '../Layout/DashboardContent';
 import Grid from '../../Shared/Grid';

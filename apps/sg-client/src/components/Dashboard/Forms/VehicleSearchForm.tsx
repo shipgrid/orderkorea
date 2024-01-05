@@ -1,7 +1,23 @@
-import React, { useState } from 'react';
-import { Button, Checkbox, Row, Col, Tabs, Tag } from 'antd';
-import { LeftOutlined } from '@ant-design/icons';
-import { RiCarLine, RiCalendar2Line } from "react-icons/ri";
+import { 
+  useState 
+} from 'react';
+
+import { 
+  Button, 
+  Checkbox,
+  Row, 
+  Col, 
+  Tabs, 
+  Tag 
+} from 'antd';
+
+import { 
+  LeftOutlined 
+} from '@ant-design/icons';
+
+import { 
+  RiCarLine 
+} from "react-icons/ri";
 
 const carMakes = [
   'BMW', 'Audi', 'Mercedes-Benz', // ... other car makes

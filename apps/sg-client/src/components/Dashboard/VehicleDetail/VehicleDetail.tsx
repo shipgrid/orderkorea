@@ -121,8 +121,15 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({ images }) => {
 };
 
 
-const Highlights: React.FC<HighlightsProps> = ({ vehicle }) => {
-  const { mileage, transmission_type, exterior_color } = vehicle;
+const Highlights: React.FC<HighlightsProps> = ({ 
+  vehicle 
+}) => {
+
+  const { 
+    mileage, 
+    transmission_type, 
+    exterior_color 
+  } = vehicle;
 
   return (
     <Card 
@@ -156,6 +163,7 @@ const Highlights: React.FC<HighlightsProps> = ({ vehicle }) => {
 };
 
 const Specifications: React.FC<DescriptionProps> = ({ vehicle }) => {
+  
   const { 
     mileage, 
     exterior_color,
@@ -168,6 +176,7 @@ const Specifications: React.FC<DescriptionProps> = ({ vehicle }) => {
     is_new,
     fuel_type, 
   } = vehicle;
+
   return (
     <Card 
       title="Specifications" 
