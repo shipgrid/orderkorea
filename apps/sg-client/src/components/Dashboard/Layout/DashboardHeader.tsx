@@ -1,18 +1,23 @@
 import { 
-  ReactNode 
-} from 'react';
+  ReactNode
+} from 'react'
 
 import { 
-  PageHeader,
+  useNavigate, 
+  useLocation 
+} from 'react-router-dom'
+
+import { 
+  PageHeader
 } from '@ant-design/pro-layout'
 
-import {
-  Flex,
+import { 
+  Flex
 } from 'antd'
 
 interface DashboardHeaderProps {
   title: string
-  description: string,
+  description: string
   action?: ReactNode
 }
 
@@ -20,11 +25,22 @@ const DashboardHeader = ({
   title,
   description,
   action
-}:DashboardHeaderProps) => {
+}: DashboardHeaderProps) => {
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  const handleBack = () => {
+    if(location.pathname === '/') {
+      return
+    } else {
+      navigate(-1)
+    }
+  }
+
   return (
     <Flex>
       <PageHeader
-        onBack={() => null}
+        onBack={handleBack} // Use the handleBack function
         title={title}
         subTitle={description}
         extra={[
@@ -33,7 +49,7 @@ const DashboardHeader = ({
         style={{ flex: 1 }}
       />
     </Flex>
-  );
+  )
 }
 
 export default DashboardHeader

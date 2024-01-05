@@ -1,40 +1,42 @@
-import '../../assets/vehicle_card.css';
-import React from 'react';
-
 import { 
   List, 
   Typography, 
   Tag, 
   message,
   Image,
-} from 'antd';
+} from 'antd'
+
+import '../../../assets/vehicle_card.css'
 
 import { 
   DashboardOutlined, 
   CopyOutlined 
-} from '@ant-design/icons';
-import { formatNumberWithCommas } from '../../utils/format_string';
+} from '@ant-design/icons'
 
-const { Text } = Typography;
+import { 
+  formatNumberWithCommas
+} from '../../../utils/format_string'
+
+const { Text } = Typography
 
 interface VehicleCardProps {
   vehicle: {
-    vehicle_id: number;
-    make: string;
-    model: string;
-    year: string;
-    price: string;
-    mileage: string; 
-    exterior_color: string; 
-    interior_color: string; 
-    transmission_type: string; 
-    doors: number; 
-    trim: string; 
+    vehicle_id: number
+    make: string
+    model: string
+    year: string
+    price: string
+    mileage: string 
+    exterior_color: string 
+    interior_color: string 
+    transmission_type: string 
+    doors: number 
+    trim: string 
     drivetrain: string 
-    vin_number: string | null; 
-    is_new: boolean;
-    fuel_type: string; 
-    description: string; 
+    vin_number: string | null 
+    is_new: boolean
+    fuel_type: string 
+    description: string 
     images: {
       image_url: string
     }[]
@@ -43,20 +45,20 @@ interface VehicleCardProps {
 }
 
 const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, onClick }) => {
-  const { vehicle_id, make, model, year, vin_number, mileage, price, description, images } = vehicle;
-  const mainImageUrl = images[0]?.image_url;
+  const { vehicle_id, make, model, year, vin_number, mileage, price, description, images } = vehicle
+  const mainImageUrl = images[0]?.image_url
 
   const handleItemClick = () => {
-    onClick(vehicle_id);
+    onClick(vehicle_id)
   }
 
   const copyToClipboard = (text: any) => {
     navigator.clipboard.writeText(text).then(() => {
-      message.success('Vin Copied'); // Show success message
+      message.success('Vin Copied') 
     }, (err) => {
-      console.error('Failed to copy: ', err);
-    });
-  };
+      console.error('Failed to copy: ', err)
+    })
+  }
 
   return (
     <List.Item
@@ -83,8 +85,8 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, onClick }) => {
             </Tag>
             {vin_number && (
               <Tag color="red" style={{ cursor: 'pointer' }} onClick={(e) => {
-                e.stopPropagation(); 
-                copyToClipboard(vin_number);
+                e.stopPropagation() 
+                copyToClipboard(vin_number)
               }}>
                 {`VIN: ${vin_number}`}
                 <CopyOutlined 
@@ -119,7 +121,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, onClick }) => {
         ))}
       </div>
     </List.Item>
-  );
-};
+  )
+}
 
-export default VehicleCard;
+export default VehicleCard

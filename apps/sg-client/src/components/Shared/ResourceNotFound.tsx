@@ -1,13 +1,27 @@
-import React from 'react';
-import { Button, Result } from 'antd';
+import { 
+  Button, 
+  Result 
+} from 'antd'
 
-const ResourceNotFound: React.FC = () => (
-  <Result
-    status="404"
-    title="404"
-    subTitle="Sorry, the resource you are looking for does not exist."
-    extra={<Button type="primary">Back Home</Button>}
-  />
-);
+import { 
+  useNavigate
+} from 'react-router-dom'
 
-export default ResourceNotFound;
+const ResourceNotFound: React.FC = () => {
+  const navigate = useNavigate()
+
+  const handleBackHome = () => {
+    navigate('/') 
+  }
+
+  return (
+    <Result
+      status="404"
+      title="404"
+      subTitle="Sorry, the resource you are looking for does not exist."
+      extra={<Button type="primary" onClick={handleBackHome}>Back Home</Button>}
+    />
+  )
+}
+
+export default ResourceNotFound

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Skeleton, Space } from 'antd';
-import VehicleCard from '../../UI/VehicleCard';
+import VehicleCard from '../../UI/card/VehicleCard';
 import ResourceNotFound from '../../Shared/ResourceNotFound';
 import { useNavigate } from 'react-router-dom';
 import { useGetVehiclesQuery } from '../../../services/api';

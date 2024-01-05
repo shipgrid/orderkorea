@@ -1,0 +1,7 @@
+const MAIN_SELLER_NAME = 'Brian Lee'
+const MAIN_SELLER_INITIALS = 'B.L.'
+
+export {
+  MAIN_SELLER_NAME,
+  MAIN_SELLER_INITIALS
+}
