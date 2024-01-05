@@ -11,7 +11,6 @@ import {
 
 import type { 
   UploadProps,
-  SelectProps, 
 } from 'antd';
 
 import {
@@ -114,7 +113,7 @@ const VehicleForm = ({
       dataIndex: 'vin_number',
     },
   ];
-  console.log(order)
+
   const onFinish = async (values: any) => {
 
     const consignee:CreateAddressBody = {
@@ -145,12 +144,12 @@ const VehicleForm = ({
 
       if(properties.includes('consignee')) {
         const newProperty = properties.replace('consignee_', '')
-        consignee[newProperty] = values[properties];
+        consignee[newProperty as keyof CreateAddressBody] = values[properties];
       }
 
       if(properties.includes('shipper')) {
         const newProperty = properties.replace('shipper_', '')
-        shipper[newProperty] = values[properties];
+        shipper[newProperty as keyof CreateAddressBody] = values[properties];
       }
     }
 
@@ -238,10 +237,6 @@ const VehicleForm = ({
     },
   };
 
-  const handleChange = (value: string | string[]) => {
-    console.log(`Selected: ${value}`);
-  };
-
   const showDrawer = () => {
     setOpen(true);
   };
@@ -253,12 +248,10 @@ const VehicleForm = ({
   };
 
   const rowSelection = {
-    onChange: (selectedRowKeys: React.Key[], selectedRows: Vehicle[]) => {
+    onChange: (_: React.Key[], selectedRows: Vehicle[]) => {
       setSelectedVehicles(selectedRows)
     }
   };
-
-  const options: SelectProps['options'] = [];
 
   return (
     <>
@@ -292,15 +285,6 @@ const VehicleForm = ({
         <div style={{ fontSize: 20, fontWeight: 'bold' }}> Vehicles </div>
         <Divider/>
         <Form.Item label="Vehicles" name='vehicles'>
-          {/* <Select
-            mode="multiple"
-            placeholder="Please select"
-            defaultValue={[`${order.vehicles.map((item:Vehicle) => `(${item.year} ${item.make} ${item.model})`)}`]}
-            onChange={handleChange}
-            style={{ width: '100%' }}
-            options={options}
-            disabled={true}
-          /> */}
           <Button style={{marginTop: 2}} onClick={showDrawer}> Find Vehicles </Button>
           <span> { order.vehicles?.length } Vehicles Selected </span>
         </Form.Item>

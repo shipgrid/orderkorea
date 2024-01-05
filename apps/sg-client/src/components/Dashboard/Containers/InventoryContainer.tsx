@@ -13,8 +13,16 @@ import Grid from '../../Shared/Grid';
 import VehicleSearchForm from '../Forms/VehicleSearchForm';
 import VehicleList from '../Home/VehicleList';
 
+interface IFilter {
+  makes: string[]; // Assuming 'makes' is an array of strings
+  models: string[]; // Assuming 'models' is an array of strings
+}
+
 const HomeContainer = () => {
-  const [filters, setFilters] = useState({ makes: [], models: [] });
+  const [filters, setFilters] = useState<IFilter>({ 
+    makes: [], 
+    models: [] 
+  });
 
   return (
     <Stack minH={'100vh'}>

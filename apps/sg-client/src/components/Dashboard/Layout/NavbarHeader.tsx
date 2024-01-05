@@ -43,7 +43,7 @@ const navItems = [
   }
 ];
 
-const items: MenuProps['items'] = navItems.map((item, index) => ({
+const items: MenuProps['items'] = navItems.map((item) => ({
   key: item.path,
   icon: item.icon,
   label: `${item.label}`,

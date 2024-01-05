@@ -1,15 +1,40 @@
-import React from 'react';
-import { Skeleton, Space } from 'antd';
-import VehicleCard from '../../UI/VehicleCard';
+import {
+  useNavigate
+} from 'react-router-dom'
+
+import { 
+  Skeleton, 
+  Space 
+} from 'antd';
+
+import {
+  useGetVehiclesQuery
+} from '../../../services/api'
+
+import {
+  startTransition
+} from 'react';
+
+import VehicleCard from '../../UI/card/VehicleCard';
 import ResourceNotFound from '../../Shared/ResourceNotFound';
-import { useNavigate } from 'react-router-dom';
-import { useGetVehiclesQuery } from '../../../services/api';
 
-const VehicleList = ({ filters }) => {  
+interface IFilter {
+  makes: string[]; // Assuming 'makes' is an array of strings
+  models: string[]; // Assuming 'models' is an array of strings
+}
+
+interface VehicleListProps {
+  filters: IFilter;
+}
+
+const VehicleList = ({ 
+  filters 
+}: VehicleListProps) => {  
+
   const navigate = useNavigate();
-  const { data: vehicles = [], error, isLoading } = useGetVehiclesQuery();
+  const { data: vehicles = [], error, isLoading } = useGetVehiclesQuery({});
 
-  const handleViewVehicle = (vehicleId) => {
+  const handleViewVehicle = (vehicleId: number) => {
     navigate(`/vehicle?vehicle_id=${vehicleId}`);
   }
 
@@ -55,7 +80,7 @@ const VehicleList = ({ filters }) => {
     <Space direction="vertical" size="large" style={{ width: '100%' }}>
       {filteredVehicles.length > 0 ? (
         filteredVehicles.map((vehicle) => (
-          <VehicleCard key={vehicle.vehicle_id} vehicle={vehicle} onClick={() => handleViewVehicle(vehicle.vehicle_id)} />
+          <VehicleCard key={vehicle.vehicle_id} vehicle={vehicle} onClick={() => startTransition(() => handleViewVehicle(vehicle.vehicle_id))}/>
         ))
       ) : (
         <ResourceNotFound />

@@ -65,7 +65,7 @@ export interface VehicleImage {
 export interface ThirdParty {
   third_party_id: number;
   address_id: number;
-  address: Address;
+  address: Address[];
   order_id: number;
   type: string;
   created_on: string;
@@ -88,6 +88,15 @@ export interface Address {
   created_on: string;
   updated_on: string;
   deleted_on: string | null;
+}
+
+export interface Shipper {
+  name: string;
+  line1: string;
+  countryCode: string;
+  stateCode: string;
+  city: string;
+  postalCode: string;
 }
 
 export interface Document {
@@ -198,6 +207,7 @@ export interface FirebaseLogin {
   firebase_token: string;
 }
 
+
 const baseQuery = fetchBaseQuery({
   baseUrl: 'http://localhost:4000',
   prepareHeaders: (headers, { getState }: any) => {
@@ -228,7 +238,7 @@ const baseQueryWithReauth: BaseQueryFn<
       return result;
     } 
 
-    const refreshResult = await baseQuery(`/account/refresh-token/${firebaseToken}`, api, extraOptions)
+    const refreshResult:any = await baseQuery(`/account/refresh-token/${firebaseToken}`, api, extraOptions)
 
     if (refreshResult.data) {
       // store the new token
@@ -240,6 +250,7 @@ const baseQueryWithReauth: BaseQueryFn<
       // retry the initial query
       result = await baseQuery(args, api, extraOptions)
     } else {
+      //need to log out user here
       // api.dispatch(loggedOut())
     }
   }
@@ -256,7 +267,7 @@ const api = createApi({
         method: 'POST',
         body,
       }),
-      transformResponse: (response: { data: any }) => response.data,
+      transformResponse: (response: { data: any }, _, _args) => response.data,
     }),
     upload: build.mutation<ApiResponse, UploadParams>({
       query: (body) => ({
@@ -264,7 +275,7 @@ const api = createApi({
         method: 'POST',
         body: body.file,
       }),
-      transformResponse: (response: { data: any }) => response.data,
+      transformResponse: (response: { data: any }, _, _args) => response.data,
     }),
     register: build.mutation<ApiResponse, RegisterParams>({
       query: (body) => ({
@@ -272,7 +283,7 @@ const api = createApi({
         method: 'POST',
         body,
       }),
-      transformResponse: (response: { data: any }) => response.data,
+      transformResponse: (response: { data: any }, _, _args) => response.data,
     }),
     getOrders: build.query({
       query: () => 'orders',
@@ -281,7 +292,7 @@ const api = createApi({
     }),
     getOrder: build.query({
       query: (orderId) => `orders/${orderId}`,
-      transformResponse: (response: { data: Order }) => response.data,
+      transformResponse: (response: { data: Order }, _, _args) => response.data,
       providesTags: ['order'],
     }),
     updateOrder: build.mutation<ApiResponse, Order>({
@@ -290,7 +301,7 @@ const api = createApi({
         method: 'PUT',
         body,
       }),
-      transformResponse: (response: { data: any }) => response.data,
+      transformResponse: (response: { data: any }, _, _args) => response.data,
     }),
     createOrder: build.mutation<ApiResponse, CreateOrderParams>({
       query: (body) => ({
@@ -298,7 +309,7 @@ const api = createApi({
         method: 'POST',
         body,
       }),
-      transformResponse: (response: { data: any }) => response.data,
+      transformResponse: (response: { data: any }, _, _args) => response.data,
     }),
     getVehicles: build.query({
       query: () => 'vehicles',
@@ -314,7 +325,7 @@ const api = createApi({
         method: 'POST',
         body,
       }),
-      transformResponse: (response: { data: any }) => response.data,
+      transformResponse: (response: { data: any }, _, _args) => response.data,
     }),
     createThirdParty: build.mutation<ApiResponse, CreateThirdPartyParams>({
       query: (body) => ({
@@ -322,7 +333,7 @@ const api = createApi({
         method: 'POST',
         body,
       }),
-      transformResponse: (response: { data: any }) => response.data,
+      transformResponse: (response: { data: any }, _, _args) => response.data,
       invalidatesTags: ['order'],
     }),
     removeThirdParty: build.mutation<ApiResponse, removeThirdPartyParams>({
@@ -331,7 +342,7 @@ const api = createApi({
         method: 'DELETE',
         body,
       }),
-      transformResponse: (response: { data: any }) => response.data,
+      transformResponse: (response: { data: any }, _, _args) => response.data,
       invalidatesTags: ['order'],
     }),
     createDocument: build.mutation<ApiResponse, CreateDocumentParams>({
@@ -340,7 +351,7 @@ const api = createApi({
         method: 'POST',
         body: body.file,
       }),
-      transformResponse: (response: { data: any }) => response.data,
+      transformResponse: (response: { data: any }, _, _args) => response.data,
       invalidatesTags: ['order'],
     }),
     removeDocument: build.mutation<ApiResponse, removeDocumentParams>({
@@ -349,7 +360,7 @@ const api = createApi({
         method: 'DELETE',
         body,
       }),
-      transformResponse: (response: { data: any }) => response.data,
+      transformResponse: (response: { data: any }, _, _args) => response.data,
       invalidatesTags: ['order'],
     }),
     getAddress: build.query({
@@ -363,7 +374,7 @@ const api = createApi({
         body,
       }),
       invalidatesTags: ['order'],
-      transformResponse: (response: { data: any }) => response.data,
+      transformResponse: (response: { data: any }, _, _args) => response.data,
     }),
   }),
 })
