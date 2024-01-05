@@ -11,8 +11,9 @@ RUN pnpm install --filter "sg-client..."
 RUN pnpm --filter "sg-client" build
 
 # Add an 'ls' command to list the directory structure
-RUN ls -l
+
 
 WORKDIR /root/shipgrid/sg-client
+RUN ls -l
 EXPOSE 3000
 ENTRYPOINT ["pnpm", "start"]
