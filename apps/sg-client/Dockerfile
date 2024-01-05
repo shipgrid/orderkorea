@@ -9,6 +9,10 @@ RUN npm -g install typescript
 RUN pnpm install --filter "sg-client..."
  
 RUN pnpm --filter "sg-client" build
+
+# Add an 'ls' command to list the directory structure
+RUN ls -l
+
 WORKDIR /root/shipgrid/sg-client
 EXPOSE 3000
 ENTRYPOINT ["pnpm", "start"]
