@@ -52,17 +52,18 @@ const Grid: FC<GridProps> = ({
               <span style={titleStyle}>{title}</span>
             </Col>
             <Col>
-              <Row gutter={[8, 0]} align="middle">
-                {actionButtons.map((item, i) => (
-                  <Col key={i}>
-                    {item}
-                  </Col>
-                ))}
-              </Row>
-            </Col>
-            <Col>
-              {/* Subtitle is positioned to the far right */}
-              {subtitle && <span style={subtitleStyle}>{subtitle}</span>}
+              <Col>
+                <Row gutter={[8, 0]} align="middle">
+                  {actionButtons.map((item, i) => (
+                    <Col key={i}>
+                      {item}
+                    </Col>
+                  ))}
+                </Row>
+              </Col>
+              <Col>
+                {subtitle && <span style={subtitleStyle}>{subtitle}</span>}
+              </Col>
             </Col>
           </Row>
         ) : null}

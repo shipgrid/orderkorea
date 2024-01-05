@@ -54,7 +54,7 @@ const UserNavbarDropdownMenu = ({
       {
         key: '1',
         label: (
-          <div style={{ display: 'flex', alignItems: 'center'}} onClick={(e) => startTransition(() => navigate('admin'))}>
+          <div style={{ display: 'flex', alignItems: 'center'}} onClick={() => startTransition(() => navigate('admin'))}>
             <MdOutlineAdminPanelSettings/> 
             <span style={{ marginLeft: 5 }}>  Admin </span>
           </div>

@@ -1,22 +1,22 @@
 import {
   Stack,
   Divider,
-} from '@chakra-ui/react';
+} from '@chakra-ui/react'
 
 import { 
   useLocation 
-} from 'react-router-dom';
+} from 'react-router-dom'
 
 import {
   useGetVehicleQuery,
-} from '../../../services/api';
+} from '../../../services/api'
 
-import DashboardHeader from '../Layout/DashboardHeader';
-import DashboardContent from '../Layout/DashboardContent';
-import Grid from '../../Shared/Grid';
-import VehicleDetail from '../VehicleDetail/VehicleDetail';
-import ApiLoader from '../../Shared/ApiLoader';
-import ResourceNotFound from '../../Shared/ResourceNotFound';
+import DashboardHeader from '../Layout/DashboardHeader'
+import DashboardContent from '../Layout/DashboardContent'
+import Grid from '../../Shared/Grid'
+import VehicleDetail from '../VehicleDetail/VehicleDetail'
+import ApiLoader from '../../Shared/ApiLoader'
+import ResourceNotFound from '../../Shared/ResourceNotFound'
 
 import {
   formatNumberWithCommas
@@ -25,10 +25,10 @@ import {
 
 const VehicleDetailContainer = () => {
 
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
+  const location = useLocation()
+  const searchParams = new URLSearchParams(location.search)
 
-  const vehicleId = searchParams.get('vehicle_id');
+  const vehicleId = searchParams.get('vehicle_id')
 
   if(!vehicleId) {
     return  (
@@ -42,7 +42,7 @@ const VehicleDetailContainer = () => {
     data: vehicle, 
     error, 
     isLoading 
-  } = useGetVehicleQuery(vehicleId);
+  } = useGetVehicleQuery(vehicleId)
 
   if(isLoading) {
     return <ApiLoader />
@@ -79,7 +79,7 @@ const VehicleDetailContainer = () => {
         <Divider my={5}/>
       </DashboardContent>
     </Stack>
-  );
+  )
 }
 
 export default VehicleDetailContainer

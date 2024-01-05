@@ -1,89 +1,95 @@
 import { 
   useState 
-} from 'react';
+} from 'react'
 
 import { 
   Button, 
   Checkbox,
   Row, 
   Col, 
-  Tabs, 
-  Tag 
-} from 'antd';
+  Tag,
+  Tabs
+} from 'antd'
 
 import { 
   LeftOutlined 
-} from '@ant-design/icons';
+} from '@ant-design/icons'
 
 import { 
   RiCarLine 
-} from "react-icons/ri";
+} from "react-icons/ri"
 
-const carMakes = [
-  'BMW', 'Audi', 'Mercedes-Benz', 
-];
+import {
+  CAR_MAKES, 
+  CAR_MODELS
+} from "../../../data"
 
-const carModels = {
-  BMW: ['1 Series', '2 Series', '3 Series', '4 Series', '5 Series', '6 Series', '7 Series', 'X Series', 'M Series', 'i Series'],
-  Audi: ['A1', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'Q3', 'Q5', 'Q7'],
-  "Mercedes-Benz": ['A-Class', 'B-Class', 'C-Class', 'E-Class', 'S-Class', 'G-Class', 'GLA', 'GLC', 'GLE', 'GLS'],
-};
+interface VehicleSearchFormProps {
+  onFiltersChange: (filters: any) => void
+}
 
-const VehicleSearchForm = ({ onFiltersChange }) => {
-  const [activeKey, setActiveKey] = useState('1');
-  const [selectedMakes, setSelectedMakes] = useState([]);
-  const [selectedModels, setSelectedModels] = useState([]);
-  const [viewingModelsMake, setViewingModelsMake] = useState('');
+const VehicleSearchForm = ({ 
+  onFiltersChange 
+}: VehicleSearchFormProps) => {
+  const [activeKey, setActiveKey] = useState('1')
+  const [selectedMakes, setSelectedMakes] = useState<string[]>([])
+  const [selectedModels, setSelectedModels] = useState<string[]>([])
+  const [viewingModelsMake, setViewingModelsMake] = useState('')
 
-  const handleMakeSelection = (make, checked) => {
-    const newSelectedModels = selectedModels.filter(model => !carModels[make]?.includes(model));
-    setSelectedModels(newSelectedModels);
+  const handleMakeSelection = (make: string, checked: boolean) => {
+    const newSelectedModels = selectedModels.filter(model => !CAR_MODELS[make]?.includes(model))
+    setSelectedModels(newSelectedModels)
 
     const newSelectedMakes = checked
       ? [...selectedMakes, make]
-      : selectedMakes.filter(m => m !== make);
-    setSelectedMakes(newSelectedMakes);
+      : selectedMakes.filter(m => m !== make)
+    setSelectedMakes(newSelectedMakes)
 
-    onFiltersChange({ makes: newSelectedMakes, models: newSelectedModels });
-  };
+    onFiltersChange({ makes: newSelectedMakes, models: newSelectedModels })
+  }
 
-  const handleModelSelection = (make, model, checked) => {
-    const newSelectedMakes = selectedMakes.filter(m => m !== make);
-    setSelectedMakes(newSelectedMakes);
+  const handleModelSelection = (make: string, model: string, checked: boolean) => {
+    const newSelectedMakes = selectedMakes.filter(m => m !== make)
+    setSelectedMakes(newSelectedMakes)
 
     const newSelectedModels = checked
       ? [...selectedModels, model]
-      : selectedModels.filter(m => m !== model);
-    setSelectedModels(newSelectedModels);
+      : selectedModels.filter(m => m !== model)
+    setSelectedModels(newSelectedModels)
 
-    onFiltersChange({ makes: newSelectedMakes, models: newSelectedModels });
-  };
+    onFiltersChange({ makes: newSelectedMakes, models: newSelectedModels })
+  }
 
-  const handleRemoveTag = (tag, type) => {
+  const handleRemoveTag = (tag: string, type: string) => {
     if (type === 'make') {
-      handleMakeSelection(tag, false);
+      handleMakeSelection(tag, false)
     } else {
-      const makeOfModel = Object.keys(carModels).find(make => carModels[make].includes(tag));
-      handleModelSelection(makeOfModel, tag, false);
+      const makeOfModel = Object.keys(CAR_MODELS).find(make => CAR_MODELS[make].includes(tag))
+
+      if(!makeOfModel) {
+        return;
+      } 
+
+      handleModelSelection(makeOfModel, tag, false)
     }
-  };
+  }
 
   const clearAllFilters = () => {
-    setSelectedMakes([]);
-    setSelectedModels([]);
-    onFiltersChange({ makes: [], models: [] });
-  };
+    setSelectedMakes([])
+    setSelectedModels([])
+    onFiltersChange({ makes: [], models: [] })
+  }
 
   const renderBackArrow = () => (
     <Button type="link" onClick={() => setViewingModelsMake('')} style={{ marginBottom: '10px' }}>
       <LeftOutlined /> Back to Makes
     </Button>
-  );
+  )
 
   const renderMakesCheckboxes = () => (
     <Row gutter={[16, 16]}>
-      {carMakes.map((make:string) => (
-        <Col span={8} key={make}> {/* Adjusted the span to 8 to give more space */}
+      {CAR_MAKES.map((make) => (
+        <Col span={8} key={make}> 
           <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'nowrap' }}>
             <Checkbox
               checked={selectedMakes.includes(make)}
@@ -100,15 +106,15 @@ const VehicleSearchForm = ({ onFiltersChange }) => {
         </Col>
       ))}
     </Row>
-  );
+  )
   
 
-  const renderModelsCheckboxes = (make) => (
+  const renderModelsCheckboxes = (make: string) => (
     <Row gutter={[16, 16]}>
       <Col span={24}>
         {renderBackArrow()}
       </Col>
-      {carModels[make].map((model) => (
+      {CAR_MODELS[make].map((model) => (
         <Col span={6} key={model}>
           <Checkbox
             checked={selectedModels.includes(model)}
@@ -119,7 +125,7 @@ const VehicleSearchForm = ({ onFiltersChange }) => {
         </Col>
       ))}
     </Row>
-  );
+  )
 
   const renderTags = () => (
     <div style={{ padding: '10px 0' }}>
@@ -139,12 +145,12 @@ const VehicleSearchForm = ({ onFiltersChange }) => {
         </Button>
       )}
     </div>
-  );
+  )
 
   const onTabChange = (key: string) => {
-    setActiveKey(key);
-    setViewingModelsMake('');
-  };
+    setActiveKey(key)
+    setViewingModelsMake('')
+  }
 
   const tabItems = [
     {
@@ -180,7 +186,7 @@ const VehicleSearchForm = ({ onFiltersChange }) => {
       />
       {renderTags()}
     </div>
-  );
-};
+  )
+}
 
-export default VehicleSearchForm;
+export default VehicleSearchForm

@@ -11,10 +11,6 @@ import {
   useNavigate
 } from 'react-router-dom'
 
-import {
-  useDispatch,
-} from 'react-redux'
-
 import { 
   useFirebase 
 } from 'react-redux-firebase'
@@ -22,7 +18,6 @@ import {
 import {
   useRegisterMutation
 } from '../../../services/api'
-
 
 type FieldType = {
   first_name?: string;
@@ -35,7 +30,6 @@ const SignUpForm = ({}) => {
 
   const navigate = useNavigate()
   const firebase = useFirebase();
-  const dispatch = useDispatch();
 
   const [
     register, { 
@@ -52,30 +46,30 @@ const SignUpForm = ({}) => {
     } = values;
 
     try {      
+
       const firebaseCreateUserResponse = await firebase.createUser({
         email: username,
         password: password
       })
-      
+
       await register({
         first_name,
         last_name,
         username,
         password,
-        uid: firebaseCreateUserResponse.user.uid,
+        uid: firebaseCreateUserResponse.user?.uid,
       })
-      
+
       await firebase.login({  
         email: username,
         password: password
       })
 
-      const firebaseToken = await firebase.auth().currentUser?.getIdToken()
-      dispatch({ type: 'LOGIN', payload: { token: firebaseToken } })
       navigate('/')
       navigate(0)
 
     } catch(e:any) {
+      console.log('error', e)
       message.error({ content: e.message, duration: 2 })    
     }
   };

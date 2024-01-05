@@ -74,7 +74,6 @@ const LoginForm = ({}) => {
     const loginResponse: any = await firebaseLogin({
       firebase_token: firebaseToken
     })
-    console.log(loginResponse)
 
     dispatch(login({ 
       token: loginResponse.data.token, 
@@ -104,13 +103,13 @@ const LoginForm = ({}) => {
         return;
       }
   
-      const loginResponse = await firebaseLogin({
+      const loginResponse: any = await firebaseLogin({
         firebase_token: firebaseToken
       })
       
       dispatch(login({ 
-        token: loginResponse.data.token, 
         fbToken: firebaseToken,
+        token: loginResponse.data.token, 
         username: loginResponse.data.username,
         isCustomer: loginResponse.data.is_customer,
         isStaff: loginResponse.data.is_staff
