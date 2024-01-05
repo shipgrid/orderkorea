@@ -3,13 +3,12 @@ ARG PNPM_VERSION=6.17.0
 RUN npm --no-update-notifier --no-fund --global install pnpm@${PNPM_VERSION}
 WORKDIR /root/shipgrid
 
-ARG PACKAGE_PATH
 COPY . ./
 RUN npm -g install typescript
 RUN pnpm install --filter "sg-client..."
  
-RUN pnpm --filter "sg-client..." build
-WORKDIR /root/shipgrid/sg-client
-RUN echo $(ls -la ./)
+RUN pnpm --filter "sg-client" build
+
+RUN echo ls -la /root/shipgrid
 # EXPOSE 3000
 # ENTRYPOINT ["pnpm", "preview"]
