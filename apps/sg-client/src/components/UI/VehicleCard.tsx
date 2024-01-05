@@ -13,6 +13,7 @@ import {
   DashboardOutlined, 
   CopyOutlined 
 } from '@ant-design/icons';
+import { formatNumberWithCommas } from '../../utils/format_string';
 
 const { Text } = Typography;
 
@@ -99,7 +100,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, onClick }) => {
 
         </div>
         <div className="vehicle-price-container">
-          <Text className="vehicle-price">{`$${price.toLocaleString()}`}</Text>
+          <Text className="vehicle-price">{`$${formatNumberWithCommas(price)}`}</Text>
         </div>
       </div>
       <div className="additional-images-container">

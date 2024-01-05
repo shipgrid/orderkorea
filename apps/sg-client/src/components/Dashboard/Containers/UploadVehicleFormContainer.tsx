@@ -10,7 +10,7 @@ import {
 import DashboardHeader from '../Layout/DashboardHeader';
 import DashboardContent from '../Layout/DashboardContent';
 import Grid from '../../Shared/Grid';
-import VehicleForm from '../Forms/VehicleForm';
+import VehicleSearchForm from '../Forms/VehicleSearchForm';
 
 const OrderDetailFormContainer = () => {
 
@@ -33,8 +33,7 @@ const OrderDetailFormContainer = () => {
           centerContent={true}
           content={
             <div style={{ display: 'flex', width: 800 }}>
-              <VehicleForm 
-              />
+              <VehicleSearchForm onFiltersChange={() => console.log('asd')}/>
             </div>
           }
         />
