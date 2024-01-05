@@ -10,7 +10,6 @@ import {
   CarOutlined,
 } from '@ant-design/icons'
 
-
 import {
   Vehicle
 } from '../../../services/api'
