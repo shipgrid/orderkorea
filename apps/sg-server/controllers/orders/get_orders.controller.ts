@@ -14,7 +14,7 @@ const userSchema = Joi.object({
   user_id: Joi.number().required(),
   uid: Joi.string().required(),
   first_name: Joi.string().required(),
-  last_name: Joi.string().required(),
+  last_name: Joi.string().allow('', null),
   username: Joi.string().required(),
   password_hash: Joi.string().required(),
   last_login: Joi.string().allow('', null),
@@ -40,6 +40,7 @@ export default async (
   try {
 
     const { error } = userSchema.validate(req.user)
+
     if (error) {
       throw new Error(error.details[0].message) 
     }
