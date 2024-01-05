@@ -32,15 +32,15 @@ const DashboardHeader = ({
   const handleBack = () => {
     if(location.pathname === '/') {
       return
-    } else {
-      navigate(-1)
-    }
+    } 
+
+    navigate(-1)
   }
 
   return (
     <Flex>
       <PageHeader
-        onBack={handleBack} // Use the handleBack function
+        onBack={handleBack} 
         title={title}
         subTitle={description}
         extra={[

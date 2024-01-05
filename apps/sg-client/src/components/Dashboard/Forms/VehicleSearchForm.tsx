@@ -33,7 +33,7 @@ const VehicleSearchForm = ({
   const [viewingModelsMake, setViewingModelsMake] = useState('')
 
   const handleMakeSelection = (make, checked) => {
-    const newSelectedModels: string[] = selectedModels.filter(model => !CAR_MODELS[make]?.includes(model))
+    const newSelectedModels = selectedModels.filter(model => !CAR_MODELS[make]?.includes(model))
     setSelectedModels(newSelectedModels)
 
     const newSelectedMakes = checked
