@@ -83,7 +83,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
     >
       <div className="vehicle-card">
         <div className="vehicle-image">
-          <img
+          <Image
             src={mainImageUrl}
             alt={`${make} ${model}`}
           />
@@ -120,7 +120,6 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
         {images.slice(1).map((image, index) => (
           <Image
             key={index}
-            style={{ borderRadius: 5 }}
             width={135}
             height={90}
             src={image.image_url}
