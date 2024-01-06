@@ -10,4 +10,4 @@ RUN pnpm install --filter "sg-server"
 
 WORKDIR /root/shipgrid/sg-server
 EXPOSE 4000
-ENTRYPOINT ["pnpm", "start"]
+ENTRYPOINT ["pnpm", "compile"]
