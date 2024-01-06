@@ -58,9 +58,13 @@ export default async (
       name
     } = req.body
 
+    const {
+      file
+    } = req 
+
     const { document_id } = await documents.create({
       name: name,
-      file: req.file,
+      file: file,
       order_id
     })
 
