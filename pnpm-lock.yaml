@@ -348,15 +348,9 @@ importers:
 
   apps/sg-server:
     dependencies:
-      '@hyperdx/node-opentelemetry':
-        specifier: ^0.3.3
-        version: 0.3.3
       '@types/bcryptjs':
         specifier: ^2.4.6
         version: 2.4.6
-      '@types/generic-pool':
-        specifier: ^3.8.1
-        version: 3.8.1
       axios:
         specifier: ^1.4.0
         version: 1.4.0
