@@ -10,6 +10,10 @@ import {
   orders
 } from '../../services'
 
+import {
+  IUser 
+} from '../../models/user'
+
 const userSchema = Joi.object({
   user_id: Joi.number().required(),
   uid: Joi.string().required(),
@@ -32,7 +36,9 @@ const userSchema = Joi.object({
 })
 
 export default async (
-  req: Request,
+  req: {
+    user: IUser
+  },
   res: Response,
   next: NextFunction
 ) => {
