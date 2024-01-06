@@ -6,8 +6,8 @@ WORKDIR /root/shipgrid
 ARG PACKAGE_PATH
 COPY . ./
 RUN npm -g install typescript
-RUN pnpm install --filter "sg-server..." 
+RUN pnpm install --filter "sg-server" 
 
 WORKDIR /root/shipgrid/sg-server
 EXPOSE 4000
-ENTRYPOINT ["pnpm", "compile"]
+ENTRYPOINT ["pnpm", "start"]
