@@ -26,7 +26,7 @@ export default async ({
         last_login,
       };
 
-      const user = await User.query(trx).insert(newUser);
+      const user:any = await User.query(trx).insert(newUser);
 
       const newUserCustomer = {
         user_id: user.user_id, 

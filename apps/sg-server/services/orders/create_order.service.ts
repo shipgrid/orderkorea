@@ -24,7 +24,7 @@ export default async ({
 
     await KnexClient.transaction(async (trx) => {
 
-      const user = await User
+      const user:any = await User
         .query(trx)
         .withGraphFetched('customer')
         .where('username', email).first();

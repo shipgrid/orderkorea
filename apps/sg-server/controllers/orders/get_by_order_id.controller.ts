@@ -59,6 +59,7 @@ export default async (
     }
 
     const paramsValidation = paramsSchema.validate(req.params)
+    
     if (paramsValidation.error) {
       throw new Error(paramsValidation.error.details[0].message) 
     }

@@ -34,7 +34,7 @@ export default async ({
     try {
       await KnexClient.transaction(async (trx) => {
     
-        const userWithUid = await User.query(trx).where('uid', uid).first();
+        const userWithUid:any = await User.query(trx).where('uid', uid).first();
 
         if(!userWithUid) {
           throw new Error('User with UID not found');

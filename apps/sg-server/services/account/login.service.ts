@@ -26,7 +26,7 @@ export default async ({
 
   try {
 
-    const user = await customers.getByUsername({
+    const user:any = await customers.getByUsername({
       username
     });
 
