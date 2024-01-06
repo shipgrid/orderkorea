@@ -402,6 +402,9 @@ importers:
       stripe:
         specifier: ^13.2.0
         version: 13.2.0
+      typescript:
+        specifier: ^5.3.3
+        version: 5.3.3
       uuid:
         specifier: ^9.0.1
         version: 9.0.1
@@ -10708,6 +10711,12 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
     dev: true
+
+  /typescript@5.3.3:
+    resolution: {integrity: sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+    dev: false
 
   /uid@2.0.2:
     resolution: {integrity: sha512-u3xV3X7uzvi5b1MncmZo3i2Aw222Zk1keqLA1YkHldREkAhAqi65wuPfe7lHx8H/Wzy+8CE7S7uS3jekIM5s8g==}
