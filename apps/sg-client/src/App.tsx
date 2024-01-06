@@ -32,7 +32,7 @@ import {
 } from './theme'
 
 const App = () => {
-
+  console.log(process.env)
   return (
     <>
       <Provider store={store}>

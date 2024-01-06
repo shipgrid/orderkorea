@@ -10,8 +10,3 @@ RUN pnpm install --filter "sg-client..."
  
 RUN pnpm --filter "sg-client" build
 
-RUN ls -l /root/shipgrid
-
-# WORKDIR /root/shipgrid/sg-client
-# EXPOSE 3000
-# ENTRYPOINT ["pnpm", "start"]
