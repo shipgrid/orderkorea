@@ -1,5 +1,8 @@
+import { 
+  User 
+} from '../models'
+
 import Logger from '../models/logger'
-import { User } from '../models'
 
 export default async (req, res, next) => {
 

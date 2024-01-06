@@ -10,6 +10,10 @@ import {
   orders
 } from '../../services'
 
+import {
+  IUser 
+} from '../../models/user'
+
 const userSchema = Joi.object({
   user_id: Joi.number().required(),
   uid: Joi.string().required(),
@@ -36,7 +40,12 @@ const paramsSchema = Joi.object({
 })
 
 export default async (
-  req: Request,
+  req: {
+    user: IUser,
+    params: {
+      order_id: number
+    }
+  },
   res: Response,
   next: NextFunction
 ) => {
@@ -44,6 +53,7 @@ export default async (
   try {
 
     const userValidation = userSchema.validate(req.user)
+
     if (userValidation.error) {
       throw new Error(userValidation.error.details[0].message) 
     }
@@ -53,12 +63,18 @@ export default async (
       throw new Error(paramsValidation.error.details[0].message) 
     }
 
-    const { customer } = req.user
+    const { 
+      customer 
+    } = req.user
     
     const {
       order_id
     } = req.params
     
+    if(!customer) {
+      throw new Error('No customer found for user')
+    }
+
     const data = await orders.getByOrderId({
       order_id,
       customer_id: customer.customer_id
