@@ -13,7 +13,7 @@ import authValidation from '../middlewares/auth_validation'
 
 const routes = Router()
 
-routes.get('/test', (req, res) => res.status(200).send('OK'))
+routes.get('/test', (_, res) => res.status(200).send('OK'))
 routes.use('/account', account);
 routes.use('/vehicles', authValidation, vehicles);
 routes.use('/orders', authValidation, orders);
