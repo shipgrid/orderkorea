@@ -35,10 +35,19 @@ const userSchema = Joi.object({
   staff: Joi.string().allow('', null)
 })
 
+
+// Extend the Request interface to add the 'user' property
+declare global {
+  namespace Express {
+    interface Request {
+      user?: IUser;
+    }
+  }
+}
+
+
 export default async (
-  req: {
-    user: IUser
-  },
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
