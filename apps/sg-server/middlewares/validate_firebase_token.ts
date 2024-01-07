@@ -25,7 +25,6 @@ export default async (req, res, next) => {
           message: 'Token expired'
         })
       }
-      console.log(e)
     }
 
 

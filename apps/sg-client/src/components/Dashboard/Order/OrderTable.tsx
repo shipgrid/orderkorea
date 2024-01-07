@@ -51,7 +51,6 @@ const OrderTable = () => {
       key: 'id',
       render: (_: string, record: Order) => {
 
-        console.log(record)
         return (
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <Progress percent={70} steps={10} size='small'/>            

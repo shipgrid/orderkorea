@@ -88,7 +88,6 @@ export default async ({
     };
 
   } catch(e) {
-    console.log(e)
     Logger.error('Error registering user:', e);
     throw e
   }

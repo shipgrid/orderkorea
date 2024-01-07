@@ -8,7 +8,6 @@ import routes from './routes'
 import admin from 'firebase-admin'
 
 dotenv.config();
-console.log(process.env)
 if(process.env.NODE_ENV === 'development') {
   console.log('Running in development mode')
 
