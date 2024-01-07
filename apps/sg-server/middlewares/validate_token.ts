@@ -46,7 +46,8 @@ export default (
       return res.status(401);
     }
 
-    req.customer = result.customer;
+    req.user = result.user;
+
     logger.info('Authentication token not provided', result.data);
     next();
   });

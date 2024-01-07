@@ -51,7 +51,9 @@ export default async (
       throw new Error(error.details[0].message) 
     }
 
-    const { customer } = req.user
+    const { 
+      customer 
+    }: any = req.user
     
     const data = await orders.list({
       customer_id: customer.customer_id
