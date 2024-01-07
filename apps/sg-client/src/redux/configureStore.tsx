@@ -41,13 +41,13 @@ import 'firebase/compat/auth';
 import "firebase/compat/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCYLoJUVGHCybEjP-aK5nhfQ5Jjfs5wwHY",
-  authDomain: "shipgrid-new-staging.firebaseapp.com",
-  projectId: "shipgrid-new-staging",
-  storageBucket: "shipgrid-new-staging.appspot.com",  
-  messagingSenderId: "98969594634",
-  appId: "1:98969594634:web:79fb66995b1c41cd9768f3",
-  measurementId: "G-FDBDMXFFHB"
+  apiKey: "AIzaSyDQID1UbncdIY0aSDx9yE6VoDrTRHU2oHk",
+  authDomain: "shipgrid-6574f.firebaseapp.com",
+  projectId: "shipgrid-6574f",
+  storageBucket: "shipgrid-6574f.appspot.com",
+  messagingSenderId: "606903637852",
+  appId: "1:606903637852:web:709a5f908d1a1f50e25399",
+  measurementId: "G-DYNMVTF43D"
 };
 
 firebase.initializeApp(firebaseConfig)
