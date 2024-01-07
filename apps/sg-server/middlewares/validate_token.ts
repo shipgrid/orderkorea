@@ -44,7 +44,7 @@ export default (
     return res.status(401);
   }
 
-  jwt.verify(token, 'YOUR_SECRET_KEY', (error, result) => {
+  jwt.verify(token, 'YOUR_SECRET_KEY', (error, result:any) => {
 
     if (error) {
       logger.info('Authentication token not provided', error);
