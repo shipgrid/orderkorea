@@ -13,6 +13,7 @@ admin.initializeApp({
   credential: admin.credential.cert('./firebase-admin-config.json'),
   storageBucket: 'shipgrid-6574f.appspot.com',
 });
+console.log(process.env)
 
 const APP_PORT = process.env.APP_PORT || 4000;
 // const ALLOWED_ORIGIN = process.env.ALLOW_APP_ORIGIN  // Default to localhost:3000 if env variable is not set
