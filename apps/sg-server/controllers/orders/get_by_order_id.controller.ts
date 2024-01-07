@@ -72,7 +72,7 @@ export default async (
 
     const { 
       customer 
-    } = req.user
+    }:any = req.user
     
     const {
       order_id
