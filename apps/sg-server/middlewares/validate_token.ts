@@ -1,6 +1,18 @@
 import { NextFunction, Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 import logger from '../models/logger'
+import {
+  IUser
+} from '../models/user'
+
+// Extend the Request interface to add the 'user' property
+declare global {
+  namespace Express {
+    interface Request {
+      user?: IUser;
+    }
+  }
+}
 
 /**
  * Validates the authorization token coming from the request header.
