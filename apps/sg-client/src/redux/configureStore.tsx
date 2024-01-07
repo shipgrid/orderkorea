@@ -41,13 +41,13 @@ import 'firebase/compat/auth';
 import "firebase/compat/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDQID1UbncdIY0aSDx9yE6VoDrTRHU2oHk",
-  authDomain: "shipgrid-6574f.firebaseapp.com",
-  projectId: "shipgrid-6574f",
-  storageBucket: "shipgrid-6574f.appspot.com",
-  messagingSenderId: "606903637852",
-  appId: "1:606903637852:web:709a5f908d1a1f50e25399",
-  measurementId: "G-DYNMVTF43D"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
 firebase.initializeApp(firebaseConfig)

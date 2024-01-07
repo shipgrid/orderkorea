@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "shipgrid-staging-7c1ba",
+  "private_key_id": "15876c69e4b2e9a32c02fbb6de9dced72cfbcdd0",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCwqrVRzvxAtDwN\nrCz8qg0IBoEDm5oqAJT99ZmcfyxhbThW25JQVPNc0HhGP+iqW1bYU7Utn7CE5i0m\nXDrkqZHHeh4X4DnSma+NEBNAj2orWsAgpOU1W4qmRz/Unnmi/Yd3HUsab+QfUWXk\n5pNsSa4GrOayUcHQwjTNojmZeuS/fIEXlOXQCZkR2C4uUJ5+dfSUbT5h2kbFsmo/\n7f8kqHWHhBgVIho9YAlhk4c9cO1rtM0K7E7RglwVw499t/gMO/2EfR5SZnd+9Hik\nbX1DMWOyZ5d2FobawXTX88ZojG344V3kQa4XatLEI+MTej2yG92r0TX0cMnBJt3M\nGfmpTpXLAgMBAAECggEASYnFkBgoyIY9uTNCRqpCYmTSrz3GHlW/rzbcilglkSh1\nmzIq5WV3J9tfNV7E6qS6sbGmaSdfwvJNOPqLSUOMewxKGoYri46NlJpsaSNJfmJ4\nNx5siplgTXa7CzYsS7xc9ygqawbIXoDzeSTBmQHSftTZ8sA1fUBZ2n78mvac4Vex\nE9nJG0XurcUElWJrPqCgIAiAQA4aLULhZyqTa6l4wKvRoSBRNDZxg04uDwBH3ZEH\nEW95r1QKjBnbai8HNmQYtHCYjqTekYpNIK02VWZDcRuumAWYXnI3yvzwoZbEYOkd\nvE4nkSicVA51Hq61Yo5Awh3T4tFYJXkgan5P4wWNgQKBgQDXqxeCzhFNXphVHQQl\nHxpfLGD/WvTtNmvv9qbhb0/6PlEcXmUKSoA17q9HiC8lzo1kmcGB7o1BJqul/QPo\nVuuLZgy7Q9RPW8IWPae55i2iEBECeOhvTIFcofxeBQpYP3XuusLxQsazGXSfAdqN\nS35Kg+YeFsgcIwipP36yHA2rvwKBgQDRtHVOsL/lt0TH2m3zbo+yOnjzH2KgUn5Y\nQkI2Rh27moklVUZssmPASeeKDpwag9iJmfIXOGmGvOcxr3N8NqJvL55cKEUoYKx3\nUaerA9wI4nWD1mck4Xt+fKQeFHYq0qr1fhDxsE3QHswCB/p9VtDk1Qz4VDnEYD7h\nyNPJkPTI9QKBgCmOWhVmR4c09v1PfgD5IUe9cWNCz3b1yY6PZFCD9lEtuMtSlP2K\npXG+8B9EanFKf4wm5FZ49Nbc8K4nNp2KQhC2NTXQOBSihZ9reeokJB7aIazsRz1K\n7JJA1DP5nKiscbjyW6XJTCgue344CTi4lzkceTbLBPwG9CBIj80aArhZAoGBAIlc\nWzqgLBKcaUE/oqXB1f44ruERvdimMHw/an+CjhdEsnDx2p94ej6KKlAUIcx8cGox\nnJH5MaZANnAlLNBAOUX7Ow/CkQpRyKafpeQvMwHe1Hr3BbjyuaGwow/Q91Y1iCYl\n3ZNymIWqppbuAvX21/4MT+KZyP0Izie3FIMDoFPBAoGBAI7qy2KVvPcGEsvtalx7\nksXX3Bjf4cM1cidqIcmsp7A7IM1tUshqJZydo8r58CV3djxN824+8wHXPP0CWVxW\n+1gvv9ca1qm3tTBroVZDBeIVeapuNyamgYOvdrGva1E2NTmRuPKYHc1+YDoUgXZf\nmFYBepXaydseIB1od4erdyOd\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-kz89u@shipgrid-staging-7c1ba.iam.gserviceaccount.com",
+  "client_id": "104510951182400057108",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-kz89u%40shipgrid-staging-7c1ba.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
