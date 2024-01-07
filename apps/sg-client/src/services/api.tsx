@@ -207,9 +207,8 @@ export interface FirebaseLogin {
   firebase_token: string;
 }
 
-
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://localhost:4000',
+  baseUrl: import.meta.env.VITE_BASE_URL,
   prepareHeaders: (headers, { getState }: any) => {
     const fbToken = getState().session.fbToken
     const token = getState().session.token

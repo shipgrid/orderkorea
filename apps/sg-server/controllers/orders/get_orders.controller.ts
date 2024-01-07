@@ -36,7 +36,6 @@ const userSchema = Joi.object({
 })
 
 
-// Extend the Request interface to add the 'user' property
 declare global {
   namespace Express {
     interface Request {
