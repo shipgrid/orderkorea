@@ -11,7 +11,6 @@ import {
 } from '../../services'
 
 const bodySchema = Joi.object({
-  last_name: Joi.string().required(),
   first_name: Joi.string().required(),
   username: Joi.string().required(),
   password: Joi.string().required(),
