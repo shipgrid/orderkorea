@@ -30,7 +30,7 @@ app.set('etag', false); // turn off
 app.use(express.json({ limit: "5mb" }));
 app.use(express.urlencoded({ extended: false, limit: "5mb" }));
 
-const whitelist = ['https://shipgrid.io']
+const whitelist = ['https://shipgrid.io', 'http://localhost:5173']
 
 const corsOptions = {
   origin: function (origin, callback) {

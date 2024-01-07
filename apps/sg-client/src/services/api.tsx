@@ -206,7 +206,7 @@ export interface CreateVehicleBody {
 export interface FirebaseLogin {
   firebase_token: string;
 }
-
+console.log(import.meta.env.VITE_BASE_URL)
 const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_BASE_URL,
   prepareHeaders: (headers, { getState }: any) => {

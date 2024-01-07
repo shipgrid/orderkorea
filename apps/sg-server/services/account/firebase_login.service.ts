@@ -24,7 +24,7 @@ export default async ({
     let loginUser;
 
     const response = await admin.auth().verifyIdToken(firebase_token)
-    console.log('response', response)
+
     const { 
       uid 
     } = response

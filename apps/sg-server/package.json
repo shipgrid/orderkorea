@@ -10,7 +10,8 @@
     "compile": "npm run build && node dist/index.js",
     "clean": "node clean.js",
     "build": "npm run clean && tsc",
-    "start": "npm run build && npm run hyperdx"
+    "start:logs": "npm run build && npm run hyperdx | pino-pretty",
+    "start": "npm run build && npm run compile"
   },
   "keywords": [],
   "author": "",

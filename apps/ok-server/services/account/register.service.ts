@@ -33,10 +33,6 @@ export default async ({
       throw new HttpError(400, 'First name is required')
     }
 
-    if (!last_name) {
-      throw new HttpError(400, 'Last name is required')
-    }
-
     if (!username) {
       throw new HttpError(400, 'Username is required')
     }
