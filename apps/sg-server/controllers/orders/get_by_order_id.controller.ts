@@ -39,13 +39,19 @@ const paramsSchema = Joi.object({
   order_id: Joi.number().required()
 })
 
-export default async (
-  req: {
-    user: IUser,
-    params: {
-      order_id: number
+declare global {
+  namespace Express {
+    interface Request {
+      user?: IUser;
+      params: {
+        order_id: number
+      }
     }
-  },
+  }
+}
+
+export default async (
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
