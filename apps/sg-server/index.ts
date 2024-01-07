@@ -11,7 +11,7 @@ dotenv.config();
 
 admin.initializeApp({
   credential: admin.credential.cert('./firebase-admin-config.json'),
-  storageBucket: 'shipgrid-new-staging.appspot.com',
+  storageBucket: 'shipgrid-6574f.appspot.com',
 });
 
 const APP_PORT = process.env.APP_PORT || 4000;
