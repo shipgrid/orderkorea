@@ -50,7 +50,7 @@ const VehicleForm = ({
       exterior_color: values.exterior_color,
       vin_number: values.vin_number,
       transmission_type: values.transmission_type,
-      price: values.price,
+      price: parseFloat(values.price),
       fuel_type: values.fuel_type,
       images: values.vehicle_images.fileList.map((file: any) => {
         return {
