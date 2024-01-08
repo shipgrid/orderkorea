@@ -49,7 +49,7 @@ const OrderTable = () => {
       title: 'Status',
       dataIndex: 'id',
       key: 'id',
-      render: (_: string, record: Order) => {
+      render: (_: string, _record: Order) => {
 
         return (
           <div style={{ display: 'flex', flexDirection: 'column' }}>
