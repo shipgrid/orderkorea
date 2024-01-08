@@ -1,6 +1,7 @@
 
 import { 
   createBrowserRouter, 
+  createHashRouter,
   RouterProvider 
 } from "react-router-dom";
 
@@ -37,7 +38,7 @@ const App = () => {
 
   useEffect(() => {
     if(isLoaded(auth)) {
-      const createdRoutes = createBrowserRouter(allRoutes);
+      const createdRoutes = createHashRouter(allRoutes);
       setRoutes(createdRoutes);
     }
   }, [auth, session.token]);
