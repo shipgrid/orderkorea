@@ -40,6 +40,12 @@ export default (
     return res.status(401);
   }
 
+  if(!process.env.FIRE_SHARK) {
+    return res.status(500).json({
+      message: 'Internal server error'
+    })
+  }
+
   jwt.verify(token, process.env.FIRE_SHARK, (error, result:any) => {
 
     if (error) {

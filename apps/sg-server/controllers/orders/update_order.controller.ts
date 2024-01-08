@@ -102,16 +102,23 @@ export default async (
       loaded_on
     } = req.body
 
-    const {
-      user
-    } = req
+    const { 
+      customer 
+    }:any = req.user
+
+    if(!customer) {
+      return res.status(400).json({
+        success: false,
+        message: 'No customer found for user'
+      })
+    }
 
     const {
       success,
       message
     } = await orders.update({
       order_id: parseInt(order_id),
-      customer_id: user.customer.customer_id,
+      customer_id: customer.customer_id,
       shipment_type,
       container_number,
       port_of_loading,

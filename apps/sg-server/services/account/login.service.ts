@@ -74,6 +74,13 @@ export default async ({
       });
   
       Logger.info('User last login', last_login);
+
+      if(!process.env.FIRE_SHARK) {
+        return resolve({
+          success: false,
+          message: 'Internal server error'
+        })
+      }
   
       let token = jwt.sign(
         { 
