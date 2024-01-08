@@ -4,6 +4,10 @@ import {
   KnexClient
 } from '../../models'
 
+import {
+  IServiceResponse
+} from '../../types'
+
 export default async ({
   order_id,
   shipment_type,
@@ -11,29 +15,32 @@ export default async ({
   port_of_loading,
   port_of_arrival, 
   loaded_on
-}) => {
-  try {
+}): Promise<IServiceResponse<{}>> => {
 
-    let updatedOrder;
+  return new Promise(async (resolve, reject) => {
+    try {
+  
+      await KnexClient.transaction(async (trx) => {
+  
+        const newOrder = {
+          order_id,
+          shipment_type,
+          container_number,
+          port_of_loading,
+          port_of_arrival, 
+          loaded_on
+        };
+  
+        await Order.query(trx).update(newOrder).where('order_id', order_id);
+        
+        resolve({
+          success: true,
+        })      
+      });
 
-    await KnexClient.transaction(async (trx) => {
-
-      const newOrder = {
-        order_id,
-        shipment_type,
-        container_number,
-        port_of_loading,
-        port_of_arrival, 
-        loaded_on
-      };
-
-      const order = await Order.query(trx).update(newOrder).where('order_id', order_id);
-      updatedOrder = order;
-    });
-
-    return updatedOrder;
-  } catch(e) {
-    Logger.error('Error updating order:', e);
-    throw e
-  }
+    } catch(e) {
+      Logger.error('Error updating order:', e);
+      reject(e)
+    }
+  })
 }

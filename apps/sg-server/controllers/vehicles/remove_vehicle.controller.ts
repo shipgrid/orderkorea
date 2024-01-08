@@ -23,7 +23,9 @@ export default async (
 
   try {
 
-    const { error } = paramsSchema.validate(req.params)
+    const { 
+      error 
+    } = paramsSchema.validate(req.params)
 
     if (error) {
       throw new Error(error.details[0].message) 
@@ -33,11 +35,24 @@ export default async (
       vehicle_id
     } = req.params
 
-    await vehicles.remove({
+    const {
+      success
+    } = await vehicles.remove({
       vehicle_id
     })
 
-    res.status(200).json({ success: true });
+    if(!success) {
+      res.status(400).json({ 
+        success, 
+        message: 'Error removing vehicle'
+      })
+
+      return;
+    }
+
+    res.status(200).json({ 
+      success 
+    });
   } catch (e) {
     next(e)
   }

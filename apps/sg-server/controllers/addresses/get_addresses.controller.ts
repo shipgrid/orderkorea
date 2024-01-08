@@ -17,9 +17,23 @@ export default async (
 ) => {
 
   try {
-    const data = await addresses.list({})
+    const {
+      success,
+      message,
+      data
+    } = await addresses.list({})
 
-    res.status(200).json({ ...data, success: true });
+    if(!success) {
+      res.status(400).json({ message })
+      return;
+    }
+
+    if(!data) {
+      res.status(404).json({ message: 'addresses not found' })
+      return;
+    }
+
+    res.status(200).json({ ...data, success });
   } catch (e) {
     next(e)
   }

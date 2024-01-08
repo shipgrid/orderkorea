@@ -31,9 +31,23 @@ export default async (
       address_id
     } = req.params
 
-    const data = await addresses.getByAddressId({
+    const {
+      success,
+      message,
+      data
+    } = await addresses.getByAddressId({
       address_id
     })
+
+    if(!success) {
+      res.status(400).json({ message })
+      return;
+    }
+
+    if(!data) {
+      res.status(404).json({ message: 'address not found' })
+      return;
+    }
 
     res.status(200).json({ data, success: true });
   } catch (e) {

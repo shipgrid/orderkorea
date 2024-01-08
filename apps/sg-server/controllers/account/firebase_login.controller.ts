@@ -32,13 +32,29 @@ export default async (
     } = req.body
 
     const { 
+      success,
+      message,
+      data
+    } = await account.firebaseLogin({
+      firebase_token
+    })
+
+    if(!success) {
+      res.status(400).json({ message })
+      return;
+    }
+
+    if(!data) {
+      res.status(404).json({ message: 'login data not found' })
+      return;
+    }
+
+    const { 
       token,
       username,
       is_staff,
       is_customer
-    } = await account.firebaseLogin({
-      firebase_token
-    })
+    } = data
 
     res.status(200).json({ 
       data: {

@@ -4,28 +4,36 @@ import {
   OrderEvent
 } from '../../models'
 
+import {
+  IServiceResponse
+} from '../../types'
+
 export default async ({
   order_id,
   name,
-}) => {
-  try {
+}): Promise<IServiceResponse<OrderEvent>> => {
 
-    let createdOrderEvent;
+  return new Promise(async (resolve, reject) => {
+    try {
+  
+      await KnexClient.transaction(async (trx) => {
+  
+        const newOrderEvent = {
+          order_id,
+          name,
+        };
+  
+        const orderEvent = await OrderEvent.query(trx).insert(newOrderEvent);
 
-    await KnexClient.transaction(async (trx) => {
-
-      const newOrderEvent = {
-        order_id,
-        name,
-      };
-
-      const orderEvent = await OrderEvent.query(trx).insert(newOrderEvent);
-      createdOrderEvent = orderEvent;
-    });
-
-    return createdOrderEvent;
-  } catch(e) {
-    Logger.error('Error creating orderEvent:', e);
-    throw e
-  }
+        resolve({
+          success: true, 
+          data: orderEvent
+        })
+      });
+  
+    } catch(e) {
+      Logger.error('Error creating orderEvent:', e);
+      reject(e)
+    }
+  })
 }

@@ -61,7 +61,11 @@ export default async (
     } = req.body
 
 
-    const data = await addresses.update({
+    const {
+      success,
+      message,
+      data
+    } = await addresses.update({
       address_id,
       name,
       line1,
@@ -74,7 +78,12 @@ export default async (
       phone,
     })
 
-    res.status(200).json({ success: true });
+    if(!success) {
+      res.status(400).json({ message })
+      return;
+    }
+
+    res.status(200).json({ success });
   } catch (e) {
     next(e)
   }

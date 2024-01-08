@@ -4,18 +4,27 @@ import {
   KnexClient
 } from '../../models'
 
+import {
+  IServiceResponse
+} from '../../types'
+
 export default async ({  
   order_id
-}) => {
-  try {
+}): Promise<IServiceResponse<Order>> => {
+  return new Promise(async (resolve, reject) => {
+    try {
 
-    await KnexClient.transaction(async (trx) => {
-      const order = await Order.query(trx).deleteById(order_id);
-    });
-
-    return;
-  } catch(e) {
-    Logger.error('Error deleting order:', e);
-    throw e
-  }
+      await KnexClient.transaction(async (trx) => {
+        await Order.query(trx).deleteById(order_id);
+        
+        resolve({
+          success: true
+        })
+      });
+  
+    } catch(e) {
+      Logger.error('Error deleting order:', e);
+      reject(e)
+    }
+  })
 }

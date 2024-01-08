@@ -8,40 +8,66 @@ import {
   firebase
 } from '../index'
 
+import {
+  IServiceResponse
+} from '../../types'
+
 export default async ({
   order_id, 
   name,
   file,
-}) => {
+}): Promise<IServiceResponse<Document>> => {
 
-  try {
+  return new Promise(async (resolve, reject) => {
+    try {
     
-    const {
-      success,
-      data
-    } = await firebase.upload_files({
-      file: file,
-      destination: `orders/${order_id}`,
-      filename: `${Date.now().toString()}_${name}`,
-    })
+      const {
+        success,
+        data
+      } = await firebase.upload_files({
+        file: file,
+        destination: `orders/${order_id}`,
+        filename: `${Date.now().toString()}_${name}`,
+      })
 
-    let document; 
+      if (!success) {
+        resolve({
+          success: false,
+          message: 'Error uploading file'
+        })
 
-    await KnexClient.transaction(async (trx) => {
+        return;
+      }
+      
+      if(!data) {
 
-      const newDocument = {
-        order_id: parseInt(order_id), 
-        name,
-        file_url: data,
-      };
+        resolve({
+          success: false,
+          message: 'Error uploading file'
+        })
 
-      document = await Document.query(trx).insert(newDocument);
-    });
+        return;
+      }
 
-    return document;
-    
-  } catch(e) {
-    Logger.error('Error creating Document:', e);
-    throw e
-  }
+      await KnexClient.transaction(async (trx) => {
+  
+        const newDocument = {
+          order_id: parseInt(order_id), 
+          name,
+          file_url: data.downloadUrl,
+        };
+  
+        const document = await Document.query(trx).insert(newDocument);
+
+        resolve({
+          success: true,
+          data: document
+        })
+      });
+        
+    } catch(e) {
+      Logger.error('Error creating Document:', e);
+      reject(e)
+    }
+  })
 }

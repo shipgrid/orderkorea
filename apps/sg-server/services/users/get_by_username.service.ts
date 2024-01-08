@@ -3,20 +3,33 @@ import {
   User,
 } from '../../models'
 
-export default async ({
-  username,
-}) => {
+import {
+  IServiceResponse,
+} from '../../types'
 
-  try {
-    const user = await User.query().where('username', username).first();
+export default async ({ 
+  username 
+}): Promise<IServiceResponse<User>> => {
+  return new Promise(async (resolve, reject) => {
+    
+    try {
+      const user = await User.query().where('username', username).first();
 
-    if(!user) {
-      throw new Error('User not found');
+      if (!user) {
+        resolve({
+          success: false, 
+          message: 'User not found' 
+        })
+      }
+
+      resolve({
+        success: true, 
+        data: user 
+      });
+
+    } catch (e) {
+      Logger.error('Error getting user by username:', e);
+      reject(e);
     }
-
-    return user;
-  } catch(e) {
-    Logger.error('Error getting user by username:', e);
-    throw e
-  }
-}
+  });
+};

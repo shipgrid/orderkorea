@@ -57,7 +57,9 @@ export default async (
       images
     } = req.body
 
-    const data = await vehicles.create({
+    const {
+      success,
+    } = await vehicles.create({
       make,
       model,
       year,
@@ -71,7 +73,16 @@ export default async (
       images
     })
 
-    res.status(200).json({ data, success: true });
+    if(!success) {
+      res.status(400).json({ 
+        success, 
+        message: 'Error creating vehicle' 
+      })
+
+      return;
+    }
+
+    res.status(200).json({ success: true });
   } catch (e) {
     next(e)
   }

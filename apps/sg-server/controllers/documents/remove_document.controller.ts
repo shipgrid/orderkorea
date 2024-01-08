@@ -31,11 +31,23 @@ export default async (
       document_id
     } = req.params
 
-    const data = await documents.remove({
+    const {
+      success,
+      data,
+      message
+    } = await documents.remove({
       document_id
     })
 
-    res.status(200).json({ success: true })
+    if(!success) {
+      res.status(400).json({
+        message: message
+      })
+
+      return;
+    }
+
+    res.status(200).json({ success })
   } catch (e) {
     next(e)
   }

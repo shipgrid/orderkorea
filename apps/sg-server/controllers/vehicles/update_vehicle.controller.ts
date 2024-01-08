@@ -72,7 +72,9 @@ export default async (
       description
     } = req.body
 
-    const data = await vehicles.update({
+    const {
+      success
+    } = await vehicles.update({
       vehicle_id,
       make,
       model,
@@ -92,7 +94,19 @@ export default async (
     })
   
 
-    res.status(200).json({ success: true });
+    if(!success) {
+      res.status(400).json({ 
+        success, 
+        message: 'Error updating vehicle'
+      })
+
+      return;
+    }
+
+    res.status(200).json({ 
+      success: true 
+    });
+    
   } catch (e) {
     next(e)
   }

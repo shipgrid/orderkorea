@@ -48,7 +48,11 @@ export default async (
       phone,
     } = req.body
 
-    const data = await addresses.create({
+    const {
+      success,
+      message,
+      data
+    } = await addresses.create({
       name,
       line1,
       line2,
@@ -60,7 +64,17 @@ export default async (
       phone,
     })
 
-    res.status(200).json({ ...data, success: true });
+    if(!success) {
+      res.status(400).json({ message })
+      return;
+    }
+
+    if(!data) {
+      res.status(404).json({ message: 'address not found' })
+      return;
+    }
+
+    res.status(200).json({ ...data, success });
   } catch (e) {
     next(e)
   }

@@ -3,22 +3,38 @@ import {
   Vehicle,
 } from '../../models'
 
+import {
+  IServiceResponse
+} from '../../types'
+
 export default async ({
   vehicle_id
-}) => {
-  try {
-    const vehicle = await Vehicle
-      .query()
-      .findById(vehicle_id)
-      .withGraphFetched('images');
+}): Promise<IServiceResponse<Vehicle>> => {
 
-    if(!vehicle) {
-      throw new Error('Vehicle not found');
+  return new Promise(async (resolve, reject) => {
+    try {
+      const vehicle = await Vehicle
+        .query()
+        .findById(vehicle_id)
+        .withGraphFetched('images');
+  
+      if(!vehicle) {
+        resolve({
+          success: false, 
+          message: 'Vehicle not found'
+        })
+
+        return;
+      }
+  
+      resolve({
+        success: true, 
+        data: vehicle
+      })
+
+    } catch(e) {
+      Logger.error('Error getting vehicle by id:', e);
+      reject(e)
     }
-
-    return vehicle;
-  } catch(e) {
-    Logger.error('Error getting vehicle by id:', e);
-    throw e
-  }
+  });
 }

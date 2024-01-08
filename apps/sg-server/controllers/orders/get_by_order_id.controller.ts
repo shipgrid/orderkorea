@@ -82,12 +82,26 @@ export default async (
       throw new Error('No customer found for user')
     }
 
-    const data = await orders.getByOrderId({
+    const {
+      success,
+      message,
+      data
+    } = await orders.getByOrderId({
       order_id,
       customer_id: customer.customer_id
     })
 
-    res.status(200).json({ data, success: true });
+    if(!success) {
+      res.status(400).json({ message, success })
+      return;
+    }
+
+    if(!data) {
+      res.status(400).json({ message: 'Failed to get order' })
+      return;
+    }
+
+    res.status(200).json({ data, success });
   } catch (e) {
     next(e)
   }

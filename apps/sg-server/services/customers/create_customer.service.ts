@@ -5,6 +5,10 @@ import {
   Logger
 } from '../../models'
 
+import {
+  IServiceResponse
+} from '../../types'
+
 export default async ({
   first_name,
   last_name,
@@ -12,34 +16,51 @@ export default async ({
   uid,
   password_hash,
   last_login,
-}) => {
+}): Promise<IServiceResponse<User>> => {
+  
+  return new Promise(async (resolve, reject) => {
+    try {
+      await KnexClient.transaction(async (trx) => {
+        const foundUser:any = await User.query(trx).findOne({ username });
 
-  try {
-    await KnexClient.transaction(async (trx) => {
+        if (foundUser) {
+          resolve({
+            success: false,
+            message: 'User with username already exists'
+          });
 
-      const newUser = {
-        first_name,
-        last_name,
-        username,
-        uid,
-        password_hash,
-        last_login,
-      };
+          return;
+        }
 
-      const user:any = await User.query(trx).insert(newUser);
+        const newUser = {
+          first_name,
+          last_name,
+          username,
+          uid,
+          password_hash,
+          last_login,
+        };
 
-      const newUserCustomer = {
-        user_id: user.user_id, 
-      };
+        const user:any = await User.query(trx).insert(newUser);
 
-      const userCustomer = await Customer.query(trx).insert(newUserCustomer);
+        const newUserCustomer = {
+          user_id: user.user_id,
+        };
 
-      await trx.commit();
+        const userCustomer = await Customer.query(trx).insert(newUserCustomer);
 
-      Logger.info('User and UserCustomer created:', user, userCustomer);
-    });
-  } catch(e) {
-    Logger.error('Error creating User and UserCustomer:', e);
-    throw e
-  }
+        await trx.commit();
+
+        Logger.info('User and UserCustomer created:', user, userCustomer);
+
+        resolve({
+          success: true,
+        });
+      });
+      
+    } catch (e) {
+      Logger.error('Error creating User and UserCustomer:', e);
+      reject(e);
+    }
+  });
 }

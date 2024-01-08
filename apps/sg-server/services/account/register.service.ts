@@ -12,6 +12,10 @@ import {
 
 import bcrypt from 'bcryptjs'
 
+import {
+  IServiceResponse
+} from '../../types'
+
 interface IRegisterUser {
   first_name: string;
   last_name: string;
@@ -26,29 +30,43 @@ export default async ({
   username,
   password,
   uid
-}: IRegisterUser) => {
+}: IRegisterUser): Promise<IServiceResponse<{}>> => {
+  
+  return new Promise(async (resolve, reject) => {
+    try {
 
-  try {
+      let password_hash = await bcrypt.hash(password, 10);
+  
+      if(!password_hash) {
+        throw new Error('Error hashing password');
+      }
+  
+      const response = await customers.create({
+        first_name,
+        last_name,
+        username,
+        uid,
+        password_hash: password_hash,
+        last_login: convertToLocalDateString(new Date()),
+      })
 
-    let password_hash = await bcrypt.hash(password, 10);
+      if(!response.success) {
+        resolve({
+          success: false
+        })
 
-    if(!password_hash) {
-      throw new Error('Error hashing password');
+        return;
+      }
+
+      resolve({
+        success: true
+      })
+  
+      Logger.info('User added successfully', response);
+  
+    } catch(e) {
+      Logger.error('Error registering user:', e);
+      throw e
     }
-
-    const user = await customers.create({
-      first_name,
-      last_name,
-      username,
-      uid,
-      password_hash: password_hash,
-      last_login: convertToLocalDateString(new Date()),
-    })
-
-    Logger.info('User added successfully', user);
-
-  } catch(e) {
-    Logger.error('Error registering user:', e);
-    throw e
-  }
+  })
 }

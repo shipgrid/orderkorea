@@ -57,12 +57,17 @@ const LoginForm = ({}) => {
 
     if(response?.additionalUserInfo?.isNewUser) {
 
-      await register({
+      const registerResponse:any = await register({
         first_name: response?.additionalUserInfo?.profile?.given_name,
         username: response?.user?.email,
         password: 'secret',
         uid: response?.user?.uid,
       })
+
+      if(registerResponse.error) {
+        message.error({ content: registerResponse.error.message, duration: 2 })
+        return;
+      }
     }
 
     const firebaseToken = await firebase.auth().currentUser?.getIdToken()

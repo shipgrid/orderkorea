@@ -38,13 +38,23 @@ export default async (
       uid
     } = req.body
 
-    await account.register({
+    const response = await account.register({
       first_name,
       last_name,
       username,
       password,
       uid
     })
+
+    if(!response.success) {
+
+      res.status(400).json({
+        success: false,
+        message: 'Error registering user'
+      })
+
+      return
+    }
 
     res.status(200).json({ success: true })
   } catch (e) {

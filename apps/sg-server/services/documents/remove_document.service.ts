@@ -4,16 +4,28 @@ import {
   KnexClient
 } from '../../models'
 
+import {
+  IServiceResponse
+} from '../../types'
+
 export default async ({
   document_id
-}) => {
-  try {
+}): Promise<IServiceResponse<{}>> => {
 
-    await KnexClient.transaction(async (trx) => {
-      await Document.query(trx).deleteById(document_id);
-    });
-  } catch(e) {
-    Logger.error('Error deleting document:', e);
-    throw e
-  }
+  return new Promise(async (resolve, reject) => {
+    try {
+
+      await KnexClient.transaction(async (trx) => {
+        await Document.query(trx).deleteById(document_id);
+      });
+
+      resolve({
+        success: true 
+      })
+
+    } catch(e) {
+      Logger.error('Error deleting document:', e);
+      reject(e)
+    }
+  })
 }

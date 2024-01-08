@@ -35,13 +35,25 @@ export default async (
     } = req.body
 
     const { 
-      token
+      success,
+      data,
+      message
     } = await account.login({
       username,
       password
     })
 
-    res.status(200).json({ token })
+    if(!success) {
+      res.status(400).json({ message })
+      return;
+    }
+
+    if(!data) {
+      res.status(404).json({ message: 'token not found' })
+      return;
+    }
+
+    res.status(200).json({ token: data.token })
   } catch (e) {
     next(e)
   }

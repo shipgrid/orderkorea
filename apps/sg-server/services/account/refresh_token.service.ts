@@ -8,6 +8,10 @@ import {
   convertToLocalDateString
 } from '../../utils/dates'
 
+import {
+  IServiceResponse
+} from '../../types'
+
 import jwt from 'jsonwebtoken'
 import admin from 'firebase-admin'
 
@@ -17,74 +21,75 @@ interface ILoginFirebaseUser {
 
 export default async ({
   firebase_token
-}: ILoginFirebaseUser) => {
+}: ILoginFirebaseUser): Promise<IServiceResponse<{ token: string }>> => {
 
-  try {
-
-    let loginUser;
-    const response = await admin.auth().verifyIdToken(firebase_token)
-
-    const { 
-      uid 
-    } = response
-
-    const last_login = convertToLocalDateString(new Date());
-
+  return new Promise(async (resolve, reject) => {
     try {
-      await KnexClient.transaction(async (trx) => {
-    
-        const userWithUid:any = await User.query(trx).where('uid', uid).first();
 
-        if(!userWithUid) {
-          throw new Error('User with UID not found');
-        }
+      let loginUser;
+      const response = await admin.auth().verifyIdToken(firebase_token)
+  
+      const { 
+        uid 
+      } = response
+  
+      const last_login = convertToLocalDateString(new Date());
+  
+      try {
+        await KnexClient.transaction(async (trx) => {
+      
+          const userWithUid:any = await User.query(trx).where('uid', uid).first();
+  
+          if(!userWithUid) {
+            resolve({
+              success: false, 
+              message: 'User with UID not found'
+            })
 
-        const user_id = userWithUid.user_id;
-    
-        loginUser = await User
-          .query(trx)
-          .patchAndFetchById(user_id, {
-            last_login
-          })
-          .withGraphFetched('staff')
-          .withGraphFetched('customer')
-
-        await trx.commit();
-        Logger.info('User updated:', loginUser);
-
-      });
-    } catch(e) {
-      Logger.error('Error updating User:', e);
-      throw e
-    }
-
-    Logger.info('User last login', last_login);
-
-    let token;
-
-    try {
-      token = jwt.sign(
+            return; 
+          }
+  
+          const user_id = userWithUid.user_id;
+      
+          loginUser = await User
+            .query(trx)
+            .patchAndFetchById(user_id, {
+              last_login
+            })
+            .withGraphFetched('staff')
+            .withGraphFetched('customer')
+  
+          await trx.commit();
+          Logger.info('User updated:', loginUser);
+  
+        });
+      } catch(e) {
+        Logger.error('Error updating User:', e);
+        throw e
+      }
+  
+      Logger.info('User last login', last_login);
+  
+      let token = jwt.sign(
         { 
           customer: {
             ...loginUser.customer
           }
         },
-        'YOUR_SECRET_KEY',
+        process.env.FIRE_SHARK,
         { expiresIn: '1h' }
       );
-    } catch (error) {
-      Logger.error('Error while signing JWT:', error);
-      throw error
+
+      resolve({
+        success: true, 
+        data: {
+          token
+        }
+      })
+  
+    } catch(e) {
+      Logger.error('Error registering user:', e);
+      throw e
     }
-    
-    Logger.info(`Token created successfully`);
-
-    return {
-      token,
-    };
-
-  } catch(e) {
-    Logger.error('Error registering user:', e);
-    throw e
-  }
+  })
 }

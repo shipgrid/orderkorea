@@ -4,6 +4,10 @@ import {
   KnexClient
 } from '../../models'
 
+import {
+  IServiceResponse
+} from '../../types'
+
 export default async ({
   make,
   model,
@@ -16,43 +20,47 @@ export default async ({
   description,
   fuel_type,
   images
-}) => {
-  try {
+}): Promise<IServiceResponse<Vehicle>> => {
 
-    let createdVehicle;
+  return new Promise(async (resolve, reject) => {
+    try {
 
-    await KnexClient.transaction(async (trx) => {
+  
+      await KnexClient.transaction(async (trx) => {
+  
+        const newVehicle = {
+          make,
+          model,
+          year,
+          exterior_color,
+          vin_number,
+          transmission_type,
+          mileage,
+          price,
+          fuel_type,
+          description,
+          images: images.map((image) => {
+            return {
+              image_url: image.image_url
+            }
+          })
+        };
+  
+        const vehicle = await Vehicle.query(trx).insertGraph(newVehicle, { relate: true });
+  
+        await trx.commit();
+        Logger.info('Vehicle created:', vehicle);
 
-      const newVehicle = {
-        make,
-        model,
-        year,
-        exterior_color,
-        vin_number,
-        transmission_type,
-        mileage,
-        price,
-        fuel_type,
-        description,
-        images: images.map((image) => {
-          return {
-            image_url: image.image_url
-          }
+        resolve({
+          success: true,
+          data: vehicle
         })
-      };
 
-      const newVehicles = await Vehicle.query(trx).insertGraph(newVehicle, { relate: true });
-
-      createdVehicle = newVehicles;
-      await trx.commit();
-      
-      Logger.info('Vehicle created:', newVehicles);
-    });
-
-    return createdVehicle
-
-  } catch(e) {
-    Logger.error('Error creating vehicle:', e);
-    throw e
-  }
+      });
+  
+    } catch(e) {
+      Logger.error('Error creating vehicle:', e);
+      reject(e)
+    }
+  })
 }

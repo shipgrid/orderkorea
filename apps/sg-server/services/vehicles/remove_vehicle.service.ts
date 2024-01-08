@@ -4,20 +4,35 @@ import {
   KnexClient
 } from '../../models'
 
+import {
+  IServiceResponse
+} from '../../types'
+
 export default async ({
   vehicle_id
-}) => {
-  try {
-    await KnexClient.transaction(async (trx) => {
+}):Promise<IServiceResponse<{}>> => {
 
-      const vehicle = await Vehicle.query(trx).deleteById(vehicle_id);
+  return new Promise(async (resolve, reject) => {
+  
+    try {
+      
+      await KnexClient.transaction(async (trx) => {
+  
+        await Vehicle.query(trx).deleteById(vehicle_id);
+  
+        await trx.commit();
+  
+        Logger.info('Vehicle deleted:');
 
-      await trx.commit();
+        resolve({
+          success: true,
+        })
+      });
 
-      Logger.info('Vehicle deleted:', vehicle);
-    });
-  } catch(e) {
-    Logger.error('Error deleting vehicle:', e);
-    throw e
-  }
+    } catch(e) {
+      Logger.error('Error deleting vehicle:', e);
+      reject(e)
+    }
+  });
+
 }

@@ -1,25 +1,37 @@
+import { 
+  getDownloadURL 
+} from 'firebase-admin/storage'
+
 import admin from 'firebase-admin'
-import { getDownloadURL } from 'firebase-admin/storage'
+
+import {
+  IServiceResponse
+} from '../../../types'
 
 export default async ({
   file,
   destination,
   filename,
-}) => {
-  try {
-    const bucket = admin.storage().bucket();
-    const fileRef = bucket.file(`${destination}/${filename}`);
-    
-    await fileRef.save(file.buffer);
+}): Promise<IServiceResponse<{ downloadUrl: string }>> => {
 
-    const downloadURL = await getDownloadURL(fileRef);
-
-    return {
-      success: true, 
-      data: downloadURL,
-    };
-
-  } catch(e) {
-    throw e;
-  }
+  return new Promise(async (resolve, reject) => {
+    try {
+      const bucket = admin.storage().bucket();
+      const fileRef = bucket.file(`${destination}/${filename}`);
+      
+      await fileRef.save(file.buffer);
+  
+      const downloadUrl = await getDownloadURL(fileRef);
+  
+      resolve({
+        success: true, 
+        data: {
+          downloadUrl,
+        },
+      });
+  
+    } catch(e) {
+      reject(e)
+    }
+  })
 }

@@ -92,7 +92,11 @@ export default async (
       vehicles
     } = req.body
     
-    const data = await orders.create({
+    const {
+      success,
+      message,
+      data
+    } = await orders.create({
       email,
       shipment_type,
       port_of_loading,
@@ -103,6 +107,16 @@ export default async (
       documents,
       vehicles
     })
+
+    if(!success) {
+      res.status(400).json({ message, success })
+      return;
+    }
+
+    if(!data) {
+      res.status(400).json({ message: 'Failed to create order' })
+      return;
+    }
 
     res.status(200).json({ data, success: true })
   } catch (e) {

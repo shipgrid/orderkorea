@@ -31,11 +31,22 @@ export default async (
       third_party_id,
     } = req.params
     
-    const data = await thirdParties.remove({
+    const {
+      success,
+    } = await thirdParties.remove({
       third_party_id
     })
 
-    res.status(200).json({ success: true });
+    if(!success) {
+      res.status(400).json({ 
+        success, 
+        message: 'Error removing third party' 
+      })
+
+      return;
+    }
+
+    res.status(200).json({ success });
   } catch (e) {
     next(e)
   }

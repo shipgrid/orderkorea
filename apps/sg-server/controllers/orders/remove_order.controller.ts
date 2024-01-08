@@ -32,11 +32,22 @@ export default async (
       order_id
     } = req.params
     
-    const data = await orders.remove({
+    const {
+      success,
+    } = await orders.remove({
       order_id
     })
 
-    res.status(200).json({ success: true });
+    if(!success) {
+      res.status(400).json({ 
+        message: 'Error removing order', 
+        success 
+      })
+
+      return;
+    }
+
+    res.status(200).json({ success });
   } catch (e) {
     next(e)
   }

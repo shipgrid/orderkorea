@@ -23,13 +23,13 @@ import {
   rrfProps
 } from './redux/configureStore'
 
-import Root from './Root'
-import Loader from './components/Shared/Loader'
-import AuthLoader from './components/Shared/AuthLoader'
-
 import {
   ThemeData
 } from './theme'
+
+import Root from './Root'
+import Loader from './components/Shared/Loader'
+import AuthLoader from './components/Shared/AuthLoader'
 
 const App = () => {
 

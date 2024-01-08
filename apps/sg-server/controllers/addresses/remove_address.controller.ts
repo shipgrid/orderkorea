@@ -32,11 +32,20 @@ export default async (
       address_id
     } = req.params
 
-    const data = await addresses.remove({
+    const {
+      success,
+      message,
+      data
+    } = await addresses.remove({
       address_id
     })
 
-    res.status(200).json({ success: true });
+    if(!success) {
+      res.status(400).json({ message })
+      return;
+    }
+
+    res.status(200).json({ success });
   } catch (e) {
     next(e)
   }

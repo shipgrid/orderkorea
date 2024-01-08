@@ -20,15 +20,25 @@ export default async (
     } = req.params
 
     const { 
-      token
+      success,
+      message, 
+      data
     } = await account.refreshToken({
       firebase_token
     })
+    
+    if(!success) {
+      res.status(400).json({ message })
+      return;
+    }
+
+    if(!data) {
+      res.status(404).json({ message: 'token not found' })
+      return;
+    }
 
     res.status(200).json({ 
-      data: {
-        token,
-      },
+      data
     });
 
   } catch (e) {

@@ -62,11 +62,30 @@ export default async (
       customer 
     }: any = req.user
     
-    const data = await orders.list({
+    const {
+      success,
+      data
+    } = await orders.list({
       customer_id: customer.customer_id
     })
 
-    res.status(200).json({ data, success: true });
+    if(!success) {
+      res.status(400).json({
+        message: 'Error getting orders',
+      })
+
+      return;
+    }
+
+    if(!data) {
+      res.status(400).json({
+        message: 'Error getting orders',
+      })
+
+      return;
+    }
+
+    res.status(200).json({ data, success });
   } catch (e) {
     next(e)
   }

@@ -3,13 +3,28 @@ import {
   Logger
 } from '../../models'
 
-export default async ({}) => {
+import {
+  IServiceResponse
+} from '../../types'
 
-  try {
-    const addresses = await Address.query();
-    return addresses;
-  } catch(e) {
-    Logger.error('Error getting user by username:', e);
-    throw e
-  }
+export default async ({
+
+}): Promise<IServiceResponse<Address[]>> => {
+
+  return new Promise(async (resolve, reject) => {
+
+    try {
+
+      const addresses = await Address.query();
+
+      resolve({
+        success: true,
+        data: addresses
+      })
+
+    } catch(e) {
+      Logger.error('Error getting user by username:', e);
+      reject(e)
+    }
+  })
 }

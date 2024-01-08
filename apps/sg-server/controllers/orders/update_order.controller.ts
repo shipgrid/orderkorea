@@ -51,7 +51,9 @@ export default async (
       loaded_on
     } = req.body
 
-    const data = await orders.update({
+    const {
+      success,
+    } = await orders.update({
       order_id,
       shipment_type,
       container_number,
@@ -60,7 +62,15 @@ export default async (
       loaded_on
     })
 
-    res.status(200).json({ success: true });
+    if(!success) {
+      res.status(400).json({ 
+        message: 'Error updating order', 
+        success 
+      })
+      return;
+    }
+
+    res.status(200).json({ success });
   } catch (e) {
     next(e)
   }

@@ -3,13 +3,27 @@ import {
   OrderEvent
 } from '../../models'
 
-export default async ({}) => {
+import {
+  IServiceResponse
+} from '../../types'
 
-  try {
-    const orderEvents = await OrderEvent.query();
-    return orderEvents;
-  } catch(e) {
-    Logger.error('Error getting user by username:', e);
-    throw e
-  }
+export default async ({
+  
+}): Promise<IServiceResponse<OrderEvent[]>> => {
+
+  return new Promise(async (resolve, reject) => {
+
+    try {
+      const orderEvents = await OrderEvent.query();
+      
+      resolve({
+        success: true,
+        data: orderEvents
+      })
+
+    } catch(e) {
+      Logger.error('Error getting user by username:', e);
+      reject(e)
+    }
+  })
 }

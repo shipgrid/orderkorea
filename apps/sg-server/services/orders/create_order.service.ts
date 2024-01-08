@@ -2,10 +2,12 @@ import {
   Logger,
   User,
   Order,
-  Address,
-  ThirdPartyAddress,
   KnexClient
 } from '../../models'
+
+import {
+  IServiceResponse
+} from '../../types'
 
 export default async ({
   email,
@@ -17,46 +19,56 @@ export default async ({
   thirdParties,
   documents,
   vehicles
-}) => {
-  try {
+}): Promise<IServiceResponse<Order>> => {
 
-    let createdOrder;
+  return new Promise(async (resolve, reject) => {
+    try {
+  
+      await KnexClient.transaction(async (trx) => {
+  
+        const user:any = await User
+          .query(trx)
+          .withGraphFetched('customer')
+          .where('username', email).first();
+  
+        if(!user) {
+          resolve({
+            success: false,
+            message: 'User not found'
+          })
 
-    await KnexClient.transaction(async (trx) => {
+          return;
+        }
+  
+        const newOrder = {
+          customer_id: user.customer?.customer_id,
+          shipment_type,
+          port_of_loading,
+          container_number,
+          port_of_arrival,
+          loaded_on,
+          thirdParties,
+          documents,
+          vehicles,
+          orderEvents: [
+            {
+              name: 'ORDER_CREATED',
+            }
+          ]
+        };
+  
+        const order = await Order.query(trx).upsertGraph(newOrder, { relate: true });
 
-      const user:any = await User
-        .query(trx)
-        .withGraphFetched('customer')
-        .where('username', email).first();
+        resolve({
+          success: true, 
+          data: order,
+        })
 
-      if(!user) {
-        throw new Error('User not found');
-      }
-
-      const newOrder = {
-        customer_id: user.customer?.customer_id,
-        shipment_type,
-        port_of_loading,
-        container_number,
-        port_of_arrival,
-        loaded_on,
-        thirdParties,
-        documents,
-        vehicles,
-        orderEvents: [
-          {
-            name: 'ORDER_CREATED',
-          }
-        ]
-      };
-
-      const order = await Order.query(trx).upsertGraph(newOrder, { relate: true });
-      createdOrder = order;
-    });
-
-    return createdOrder;
-  } catch(e) {
-    Logger.error('Error creating order:', e);
-    throw e
-  }
+      });
+  
+    } catch(e) {
+      Logger.error('Error creating order:', e);
+      reject(e)
+    }
+  })  
 }

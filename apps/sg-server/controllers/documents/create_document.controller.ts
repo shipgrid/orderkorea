@@ -62,13 +62,35 @@ export default async (
       file
     } = req 
 
-    const { document_id } = await documents.create({
+    const {
+      success,
+      data,
+      message
+    } = await documents.create({
       name: name,
       file: file,
       order_id
     })
 
-    res.status(200).json({ data: document_id, success: true });
+    if(!success) {
+
+      res.status(400).json({
+        message: message
+      })
+
+      return;
+    }
+
+    if(!data) {
+        
+      res.status(400).json({
+        message: 'Error creating document'
+      })
+
+      return;
+    }
+
+    res.status(200).json({ data: data.document_id, success: true });
   } catch (e) {
     next(e)
   }

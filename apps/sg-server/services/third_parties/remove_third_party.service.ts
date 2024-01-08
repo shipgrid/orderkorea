@@ -4,17 +4,28 @@ import {
   KnexClient
 } from '../../models'
 
+import {
+  IServiceResponse
+} from '../../types'
+
 export default async ({
   third_party_id
-}) => {
-  try {
+}): Promise<IServiceResponse<{}>> => {
 
-    await KnexClient.transaction(async (trx) => {
-      await ThirdParty.query(trx).deleteById(third_party_id);
-    });
-    
-  } catch(e) {
-    Logger.error('Error deleting third party:', e);
-    throw e
-  }
+  return new Promise(async (resolve, reject) => {
+    try {
+
+      await KnexClient.transaction(async (trx) => {
+        await ThirdParty.query(trx).deleteById(third_party_id);
+      });
+
+      resolve({
+        success: true
+      })
+      
+    } catch(e) {
+      Logger.error('Error deleting third party:', e);
+      reject(e)
+    }
+  })
 }

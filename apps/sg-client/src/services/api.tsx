@@ -266,6 +266,7 @@ const api = createApi({
         body,
       }),
       transformResponse: (response: { data: any }, _, _args) => response.data,
+      transformErrorResponse: (error: any) => error.data,
     }),
     upload: build.mutation<ApiResponse, UploadParams>({
       query: (body) => ({
@@ -274,6 +275,7 @@ const api = createApi({
         body: body.file,
       }),
       transformResponse: (response: { data: any }, _, _args) => response.data,
+      transformErrorResponse: (error: any) => error.data,
     }),
     register: build.mutation<ApiResponse, RegisterParams>({
       query: (body) => ({
@@ -282,10 +284,12 @@ const api = createApi({
         body,
       }),
       transformResponse: (response: { data: any }, _, _args) => response.data,
+      transformErrorResponse: (error: any) => error.data,
     }),
     getOrders: build.query({
       query: () => 'orders',
       transformResponse: (response: { data: Order[] }) => response.data,
+      transformErrorResponse: (error: any) => error.data,
       providesTags: ['orders'],
     }),
     getOrder: build.query({
@@ -300,6 +304,7 @@ const api = createApi({
         body,
       }),
       transformResponse: (response: { data: any }, _, _args) => response.data,
+      transformErrorResponse: (error: any) => error.data,
     }),
     createOrder: build.mutation<ApiResponse, CreateOrderParams>({
       query: (body) => ({
@@ -308,14 +313,17 @@ const api = createApi({
         body,
       }),
       transformResponse: (response: { data: any }, _, _args) => response.data,
+      transformErrorResponse: (error: any) => error.data,
     }),
     getVehicles: build.query({
       query: () => 'vehicles',
       transformResponse: (response: { data: Vehicle[] }) => response.data.map(item => ({ ...item, key: item.vehicle_id })),
+      transformErrorResponse: (error: any) => error.data,
     }),
     getVehicle: build.query<Vehicle, string>({
       query: (vehicleId) => `vehicles/${vehicleId}`,
       transformResponse: (response: { data: Vehicle }) => response.data,
+      transformErrorResponse: (error: any) => error.data,
     }),
     createVehicle: build.mutation<ApiResponse, CreateVehicleParams>({
       query: (body) => ({
@@ -324,6 +332,7 @@ const api = createApi({
         body,
       }),
       transformResponse: (response: { data: any }, _, _args) => response.data,
+      transformErrorResponse: (error: any) => error.data,
     }),
     createThirdParty: build.mutation<ApiResponse, CreateThirdPartyParams>({
       query: (body) => ({
@@ -332,6 +341,7 @@ const api = createApi({
         body,
       }),
       transformResponse: (response: { data: any }, _, _args) => response.data,
+      transformErrorResponse: (error: any) => error.data,
       invalidatesTags: ['order'],
     }),
     removeThirdParty: build.mutation<ApiResponse, removeThirdPartyParams>({
@@ -341,6 +351,7 @@ const api = createApi({
         body,
       }),
       transformResponse: (response: { data: any }, _, _args) => response.data,
+      transformErrorResponse: (error: any) => error.data,
       invalidatesTags: ['order'],
     }),
     createDocument: build.mutation<ApiResponse, CreateDocumentParams>({
@@ -350,6 +361,7 @@ const api = createApi({
         body: body.file,
       }),
       transformResponse: (response: { data: any }, _, _args) => response.data,
+      transformErrorResponse: (error: any) => error.data,
       invalidatesTags: ['order'],
     }),
     removeDocument: build.mutation<ApiResponse, removeDocumentParams>({
@@ -359,11 +371,13 @@ const api = createApi({
         body,
       }),
       transformResponse: (response: { data: any }, _, _args) => response.data,
+      transformErrorResponse: (error: any) => error.data,
       invalidatesTags: ['order'],
     }),
     getAddress: build.query({
       query: (addressId) => `addresses/${addressId}`,
       transformResponse: (response: { data: Address }) => response.data,
+      transformErrorResponse: (error: any) => error.data,
     }),
     updateAddress: build.mutation<ApiResponse, Address>({
       query: (body) => ({
@@ -373,6 +387,7 @@ const api = createApi({
       }),
       invalidatesTags: ['order'],
       transformResponse: (response: { data: any }, _, _args) => response.data,
+      transformErrorResponse: (error: any) => error.data,
     }),
   }),
 })

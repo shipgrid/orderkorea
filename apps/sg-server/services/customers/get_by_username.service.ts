@@ -1,22 +1,39 @@
 import {
   User,
-  Customer,
 } from '../../models'
 
-interface UserWithUserCustomer extends User {
-  customer: Customer
-}
+import {
+  IServiceResponse,
+} from '../../types'
 
 export default async ({
   username,
-}):Promise<UserWithUserCustomer> => {
-  try {
-    const user = await User.query()
-      .withGraphFetched('customer')
-      .where('username', username).first();
+}):Promise<IServiceResponse<User>> => {
 
-    return user as UserWithUserCustomer;
-  } catch (error) {
-    throw error;
-  }
+  return new Promise(async (resolve, reject) => {
+
+    try {
+
+      const user = await User.query()
+        .withGraphFetched('customer')
+        .where('username', username).first();
+
+
+      if(!user) {
+        resolve({
+          success: false,
+          message: 'User not found'
+        })
+      }
+
+      resolve({
+        success: true,
+        data: user
+      })
+  
+    } catch (error) {
+      throw error;
+    }
+
+  })
 }

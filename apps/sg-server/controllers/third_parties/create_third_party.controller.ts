@@ -32,7 +32,9 @@ export default async (
 
   try {
 
-    const { error } = bodySchema.validate(req.body)
+    const { 
+      error 
+    } = bodySchema.validate(req.body)
 
     if (error) {
       throw new Error(error.details[0].message) 
@@ -52,7 +54,11 @@ export default async (
       order_id
     } = req.body
     
-    const data = await thirdParties.create({
+    const {
+      success,
+      message,
+      data
+    } = await thirdParties.create({
       name,
       type,
       line1,
@@ -66,7 +72,26 @@ export default async (
       order_id
     })
 
-    res.status(200).json({ success: true });
+    if(!success) {
+      res.status(400).json({ 
+        message, 
+        success 
+      })
+
+      return;
+    }
+
+    if(!data) {
+      res.status(400).json({ 
+        message: 'Error creating third party', 
+        success: false 
+      })
+
+      return;
+    }
+
+    res.status(200).json({ success, data });
+
   } catch (e) {
     next(e)
   }

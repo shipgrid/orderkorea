@@ -3,19 +3,32 @@ import {
   Vehicle,
 } from '../../models'
 
-export default async ({
-}) => {
+import {
+  IServiceResponse
+} from '../../types'
 
-  try {
-    const vehicles = await Vehicle
-      .query()
-      .withGraphFetched('images')
-      .modifyGraph('images', builder => {
-        builder.select('image_url');
+export default async ({
+}): Promise<IServiceResponse<Vehicle[]>> => {
+
+  return new Promise(async (resolve, reject) => {
+    
+    try {
+
+      const vehicles = await Vehicle
+        .query()
+        .withGraphFetched('images')
+        .modifyGraph('images', builder => {
+          builder.select('image_url');
+        })
+
+      resolve({
+        success: true,
+        data: vehicles
       })
-    return vehicles;
-  } catch(e) {
-    Logger.error('Error getting user by username:', e);
-    throw e
-  }
+    
+    } catch(e) {
+      Logger.error('Error getting user by username:', e);
+      reject(e)
+    }
+  })
 }
