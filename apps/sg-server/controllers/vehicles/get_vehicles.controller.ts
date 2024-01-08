@@ -22,12 +22,10 @@ export default async (
     } = await vehicles.list({});
 
     if(!success) {
-      res.status(400).json({ 
+      return res.status(400).json({ 
         success, 
         message: 'Error getting vehicles'
       })
-
-      return;
     };
 
     if(!data) {
@@ -36,8 +34,6 @@ export default async (
         success: false, 
         message: 'Vehicles not found' 
       })
-
-      return;
     };
     
     res.status(200).json({ 

@@ -18,7 +18,13 @@ const levels = {
 
 const logger: Logger = winston.createLogger({
   level: MAX_LEVEL,
-  format: format.combine(format.errors({ stack: true }), format.timestamp(), format.json()),
+  format: format.combine(
+    format.colorize({ all: true }),
+    format.simple(),
+    // format.errors({ stack: true }), 
+    // format.timestamp(), 
+    // format.json()
+    ),
   transports: [
     new winston.transports.Console(),
   ],

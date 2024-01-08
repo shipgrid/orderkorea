@@ -10,15 +10,13 @@ import {
   orders
 } from '../../services'
 
-import {
-  IUser 
-} from '../../models/user'
+import User from '../../models/user'
 
 const userSchema = Joi.object({
   user_id: Joi.number().required(),
   uid: Joi.string().required(),
   first_name: Joi.string().required(),
-  last_name: Joi.string().required(),
+  last_name: Joi.string().allow('', null),
   username: Joi.string().required(),
   password_hash: Joi.string().required(),
   last_login: Joi.string().allow('', null),
@@ -42,7 +40,7 @@ const paramsSchema = Joi.object({
 declare global {
   namespace Express {
     interface Request {
-      user?: IUser;
+      user?: User;
       params: {
         order_id: number
       }
@@ -61,13 +59,19 @@ export default async (
     const userValidation = userSchema.validate(req.user)
 
     if (userValidation.error) {
-      throw new Error(userValidation.error.details[0].message) 
+      return res.status(400).json({
+        success: false,
+        message: userValidation.error.details[0].message
+      })
     }
 
     const paramsValidation = paramsSchema.validate(req.params)
     
     if (paramsValidation.error) {
-      throw new Error(paramsValidation.error.details[0].message) 
+      return res.status(400).json({
+        success: false,
+        message: paramsValidation.error.details[0].message
+      })
     }
 
     const { 
@@ -79,7 +83,10 @@ export default async (
     } = req.params
     
     if(!customer) {
-      throw new Error('No customer found for user')
+      return res.status(400).json({
+        success: false,
+        message: 'No customer found for user'
+      })
     }
 
     const {
@@ -92,12 +99,17 @@ export default async (
     })
 
     if(!success) {
-      res.status(400).json({ message, success })
+      res.status(400).json({ 
+        message, 
+        success
+      })
       return;
     }
 
     if(!data) {
-      res.status(400).json({ message: 'Failed to get order' })
+      res.status(400).json({ 
+        message: 'Failed to get order' 
+      })
       return;
     }
 

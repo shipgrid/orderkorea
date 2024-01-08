@@ -48,9 +48,8 @@ export default async ({
   
         const vehicle = await Vehicle.query(trx).insertGraph(newVehicle, { relate: true });
   
-        await trx.commit();
         Logger.info('Vehicle created:', vehicle);
-
+        await trx.commit();
         resolve({
           success: true,
           data: vehicle

@@ -22,10 +22,15 @@ export default async (
 
   try {
 
-    const { error } = paramsSchema.validate(req.params)
+    const {
+      error 
+    } = paramsSchema.validate(req.params)
 
     if (error) {
-      throw new Error(error.details[0].message) 
+      return res.status(400).json({
+        success: false,
+        message: error.details[0].message
+      })
     }
     
     const {
@@ -34,20 +39,24 @@ export default async (
     
     const {
       success,
+      message
     } = await orders.remove({
       order_id
     })
 
     if(!success) {
       res.status(400).json({ 
-        message: 'Error removing order', 
+        message: message, 
         success 
       })
 
       return;
     }
 
-    res.status(200).json({ success });
+    res.status(200).json({ 
+      success 
+    });
+    
   } catch (e) {
     next(e)
   }

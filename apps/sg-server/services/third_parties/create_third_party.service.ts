@@ -51,6 +51,7 @@ export default async ({
           order_id,
         });
         
+        trx.commit();
         resolve({
           success: true, 
           data: thirdParty

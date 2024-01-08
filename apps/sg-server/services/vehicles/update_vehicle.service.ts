@@ -50,8 +50,7 @@ export default async ({
           fuel_type, 
         })
   
-        await trx.commit();
-
+        trx.commit();
         resolve({
           success: true
         })

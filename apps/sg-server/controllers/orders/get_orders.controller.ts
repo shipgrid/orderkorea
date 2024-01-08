@@ -10,9 +10,7 @@ import {
   orders
 } from '../../services'
 
-import {
-  IUser 
-} from '../../models/user'
+import User from '../../models/user'
 
 const userSchema = Joi.object({
   user_id: Joi.number().required(),
@@ -39,7 +37,7 @@ const userSchema = Joi.object({
 declare global {
   namespace Express {
     interface Request {
-      user?: IUser;
+      user?: User;
     }
   }
 }
@@ -52,10 +50,15 @@ export default async (
 
   try {
 
-    const { error } = userSchema.validate(req.user)
+    const { 
+      error 
+    } = userSchema.validate(req.user)
 
     if (error) {
-      throw new Error(error.details[0].message) 
+      return res.status(400).json({
+        success: false,
+        message: error.details[0].message
+      })
     }
 
     const { 
@@ -70,19 +73,15 @@ export default async (
     })
 
     if(!success) {
-      res.status(400).json({
+      return res.status(400).json({
         message: 'Error getting orders',
       })
-
-      return;
     }
 
     if(!data) {
-      res.status(400).json({
+      return res.status(400).json({
         message: 'Error getting orders',
       })
-
-      return;
     }
 
     res.status(200).json({ data, success });

@@ -31,11 +31,23 @@ export default async ({
   return new Promise(async (resolve, reject) => {
     try {
 
-      const user:any = await customers.getByUsername({
+      const {
+        success,
+        data
+      } = await customers.getByUsername({
         username
       });
   
-      if(!user) {
+      if(!success) {
+        resolve({
+          success: false, 
+          message: 'User not found'
+        })
+
+        return;
+      }
+
+      if(!data) {
         resolve({
           success: false, 
           message: 'User not found'
@@ -44,9 +56,9 @@ export default async ({
         return;
       }
   
-      Logger.info('User fetched successfully', user);
+      Logger.info('User fetched successfully', data);
   
-      const results = await bcrypt.compare(password, user.password_hash);
+      const results = await bcrypt.compare(password, data.password_hash);
   
       if(!results) {
         throw new Error('Invalid password');
@@ -57,28 +69,21 @@ export default async ({
       const last_login = convertToLocalDateString(new Date());
   
       await users.update({
-        user_id: user.user_id,
+        user_id: data.user_id,
         last_login
       });
   
       Logger.info('User last login', last_login);
   
-      let token;
-  
-      try {
-        token = jwt.sign(
-          { 
-            customer: {
-              ...user.customer
-            }
-          },
-          process.env.FIRE_SHARK,
-          { expiresIn: '1h' }
-        );
-      } catch (error) {
-        Logger.error('Error while signing JWT:', error);
-        throw error
-      }
+      let token = jwt.sign(
+        { 
+          user: {
+            ...data.customer
+          }
+        },
+        process.env.FIRE_SHARK,
+        { expiresIn: '1h' }
+      );
       
       resolve({
         success: true,

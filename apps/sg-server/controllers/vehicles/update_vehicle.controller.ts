@@ -41,13 +41,21 @@ export default async (
 
   try {
     const paramsValidation = paramsSchema.validate(req.params)
+    
     if (paramsValidation.error) {
-      throw new Error(paramsValidation.error.details[0].message) 
+      return res.status(400).json({
+        success: false,
+        message: paramsValidation.error.details[0].message
+      })
     }
 
     const bodyValidation = bodySchema.validate(req.body)
+
     if (bodyValidation.error) {
-      throw new Error(bodyValidation.error.details[0].message) 
+      return res.status(400).json({
+        success: false,
+        message: bodyValidation.error.details[0].message
+      })
     }
     
     const {
@@ -95,12 +103,10 @@ export default async (
   
 
     if(!success) {
-      res.status(400).json({ 
+      return res.status(400).json({ 
         success, 
         message: 'Error updating vehicle'
       })
-
-      return;
     }
 
     res.status(200).json({ 

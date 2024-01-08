@@ -37,17 +37,26 @@ export default async (
 
     const paramsValidation = paramsSchema.validate(req.params)
     if (paramsValidation.error) {
-      throw new Error(paramsValidation.error.details[0].message) 
+      return {
+        success: false,
+        message: paramsValidation.error.details[0].message
+      }
     }
 
     const bodyValidation = bodySchema.validate(req.body)
     if (bodyValidation.error) {
-      throw new Error(bodyValidation.error.details[0].message) 
+      return {
+        success: false,
+        message: bodyValidation.error.details[0].message
+      }
     }
 
     const fileValidation = fileSchema.validate(req.file)
     if (fileValidation.error) {
-      throw new Error(fileValidation.error.details[0].message) 
+      return {
+        success: false,
+        message: fileValidation.error.details[0].message
+      }
     }
 
     const {

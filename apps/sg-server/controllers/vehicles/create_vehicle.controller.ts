@@ -37,10 +37,15 @@ export default async (
 
   try {
 
-    const { error } = bodySchema.validate(req.body)
+    const { 
+      error 
+    } = bodySchema.validate(req.body)
 
     if (error) {
-      throw new Error(error.details[0].message) 
+      return res.status(400).json({
+        success: false,
+        message: error.details[0].message
+      })
     }
 
     const {
@@ -74,15 +79,16 @@ export default async (
     })
 
     if(!success) {
-      res.status(400).json({ 
+      return res.status(400).json({ 
         success, 
         message: 'Error creating vehicle' 
       })
-
-      return;
     }
 
-    res.status(200).json({ success: true });
+    res.status(200).json({ 
+      success: true 
+    });
+    
   } catch (e) {
     next(e)
   }

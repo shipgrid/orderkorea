@@ -20,10 +20,9 @@ export default async ({
   
         await Vehicle.query(trx).deleteById(vehicle_id);
   
-        await trx.commit();
   
         Logger.info('Vehicle deleted:');
-
+        trx.commit();
         resolve({
           success: true,
         })

@@ -24,6 +24,7 @@ export default async ({
         };
   
         const orderEvent = await OrderEvent.query(trx).insert(newOrderEvent);
+        trx.commit();
 
         resolve({
           success: true, 

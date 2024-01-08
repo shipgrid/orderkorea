@@ -28,16 +28,15 @@ export default async (
     })
     
     if(!success) {
-      res.status(400).json({ message })
-      return;
+      return res.status(400).json({ message })
     }
 
     if(!data) {
-      res.status(404).json({ message: 'token not found' })
-      return;
+      return res.status(404).json({ message: 'token not found' })
     }
 
     res.status(200).json({ 
+      success,
       data
     });
 

@@ -10,6 +10,7 @@ import {
 
 export default async ({
   order_id,
+  customer_id,
   shipment_type,
   container_number,
   port_of_loading,
@@ -19,7 +20,7 @@ export default async ({
 
   return new Promise(async (resolve, reject) => {
     try {
-  
+
       await KnexClient.transaction(async (trx) => {
   
         const newOrder = {
@@ -31,8 +32,20 @@ export default async ({
           loaded_on
         };
   
-        await Order.query(trx).update(newOrder).where('order_id', order_id);
-        
+        const response = await Order
+          .query(trx)
+          .update(newOrder)
+          .where('order_id', order_id)
+          .andWhere('customer_id', customer_id);
+
+        if(!response) {
+          return resolve({
+            success: false,
+            message: 'Order could not be updated or does not exist'
+          })
+        }
+
+        trx.commit();
         resolve({
           success: true,
         })      

@@ -15,8 +15,9 @@ export default async ({
   return new Promise(async (resolve, reject) => {
     try {
 
-      await KnexClient.transaction(async (trx) => {
+      KnexClient.transaction(async (trx) => {
         await ThirdParty.query(trx).deleteById(third_party_id);
+        trx.commit();
       });
 
       resolve({

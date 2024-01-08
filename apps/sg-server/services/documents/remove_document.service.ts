@@ -17,6 +17,7 @@ export default async ({
 
       await KnexClient.transaction(async (trx) => {
         await Document.query(trx).deleteById(document_id);
+        trx.commit();
       });
 
       resolve({

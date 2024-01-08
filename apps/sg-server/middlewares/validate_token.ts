@@ -1,15 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 import logger from '../models/logger'
-import {
-  IUser
-} from '../models/user'
+import User from '../models/user'
 
-// Extend the Request interface to add the 'user' property
 declare global {
   namespace Express {
     interface Request {
-      user?: IUser;
+      user?: User;
     }
   }
 }
@@ -30,7 +27,6 @@ export default (
     return res.status(401);
   }
 
-  // if authHeader is present, then we can validate the user against his present jwt token for authentication.
   const tokenArray = authHeader.split(' ');
   const token = tokenArray[1].replace(/[^a-zA-Z0-9_+.\-]/g, '');
 
@@ -44,7 +40,7 @@ export default (
     return res.status(401);
   }
 
-  jwt.verify(token, 'YOUR_SECRET_KEY', (error, result:any) => {
+  jwt.verify(token, process.env.FIRE_SHARK, (error, result:any) => {
 
     if (error) {
       logger.info('Authentication token not provided', error);
@@ -59,8 +55,7 @@ export default (
     }
 
     req.user = result.user;
-
-    logger.info('Authentication token not provided', result.data);
+ 
     next();
   });
 };

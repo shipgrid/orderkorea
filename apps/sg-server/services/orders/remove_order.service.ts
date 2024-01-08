@@ -15,8 +15,18 @@ export default async ({
     try {
 
       await KnexClient.transaction(async (trx) => {
-        await Order.query(trx).deleteById(order_id);
+        const deletedRowCount = await Order.query(trx).deleteById(order_id);
+
+        if(!deletedRowCount) {
+          resolve({
+            success: false,
+            message: 'Order could not be deleted or does not exist'
+          })
+
+          return; 
+        }
         
+        trx.commit();
         resolve({
           success: true
         })

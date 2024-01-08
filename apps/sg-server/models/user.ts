@@ -14,7 +14,7 @@ interface IUserCustomer {
 }
 
 // Define an interface that represents your User model properties
-export interface IUser {
+interface User {
   user_id: number;
   first_name: string;
   last_name: string | null;

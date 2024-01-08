@@ -58,6 +58,7 @@ export default async ({
         };
   
         const order = await Order.query(trx).upsertGraph(newOrder, { relate: true });
+        trx.commit();
 
         resolve({
           success: true, 
