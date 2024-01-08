@@ -53,7 +53,17 @@ class Vehicle extends Model implements Vehicle {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['make', 'model', 'year', 'price', 'mileage', 'exterior_color', 'interior_color', 'transmission_type', 'doors', 'trim', 'drivetrain', 'description', 'fuel_type' ],
+      required: [
+        'make', 
+        'model', 
+        'year', 
+        'price', 
+        'mileage', 
+        'exterior_color', 
+        'transmission_type', 
+        'description', 
+        'fuel_type' 
+      ],
       properties: {
         vehicle_id: { type: 'integer' },
         order_id: { type: 'integer' },

@@ -2,7 +2,8 @@ import {
   Button,
   Form,
   Input,
-  Upload
+  Upload,
+  message
 } from 'antd';
 
 import type { 
@@ -40,7 +41,6 @@ const VehicleForm = ({
   ] = useUploadMutation();
 
   const onFinish = async (values: any) => {
-
     const requestBody = {
       make: values.make,
       model: values.model,
@@ -54,13 +54,17 @@ const VehicleForm = ({
       fuel_type: values.fuel_type,
       images: values.vehicle_images.fileList.map((file: any) => {
         return {
-          image_url: file.response
+          image_url: file.response.downloadUrl
         }
       })
     }
 
-    await createVehicle(requestBody)
+    const createVehicleResponse:any = await createVehicle(requestBody)
 
+    if(createVehicleResponse.error) {
+      message.error({ content: createVehicleResponse.error.message, duration: 2 })
+      return;
+    }
   };
   
   const onFinishFailed = (errorInfo: any) => {
@@ -68,10 +72,10 @@ const VehicleForm = ({
   };
 
   const props: UploadProps = {
-    accept: "image/jpeg, image/png",
+    accept: "image/jpeg, image/png, image/webp",
     listType:"picture-card",
     name: 'file',
-    multiple: false,
+    multiple: true,
     customRequest: async (options) => { 
       
       const { 
@@ -129,6 +133,9 @@ const VehicleForm = ({
           <Input/>
         </Form.Item>
         <Form.Item label="Exterior Color" name='exterior_color'>
+          <Input/>
+        </Form.Item>
+        <Form.Item label="Interior Color" name='interior_color'>
           <Input/>
         </Form.Item>
         <Form.Item label="Vin Number" name='vin_number'>
