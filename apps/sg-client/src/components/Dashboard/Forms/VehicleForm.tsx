@@ -53,6 +53,7 @@ const VehicleForm = ({
       price: values.price,
       fuel_type: values.fuel_type,
       images: values.vehicle_images.fileList.map((file: any) => {
+        console.log(file)
         return {
           image_url: file.response.downloadUrl
         }

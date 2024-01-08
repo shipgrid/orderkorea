@@ -33,12 +33,19 @@ export default async (
     
     const bodyValidation = bodySchema.validate(req.body)
     if (bodyValidation.error) {
-      throw new Error(bodyValidation.error.details[0].message) 
+
+      return res.status(400).json({
+        success: false,
+        message: bodyValidation.error.details[0].message
+      })
     }
 
     const fileValidation = fileSchema.validate(req.file)
     if (fileValidation.error) {
-      throw new Error(fileValidation.error.details[0].message) 
+      return res.status(400).json({ 
+        success: false,
+        message: fileValidation.error.details[0].message
+      })
     }
 
     const {
