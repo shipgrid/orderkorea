@@ -74,7 +74,7 @@ export default async ({
   
       let token = jwt.sign(
         { 
-          customer: {
+          user: {
             ...loginUser.customer
           }
         },
