@@ -24,6 +24,7 @@ export default async (req, res, next) => {
 
     try {
       const response = await admin.auth().verifyIdToken(token)    
+   
       req.uid = response.uid
       next()
     } catch (e: any) {

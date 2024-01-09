@@ -231,7 +231,7 @@ const baseQueryWithReauth: BaseQueryFn<
   if (result.error && result.error.status === 401) {
 
     const firebaseToken = await firebase.auth().currentUser?.getIdToken()
-
+    
     if(!firebaseToken) {
       return result;
     } 

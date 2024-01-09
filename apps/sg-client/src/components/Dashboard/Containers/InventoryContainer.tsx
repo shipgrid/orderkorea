@@ -29,7 +29,6 @@ const HomeContainer = () => {
       <DashboardContent>
         <DashboardHeader
           title={'Inventory Overview'}
-          // description="Here’s the best match for you."
         />
         <Divider my={5}/>
         {/* <Grid

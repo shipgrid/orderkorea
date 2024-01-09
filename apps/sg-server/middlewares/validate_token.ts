@@ -59,7 +59,7 @@ export default (
       logger.info('Authentication token not provided', token);
       return res.status(401);
     }
-
+    
     req.user = result.user;
  
     next();

@@ -3,6 +3,7 @@ import {
 } from 'react-router-dom'
 
 import { 
+  Skeleton, 
   Space 
 } from 'antd';
 
@@ -61,9 +62,11 @@ const VehicleList = ({
 
   if (isLoading) {
     return (
-      <div>
-        <ApiLoader/>
-      </div>
+      <Space direction="vertical" size="large" style={{ flex: 1, justifyContent: 'center' }}>
+        <Skeleton.Button style={{ height: 175, width: 400 }} active />
+        <Skeleton.Button style={{ height: 175, width: 400 }} active />
+        <Skeleton.Button style={{ height: 175, width: 400 }} active />
+      </Space>
     );
   }
 

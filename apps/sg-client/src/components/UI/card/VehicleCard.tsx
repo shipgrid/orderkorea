@@ -120,7 +120,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
         {images.slice(1).map((image, index) => (
           <Image
             key={index}
-            width={135}
+            width={165}
             height={90}
             src={image.image_url}
             preview={{

@@ -36,11 +36,6 @@ const navItems = [
     icon: <IoCarSportSharp/>,
     path: '/',
   },
-  // {
-  //   label: 'Orders',
-  //   icon: <FaWpforms/>,
-  //   path: '/orders',
-  // }
 ];
 
 const items: MenuProps['items'] = navItems.map((item) => ({

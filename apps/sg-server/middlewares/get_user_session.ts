@@ -26,7 +26,7 @@ export default async (req, res, next) => {
         return;
       }
     }
-
+    
     if(!req.user) {
       Logger.warn('No user session found in request')
 
