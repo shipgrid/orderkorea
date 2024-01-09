@@ -20,7 +20,7 @@ const bodySchema = Joi.object({
   model: Joi.string().required(),
   year: Joi.number().required(),
   exterior_color: Joi.string().required(),
-  vin_number: Joi.string().required(),
+  vin_number: Joi.string().allow(null),
   transmission_type: Joi.string().required(),
   mileage: Joi.number().required(),
   price: Joi.number().required(),
