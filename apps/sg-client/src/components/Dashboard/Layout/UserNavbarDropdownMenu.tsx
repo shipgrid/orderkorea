@@ -1,5 +1,7 @@
 import {
   startTransition,
+  useState,
+  useEffect
 } from 'react';
 
 import { 
@@ -43,6 +45,11 @@ import {
   FaWpforms 
 } from "react-icons/fa";
 
+import { 
+  MdOutlineAccountCircle 
+} from "react-icons/md";
+
+
 const UserNavbarDropdownMenu = ({ 
 }) => {
 
@@ -50,6 +57,24 @@ const UserNavbarDropdownMenu = ({
   const firebase = useFirebase();
   const dispatch = useDispatch();
   const session = useSelector((state: any) => state.session);
+
+  const [isMobile, setIsMobile] = useState(false);
+
+
+  useEffect(() => {
+    function handleResize() {
+      setIsMobile(window.innerWidth <= 768); // Adjust the breakpoint as needed
+    }
+
+    // Initial check and add event listener
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const userDropdownItems: MenuProps['items'] = [];
   
@@ -98,7 +123,10 @@ const UserNavbarDropdownMenu = ({
       placement="bottomLeft"
       arrow
     >
-      <Button icon={<FiChevronDown/>} style={{ marginRight: 10 }}> { session?.username } </Button>
+      {
+        isMobile ? <MdOutlineAccountCircle style={{ fontSize: 36, marginRight: 10, color: 'white' }}/> : <Button icon={<FiChevronDown/>} style={{ marginRight: 10 }}> { session?.username } </Button>
+
+      }
     </Dropdown>
   );
 };

@@ -16,6 +16,7 @@ import {
 } from 'react';
 
 import VehicleCard from '../../UI/card/VehicleCard';
+import VehicleCard2 from '../../UI/card/VehicleCard2';
 import ResourceNotFound from '../../Shared/ResourceNotFound';
 
 interface IFilter {
@@ -74,10 +75,10 @@ const VehicleList = ({
   }
 
   return (
-    <Space direction="vertical" size="large" style={{ width: '100%' }}>
+    <Space direction="horizontal" size="large" style={{ width: '100%' }} wrap>
       {filteredVehicles.length > 0 ? (
         filteredVehicles.map((vehicle) => (
-          <VehicleCard key={vehicle.vehicle_id} vehicle={vehicle} onClick={() => startTransition(() => handleViewVehicle(vehicle.vehicle_id))}/>
+          <VehicleCard2 key={vehicle.vehicle_id} vehicle={vehicle} onClick={() => startTransition(() => handleViewVehicle(vehicle.vehicle_id))}/>
         ))
       ) : (
         <ResourceNotFound />

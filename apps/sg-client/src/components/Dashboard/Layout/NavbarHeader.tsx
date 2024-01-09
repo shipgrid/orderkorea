@@ -1,5 +1,7 @@
 import {
-  startTransition
+  startTransition,
+  useEffect,
+  useState
 } from 'react';
 
 import { 
@@ -43,6 +45,23 @@ const items: MenuProps['items'] = navItems.map((item) => ({
 const NavbarHeader = ({ }) => {
 
   const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(false);
+
+
+  useEffect(() => {
+    function handleResize() {
+      setIsMobile(window.innerWidth <= 768); // Adjust the breakpoint as needed
+    }
+
+    // Initial check and add event listener
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <Header
@@ -57,16 +76,18 @@ const NavbarHeader = ({ }) => {
         backgroundColor: '#0e1111',
       }}
     >
-      <div style={{width: 1280, display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-        <p style={{ color: '#CDD193', fontSize: '32px', fontWeight: 'bolder', paddingRight: 10 }}> ShipGrid</p>
-        <Menu 
-          theme='dark' 
-          mode="horizontal" 
-          style={{ flex: 1 }} 
-          defaultSelectedKeys={['/']} 
-          items={items} 
-          onClick={(e) => startTransition(() => navigate(e.key))}
-        />
+      <div style={{width: 1280, minWidth: 320, display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+        <p style={{ color: '#CDD193', fontSize: '32px', fontWeight: 'bolder', paddingRight: 10 }} onClick={(_) => startTransition(() => navigate('/'))}> ShipGrid</p>
+        {!isMobile && (
+          <Menu 
+            theme='dark' 
+            mode="horizontal" 
+            style={{ flex: 1 }} 
+            defaultSelectedKeys={['/']} 
+            items={items} 
+            onClick={(e) => startTransition(() => navigate(e.key))}
+          />
+        )}
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <Space size={10}>
             <UserNavbarDropdownMenu/>
