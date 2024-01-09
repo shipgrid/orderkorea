@@ -61,9 +61,9 @@ const VehicleList = ({
 
   if (isLoading) {
     return (
-      <Space direction="vertical" size="large" style={{ flex: 1 }}>
+      <div>
         <ApiLoader/>
-      </Space>
+      </div>
     );
   }
 

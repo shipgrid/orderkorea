@@ -39,6 +39,10 @@ import {
   useSelector 
 } from 'react-redux'
 
+import { 
+  FaWpforms 
+} from "react-icons/fa";
+
 const UserNavbarDropdownMenu = ({ 
 }) => {
 
@@ -63,6 +67,15 @@ const UserNavbarDropdownMenu = ({
   }
 
   userDropdownItems.push(
+    {
+      key: '2',
+      label: (
+        <div style={{ display: 'flex', alignItems: 'center'}} onClick={(e) => startTransition(() => navigate('/orders'))}>
+          <FaWpforms/> 
+          <span style={{ marginLeft: 5 }}>  My Orders </span>
+        </div>
+      ),
+    },
     {
       key: '3',
       label: (

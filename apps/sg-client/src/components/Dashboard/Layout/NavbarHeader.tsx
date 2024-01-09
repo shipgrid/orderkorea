@@ -32,15 +32,15 @@ const {
 
 const navItems = [
   {
-    label: 'Inventory',
+    label: 'Shop Cars',
     icon: <IoCarSportSharp/>,
     path: '/',
   },
-  {
-    label: 'Orders',
-    icon: <FaWpforms/>,
-    path: '/orders',
-  }
+  // {
+  //   label: 'Orders',
+  //   icon: <FaWpforms/>,
+  //   path: '/orders',
+  // }
 ];
 
 const items: MenuProps['items'] = navItems.map((item) => ({

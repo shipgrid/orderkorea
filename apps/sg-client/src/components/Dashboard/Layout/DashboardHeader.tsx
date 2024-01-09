@@ -18,7 +18,7 @@ import {
 
 interface DashboardHeaderProps {
   title: string
-  description: string
+  description?: string
   action?: ReactNode
 }
 
