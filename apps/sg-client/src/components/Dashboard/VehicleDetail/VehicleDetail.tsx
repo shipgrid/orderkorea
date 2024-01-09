@@ -1,5 +1,4 @@
 import {
-  Button,
   Avatar
 } from 'antd'
 
@@ -32,10 +31,6 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
   vehicle
 }) => {
 
-  const handleReserveVehicle = () => {
-    // TODO: Implement reserve vehicle
-  }
-
   return (
     <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column'}}>
       <PhotoGallery images={vehicle.images} />
@@ -50,11 +45,11 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
       <VehicleHighlightsCard vehicle={vehicle}/>
       <DescriptionCard description={vehicle.description}/>
       <VehicleSpecificationsCard vehicle={vehicle}/>
-      <div style={{ marginTop: 20, marginBottom: 20 }}>
+      {/* <div style={{ marginTop: 20, marginBottom: 20 }}>
         <Button type="primary" onClick={handleReserveVehicle} style={{ width: '100%', height: 50, borderRadius: 20 }}>
           Reserve This Vehicle
         </Button>
-      </div>
+      </div> */}
     </div>
   )
 }

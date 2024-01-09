@@ -3,7 +3,6 @@ import {
 } from 'react-router-dom'
 
 import { 
-  Skeleton, 
   Space 
 } from 'antd';
 
@@ -17,6 +16,7 @@ import {
 
 import VehicleCard from '../../UI/card/VehicleCard';
 import ResourceNotFound from '../../Shared/ResourceNotFound';
+import ApiLoader from '../../Shared/ApiLoader';
 
 interface IFilter {
   makes: string[]; // Assuming 'makes' is an array of strings
@@ -61,13 +61,8 @@ const VehicleList = ({
 
   if (isLoading) {
     return (
-      <Space direction="vertical" size="large" style={{ width: '100%' }}>
-        <Skeleton.Button style={{ width: '100%', height: 175 }} active />
-        <Skeleton.Button style={{ width: '100%', height: 175 }} active />
-        <Skeleton.Button style={{ width: '100%', height: 175 }} active />
-        <Skeleton.Button style={{ width: '100%', height: 175 }} active />
-        <Skeleton.Button style={{ width: '100%', height: 175 }} active />
-        <Skeleton.Button style={{ width: '100%', height: 175 }} active />
+      <Space direction="vertical" size="large" style={{ flex: 1 }}>
+        <ApiLoader/>
       </Space>
     );
   }
