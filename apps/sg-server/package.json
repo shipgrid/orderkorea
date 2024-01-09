@@ -24,7 +24,6 @@
     "nodemon": "^3.0.1"
   },
   "dependencies": {
-    "@hyperdx/node-opentelemetry": "^0.3.3",
     "@types/bcryptjs": "^2.4.6",
     "@types/multer": "^1.4.11",
     "axios": "^1.4.0",
