@@ -61,8 +61,8 @@ export default async (
       data
     } = await firebase.upload_files({
       file,
-      destination: 'test',
-      filename: name,
+      destination: 'vehicle-images',
+      filename: `${Date.now().toString()}_${name}`,
     })
 
     res.status(200).json({ success, data });

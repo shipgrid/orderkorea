@@ -152,7 +152,7 @@ const LoginForm = ({}) => {
           >
             <Input.Password />
           </Form.Item>
-          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Form.Item wrapperCol={{ span: 24 }}>
             <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
               Submit
             </Button>
