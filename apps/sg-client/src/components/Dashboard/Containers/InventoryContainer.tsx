@@ -19,7 +19,7 @@ interface IFilter {
 }
 
 const HomeContainer = () => {
-  const [filters, setFilters] = useState<IFilter>({ 
+  const [filters] = useState<IFilter>({ 
     makes: [], 
     models: [] 
   });
