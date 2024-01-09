@@ -62,10 +62,16 @@ const VehicleList = ({
 
   if (isLoading) {
     return (
-      <Space direction="vertical" size="large" style={{ flex: 1, justifyContent: 'center' }}>
-        <Skeleton.Button style={{ height: 175, width: 400 }} active />
-        <Skeleton.Button style={{ height: 175, width: 400 }} active />
-        <Skeleton.Button style={{ height: 175, width: 400 }} active />
+      <Space direction="horizontal" size="large" style={{ flex: 1, justifyContent: 'center' }} wrap>
+        <Skeleton.Button style={{ height: 175, width: 360 }} active />
+        <Skeleton.Button style={{ height: 175, width: 360 }} active />
+        <Skeleton.Button style={{ height: 175, width: 360 }} active />
+        <Skeleton.Button style={{ height: 175, width: 360 }} active />
+        <Skeleton.Button style={{ height: 175, width: 360 }} active />
+        <Skeleton.Button style={{ height: 175, width: 360 }} active />
+        <Skeleton.Button style={{ height: 175, width: 360 }} active />
+        <Skeleton.Button style={{ height: 175, width: 360 }} active />
+        <Skeleton.Button style={{ height: 175, width: 360 }} active />
       </Space>
     );
   }

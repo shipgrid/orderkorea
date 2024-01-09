@@ -143,7 +143,7 @@ const UserNavbarDropdownMenu = ({
       arrow
     >
       {
-        isMobile ? <MdOutlineAccountCircle style={{ fontSize: 36, marginRight: 10, color: 'white' }}/> : <Button icon={<FiChevronDown/>} style={{ marginRight: 10 }}> { session?.username } </Button>
+        isMobile ? <MdOutlineAccountCircle style={{ fontSize: 36, color: 'white' }}/> : <Button icon={<FiChevronDown/>} style={{ marginRight: 10 }}> { session?.username } </Button>
       }
     </Dropdown>
   );

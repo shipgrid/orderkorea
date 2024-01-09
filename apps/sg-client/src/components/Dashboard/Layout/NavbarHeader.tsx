@@ -89,9 +89,7 @@ const NavbarHeader = ({ }) => {
           />
         )}
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <Space size={10}>
-            <UserNavbarDropdownMenu/>
-          </Space>
+          <UserNavbarDropdownMenu/>
         </div>
       </div>
     </Header>
