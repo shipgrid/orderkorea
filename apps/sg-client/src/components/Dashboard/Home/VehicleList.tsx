@@ -17,7 +17,6 @@ import {
 
 import VehicleCard from '../../UI/card/VehicleCard';
 import ResourceNotFound from '../../Shared/ResourceNotFound';
-import ApiLoader from '../../Shared/ApiLoader';
 
 interface IFilter {
   makes: string[]; // Assuming 'makes' is an array of strings
