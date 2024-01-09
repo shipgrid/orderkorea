@@ -49,6 +49,9 @@ import {
   MdOutlineAccountCircle 
 } from "react-icons/md";
 
+import { 
+  IoCarSportSharp 
+} from "react-icons/io5";
 
 const UserNavbarDropdownMenu = ({ 
 }) => {
@@ -77,7 +80,32 @@ const UserNavbarDropdownMenu = ({
   }, []);
 
   const userDropdownItems: MenuProps['items'] = [];
-  
+
+  if(isMobile) {
+    userDropdownItems.push(
+      {
+        key: '4',
+        label: (
+          <div style={{ display: 'flex', alignItems: 'center'}} onClick={() => startTransition(() => navigate('/'))}>
+            <IoCarSportSharp/> 
+            <span style={{ marginLeft: 5 }}>  Inventory </span>
+          </div>
+        ),
+      })
+  }
+
+  userDropdownItems.push(
+    {
+      key: '2',
+      label: (
+        <div style={{ display: 'flex', alignItems: 'center'}} onClick={(_) => startTransition(() => navigate('/orders'))}>
+          <FaWpforms/> 
+          <span style={{ marginLeft: 5 }}>  My Orders </span>
+        </div>
+      ),
+    }
+  )
+
   if(session?.isStaff) {
     userDropdownItems.push(
       {
@@ -93,15 +121,6 @@ const UserNavbarDropdownMenu = ({
 
   userDropdownItems.push(
     {
-      key: '2',
-      label: (
-        <div style={{ display: 'flex', alignItems: 'center'}} onClick={(_) => startTransition(() => navigate('/orders'))}>
-          <FaWpforms/> 
-          <span style={{ marginLeft: 5 }}>  My Orders </span>
-        </div>
-      ),
-    },
-    {
       key: '3',
       label: (
         <div style={{ display: 'flex', alignItems: 'center'}} onClick={(e) => {e.stopPropagation; firebase.logout(); dispatch({ type: 'LOGOUT' });}}>
@@ -109,7 +128,7 @@ const UserNavbarDropdownMenu = ({
           <span style={{ marginLeft: 5 }}>  Sign Out </span>
         </div>
       ),
-    },
+    }
   )
 
   const menuProps = {
@@ -125,7 +144,6 @@ const UserNavbarDropdownMenu = ({
     >
       {
         isMobile ? <MdOutlineAccountCircle style={{ fontSize: 36, marginRight: 10, color: 'white' }}/> : <Button icon={<FiChevronDown/>} style={{ marginRight: 10 }}> { session?.username } </Button>
-
       }
     </Dropdown>
   );

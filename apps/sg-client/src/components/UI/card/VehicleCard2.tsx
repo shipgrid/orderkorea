@@ -80,7 +80,7 @@ const VehicleCard2: React.FC<VehicleCardProps> = ({
   return (
     <Card
       hoverable
-      style={{ maxWidth: 410, minWidth: 320, width: 410 }}
+      style={{ maxWidth: 410, minWidth: 360, width: 360 }}
       cover={<img alt={`${make} ${model}`} src={mainImageUrl} />}
       onClick={handleItemClick}
       size='small'
