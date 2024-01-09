@@ -70,7 +70,7 @@ const UserNavbarDropdownMenu = ({
     {
       key: '2',
       label: (
-        <div style={{ display: 'flex', alignItems: 'center'}} onClick={(e) => startTransition(() => navigate('/orders'))}>
+        <div style={{ display: 'flex', alignItems: 'center'}} onClick={(_) => startTransition(() => navigate('/orders'))}>
           <FaWpforms/> 
           <span style={{ marginLeft: 5 }}>  My Orders </span>
         </div>
