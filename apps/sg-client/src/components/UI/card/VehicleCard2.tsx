@@ -2,11 +2,9 @@ import React from 'react';
 
 import { 
   Card,
-  List, 
   Typography, 
   Tag, 
   message,
-  Image,
 } from 'antd'
 
 import { 

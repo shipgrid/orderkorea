@@ -15,7 +15,7 @@ import {
   startTransition
 } from 'react';
 
-import VehicleCard from '../../UI/card/VehicleCard';
+// import VehicleCard from '../../UI/card/VehicleCard';
 import VehicleCard2 from '../../UI/card/VehicleCard2';
 import ResourceNotFound from '../../Shared/ResourceNotFound';
 
