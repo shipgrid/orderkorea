@@ -4,7 +4,6 @@
   border: 1px solid #ecebeb; /* Match to your screenshot border color */
   margin-bottom: 16px; /* Spacing between items */
   background-color: white;
-  border-radius: 5px;
   cursor: pointer;
 }
 
@@ -21,13 +20,12 @@
   flex-direction: column;
 }
 
-.vehicle-image img {
+.vehicle-image {
   min-width: 250px; 
   max-width: 250px;
   max-height: 135px;
   height: auto;
   padding-right: 24px;
-  border-radius: 5px;
 }
 
 .vehicle-title-container {
@@ -62,7 +60,6 @@
 }
 
 .additional-image {
-  border-radius: 5px;
   width: 86px;
   height: 60px;
   height: auto;

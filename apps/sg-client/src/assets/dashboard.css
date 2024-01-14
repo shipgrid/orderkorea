@@ -1,0 +1,14 @@
+.page-header-title {
+  margin: 0; 
+  font-size: 40px; 
+  padding-bottom: 6px;
+  display: flex;
+  width:'100%';
+}
+
+@media (max-width: 1024px) {
+  .page-header-title {
+    font-size: 24px; 
+    flex-wrap: wrap;
+  }
+}

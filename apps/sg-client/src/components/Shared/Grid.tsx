@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react';
-import { Row, Col, Card } from 'antd';
+import { Row, Col, Card, Divider } from 'antd';
 
 interface GridProps {
   isHidden?: boolean;
@@ -67,7 +67,7 @@ const Grid: FC<GridProps> = ({
             </Col>
           </Row>
         ) : null}
-        {showHeader ? <hr className="m-0" /> : null}
+        {showHeader ? <Divider> </Divider>: null}
         <Row>
           <Col flex="auto">
             <div style={{ margin: 10, display: centerContent ? 'flex' : '', justifyContent: 'center' }}>

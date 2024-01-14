@@ -39,66 +39,77 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
     target.click()
   }
 
+  // return (
+  //   <Row gutter={16}>
+  //     <Col span={18} style={{ display: 'flex', flexDirection: 'column' }}>
+  //       <Image.PreviewGroup
+  //         items={images.map((img: Image) => ({ src: img.image_url }))}
+  //         fallback={fallBackImageUrl}
+  //       >
+  //         <Image 
+  //           fallback={fallBackImageUrl} 
+  //           src={mainImage} 
+  //           style={{ borderRadius: 25 }}
+  //           width={'100%'}
+  //         />
+  //         {images.slice(1).map((img, index) => (
+  //           <Image
+  //             key={index}
+  //             src={img.image_url}
+  //             style={{ display: 'none' }} 
+  //           />
+  //         ))}
+  //       </Image.PreviewGroup>
+  //     </Col>
+  //     <Col span={6}>
+  //       {secondaryImagesToShow.map((img, index) => (
+  //         <div key={index} style={{ position: 'relative', marginBottom: 8 }}>
+  //           <Image
+  //             fallback={fallBackImageUrl}
+  //             src={img.image_url}
+  //             style={{ borderRadius: 10 }} 
+  //             width={'100%'}
+  //             height={'auto'}
+  //           />
+  //           {additionalImagesCount > 0 && index === secondaryImagesToShow.length - 1 && (
+  //             <div 
+  //               style={{
+  //                 position: 'absolute',
+  //                 background: 'rgba(0, 0, 0, 0.5)',
+  //                 color: 'white',
+  //                 width: '100%',
+  //                 height: '98%',
+  //                 borderRadius: 10,
+  //                 display: 'flex',
+  //                 justifyContent: 'center',
+  //                 alignItems: 'center',
+  //                 fontSize: '36px',
+  //                 top: 0,
+  //                 right: 0,
+  //                 bottom: 0,
+  //                 left: 0,
+  //                 cursor: 'pointer', 
+  //               }} 
+  //               onClick={() => handleClickImage(img)}
+  //             >
+  //               +{additionalImagesCount}
+  //             </div>
+  //           )}
+  //         </div>
+  //       ))}
+  //     </Col>
+  //   </Row>
+  // )
+
   return (
-    <Row gutter={16}>
-      <Col span={18} style={{ display: 'flex', flexDirection: 'column' }}>
-        <Image.PreviewGroup
-          items={images.map((img: Image) => ({ src: img.image_url }))}
-          fallback={fallBackImageUrl}
-        >
-          <Image 
-            fallback={fallBackImageUrl} 
-            src={mainImage} 
-            style={{ borderRadius: 25 }}
-            width={'100%'}
-          />
-          {images.slice(1).map((img, index) => (
-            <Image
-              key={index}
-              src={img.image_url}
-              style={{ display: 'none' }} 
-            />
-          ))}
-        </Image.PreviewGroup>
-      </Col>
-      <Col span={6}>
-        {secondaryImagesToShow.map((img, index) => (
-          <div key={index} style={{ position: 'relative', marginBottom: 8 }}>
-            <Image
-              fallback={fallBackImageUrl}
-              src={img.image_url}
-              style={{ borderRadius: 10 }} 
-              width={'100%'}
-              height={'auto'}
-            />
-            {additionalImagesCount > 0 && index === secondaryImagesToShow.length - 1 && (
-              <div 
-                style={{
-                  position: 'absolute',
-                  background: 'rgba(0, 0, 0, 0.5)',
-                  color: 'white',
-                  width: '100%',
-                  height: '98%',
-                  borderRadius: 10,
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  fontSize: '36px',
-                  top: 0,
-                  right: 0,
-                  bottom: 0,
-                  left: 0,
-                  cursor: 'pointer', 
-                }} 
-                onClick={() => handleClickImage(img)}
-              >
-                +{additionalImagesCount}
-              </div>
-            )}
-          </div>
-        ))}
-      </Col>
-    </Row>
+    <div style={{ display:'flex', width: 800}}>
+      <div style={{ flex: 1 }}>
+        Photo Gallery
+      </div>
+      <div style={{ flex: 1 }}>
+        Specs
+      </div>
+    </div>
   )
 }
 

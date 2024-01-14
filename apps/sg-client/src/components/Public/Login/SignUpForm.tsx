@@ -4,11 +4,13 @@ import {
   Form, 
   Input,
   message,
-  Spin
+  Spin,
+  Divider,
 } from 'antd';
 
 import {
-  useNavigate
+  useNavigate,
+  Link
 } from 'react-router-dom'
 
 import { 
@@ -81,12 +83,13 @@ const SignUpForm = ({}) => {
   return (
     <>
       <Spin spinning={isLoading}>
+        <h2 style={{ color: 'black', marginBottom: 40 }}>
+          Sign Up
+        </h2>
         <Form
           name="basic"
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 16 }}
-          style={{ maxWidth: 600 }}
-          initialValues={{ remember: true }}
+          style={{ width: 320, maxWidth: 600 }}
+          layout='vertical'
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"
@@ -119,12 +122,18 @@ const SignUpForm = ({}) => {
           >
             <Input.Password />
           </Form.Item>
-          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit" loading={isLoading}>
+          <Form.Item >
+            <Button type="primary" htmlType="submit" loading={isLoading} style={{ width: '100%' }}>
               Submit
             </Button>
           </Form.Item>
         </Form> 
+        <Divider/>
+        <div style={{display: 'flex', flexDirection: 'column'}}>
+          <p style={{ marginTop: 10, color: 'black' }}>
+            Already have an account? <Link to="/login">Sign in</Link>
+          </p>
+        </div>
       </Spin>
     </>
   )

@@ -10,8 +10,8 @@ const DashboardContent = ({
   children
 }:DashboardContentProps) => {
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#FCFBF3'  }}>
-      <div style={{ flex: 1, maxWidth: 1280 }}>
+    <div style={{ display: 'flex',  backgroundColor: '#f4f4f4' }}>
+      <div style={{ flex: 1 }}>
         {children}
       </div>
     </div>

@@ -22,7 +22,6 @@ import {
   formatNumberWithCommas
 } from '../../../utils/format_string'
 
-
 const VehicleDetailContainer = () => {
 
   const location = useLocation()
@@ -60,22 +59,11 @@ const VehicleDetailContainer = () => {
     <Stack minH={'100vh'}>
       <DashboardContent>
         <DashboardHeader
-          title={'Vehicle Details'}
-          description={'View your vehicle details'}
+          title={`Vehicle Detail`}
         />
-        <Grid
-          title={`${vehicle.year} ${vehicle.make} - ${vehicle.model}`}
-          titleSize="32px"
-          boldTitle={true}
-          subtitle={`$${formatNumberWithCommas(vehicle.price)}`}
-          subtitleSize="24px"
-          subtitleColor="#389e0d"
-          content={
-            <VehicleDetail
-              vehicle={vehicle}
-            />
-          }
-        />
+          <VehicleDetail
+            vehicle={vehicle}
+          />
         <Divider my={5}/>
       </DashboardContent>
     </Stack>

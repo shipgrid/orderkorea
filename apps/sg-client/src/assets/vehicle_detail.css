@@ -1,0 +1,40 @@
+.vehicle-detail {
+  display: flex; 
+  margin: 64px 0px; 
+  justify-content: center;
+}
+
+.vehicle-detail-box {
+  display:flex; 
+  max-width: 1200px; 
+  background-color: white; 
+  padding: 24px 24px;
+  border-radius: 12px;
+}
+
+.vehicle-detail-images {
+  flex: 1;
+  max-width: 542px;
+  width: 100%
+}
+
+.vehicle-detail-info {
+  margin: 12px 40px
+}
+
+@media (max-width: 1024px) {
+  .vehicle-detail-box {
+    flex-direction: column;
+  }
+
+  .vehicle-detail-images {
+    flex: 1;
+    max-width: 542px;
+    width: 100%;
+  }
+
+  .vehicle-detail-info {
+    margin: 0px;
+  }
+  
+}
