@@ -1,46 +1,47 @@
 import { Model } from 'objection';
 import knexClient from './knex_client'
 import VehicleModel from './model'
-import Vehicle from './vehicle'
+import Vehicle from './vehicle';
 
 Model.knex(knexClient);
 
 // Define an interface that represents your Vehicle model properties
-interface Make {
-  make_id: number;
+interface Trim {
+  trim_id: number; 
+  model_id: number;
   name: string;
   created_on: string;
   updated_on: string;
   deleted_on: string | null;
 }
 
-class Make extends Model implements Make {
+class Trim extends Model implements Trim {
   static get tableName() {
-    return 'makes'; 
+    return 'trims'; 
   }
 
   static get idColumn() {
-    return 'make_id';
+    return 'trim_id';
   }
 
   static get relationMappings() {
     return {
-      vehicles: {
+      images: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: VehicleModel,
+        join: {
+          from: 'trims.model_id',
+          to: 'models.model_id',
+        },
+      },
+      vehicle: {
         relation: Model.HasManyRelation,
         modelClass: Vehicle,
         join: {
-          from: 'makes.make_id',
-          to: 'vehicles.make_id',
+          from: 'trims.trim_id',
+          to: 'vehicles.trim_id',
         },
-      },
-      models: {
-        relation: Model.HasManyRelation,
-        modelClass: VehicleModel,
-        join: {
-          from: 'makes.make_id',
-          to: 'models.make_id',
-        },
-      },
+      }
     };
   }
 
@@ -48,10 +49,12 @@ class Make extends Model implements Make {
     return {
       type: 'object',
       required: [
-        'name', 
+        'model_id',
+        'name' 
       ],
       properties: {
-        make_id: { type: 'integer' },
+        trim_id: { type: 'integer' },
+        model_id: { type: 'integer' },
         name: { type: 'string', minLength: 1, maxLength: 255 },
         created_on: { type: 'string' },
         updated_on: { type: 'string' },
@@ -61,4 +64,4 @@ class Make extends Model implements Make {
   }
 }
 
-export default Make;
+export default Trim;

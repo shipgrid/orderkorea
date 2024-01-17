@@ -8,6 +8,7 @@ import orders from './orders'
 import vehicles from './vehicles'
 import thirdParties from './third_parties'
 import storage from './storage'
+import filters from './filters'
 
 import authValidation from '../middlewares/auth_validation'
 
@@ -20,5 +21,6 @@ routes.use('/orders', authValidation, orders);
 routes.use('/addresses', authValidation, addresses);
 routes.use('/third-parties', authValidation, thirdParties)
 routes.use('/storage', authValidation, storage)
+routes.use('/filters', authValidation, filters)
 
 export default routes

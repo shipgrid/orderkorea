@@ -21,6 +21,11 @@
   justify-content: space-between;
 }
 
+.ant-checkbox-group {
+  display: flex;
+  flex-direction: column;
+}
+
 @media (max-width: 900px) {
   .car-filters {
     display: none; /* Hide the element when screen width is less than 900px */

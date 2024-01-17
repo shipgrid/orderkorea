@@ -1,12 +1,13 @@
 import { Model } from 'objection';
 import knexClient from './knex_client'
-import VehicleModel from './model'
+import Make from './make'
 import Vehicle from './vehicle'
 
 Model.knex(knexClient);
 
 // Define an interface that represents your Vehicle model properties
-interface Make {
+interface VehicleModel {
+  model_id: number; 
   make_id: number;
   name: string;
   created_on: string;
@@ -14,33 +15,33 @@ interface Make {
   deleted_on: string | null;
 }
 
-class Make extends Model implements Make {
+class VehicleModel extends Model implements VehicleModel {
   static get tableName() {
-    return 'makes'; 
+    return 'models'; 
   }
 
   static get idColumn() {
-    return 'make_id';
+    return 'model_id';
   }
 
   static get relationMappings() {
     return {
-      vehicles: {
+      images: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Make,
+        join: {
+          from: 'models.make_id',
+          to: 'make.make_id',
+        },
+      },
+      vehicle: {
         relation: Model.HasManyRelation,
         modelClass: Vehicle,
         join: {
-          from: 'makes.make_id',
-          to: 'vehicles.make_id',
+          from: 'models.model_id',
+          to: 'vehicles.model_id',
         },
-      },
-      models: {
-        relation: Model.HasManyRelation,
-        modelClass: VehicleModel,
-        join: {
-          from: 'makes.make_id',
-          to: 'models.make_id',
-        },
-      },
+      }
     };
   }
 
@@ -48,9 +49,11 @@ class Make extends Model implements Make {
     return {
       type: 'object',
       required: [
-        'name', 
+        'make_id',
+        'name' 
       ],
       properties: {
+        model_id: { type: 'integer' },
         make_id: { type: 'integer' },
         name: { type: 'string', minLength: 1, maxLength: 255 },
         created_on: { type: 'string' },
@@ -61,4 +64,4 @@ class Make extends Model implements Make {
   }
 }
 
-export default Make;
+export default VehicleModel;

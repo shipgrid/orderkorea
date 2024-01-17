@@ -1,6 +1,15 @@
 import { Model } from 'objection';
 import knexClient from './knex_client'
 import VehicleImage from './vehicle_image';
+import VehicleModel from './model';
+import Make from './make';
+import Trim from './trim';
+import BodyStyle from './body_style';
+import FuelType from './fuel_type';
+import Door from './door';
+import Transmission from './transmission';
+import Color from './color';
+import Drivetrain from './drivetrain';
 
 Model.knex(knexClient);
 
@@ -20,7 +29,7 @@ interface Vehicle {
   trim: string; 
   drivetrain: string 
   vin_number: string | null; 
-  is_new: boolean; 
+  is_new: number; 
   fuel_type: string; 
   description: string; 
   created_on: string;
@@ -47,6 +56,86 @@ class Vehicle extends Model implements Vehicle {
           to: 'vehicle_images.vehicle_id',
         },
       },
+      exterior_color: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Color,
+        join: {
+          from: 'vehicles.exterior_color_id',
+          to: 'colors.color_id',
+        },
+      },
+      interior_color: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Color,
+        join: {
+          from: 'vehicles.interior_color_id',
+          to: 'colors.color_id',
+        },
+      },
+      make: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Make,
+        join: {
+          from: 'vehicles.make_id',
+          to: 'makes.make_id',
+        },
+      },
+      model: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: VehicleModel,
+        join: {
+          from: 'vehicles.model_id',
+          to: 'models.model_id',
+        }
+      },
+      trim: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Trim,
+        join: {
+          from: 'vehicles.trim_id',
+          to: 'trims.trim_id',
+        }
+      },
+      body_style: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: BodyStyle,
+        join: {
+          from: 'vehicles.body_style_id',
+          to: 'body_styles.body_style_id',
+        }
+      },
+      fuel_type: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: FuelType,
+        join: {
+          from: 'vehicles.fuel_type_id',
+          to: 'fuel_types.fuel_type_id',
+        }
+      },
+      transmission: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Transmission,
+        join: {
+          from: 'vehicles.transmission_id',
+          to: 'transmissions.transmission_id',
+        }
+      },
+      drivetrain: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Drivetrain,
+        join: {
+          from: 'vehicles.drivetrain_id',
+          to: 'drivetrains.drivetrain_id',
+        }
+      },
+      doors: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Door,
+        join: {
+          from: 'vehicles.door_id',
+          to: 'doors.door_id',
+        }
+      }
     };
   }
 
@@ -79,7 +168,7 @@ class Vehicle extends Model implements Vehicle {
         trim: { type: 'string', minLength: 1, maxLength: 255 },
         drivetrain: { type: 'string', minLength: 1, maxLength: 255 },
         vin_number: { type: ['string', 'null'], minLength: 1, maxLength: 255 },
-        is_new: { type: 'boolean' },
+        is_new: { type: 'number' },
         description: { type: 'string' },
         fuel_type: { type: 'string' },
         last_login: { type: ['string', 'null'] },

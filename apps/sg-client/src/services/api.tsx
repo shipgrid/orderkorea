@@ -40,22 +40,22 @@ export interface OrderEvent {
 
 export interface Vehicle {
   vehicle_id: number;
-  make: string;
-  model: string;
+  make: Make;
+  model: Model;
+  exterior_color: Color; 
+  interior_color: Color; 
+  doors: Door; 
+  transmission: Transmission; 
+  trim: Trim; 
+  drivetrain: Drivetrain; 
+  fuel_type: FuelType; 
+  images: VehicleImage[]
   year: string;
   price: string;
   mileage: string; 
-  exterior_color: string; 
-  interior_color: string; 
-  transmission_type: string; 
-  doors: number; 
-  trim: string; 
-  drivetrain: string 
   vin_number: string | null; 
   is_new: boolean;
-  fuel_type: string; 
   description: string; 
-  images: VehicleImage[]
 }
 
 export interface VehicleImage {
@@ -206,6 +206,106 @@ export interface CreateVehicleBody {
 export interface FirebaseLogin {
   firebase_token: string;
 }
+
+export interface BodyStyle {
+  body_style_id: number; 
+  name: string;
+  created_on?: string;
+  updated_on?: string;
+  deleted_on?: string | null;
+}
+
+export interface Color {
+  color_id: number; 
+  name: string;
+  code: string;
+  created_on?: string;
+  updated_on?: string;
+  deleted_on?: string | null;
+}
+
+export interface Cylinder {
+  cylinder_id: number; 
+  name: string;
+  count: number;
+  created_on?: string;
+  updated_on?: string;
+  deleted_on?: string | null;
+}
+
+export interface Door {
+  door_id: number; 
+  name: string;
+  count: number;
+  created_on?: string;
+  updated_on?: string;
+  deleted_on?: string | null;
+}
+
+export interface Drivetrain {
+  drivetrain_id: number; 
+  name: string;
+  created_on?: string;
+  updated_on?: string;
+  deleted_on?: string | null;
+}
+
+export interface FuelType {
+  fuel_type_id: number; 
+  name: string;
+  green: number;
+  created_on?: string;
+  updated_on?: string;
+  deleted_on?: string | null;
+}
+
+export interface Make {
+  make_id: number;
+  name: string;
+  created_on?: string;
+  updated_on?: string;
+  deleted_on?: string | null;
+}
+
+export interface Model {
+  model_id: number; 
+  make_id: number;
+  name: string;
+  created_on?: string;
+  updated_on?: string;
+  deleted_on?: string | null;
+}
+
+export interface Transmission {
+  transmission_id: number; 
+  name: string;
+  created_on?: string;
+  updated_on?: string;
+  deleted_on?: string | null;
+}
+
+export interface Trim {
+  trim_id: number; 
+  model_id: number;
+  name: string;
+  created_on?: string;
+  updated_on?: string;
+  deleted_on?: string | null;
+}
+
+interface Filter {
+  makes: Make[],
+  models: Model[],
+  trims: Trim[],
+  fuel_types: FuelType[],
+  body_styles: BodyStyle[],
+  transmissions: Transmission[],
+  doors: Door[],
+  colors: Color[],
+  drivetrains: Drivetrain[], 
+  cylinders: Cylinder[]
+}
+
 const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_BASE_URL,
   prepareHeaders: (headers, { getState }: any) => {
@@ -257,7 +357,7 @@ const baseQueryWithReauth: BaseQueryFn<
 
 const api = createApi({
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['orders', 'order', 'vehicles', 'thirdParties', 'addresses', 'documents'],
+  tagTypes: ['orders', 'order', 'vehicles', 'thirdParties', 'addresses', 'documents', 'filters'],
   endpoints: (build) => ({
     firebaseLogin: build.mutation<ApiResponse, FirebaseLogin>({
       query: (body) => ({
@@ -291,6 +391,11 @@ const api = createApi({
       transformResponse: (response: { data: Order[] }) => response.data,
       transformErrorResponse: (error: any) => error.data,
       providesTags: ['orders'],
+    }),
+    getFilters: build.query({
+      query: (body) => `filters?${body.finalUrl}`,
+      transformResponse: (response: { data: Filter }, _, _args) => response.data,
+      providesTags: ['filters']
     }),
     getOrder: build.query({
       query: (orderId) => `orders/${orderId}`,
@@ -408,7 +513,8 @@ const {
   useRegisterMutation,
   useUploadMutation,
   useCreateOrderMutation,
-  useFirebaseLoginMutation
+  useFirebaseLoginMutation,
+  useGetFiltersQuery
 } = api
 
 export {
@@ -428,6 +534,7 @@ export {
   useRegisterMutation,
   useUploadMutation,
   useCreateOrderMutation,
-  useFirebaseLoginMutation
+  useFirebaseLoginMutation,
+  useGetFiltersQuery
 }
 

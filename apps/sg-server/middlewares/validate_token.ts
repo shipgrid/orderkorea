@@ -61,7 +61,7 @@ export default (
     }
     
     req.user = result.user;
- 
+
     next();
   });
 };
