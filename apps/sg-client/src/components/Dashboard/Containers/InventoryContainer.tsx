@@ -1,6 +1,8 @@
 import { 
   useState,
-  useEffect
+  useEffect,
+  useCallback,
+  useRef
 } from 'react';
 
 import {
@@ -30,6 +32,7 @@ import VehicleList from '../Home/VehicleList';
 import '../../../assets/inventory.css'
 import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
+import { skipToken } from '@reduxjs/toolkit/query'
 
 interface IFilter {
   search: string[];
@@ -57,10 +60,11 @@ const HomeContainer = () => {
 
   const [open, setOpen] = useState(false);
   const [finalUrl, setFinalUrl] = useState('');
+  const [isDebounceComplete, setIsDebounceComplete] = useState(false);
 
   const buildQueryString = (filterObject: any) => {
     const queryParams = [];
-
+    
     for (const key in filterObject) {
 
       if(filterObject[key].length) {
@@ -71,24 +75,26 @@ const HomeContainer = () => {
     return queryParams.join('&');
   }
 
-
-  const debouncedBuildQueryString = debounce((filterObject) => {
+  const delayedBuildQueryString = useRef(debounce((filterObject) => {
     const query = buildQueryString(filterObject)
+    setIsDebounceComplete(true);
     setFinalUrl(query);
-  }, 5000, {
-    // leading: true,
+  }, 1000, {
     trailing: true
-  });
+    }
+  )).current;
 
-  debouncedBuildQueryString(filters)
+  delayedBuildQueryString(filters);
 
   const { 
     data:searchFilters, 
     isLoading 
-  } = useGetFiltersQuery({finalUrl});
+  } = useGetFiltersQuery({finalUrl: finalUrl}, {
+    skip: !isDebounceComplete
+  });
 
   useEffect(() => {
-
+    setIsDebounceComplete(false); 
   },[filters])
 
   const showDrawer = () => {
@@ -206,7 +212,7 @@ const HomeContainer = () => {
       })
     }
   }
-
+  console.log(isLoading)
   if(!searchFilters) {
     return null;
   }
@@ -332,6 +338,7 @@ const HomeContainer = () => {
 
   return (
     <>
+      <Spin spinning={isLoading}> 
       <DashboardContent>
         <div className='inventory-header'>
           <DashboardHeader
@@ -484,6 +491,7 @@ const HomeContainer = () => {
           </Form>
         </div>
       </Drawer>
+      </Spin>
     </>
   );
 }
