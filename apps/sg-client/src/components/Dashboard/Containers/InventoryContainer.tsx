@@ -212,7 +212,6 @@ const HomeContainer = () => {
       })
     }
   }
-  console.log(isLoading)
   if(!searchFilters) {
     return null;
   }
