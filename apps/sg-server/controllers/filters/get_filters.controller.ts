@@ -10,14 +10,11 @@ import {
   filters
 } from '../../services'
 
-
 export default async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-
-  console.log(req.query)
 
   const {
     makes='',
@@ -26,8 +23,6 @@ export default async (
     mileage='',
     years=''
   } = req.query
-
-  console.log(makes.split(','), makes.length)
 
   try {
     const {

@@ -1,7 +1,6 @@
 import { 
   useState,
   useEffect,
-  useCallback,
   useRef
 } from 'react';
 
@@ -16,14 +15,15 @@ import {
   Drawer,
   Affix,
   Spin,
-  Tag
+  Tag,
 } from 'antd';
 const { Search } = Input;
 
 import type { CollapseProps } from 'antd';
 import { Collapse } from 'antd';
 import {
-  useGetFiltersQuery
+  useGetFiltersQuery,
+  useGetVehiclesQuery
 } from '../../../services/api'
 
 import DashboardHeader from '../Layout/DashboardHeader';
@@ -31,8 +31,7 @@ import DashboardContent from '../Layout/DashboardContent';
 import VehicleList from '../Home/VehicleList';
 import '../../../assets/inventory.css'
 import debounce from 'lodash/debounce';
-import throttle from 'lodash/throttle';
-import { skipToken } from '@reduxjs/toolkit/query'
+import ApiLoader from '../../Shared/ApiLoader';
 
 interface IFilter {
   search: string[];
@@ -43,6 +42,7 @@ interface IFilter {
   price: number[];
   mileage: number[];
   years: number[];
+  sort: string[];
 }
 
 const HomeContainer = () => {
@@ -54,8 +54,9 @@ const HomeContainer = () => {
     models: [],
     trims: [],
     price: [0, 1200000],
-    mileage: [20000, 80000],
-    years: [2002, 2015]
+    mileage: [0, 120000],
+    years: [1999, 2024],
+    sort: ['highest-price']
   });
 
   const [open, setOpen] = useState(false);
@@ -79,6 +80,7 @@ const HomeContainer = () => {
     const query = buildQueryString(filterObject)
     setIsDebounceComplete(true);
     setFinalUrl(query);
+    console.log(query)
   }, 1000, {
     trailing: true
     }
@@ -90,6 +92,13 @@ const HomeContainer = () => {
     data:searchFilters, 
     isLoading 
   } = useGetFiltersQuery({finalUrl: finalUrl}, {
+    skip: !isDebounceComplete
+  });
+
+  const { 
+    data: vehicles = [], 
+    isLoading: isVehicleListLoading 
+  } = useGetVehiclesQuery({finalUrl: finalUrl}, {
     skip: !isDebounceComplete
   });
 
@@ -106,6 +115,13 @@ const HomeContainer = () => {
   };
 
   const handleFilter = (values: any, name?: string) => {
+
+    if(name === 'sort') {
+      setFilters({
+        ...filters,
+        sort: [values]
+      })
+    }
 
     if(name === 'search') {
       setFilters({
@@ -131,14 +147,14 @@ const HomeContainer = () => {
     if(name === 'model') {
       setFilters({
         ...filters,
-        models: [ ...values ]
+        models: [ ...values.map((item:string) => JSON.parse(item).name) ],
       })
     }
 
     if(name === 'trim') {
       setFilters({
         ...filters,
-        trims: [ ...values ]
+        trims: [ ...values.map((item:string) => JSON.parse(item).name) ],
       })
     }
 
@@ -212,8 +228,9 @@ const HomeContainer = () => {
       })
     }
   }
+
   if(!searchFilters) {
-    return null;
+    return <ApiLoader/>;
   }
 
   const items: CollapseProps['items'] = [
@@ -256,7 +273,7 @@ const HomeContainer = () => {
           className='.ant-checkbox-group'
           name='model' 
           key={'model'} 
-          options={searchFilters.models.map((model: any) => ({ label: model.name, value: model.name, key: model.model_id }))}
+          options={searchFilters.models.map((model: any) => ({ label: model.name, value: JSON.stringify(model), key: model.model_id }))}
           onChange={(values) => handleFilter(values, 'model')} 
         />
       </Space>,
@@ -270,7 +287,7 @@ const HomeContainer = () => {
           className='.ant-checkbox-group'
           name='trim' 
           key={'trim'} 
-          options={searchFilters.trims.map((trim: any) => ({ label: `${trim.name} (${trim.model_id})`, value: trim.name, key: trim.trim_id }))}
+          options={searchFilters.trims.map((trim: any) => ({ label: `${trim.name} (${trim.model_id})`, value: JSON.stringify(trim), key: trim.trim_id }))}
           onChange={(values) => handleFilter(values, 'trim')} 
         />
       </Space>,
@@ -281,13 +298,12 @@ const HomeContainer = () => {
       children: (
         <div>
           <Space direction='horizontal'>
-            <Input defaultValue={1999}/>
-            <Input defaultValue={2024}/>
+            <Input value={1999}/>
+            <Input value={2024}/>
           </Space>
           <Slider 
             range 
             value={filters.years}
-            defaultValue={[1999, 2024]}
             min={1999} 
             max={2024} 
             onChange={(e) => handleFilter(e, 'years')}
@@ -346,14 +362,15 @@ const HomeContainer = () => {
               <div>
                 <div> Sort by </div>
                 <Select
-                  defaultValue="1"
+                  defaultValue={'highest-price'}
                   style={{ width: 180, height: 40 }}
+                  onChange={(e) => handleFilter(e, 'sort')}
                   options={[
-                    { value: '1', label: 'Highest price' },
-                    { value: '2', label: 'Lowest price' },
-                    { value: '3', label: 'Lowest mileage' },
-                    { value: '4', label: 'Oldest vehicles' },
-                    { value: '5', label: 'Newest vehicles' },
+                    { value: 'highest-price', label: 'Highest price' },
+                    { value: 'lowest-price', label: 'Lowest price' },
+                    { value: 'lowest-mileage', label: 'Lowest mileage' },
+                    { value: 'oldest', label: 'Oldest vehicles' },
+                    { value: 'newest', label: 'Newest vehicles' },
                   ]}
                 />
               </div>,
@@ -368,18 +385,68 @@ const HomeContainer = () => {
               </div>
               <div style={{ flex: 1 }}>
                 <Select
-                  defaultValue="1"
+                  defaultValue={'highest-price'}
                   dropdownStyle={{ backgroundColor: '#f4f4f4' }}
-                  style={{ height: 40, backgroundColor: '#f4f4f4', width: '95%'  }}
+                  style={{ height: 40, backgroundColor: '#f4f4f4', width: '95%' }}
+                  onChange={(e) => handleFilter(e, 'sort')}
                   options={[
-                    { value: '1', label: 'Highest price' },
-                    { value: '2', label: 'Lowest price' },
-                    { value: '3', label: 'Lowest mileage' },
-                    { value: '4', label: 'Oldest vehicles' },
-                    { value: '5', label: 'Newest vehicles' },
+                    { value: 'highest-price', label: 'Highest price' },
+                    { value: 'lowest-price', label: 'Lowest price' },
+                    { value: 'lowest-mileage', label: 'Lowest mileage' },
+                    { value: 'oldest', label: 'Oldest vehicles' },
+                    { value: 'newest', label: 'Newest vehicles' },
                   ]}
                 />
               </div>
+            </div>
+            <div style={{ margin: '0px 0px 0px'}}>  
+              {
+                filters.search.length > 0 && (
+                  <Tag closable onClose={(e) => handleFilter(e, 'search-close')} key={'search'}>
+                    {filters.search}
+                  </Tag>
+                )  
+              }
+              { filters.conditions.length > 0 && (filters.conditions.map((condition) => (
+                <Tag closeIcon onClose={(e) => handleFilter(e, 'conditions-close')} key={condition}>
+                  {condition}
+                </Tag>
+              )))}
+              {
+                filters.makes.length > 0 && (filters.makes.map((make) => (
+                  <Tag closeIcon onClose={(e) => handleFilter(e, 'make-close')} key={make}>
+                    {make}
+                  </Tag>
+                )))
+              }
+              {
+                filters.models.length > 0 && (filters.models.map((model) => (
+                  <Tag closeIcon onClose={(e) => handleFilter(e, 'model-close')} key={model}>
+                    {model}
+                  </Tag>
+                )))
+              }
+              {
+                filters.years.length > 0 && (
+                  <Tag closeIcon onClose={(e) => handleFilter(e, 'years-close')} key={'years'}>
+                    Year {filters.years[0]} - {filters.years[1]}
+                  </Tag>
+                )
+              }
+              {
+                filters.mileage.length > 0 && (
+                  <Tag closeIcon onClose={(e) => handleFilter(e, 'mileage-close')} key={'mileage'}>
+                    Mileage {filters.mileage[0]}km - {filters.mileage[1]}km
+                  </Tag>
+                )
+              }
+              {
+                filters.price.length > 0 && (
+                  <Tag closable onClose={(e) => handleFilter(e, 'price-close')} key={'price'}>
+                    Price {filters.price[0]}km - {filters.price[1]}km
+                  </Tag>
+                )
+              }
             </div>
             <div>
               <p style={{ fontSize: 12, textAlign:'center', paddingBottom: 10, color: '#5c5e62' }}> Showing results for 823 vehicles </p>
@@ -415,7 +482,7 @@ const HomeContainer = () => {
                     </Tag>
                   )))
                 }
-                               {
+                {
                   filters.models.length > 0 && (filters.models.map((model) => (
                     <Tag closeIcon onClose={(e) => handleFilter(e, 'model-close')} key={model}>
                       {model}
@@ -455,7 +522,8 @@ const HomeContainer = () => {
           </div>
           </Spin>
           <VehicleList
-            filters={filters}
+            vehicles={vehicles}
+            isLoading={isVehicleListLoading}
           />
         </div>
       </DashboardContent>
@@ -481,6 +549,55 @@ const HomeContainer = () => {
             <Form.Item name='keyword'>
               <Search placeholder='Make, model, or keyword'/>
             </Form.Item>
+            <div style={{ margin: '5px 0px 5px'}}>  
+              {
+                filters.search.length > 0 && (
+                  <Tag closable onClose={(e) => handleFilter(e, 'search-close')} key={'search'}>
+                    {filters.search}
+                  </Tag>
+                )  
+              }
+              { filters.conditions.length > 0 && (filters.conditions.map((condition) => (
+                <Tag closeIcon onClose={(e) => handleFilter(e, 'conditions-close')} key={condition}>
+                  {condition}
+                </Tag>
+              )))}
+              {
+                filters.makes.length > 0 && (filters.makes.map((make) => (
+                  <Tag closeIcon onClose={(e) => handleFilter(e, 'make-close')} key={make}>
+                    {make}
+                  </Tag>
+                )))
+              }
+              {
+                filters.models.length > 0 && (filters.models.map((model) => (
+                  <Tag closeIcon onClose={(e) => handleFilter(e, 'model-close')} key={model}>
+                    {model}
+                  </Tag>
+                )))
+              }
+              {
+                filters.years.length > 0 && (
+                  <Tag closeIcon onClose={(e) => handleFilter(e, 'years-close')} key={'years'}>
+                    Year {filters.years[0]} - {filters.years[1]}
+                  </Tag>
+                )
+              }
+              {
+                filters.mileage.length > 0 && (
+                  <Tag closeIcon onClose={(e) => handleFilter(e, 'mileage-close')} key={'mileage'}>
+                    Mileage {filters.mileage[0]}km - {filters.mileage[1]}km
+                  </Tag>
+                )
+              }
+              {
+                filters.price.length > 0 && (
+                  <Tag closable onClose={(e) => handleFilter(e, 'price-close')} key={'price'}>
+                    Price {filters.price[0]}km - {filters.price[1]}km
+                  </Tag>
+                )
+              }
+            </div>
             <Collapse 
               defaultActiveKey={['1']} 
               bordered={false} 
