@@ -399,7 +399,7 @@ const HomeContainer = () => {
                 />
               </div>
             </div>
-            <div style={{ margin: '0px 0px 0px'}}>  
+            <div style={{ margin: '0px 0px 0px', flex: 1}}>  
               {
                 filters.search.length > 0 && (
                   <Tag closable onClose={(e) => handleFilter(e, 'search-close')} key={'search'}>
@@ -462,7 +462,7 @@ const HomeContainer = () => {
               style={{ flex: 1, padding: 10}}
             >
               <Search name='search' placeholder='Make, model, or keyword' onSearch={(value, e) => handleFilter(value, 'search')}/>
-              <div style={{ margin: '5px 0px 5px'}}>  
+              <div style={{ margin: '5px 0px 5px', flex: 1}}>  
                 {
                   filters.search.length > 0 && (
                     <Tag closable onClose={(e) => handleFilter(e, 'search-close')} key={'search'}>

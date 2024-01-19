@@ -17,7 +17,7 @@ import {
 } from 'react';
 
 import VehicleCard2 from '../../UI/card/VehicleCard2';
-import ResourceNotFound from '../../Shared/ResourceNotFound';
+import NoMatches from '../../Shared/NoMatches';
 
 interface VehicleListProps {
   vehicles: Vehicle[];
@@ -49,7 +49,7 @@ const VehicleList = ({
   }
 
   if (!vehicles) {
-    return <ResourceNotFound />;
+    return <NoMatches />;
   }
 
   return (
@@ -58,7 +58,7 @@ const VehicleList = ({
         vehicles.length ? vehicles.map((vehicle) => (
           <VehicleCard2 key={vehicle.vehicle_id} vehicle={vehicle} onClick={() => startTransition(() => handleViewVehicle(vehicle.vehicle_id))}/>
         )) : (
-        <ResourceNotFound />
+        <NoMatches />
       )}
     </Space>
   );
