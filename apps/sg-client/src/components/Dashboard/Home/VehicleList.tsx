@@ -15,7 +15,7 @@ import {
   startTransition
 } from 'react';
 
-import VehicleCard2 from '../../UI/card/VehicleCard2';
+import VehicleCard from '../../UI/card/VehicleCard';
 import NoMatches from '../../Shared/NoMatches';
 
 interface VehicleListProps {
@@ -55,7 +55,7 @@ const VehicleList = ({
     <Space direction="horizontal" size="large" style={{ width: '100%', height: '100%' }} wrap>
       {
         vehicles.length ? vehicles.map((vehicle) => (
-          <VehicleCard2 key={vehicle.vehicle_id} vehicle={vehicle} onClick={() => startTransition(() => handleViewVehicle(vehicle.vehicle_id))}/>
+          <VehicleCard key={vehicle.vehicle_id} vehicle={vehicle} onClick={() => startTransition(() => handleViewVehicle(vehicle.vehicle_id))}/>
         )) : (
         <div style={{ 
           flex: 1, 

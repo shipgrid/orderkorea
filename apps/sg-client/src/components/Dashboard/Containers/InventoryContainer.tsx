@@ -36,8 +36,8 @@ import ApiLoader from '../../Shared/ApiLoader';
 interface IFilter {
   search: string[];
   conditions: string[];
-  makes: string[]; // Assuming 'makes' is an array of strings
-  models: string[]; // Assuming 'models' is an array of strings
+  makes: string[]; 
+  models: string[]; 
   trims: string[];
   price: number[];
   mileage: number[];

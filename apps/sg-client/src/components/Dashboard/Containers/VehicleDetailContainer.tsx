@@ -13,14 +13,9 @@ import {
 
 import DashboardHeader from '../Layout/DashboardHeader'
 import DashboardContent from '../Layout/DashboardContent'
-import Grid from '../../Shared/Grid'
 import VehicleDetail from '../VehicleDetail/VehicleDetail'
 import ApiLoader from '../../Shared/ApiLoader'
 import ResourceNotFound from '../../Shared/ResourceNotFound'
-
-import {
-  formatNumberWithCommas
-} from '../../../utils/format_string'
 
 const VehicleDetailContainer = () => {
 

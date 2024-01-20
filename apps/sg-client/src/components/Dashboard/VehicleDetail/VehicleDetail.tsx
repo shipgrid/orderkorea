@@ -1,9 +1,14 @@
+import { 
+  useState
+} from 'react'
+
 import {
   Image,
-  Space,
+  Drawer,
   Tabs,
   Descriptions,
-  Button
+  Button,
+  Space
 } from 'antd'
 
 import type { 
@@ -26,6 +31,7 @@ import {
 import '../../../assets/index.css'
 import '../../../assets/vehicle_detail.css'
 
+
 interface VehicleDetailProps {
   vehicle: Vehicle
 }
@@ -34,9 +40,28 @@ interface VehicleImage {
   image_url: string
 }
 
+const containerStyle: React.CSSProperties = {
+  position: 'relative',
+  height: 200,
+  padding: 48,
+  overflow: 'hidden',
+  // background: token.colorFillAlter,
+  // border: `1px solid ${token.colorBorderSecondary}`,
+  // borderRadius: token.borderRadiusLG,
+};
+
 const VehicleDetail: React.FC<VehicleDetailProps> = ({
   vehicle
 }) => {
+  const [open, setOpen] = useState(false);
+
+  const showDrawer = () => {
+    setOpen(true);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
 
   const mainImage = vehicle.images[0]?.image_url
   const secondaryImagesToShow = vehicle.images.slice(1, Math.min(vehicle.images.length, 6))
@@ -46,12 +71,12 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
     {
       key: '1',
       label: 'VIN Number',
-      children: 'Cloud Database',
+      children: vehicle.vin_number,
     },
     {
       key: '2',
-      label: 'Billing Mode',
-      children: 'Prepaid',
+      label: 'Doors',
+      children: `${vehicle.doors.name} Doors`,
     },
     {
       key: '3',
@@ -105,10 +130,6 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
     },
   ];
 
-  const onChange = (key: string) => {
-    console.log(key);
-  };
-
   return (
     <div className='vehicle-detail'>  
       <div className='vehicle-detail-box'>
@@ -131,23 +152,68 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
             ))}
           </Image.PreviewGroup>
           <div style={{ display: 'grid', gridAutoFlow: 'column', columnGap: 16, width: '100%', marginTop: 10 }}>
-          {secondaryImagesToShow.map((img, index) => (
-            <Space size={'small'}>
-              <Image
-                fallback={fallBackImageUrl}
-                src={img.image_url}
-                style={{ flex: 1 }}
-              />
-            </Space>
-          ))}
+            {secondaryImagesToShow.map((img, index) => (
+              <div key={index}>
+                {index === secondaryImagesToShow.length - 1 ? ( 
+                  <div style={{ position: 'relative' }}>
+                    <Image
+                      fallback={fallBackImageUrl}
+                      src={img.image_url}
+                      style={{ flex: 1 }}
+                    />
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)', 
+                        display: 'flex',
+                        justifyContent: 'center', 
+                        alignItems: 'center', 
+                        cursor: 'pointer'
+                      }}
+                      onClick={() => showDrawer()}
+                    >
+                      <div style={{ color: 'white', fontSize: 14, fontWeight: 600, padding: '0px 8px' }}>{`+${additionalImagesCount}`}</div>
+                    </div>
+                  </div>
+                ) : (
+                  <Image
+                    fallback={fallBackImageUrl}
+                    src={img.image_url}
+                    style={{ flex: 1 }}
+                  />
+                )}
+              </div>
+            ))}
+            <Drawer
+              placement="bottom"
+              closable={true}
+              onClose={onClose}
+              open={open}
+              height={'100%'}
+            >
+              <Space size="large" direction="vertical" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                {vehicle.images.map((img, index) => (
+                  <Image
+                    key={index}
+                    src={img.image_url}
+                    preview={true}
+                    width={'calc(min(470px, 100vw) - 2px)'}
+                  />
+                ))}
+              </Space>
+            </Drawer>
           </div>
         </div>
         <div className='vehicle-detail-box'>
           <div className='vehicle-detail-info'>
-            <div style={{ fontSize: 22, padding: '0px 0px 8px'}}>{vehicle.year} {vehicle.make} {vehicle.model}</div>
+            <div style={{ fontSize: 22, padding: '0px 0px 8px'}}>{vehicle.year} {vehicle.make.name} {vehicle.model.name} {vehicle.trim.name} </div>
             <div style={{ fontSize: 22}}>${vehicle.price}</div>
             <Button type="primary" style={{ marginTop: 24, width: '100%', height: 40, borderRadius: 12 }}> Contact Seller </Button>
-            <Tabs defaultActiveKey="1" items={tabItems} onChange={onChange} style={{ margin: '24px 0px'}}/>
+            <Tabs defaultActiveKey="1" items={tabItems} style={{ margin: '24px 0px'}}/>
           </div>
         </div>
       </div>    

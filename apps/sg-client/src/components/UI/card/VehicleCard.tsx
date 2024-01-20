@@ -1,12 +1,11 @@
-import { 
-  List, 
-  Typography, 
-  Tag, 
-  message,
-  Image,
-} from 'antd'
+import React from 'react';
 
-import '../../../assets/vehicle_card.css'
+import { 
+  Card,
+  Typography, 
+  Image,
+  message,
+} from 'antd'
 
 import { 
   DashboardOutlined, 
@@ -17,34 +16,22 @@ import {
   formatNumberWithCommas
 } from '../../../utils/format_string'
 
+import {
+  Vehicle
+} from '../../../services/api'
+
+import '../../../assets/inventory.css'
+
+const { Meta } = Card;
 const { Text } = Typography
 
+
 interface VehicleCardProps {
-  vehicle: {
-    vehicle_id: number
-    make: string
-    model: string
-    year: string
-    price: string
-    mileage: string 
-    exterior_color: string 
-    interior_color: string 
-    transmission_type: string 
-    doors: number 
-    trim: string 
-    drivetrain: string 
-    vin_number: string | null 
-    is_new: boolean
-    fuel_type: string 
-    description: string 
-    images: {
-      image_url: string
-    }[]
-  },
-  onClick: Function,
+  vehicle: Vehicle,
+  onClick: Function
 }
 
-const VehicleCard: React.FC<VehicleCardProps> = ({ 
+const VehicleCard2: React.FC<VehicleCardProps> = ({
   vehicle, 
   onClick
 }) => {
@@ -53,15 +40,24 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
     vehicle_id, 
     make, 
     model, 
+    transmission,
+    exterior_color,
+    interior_color,
+    trim,
+    images,
+    fuel_type,
+    drivetrain,
     year, 
     vin_number, 
     mileage, 
     price, 
+    doors,
+    is_new,
     description, 
-    images 
   } = vehicle
 
   const mainImageUrl = images[0]?.image_url
+
 
   const handleItemClick = () => {
     onClick(vehicle_id)
@@ -76,63 +72,55 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
   }
 
   return (
-    <List.Item
-      key={vehicle_id}
-      className="card-container"
+    <Card
+      className='inventory-vehicle-card'
+      cover={<Image alt={`${make} ${model}`} src={mainImageUrl}/>}
+      bordered={false}
       onClick={handleItemClick}
+      title={
+        <div style={{ paddingTop: 5, paddingBottom: 5, padding: '16px 8px' }}>
+          <div style={{ display: 'flex', justifyContent:'space-between', flexWrap: 'wrap'}}>
+            <Text strong style={{ fontSize: 16 }}>{`${year}`} {`${make.name}`}</Text>
+            <Text strong style={{ fontSize: 16 }}>USD {`$${formatNumberWithCommas(price)}`}</Text>
+          </div>
+          <div style={{ display: 'flex', justifyContent:'space-between'}}>
+            <Text strong style={{ fontSize: 12, color: 'gray' }}>{`${model.name} ${trim.name}`}</Text>
+          </div>
+          <div style={{ fontSize: 12, color: 'gray', marginTop: 5 }}>
+            <DashboardOutlined style={{ marginRight: '2px' }}/> {`${mileage.toLocaleString()} KM`}
+          </div>
+        </div>
+      }
     >
-      <div className="vehicle-card">
-        <div className="vehicle-image">
-          <Image
-            src={mainImageUrl}
-            alt={`${make} ${model}`}
-          />
-        </div>
-        <div className="vehicle-info">
-          <div className="vehicle-title-container">
-            <Text className="vehicle-title" strong>{`${year} ${make} ${model}`}</Text>
-          </div>
-          <div className="vehicle-details">
-            <Tag color="blue" style={{ marginRight: '8px' }}>
-              <DashboardOutlined style={{ marginRight: '2px' }}/> {`${mileage.toLocaleString()} KM`}
-            </Tag>
-            {vin_number && (
-              <Tag color="red" style={{ cursor: 'pointer' }} onClick={(e) => {
-                e.stopPropagation() 
-                copyToClipboard(vin_number)
-              }}>
+      <Meta 
+        description={
+          <div className='inventory-vehicle-meta'>
+            <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+              <Text style={{marginTop: 3, color: '#5c5e62', fontSize: 12 }}>{exterior_color.name}</Text>
+              <Text style={{marginTop: 3, color: '#5c5e62', fontSize: 12 }}>{interior_color.name}</Text>
+              <Text style={{marginTop: 3, color: '#5c5e62', fontSize: 12 }}>{transmission.name}</Text>
+              <Text style={{marginTop: 3, color: '#5c5e62', fontSize: 12 }}>{fuel_type.name}</Text>
+              <Text style={{marginTop: 3, color: '#5c5e62', fontSize: 12 }}>{drivetrain.name}</Text>
+              <Text style={{marginTop: 3, color: '#5c5e62', fontSize: 12 }}>{doors.name}</Text>
+              <Text style={{marginTop: 3, color: '#5c5e62', fontSize: 12 }}>{is_new}</Text>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+              {vin_number && (<Text style={{marginTop: 3, color: '#5c5e62', fontSize: 12 }}
+                onClick={(e) => {
+                  e.stopPropagation() 
+                  copyToClipboard(vin_number)
+                }}
+              > 
                 {`VIN: ${vin_number}`}
-                <CopyOutlined 
-                  style={{ marginLeft: '8px' }} 
-                />
-              </Tag>
-            )}    
+                <CopyOutlined style={{ marginLeft: '8px' }} />
+              </Text>)}
+              <Text style={{marginTop: 3, color: '#5c5e62', fontSize: 12 }}>{description}</Text>
+            </div>
           </div>
-          <div className="vehicle-description">
-            <Text>{description}</Text>
-          </div>
-        </div>
-        <div className="vehicle-price-container">
-          <Text className="vehicle-price">{`$${formatNumberWithCommas(price)}`}</Text>
-        </div>
-      </div>
-      <div className="additional-images-container">
-        {images.slice(1).map((image, index) => (
-          <Image
-            key={index}
-            width={165}
-            height={90}
-            src={image.image_url}
-            preview={{
-              src: 'https://via.placeholder.com/135x90?text=No+Image?',
-            }}
-            fallback={`https://via.placeholder.com/135x90?text=No+Image`}
-            alt={`Additional view ${index + 1}`}
-          />
-        ))}
-      </div>
-    </List.Item>
-  )
+        } 
+      />
+    </Card>
+  );
 }
 
-export default VehicleCard
+export default VehicleCard2;
