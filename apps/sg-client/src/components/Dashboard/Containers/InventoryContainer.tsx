@@ -80,8 +80,7 @@ const HomeContainer = () => {
     const query = buildQueryString(filterObject)
     setIsDebounceComplete(true);
     setFinalUrl(query);
-    console.log(query)
-  }, 1000, {
+  }, 500, {
     trailing: true
     }
   )).current;
@@ -115,7 +114,7 @@ const HomeContainer = () => {
   };
 
   const handleFilter = (values: any, name?: string) => {
-
+    console.log(values, name)
     if(name === 'sort') {
       setFilters({
         ...filters,
@@ -140,21 +139,21 @@ const HomeContainer = () => {
     if(name === 'make') {
       setFilters({
         ...filters,
-        makes: [ ...values.map((item:string) => JSON.parse(item).name) ],
+        makes: [ ...values ],
       })
     }
 
     if(name === 'model') {
       setFilters({
         ...filters,
-        models: [ ...values.map((item:string) => JSON.parse(item).name) ],
+        models: [ ...values ],
       })
     }
 
     if(name === 'trim') {
       setFilters({
         ...filters,
-        trims: [ ...values.map((item:string) => JSON.parse(item).name) ],
+        trims: [ ...values ],
       })
     }
 
@@ -180,23 +179,34 @@ const HomeContainer = () => {
     }
 
     if(name === 'conditions-close') {
+      const conditions = filters.conditions.filter(item => item !== values);
       setFilters({
         ...filters,
-        conditions: []
+        conditions: conditions
       })
     }
 
     if(name === 'make-close') {
+      const makes = filters.makes.filter(item => item !== values);
       setFilters({
         ...filters,
-        makes: []
+        makes: makes
       })
     }
 
     if(name === 'model-close') {
+      const models = filters.models.filter(item => item !== values);
       setFilters({
         ...filters,
-        models: []
+        models: models
+      })
+    }
+
+    if(name === 'trim-close') {
+      const trims = filters.trims.filter(item => item !== values);
+      setFilters({
+        ...filters,
+        trims: trims
       })
     }
 
@@ -246,6 +256,7 @@ const HomeContainer = () => {
               { label: 'New', value: 'New' },
               { label: 'Used', value: 'Used' }
             ]}
+            value={filters.conditions}
             onChange={(values) => handleFilter(values, 'conditions')} 
           />
         </Space>
@@ -259,8 +270,9 @@ const HomeContainer = () => {
           className='.ant-checkbox-group'
           name='make' 
           key={'make'} 
-          options={searchFilters.makes.map((make) => ({ label: make.name, value: JSON.stringify(make), key: make.make_id }))}
+          options={searchFilters.makes.map((make: any) => ({ label: make.name, value: make.name, key: make.make_id }))}
           onChange={(values) => handleFilter(values, 'make')} 
+          value={filters.makes}
         />
       </Space>,
     },
@@ -273,8 +285,9 @@ const HomeContainer = () => {
           className='.ant-checkbox-group'
           name='model' 
           key={'model'} 
-          options={searchFilters.models.map((model: any) => ({ label: model.name, value: JSON.stringify(model), key: model.model_id }))}
+          options={searchFilters.models.map((model: any) => ({ label: model.name, value: model.name, key: model.model_id }))}
           onChange={(values) => handleFilter(values, 'model')} 
+          value={filters.models}
         />
       </Space>,
     },
@@ -287,8 +300,9 @@ const HomeContainer = () => {
           className='.ant-checkbox-group'
           name='trim' 
           key={'trim'} 
-          options={searchFilters.trims.map((trim: any) => ({ label: `${trim.name} (${trim.model_id})`, value: JSON.stringify(trim), key: trim.trim_id }))}
+          options={searchFilters.trims.map((trim: any) => ({ label: `${trim.name} (${trim.model_id})`, value: trim.name, key: trim.trim_id }))}
           onChange={(values) => handleFilter(values, 'trim')} 
+          value={filters.trims}
         />
       </Space>,
     },
@@ -414,35 +428,42 @@ const HomeContainer = () => {
               )))}
               {
                 filters.makes.length > 0 && (filters.makes.map((make) => (
-                  <Tag closeIcon onClose={(e) => handleFilter(e, 'make-close')} key={make}>
+                  <Tag closeIcon onClose={(e) => handleFilter(make, 'make-close')} key={make}>
                     {make}
                   </Tag>
                 )))
               }
               {
                 filters.models.length > 0 && (filters.models.map((model) => (
-                  <Tag closeIcon onClose={(e) => handleFilter(e, 'model-close')} key={model}>
+                  <Tag closeIcon onClose={(e) => handleFilter(model, 'model-close')} key={model}>
                     {model}
                   </Tag>
                 )))
               }
               {
+                filters.trims.length > 0 && (filters.trims.map((trim) => (
+                  <Tag closeIcon onClose={(e) => handleFilter(trim, 'trim-close')} key={trim}>
+                    {trim}
+                  </Tag>
+                )))
+              }
+              {
                 filters.years.length > 0 && (
-                  <Tag closeIcon onClose={(e) => handleFilter(e, 'years-close')} key={'years'}>
+                  <Tag key={'years'}>
                     Year {filters.years[0]} - {filters.years[1]}
                   </Tag>
                 )
               }
               {
                 filters.mileage.length > 0 && (
-                  <Tag closeIcon onClose={(e) => handleFilter(e, 'mileage-close')} key={'mileage'}>
+                  <Tag key={'mileage'}>
                     Mileage {filters.mileage[0]}km - {filters.mileage[1]}km
                   </Tag>
                 )
               }
               {
                 filters.price.length > 0 && (
-                  <Tag closable onClose={(e) => handleFilter(e, 'price-close')} key={'price'}>
+                  <Tag key={'price'}>
                     Price {filters.price[0]}km - {filters.price[1]}km
                   </Tag>
                 )
@@ -477,35 +498,42 @@ const HomeContainer = () => {
                 )))}
                 {
                   filters.makes.length > 0 && (filters.makes.map((make) => (
-                    <Tag closeIcon onClose={(e) => handleFilter(e, 'make-close')} key={make}>
-                      {make}
+                    <Tag closeIcon onClose={(e) => handleFilter(make, 'make-close')} key={make}>
+                    {make}
                     </Tag>
                   )))
                 }
                 {
                   filters.models.length > 0 && (filters.models.map((model) => (
-                    <Tag closeIcon onClose={(e) => handleFilter(e, 'model-close')} key={model}>
+                    <Tag closeIcon onClose={(e) => handleFilter(model, 'model-close')} key={model}>
                       {model}
                     </Tag>
                   )))
                 }
                 {
+                  filters.trims.length > 0 && (filters.trims.map((trim) => (
+                    <Tag closeIcon onClose={(e) => handleFilter(trim, 'trim-close')} key={trim}>
+                      {trim}
+                    </Tag>
+                  )))
+                }
+                {
                   filters.years.length > 0 && (
-                    <Tag closeIcon onClose={(e) => handleFilter(e, 'years-close')} key={'years'}>
+                    <Tag key={'years'}>
                       Year {filters.years[0]} - {filters.years[1]}
                     </Tag>
                   )
                 }
                 {
                   filters.mileage.length > 0 && (
-                    <Tag closeIcon onClose={(e) => handleFilter(e, 'mileage-close')} key={'mileage'}>
+                    <Tag key={'mileage'}>
                       Mileage {filters.mileage[0]}km - {filters.mileage[1]}km
                     </Tag>
                   )
                 }
                 {
                   filters.price.length > 0 && (
-                    <Tag closable onClose={(e) => handleFilter(e, 'price-close')} key={'price'}>
+                    <Tag key={'price'}>
                       Price {filters.price[0]}km - {filters.price[1]}km
                     </Tag>
                   )
@@ -558,41 +586,41 @@ const HomeContainer = () => {
                 )  
               }
               { filters.conditions.length > 0 && (filters.conditions.map((condition) => (
-                <Tag closeIcon onClose={(e) => handleFilter(e, 'conditions-close')} key={condition}>
+                <Tag closeIcon onClose={(e) => handleFilter(condition, 'conditions-close')} key={condition}>
                   {condition}
                 </Tag>
               )))}
               {
                 filters.makes.length > 0 && (filters.makes.map((make) => (
-                  <Tag closeIcon onClose={(e) => handleFilter(e, 'make-close')} key={make}>
+                  <Tag closeIcon onClose={(e) => handleFilter(make, 'make-close')} key={make}>
                     {make}
                   </Tag>
                 )))
               }
               {
                 filters.models.length > 0 && (filters.models.map((model) => (
-                  <Tag closeIcon onClose={(e) => handleFilter(e, 'model-close')} key={model}>
+                  <Tag closeIcon onClose={(e) => handleFilter(model, 'model-close')} key={model}>
                     {model}
                   </Tag>
                 )))
               }
               {
                 filters.years.length > 0 && (
-                  <Tag closeIcon onClose={(e) => handleFilter(e, 'years-close')} key={'years'}>
+                  <Tag key={'years'}>
                     Year {filters.years[0]} - {filters.years[1]}
                   </Tag>
                 )
               }
               {
                 filters.mileage.length > 0 && (
-                  <Tag closeIcon onClose={(e) => handleFilter(e, 'mileage-close')} key={'mileage'}>
+                  <Tag key={'mileage'}>
                     Mileage {filters.mileage[0]}km - {filters.mileage[1]}km
                   </Tag>
                 )
               }
               {
                 filters.price.length > 0 && (
-                  <Tag closable onClose={(e) => handleFilter(e, 'price-close')} key={'price'}>
+                  <Tag key={'price'}>
                     Price {filters.price[0]}km - {filters.price[1]}km
                   </Tag>
                 )

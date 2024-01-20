@@ -9,7 +9,6 @@ import {
 
 import {
   Vehicle,
-  useGetVehiclesQuery
 } from '../../../services/api'
 
 import {
@@ -58,7 +57,13 @@ const VehicleList = ({
         vehicles.length ? vehicles.map((vehicle) => (
           <VehicleCard2 key={vehicle.vehicle_id} vehicle={vehicle} onClick={() => startTransition(() => handleViewVehicle(vehicle.vehicle_id))}/>
         )) : (
-        <NoMatches />
+        <div style={{ 
+          flex: 1, 
+          border: '1px solid #d9d9d9',
+          maxWidth: '100%'
+        }}>
+          <NoMatches />
+        </div>
       )}
     </Space>
   );

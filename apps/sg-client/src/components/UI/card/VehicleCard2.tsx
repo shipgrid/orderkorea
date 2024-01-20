@@ -74,7 +74,7 @@ const VehicleCard2: React.FC<VehicleCardProps> = ({
   return (
     <Card
       className='inventory-vehicle-card'
-      cover={<Image alt={`${make} ${model}`} src={mainImageUrl} />}
+      cover={<Image alt={`${make} ${model}`} src={mainImageUrl}/>}
       bordered={false}
       onClick={handleItemClick}
       title={
