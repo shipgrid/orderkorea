@@ -9,6 +9,8 @@ import * as thirdParties from './third_parties';
 import * as firebase from './vendors/firebase';
 import * as documents from './documents';
 import * as filters from './filters'
+import * as checkout from './checkout'
+import * as stripe from './vendors/stripe'
 
 export { account };
 export { users };
@@ -21,3 +23,5 @@ export { thirdParties };
 export { firebase };
 export { documents };
 export { filters };
+export { stripe };
+export { checkout };

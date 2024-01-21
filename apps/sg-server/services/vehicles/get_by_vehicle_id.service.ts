@@ -25,6 +25,8 @@ export default async ({
         .joinRelated('transmission')
         .joinRelated('drivetrain')
         .joinRelated('doors')
+        .joinRelated('cylinders')
+        .joinRelated('fees')
         .withGraphFetched('make(selectMake)')
         .withGraphFetched('model(selectModel)')
         .withGraphFetched('trim(selectTrim)')
@@ -35,6 +37,8 @@ export default async ({
         .withGraphFetched('interior_color(selectColor)')
         .withGraphFetched('transmission(selectTransmission)')
         .withGraphFetched('drivetrain(selectDrivetrain)')
+        .withGraphFetched('cylinders(selectCylinder)')
+        .withGraphFetched('fees(selectFees)')
         .withGraphFetched('images(selectImages)')
         .modifiers({
           selectMake(builder) {
@@ -67,13 +71,18 @@ export default async ({
           selectImages(builder) {
             builder.select('image_url')
           },
+          selectCylinder(builder) {
+            builder.select('cylinder_id', 'name')
+          },
+          selectFees(builder) {
+            builder.select('fee_id', 'vehicle_price', 'delivery_fee', 'service_fee', 'deposit_percentage')
+          }
         })
         .select(
           'vehicle_id',
           'year',
           'vin_number',
           'is_new',
-          'price',
           'mileage',
         )
         .findById(vehicle_id)

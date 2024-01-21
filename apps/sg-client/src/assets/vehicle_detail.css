@@ -1,25 +1,26 @@
 .vehicle-detail {
   display: flex; 
   margin: 64px 0px; 
-  justify-content: center;
+  flex-direction: column;
+  border-radius: 12px;
+  background-color: white; 
 }
 
 .vehicle-detail-box {
   display:flex; 
-  max-width: 1200px; 
-  background-color: white; 
   padding: 24px 24px;
-  border-radius: 12px;
+  flex: 1;
 }
 
 .vehicle-detail-images {
   flex: 1;
-  max-width: 542px;
+  max-width: 800px;
   width: 100%
 }
 
 .vehicle-detail-info {
-  margin: 12px 40px
+  margin: 12px 40px;
+  flex: 1;
 }
 
 @media (max-width: 1024px) {
@@ -29,7 +30,7 @@
 
   .vehicle-detail-images {
     flex: 1;
-    max-width: 542px;
+    max-width: 800px;
     width: 100%;
   }
 

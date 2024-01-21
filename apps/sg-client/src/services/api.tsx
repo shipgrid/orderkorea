@@ -50,6 +50,9 @@ export interface Vehicle {
   drivetrain: Drivetrain; 
   fuel_type: FuelType; 
   images: VehicleImage[]
+  cylinders: Cylinder,
+  body_style: BodyStyle, 
+  fees: Fee,
   year: string;
   price: string;
   mileage: string; 
@@ -284,6 +287,14 @@ export interface Transmission {
   deleted_on?: string | null;
 }
 
+export interface Cylinder {
+  cylinder_id: number; 
+  name: string; 
+  created_on?: string;
+  updated_on?: string;
+  deleted_on?: string | null;
+}
+
 export interface Trim {
   trim_id: number; 
   model_id: number;
@@ -293,7 +304,26 @@ export interface Trim {
   deleted_on?: string | null;
 }
 
-interface Filter {
+export interface BodyStyle { 
+  body_style_id: number; 
+  name: string; 
+  created_on?: string;
+  updated_on?: string;
+  deleted_on?: string | null;
+}
+
+export interface Fee {
+  fee_id: number; 
+  vehicle_price: number; 
+  delivery_fee: number; 
+  service_fee: number;
+  deposit_percentage: number; 
+  created_on?: string;
+  updated_on?: string;
+  deleted_on?: string | null;
+}
+
+export interface Filter {
   makes: Make[],
   models: Model[],
   trims: Trim[],
@@ -304,6 +334,10 @@ interface Filter {
   colors: Color[],
   drivetrains: Drivetrain[], 
   cylinders: Cylinder[]
+}
+
+interface CheckoutResponse {
+  client_secret: string;
 }
 
 const baseQuery = fetchBaseQuery({
@@ -357,7 +391,7 @@ const baseQueryWithReauth: BaseQueryFn<
 
 const api = createApi({
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['orders', 'order', 'vehicles', 'thirdParties', 'addresses', 'documents', 'filters'],
+  tagTypes: ['orders', 'order', 'vehicles', 'thirdParties', 'addresses', 'documents', 'filters', 'checkout'],
   endpoints: (build) => ({
     firebaseLogin: build.mutation<ApiResponse, FirebaseLogin>({
       query: (body) => ({
@@ -385,6 +419,12 @@ const api = createApi({
       }),
       transformResponse: (response: { data: any }, _, _args) => response.data,
       transformErrorResponse: (error: any) => error.data,
+    }),
+    checkout: build.query({
+      query: (body) => `checkout/${body.vehicle_id}`,
+      transformResponse: (response: { data: CheckoutResponse }) => response.data,
+      transformErrorResponse: (error: any) => error.data,
+      providesTags: ['checkout'],
     }),
     getOrders: build.query({
       query: () => 'orders',
@@ -514,7 +554,8 @@ const {
   useUploadMutation,
   useCreateOrderMutation,
   useFirebaseLoginMutation,
-  useGetFiltersQuery
+  useGetFiltersQuery,
+  useCheckoutQuery
 } = api
 
 export {
@@ -535,6 +576,7 @@ export {
   useUploadMutation,
   useCreateOrderMutation,
   useFirebaseLoginMutation,
-  useGetFiltersQuery
+  useGetFiltersQuery,
+  useCheckoutQuery
 }
 

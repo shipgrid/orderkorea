@@ -5,21 +5,24 @@ import Vehicle from './vehicle'
 Model.knex(knexClient);
 
 // Define an interface that represents your Vehicle model properties
-interface Cylinder {
-  cylinder_id: number; 
-  name: string;
+interface Fee {
+  fee_id: number; 
+  vehicle_price: number;
+  service_fee: number;
+  delivery_fee: number | null;
+  deposit_percentage: number;
   created_on: string;
   updated_on: string;
   deleted_on: string | null;
 }
 
-class Cylinder extends Model implements Cylinder {
+class Fee extends Model implements Fee {
   static get tableName() {
-    return 'cylinders'; 
+    return 'fees'; 
   }
 
   static get idColumn() {
-    return 'cylinder_id';
+    return 'fee_id';
   }
 
   static get relationMappings() {
@@ -28,8 +31,8 @@ class Cylinder extends Model implements Cylinder {
         relation: Model.HasManyRelation,
         modelClass: Vehicle,
         join: {
-          from: 'cylinders.cylinder_id',
-          to: 'vehicles.cylinder_id',
+          from: 'fees.fee_id',
+          to: 'vehicles.fee_id',
         },
       }
     };
@@ -42,8 +45,11 @@ class Cylinder extends Model implements Cylinder {
         'name',
       ],
       properties: {
-        cylinder_id: { type: 'integer' },
-        name: { type: 'string' },
+        fee_id: { type: 'integer' },
+        vehicle_price: { type: 'float' },
+        delivery_fee: { type: 'float' },
+        service_fee: { type: 'float' },
+        deposit_percentage: { type: 'float' },
         created_on: { type: 'string' },
         updated_on: { type: 'string' },
         deleted_on: { type: ['string', 'null'] },
@@ -52,4 +58,4 @@ class Cylinder extends Model implements Cylinder {
   }
 }
 
-export default Cylinder;
+export default Fee;

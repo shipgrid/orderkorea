@@ -45,6 +45,7 @@ export default async ({
         .joinRelated('transmission')
         .joinRelated('drivetrain')
         .joinRelated('doors')
+        .joinRelated('fees')
         .withGraphFetched('make(selectMake)')
         .withGraphFetched('model(selectModel)')
         .withGraphFetched('trim(selectTrim)')
@@ -56,6 +57,8 @@ export default async ({
         .withGraphFetched('transmission(selectTransmission)')
         .withGraphFetched('drivetrain(selectDrivetrain)')
         .withGraphFetched('images(selectImages)')
+        .withGraphFetched('cylinders(selectCylinder)')
+        .withGraphFetched('fees(selectFees)')
         .modifiers({
           selectMake(builder) {
             builder.select('make_id', 'name')
@@ -87,13 +90,18 @@ export default async ({
           selectImages(builder) {
             builder.select('image_url')
           },
+          selectCylinder(builder) {
+            builder.select('cylinder_id', 'name')
+          },
+          selectFees(builder) {
+            builder.select('fee_id', 'vehicle_price', 'delivery_fee', 'service_fee', 'deposit_percentage')
+          }
         })
         .select(
           'vehicle_id',
           'year',
           'vin_number',
           'is_new',
-          'price',
           'mileage',
         )
 
@@ -108,11 +116,11 @@ export default async ({
 
         if(sortFilter.length) {
           if(sortFilter.includes('highest-price')) {
-            vehiclesQuery.orderBy('price', 'desc')
+            vehiclesQuery.orderBy('fees.vehicle_price', 'desc')
           }
 
           if(sortFilter.includes('lowest-price')) {
-            vehiclesQuery.orderBy('price', 'asc')
+            vehiclesQuery.orderBy('fees.vehicle_price', 'asc')
           }
 
           if(sortFilter.includes('lowest-mileage')) {
@@ -153,7 +161,7 @@ export default async ({
         }
 
         if(priceFilter.length > 1) {
-          vehiclesQuery.whereBetween('price', [priceFilter[0], priceFilter[1]])
+          vehiclesQuery.whereBetween('fees.vehicle_price', [priceFilter[0], priceFilter[1]])
         }
 
         if(mileageFilter.length > 1) {

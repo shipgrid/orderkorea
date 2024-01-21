@@ -470,7 +470,7 @@ const HomeContainer = () => {
               }
             </div>
             <div>
-              <p style={{ fontSize: 12, textAlign:'center', paddingBottom: 10, color: '#5c5e62' }}> Showing results for 823 vehicles </p>
+              <p style={{ fontSize: 12, textAlign:'center', paddingBottom: 10, color: '#5c5e62' }}> Showing results for { vehicles.length ?? 0 } vehicles </p>
             </div>
     
           </div>
@@ -492,7 +492,7 @@ const HomeContainer = () => {
                   )  
                 }
                 { filters.conditions.length > 0 && (filters.conditions.map((condition) => (
-                  <Tag closeIcon onClose={(e) => handleFilter(e, 'conditions-close')} key={condition}>
+                  <Tag closeIcon onClose={(e) => handleFilter(condition, 'conditions-close')} key={condition}>
                     {condition}
                   </Tag>
                 )))}

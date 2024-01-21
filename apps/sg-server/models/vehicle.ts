@@ -10,6 +10,8 @@ import Door from './door';
 import Transmission from './transmission';
 import Color from './color';
 import Drivetrain from './drivetrain';
+import Cylinder from './cylinder'
+import Fee from './fee'
 
 Model.knex(knexClient);
 
@@ -135,6 +137,22 @@ class Vehicle extends Model implements Vehicle {
           from: 'vehicles.door_id',
           to: 'doors.door_id',
         }
+      },
+      cylinders: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Cylinder,
+        join: {
+          from: 'vehicles.cylinder_id',
+          to: 'cylinders.cylinder_id',
+        }
+      },
+      fees: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Fee,
+        join: {
+          from: 'vehicles.fee_id',
+          to: 'fees.fee_id',
+        }
       }
     };
   }
@@ -146,7 +164,6 @@ class Vehicle extends Model implements Vehicle {
         'make', 
         'model', 
         'year', 
-        'price', 
         'mileage', 
         'exterior_color', 
         'transmission_type', 
@@ -156,17 +173,18 @@ class Vehicle extends Model implements Vehicle {
       properties: {
         vehicle_id: { type: 'integer' },
         order_id: { type: 'integer' },
-        make: { type: 'string', minLength: 1, maxLength: 255 },
-        model: { type: 'string', minLength: 1, maxLength: 255 },
-        year: { type: 'string', minLength: 1, maxLength: 255 },
-        price: { type: 'number' },
+        make_id:  { type: 'integer' },
+        model_id:  { type: 'integer' },
+        year:  { type: 'integer' },
         mileage: { type: 'number' },
-        exterior_color: { type: 'string', minLength: 1, maxLength: 255 },
-        interior_color: { type: 'string', minLength: 1, maxLength: 255 },
-        transmission_type: { type: 'string', minLength: 1, maxLength: 255 },
-        doors: { type: 'integer', minLength: 2, maxLength: 5 },
-        trim: { type: 'string', minLength: 1, maxLength: 255 },
-        drivetrain: { type: 'string', minLength: 1, maxLength: 255 },
+        exterior_color_id:  { type: 'integer' },
+        interior_color_id:  { type: 'integer' },
+        transmission_id:  { type: 'integer' },
+        door_id: { type: 'integer', minLength: 2, maxLength: 5 },
+        trim_id:  { type: 'integer' },
+        drivetrain_id:  { type: 'integer' },
+        cylinder_id:  { type: 'integer' },
+        fee_id:  { type: 'integer' },
         vin_number: { type: ['string', 'null'], minLength: 1, maxLength: 255 },
         is_new: { type: 'number' },
         description: { type: 'string' },

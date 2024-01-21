@@ -1,19 +1,16 @@
 import { 
-  useState
+  useState,
+  startTransition
 } from 'react'
 
 import {
   Image,
   Drawer,
   Tabs,
-  Descriptions,
   Button,
-  Space
+  Space,
+  Divider
 } from 'antd'
-
-import type { 
-  DescriptionsProps 
-} from 'antd';
 
 import type { 
   TabsProps 
@@ -27,6 +24,9 @@ import {
   fallBackImageUrl
 } from '../../../data'
 
+import {
+  useNavigate
+} from 'react-router-dom'
 
 import '../../../assets/index.css'
 import '../../../assets/vehicle_detail.css'
@@ -40,20 +40,11 @@ interface VehicleImage {
   image_url: string
 }
 
-const containerStyle: React.CSSProperties = {
-  position: 'relative',
-  height: 200,
-  padding: 48,
-  overflow: 'hidden',
-  // background: token.colorFillAlter,
-  // border: `1px solid ${token.colorBorderSecondary}`,
-  // borderRadius: token.borderRadiusLG,
-};
-
 const VehicleDetail: React.FC<VehicleDetailProps> = ({
   vehicle
 }) => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate()
 
   const showDrawer = () => {
     setOpen(true);
@@ -66,158 +57,236 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
   const mainImage = vehicle.images[0]?.image_url
   const secondaryImagesToShow = vehicle.images.slice(1, Math.min(vehicle.images.length, 6))
   const additionalImagesCount = vehicle.images.length > 4 ? vehicle.images.length - 4 : 0
-
-  const items: DescriptionsProps['items'] = [
-    {
-      key: '1',
-      label: 'VIN Number',
-      children: vehicle.vin_number,
-    },
-    {
-      key: '2',
-      label: 'Doors',
-      children: `${vehicle.doors.name} Doors`,
-    },
-    {
-      key: '3',
-      label: 'Automatic Renewal',
-      children: 'YES',
-    },
-    {
-      key: '4',
-      label: 'Order time',
-      children: '2018-04-24 18:00:00',
-    },
-    {
-      key: '5',
-      label: 'Usage Time',
-      children: '2019-04-24 18:00:00',
-      span: 2,
-    },
-    {
-      key: '7',
-      label: 'Negotiated Amount',
-      children: '$80.00',
-    },
-    {
-      key: '8',
-      label: 'Discount',
-      children: '$20.00',
-    },
-    {
-      key: '9',
-      label: 'Official Receipts',
-      children: '$60.00',
-    },
-
-  ];
-
+  
   const tabItems: TabsProps['items'] = [
+    // {
+    //   key: '1',
+    //   label: 'Overview',
+    //   children: <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+    //     <div style={{ display: 'flex', flexDirection: 'column' }}>
+    //       <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 18px' }}>
+    //         <div style={{ margin: 5 }}> <PiEngine style={{ fontSize: 22, color: 'gray' }}/> </div>
+    //         <div style={{ margin: 5 }}> {vehicle.transmission.name} {vehicle.drivetrain.name} { vehicle.cylinders.name }  </div>
+    //       </div>
+    //       <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 18px' }}>
+    //         <div style={{ margin: 5 }}> <LuFuel style={{ fontSize: 22, color: 'gray' }}/> </div>
+    //         <div style={{ margin: 5 }}> { vehicle.fuel_type.name }  </div>
+    //       </div>
+    //       <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 18px' }}>
+    //         <div style={{ margin: 5 }}> <IoKeyOutline style={{ fontSize: 22, color: 'gray' }}/> </div>
+    //         <div style={{ margin: 5 }}> { vehicle.is_new ? 'New' : 'Used' } </div>
+    //       </div>
+    //     </div>
+    //     <div style={{ display: 'flex', flexDirection: 'column' }}>
+    //       <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 18px' }}>
+    //         <div style={{ margin: 5 }}> <IoSpeedometerOutline style={{ fontSize: 22, color: 'gray' }}/> </div>
+    //         <div style={{ margin: 5 }}> { vehicle.mileage } km </div>
+    //       </div>
+    //       <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 18px' }}>
+    //         <div style={{ margin: 5 }}> <MdAirlineSeatReclineExtra style={{ fontSize: 22, color: 'gray' }}/> </div>
+    //         <div style={{ margin: 5 }}> { vehicle.doors.name } Seats </div>
+    //       </div>
+    //     </div>
+    //   </div>,
+    // },
     {
       key: '1',
       label: 'Specs',
-      children: <Descriptions bordered items={items} column={1} size={'small'}/>
+      children: <div style={{ flex: 1 }}>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
+            <div> VIN </div>
+            <div> { vehicle.vin_number } </div>
+          </div>
+          <Divider style={{ margin: '10px 0px 10px' }}/>
+          <div style={{ display: 'flex', flexDirection: 'row', margin: '5px 0px 0px', justifyContent: 'space-between' }}>
+            <div> Exterior </div>
+            <div> { vehicle.exterior_color.name } </div>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
+            <div> Interior </div>
+            <div> { vehicle.interior_color.name } </div>
+          </div>
+          <Divider style={{ margin: '10px 0px 10px' }}/>
+          <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
+            <div> Mileage </div>
+            <div> { vehicle.mileage } km</div>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
+            <div> Year </div>
+            <div> { vehicle.year } </div>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'row', margin: '5px 0px 0px', justifyContent: 'space-between' }}>
+            <div> Make </div>
+            <div> { vehicle.make.name } </div>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
+            <div> Model </div>
+            <div> { vehicle.model.name } </div>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
+            <div> Trim </div>
+            <div> { vehicle.trim.name } </div>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
+            <div> Body Style </div>
+            <div> { vehicle.body_style.name } </div>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
+            <div> Doors </div>
+            <div> { vehicle.doors.name } </div>
+          </div>
+          <Divider style={{ margin: '10px 0px 10px' }}/>
+          <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
+            <div> Transmission </div>
+            <div> { vehicle.transmission.name } </div>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
+            <div> Cylinders </div>
+            <div> { vehicle.cylinders.name } </div>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
+            <div> Drivetrain </div>
+            <div> { vehicle.drivetrain.name } </div>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
+            <div> Fuel Type </div>
+            <div> { vehicle.fuel_type.name } </div>
+          </div>
+        </div>
+      </div>
     },
     {
       key: '2',
-      label: 'Overview',
-      children: 'Content of Tab Pane 2',
-    },
-    {
-      key: '3',
-      label: 'Disclosure',
-      children: 'Content of Tab Pane 3',
+      label: 'Pricing (USD)',
+      children: <div style={{ flex: 1 }}>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
+            <div> Vehicle Price </div>
+            <div> ${ vehicle.fees.vehicle_price } </div>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
+            <div> Service Fee </div>
+            <div> ${ vehicle.fees.service_fee } </div>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
+            <div> Delivery Fee </div>
+            <div> { vehicle.fees.delivery_fee ? `$${vehicle.fees.delivery_fee}` : `TBD` } </div>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
+            <div style={{ fontWeight: 'bold' }}> Subtotal </div>
+            <div> TBD + Delivery </div>
+          </div>
+          <Divider style={{ margin: '20px 0px 20px' }}> Due Now </Divider>
+          <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
+            <div> Deposit </div>
+            <div> ${ vehicle.fees.vehicle_price * vehicle.fees.deposit_percentage } </div>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
+            <div> Service Fee </div>
+            <div> ${vehicle.fees.service_fee} </div>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
+            <div style={{ fontWeight: 'bold' }}> Total Due </div>
+            <div> ${ (vehicle.fees.vehicle_price * vehicle.fees.deposit_percentage)*1 + vehicle.fees.service_fee*1 } </div>
+          </div>
+        </div>
+      </div>
     },
   ];
 
   return (
-    <div className='vehicle-detail'>  
-      <div className='vehicle-detail-box'>
-        <div className='vehicle-detail-images'>
-          <Image.PreviewGroup
-            items={vehicle.images.map((img: VehicleImage) => ({ src: img.image_url }))}
-            fallback={fallBackImageUrl}
-          >
-            <Image 
-              fallback={fallBackImageUrl} 
-              src={mainImage} 
-              width={'100%'}
-            />
-            {vehicle.images.slice(1).map((img, index) => (
-              <Image
-                key={index}
-                src={img.image_url}
-                style={{ display: 'none' }} 
-              />
-            ))}
-          </Image.PreviewGroup>
-          <div style={{ display: 'grid', gridAutoFlow: 'column', columnGap: 16, width: '100%', marginTop: 10 }}>
-            {secondaryImagesToShow.map((img, index) => (
-              <div key={index}>
-                {index === secondaryImagesToShow.length - 1 ? ( 
-                  <div style={{ position: 'relative' }}>
-                    <Image
-                      fallback={fallBackImageUrl}
-                      src={img.image_url}
-                      style={{ flex: 1 }}
-                    />
-                    <div
-                      style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                        backgroundColor: 'rgba(0, 0, 0, 0.5)', 
-                        display: 'flex',
-                        justifyContent: 'center', 
-                        alignItems: 'center', 
-                        cursor: 'pointer'
-                      }}
-                      onClick={() => showDrawer()}
-                    >
-                      <div style={{ color: 'white', fontSize: 14, fontWeight: 600, padding: '0px 8px' }}>{`+${additionalImagesCount}`}</div>
-                    </div>
-                  </div>
-                ) : (
-                  <Image
-                    fallback={fallBackImageUrl}
-                    src={img.image_url}
-                    style={{ flex: 1 }}
-                  />
-                )}
-              </div>
-            ))}
-            <Drawer
-              placement="bottom"
-              closable={true}
-              onClose={onClose}
-              open={open}
-              height={'100%'}
-            >
-              <Space size="large" direction="vertical" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                {vehicle.images.map((img, index) => (
+    <>
+      <div style={{ display: 'flex', justifyContent: 'center'}}>
+        <div className='vehicle-detail'>  
+          <div className='vehicle-detail-box'>
+            <div className='vehicle-detail-images'>
+              <Image.PreviewGroup
+                items={vehicle.images.map((img: VehicleImage) => ({ src: img.image_url }))}
+                fallback={fallBackImageUrl}
+              >
+                <Image 
+                  fallback={fallBackImageUrl} 
+                  src={mainImage} 
+                  width={'100%'}
+                />
+                {vehicle.images.slice(1).map((img, index) => (
                   <Image
                     key={index}
                     src={img.image_url}
-                    preview={true}
-                    width={'calc(min(470px, 100vw) - 2px)'}
+                    style={{ display: 'none' }} 
                   />
                 ))}
-              </Space>
-            </Drawer>
-          </div>
+              </Image.PreviewGroup>
+              <div style={{ display: 'grid', gridAutoFlow: 'column', columnGap: 16, width: '100%', marginTop: 10 }}>
+                {secondaryImagesToShow.map((img, index) => (
+                  <div key={index}>
+                    {index === secondaryImagesToShow.length - 1 ? ( 
+                      <div style={{ position: 'relative' }}>
+                        <Image
+                          fallback={fallBackImageUrl}
+                          src={img.image_url}
+                          style={{ flex: 1 }}
+                        />
+                        <div
+                          style={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            width: '100%',
+                            height: '100%',
+                            backgroundColor: 'rgba(0, 0, 0, 0.5)', 
+                            display: 'flex',
+                            justifyContent: 'center', 
+                            alignItems: 'center', 
+                            cursor: 'pointer'
+                          }}
+                          onClick={() => showDrawer()}
+                        >
+                          <div style={{ color: 'white', fontSize: 14, fontWeight: 600, padding: '0px 8px' }}>{`+${additionalImagesCount}`}</div>
+                        </div>
+                      </div>
+                    ) : (
+                      <Image
+                        fallback={fallBackImageUrl}
+                        src={img.image_url}
+                        style={{ flex: 1 }}
+                      />
+                    )}
+                  </div>
+                ))}
+                <Drawer
+                  placement="bottom"
+                  closable={true}
+                  onClose={onClose}
+                  open={open}
+                  height={'100%'}
+                >
+                  <Space size="large" direction="vertical" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    {vehicle.images.map((img, index) => (
+                      <Image
+                        key={index}
+                        src={img.image_url}
+                        preview={true}
+                        width={'calc(min(470px, 100vw) - 2px)'}
+                      />
+                    ))}
+                  </Space>
+                </Drawer>
+              </div>
+            </div>
+            <div className='vehicle-detail-box'>
+              <div className='vehicle-detail-info'>
+                <div style={{ fontSize: 22, padding: '0px 0px 8px'}}>{vehicle.year} {vehicle.make.name} {vehicle.model.name} {vehicle.trim.name} </div>
+                <div style={{ fontSize: 22}}>${vehicle.fees.vehicle_price}</div>
+                <Button type="primary" style={{ marginTop: 24, width: '100%', height: 40, borderRadius: 12 }} onClick={() => startTransition(() => navigate(`/checkout?vehicle_id=${vehicle.vehicle_id}`))}> Order Now </Button>
+                <Tabs defaultActiveKey="1" items={tabItems} style={{ margin: '24px 0px'}}/>
+              </div>
+            </div>
+          </div>  
         </div>
-        <div className='vehicle-detail-box'>
-          <div className='vehicle-detail-info'>
-            <div style={{ fontSize: 22, padding: '0px 0px 8px'}}>{vehicle.year} {vehicle.make.name} {vehicle.model.name} {vehicle.trim.name} </div>
-            <div style={{ fontSize: 22}}>${vehicle.price}</div>
-            <Button type="primary" style={{ marginTop: 24, width: '100%', height: 40, borderRadius: 12 }}> Contact Seller </Button>
-            <Tabs defaultActiveKey="1" items={tabItems} style={{ margin: '24px 0px'}}/>
-          </div>
-        </div>
-      </div>    
-    </div>
+      </div>
+    </>
   )
 }
 
