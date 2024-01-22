@@ -169,7 +169,7 @@ export interface CreateOrderParams {
   loaded_on: string | null;
   thirdParties: CreateThirdPartyBody[];
   documents: CreateDocumentBody[];
-  vehicles: CreateVehicleBody[];
+  reservations: CreateReservationBody[];
 }
 
 export interface CreateThirdPartyBody {
@@ -191,6 +191,10 @@ export interface CreateAddressBody {
 
 export interface CreateDocumentBody {
   file_url: number;
+}
+
+export interface CreateReservationBody {
+  vehicle_id: number;
 }
 
 export interface CreateVehicleBody {
@@ -317,7 +321,7 @@ export interface Fee {
   vehicle_price: number; 
   delivery_fee: number; 
   service_fee: number;
-  deposit_percentage: number; 
+  deposit_fee: number; 
   created_on?: string;
   updated_on?: string;
   deleted_on?: string | null;
@@ -338,6 +342,22 @@ export interface Filter {
 
 interface CheckoutResponse {
   client_secret: string;
+}
+
+interface CheckoutStatusResponse {
+  status: string;
+  customer_email: string;
+}
+
+export interface Reservation {
+  reservation_id: number; 
+  vehicle_id: number; 
+  customer_id: number; 
+  order_id: number; 
+  vehicle: Vehicle;
+  created_on?: string;
+  updated_on?: string;
+  deleted_on?: string | null;
 }
 
 const baseQuery = fetchBaseQuery({
@@ -391,7 +411,17 @@ const baseQueryWithReauth: BaseQueryFn<
 
 const api = createApi({
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['orders', 'order', 'vehicles', 'thirdParties', 'addresses', 'documents', 'filters', 'checkout'],
+  tagTypes: [
+    'orders', 
+    'order', 
+    'vehicles', 
+    'thirdParties', 
+    'addresses', 
+    'documents', 
+    'filters', 
+    'checkout',
+    'reservations'
+  ],
   endpoints: (build) => ({
     firebaseLogin: build.mutation<ApiResponse, FirebaseLogin>({
       query: (body) => ({
@@ -426,6 +456,12 @@ const api = createApi({
       transformErrorResponse: (error: any) => error.data,
       providesTags: ['checkout'],
     }),
+    getCheckoutStatus: build.query({
+      query: (body) => `checkout/status/${body.sessionId}`,
+      transformResponse: (response: { data: CheckoutStatusResponse }) => response.data,
+      transformErrorResponse: (error: any) => error.data,
+      providesTags: ['checkout'],
+    }),
     getOrders: build.query({
       query: () => 'orders',
       transformResponse: (response: { data: Order[] }) => response.data,
@@ -441,6 +477,12 @@ const api = createApi({
       query: (orderId) => `orders/${orderId}`,
       transformResponse: (response: { data: Order }, _, _args) => response.data,
       providesTags: ['order'],
+    }),
+    getReservations: build.query({
+      query: () => 'reservations',
+      transformResponse: (response: { data: Reservation[] }) => response.data,
+      transformErrorResponse: (error: any) => error.data,
+      providesTags: ['reservations'],
     }),
     updateOrder: build.mutation<ApiResponse, Order>({
       query: (body) => ({
@@ -555,7 +597,9 @@ const {
   useCreateOrderMutation,
   useFirebaseLoginMutation,
   useGetFiltersQuery,
-  useCheckoutQuery
+  useCheckoutQuery,
+  useGetCheckoutStatusQuery,
+  useGetReservationsQuery
 } = api
 
 export {
@@ -577,6 +621,8 @@ export {
   useCreateOrderMutation,
   useFirebaseLoginMutation,
   useGetFiltersQuery,
-  useCheckoutQuery
+  useCheckoutQuery,
+  useGetCheckoutStatusQuery,
+  useGetReservationsQuery
 }
 

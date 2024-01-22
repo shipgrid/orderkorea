@@ -11,6 +11,7 @@ import * as documents from './documents';
 import * as filters from './filters'
 import * as checkout from './checkout'
 import * as stripe from './vendors/stripe'
+import * as reservations from './reservations'
 
 export { account };
 export { users };
@@ -25,3 +26,4 @@ export { documents };
 export { filters };
 export { stripe };
 export { checkout };
+export { reservations };

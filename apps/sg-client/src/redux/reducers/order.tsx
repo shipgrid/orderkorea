@@ -11,7 +11,7 @@ const initialState: OrderState = {
   loaded_on: null,
   thirdParties: [],
   documents: [],
-  vehicles: [],
+  reservations: [],
 };
 
 // Create a slice for the order state and reducers

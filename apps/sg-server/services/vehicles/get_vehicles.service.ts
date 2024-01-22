@@ -94,7 +94,7 @@ export default async ({
             builder.select('cylinder_id', 'name')
           },
           selectFees(builder) {
-            builder.select('fee_id', 'vehicle_price', 'delivery_fee', 'service_fee', 'deposit_percentage')
+            builder.select('fee_id', 'vehicle_price', 'delivery_fee', 'service_fee', 'deposit_fee')
           }
         })
         .select(

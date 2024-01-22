@@ -1,6 +1,6 @@
 import {
   Logger,
-  Vehicle,
+  Reservation
 } from '../../models'
 
 import {
@@ -8,38 +8,31 @@ import {
 } from '../../types'
 
 export default async ({
-  vehicle_id
-}): Promise<IServiceResponse<Vehicle>> => {
+  
+}): Promise<IServiceResponse<Reservation[]>> => {
 
   return new Promise(async (resolve, reject) => {
     try {
-      const vehicle = await Vehicle
+      
+      const reservations = await Reservation
         .query()
-        .joinRelated('exterior_color')
-        .joinRelated('interior_color')
-        .joinRelated('make')
-        .joinRelated('model')
-        .joinRelated('trim')
-        .joinRelated('body_style')
-        .joinRelated('fuel_type')
-        .joinRelated('transmission')
-        .joinRelated('drivetrain')
-        .joinRelated('doors')
-        .joinRelated('cylinders')
-        .joinRelated('fees')
-        .withGraphFetched('make(selectMake)')
-        .withGraphFetched('model(selectModel)')
-        .withGraphFetched('trim(selectTrim)')
-        .withGraphFetched('body_style(selectBodyStyle)')
-        .withGraphFetched('fuel_type(selectFuelType)')
-        .withGraphFetched('doors(selectDoors)')
-        .withGraphFetched('exterior_color(selectColor)')
-        .withGraphFetched('interior_color(selectColor)')
-        .withGraphFetched('transmission(selectTransmission)')
-        .withGraphFetched('drivetrain(selectDrivetrain)')
-        .withGraphFetched('cylinders(selectCylinder)')
-        .withGraphFetched('fees(selectFees)')
-        .withGraphFetched('images(selectImages)')
+        .joinRelated('vehicle')
+        .withGraphFetched('vehicle.[make(selectMake)]')
+        .withGraphFetched('vehicle.[model(selectModel)]')
+        .withGraphFetched('vehicle.[trim(selectTrim)]')
+        .withGraphFetched('vehicle.[body_style(selectBodyStyle)]')
+        .withGraphFetched('vehicle.[fuel_type(selectFuelType)]')
+        .withGraphFetched('vehicle.[doors(selectDoors)]')
+        .withGraphFetched('vehicle.[exterior_color(selectColor)]')
+        .withGraphFetched('vehicle.[interior_color(selectColor)]')
+        .withGraphFetched('vehicle.[transmission(selectTransmission)]')
+        .withGraphFetched('vehicle.[drivetrain(selectDrivetrain)]')
+        .withGraphFetched('vehicle.[cylinders(selectCylinder)]')
+        .withGraphFetched('vehicle.[fees(selectFees)]')
+        .withGraphFetched('vehicle.[images(selectImages)]')
+        .modifyGraph('vehicle', builder => {
+          builder.select('vehicle_id', 'year', 'mileage', 'is_new', 'vin_number', 'description', 'created_on', 'updated_on', 'deleted_on')
+        })
         .modifiers({
           selectMake(builder) {
             builder.select('make_id', 'name')
@@ -79,26 +72,16 @@ export default async ({
           }
         })
         .select(
-          'vehicle_id',
-          'year',
-          'vin_number',
-          'is_new',
-          'mileage',
+          'reservation_id',
+          'order_id',
+          'customer_id',
         )
-        .findById(vehicle_id)
-  
-      if(!vehicle) {
-        resolve({
-          success: false, 
-          message: 'Vehicle not found'
-        })
+        .where('order_id', null)
+        .orderBy('reservations.created_on', 'desc')
 
-        return;
-      }
-  
       resolve({
         success: true, 
-        data: vehicle
+        data: reservations
       })
 
     } catch(e) {

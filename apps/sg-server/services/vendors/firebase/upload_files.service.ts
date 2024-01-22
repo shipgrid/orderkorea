@@ -12,7 +12,7 @@ export default async ({
   file,
   destination,
   filename,
-}): Promise<IServiceResponse<{ downloadUrl: string }>> => {
+}): Promise<IServiceResponse<{ file_url: string }>> => {
 
   return new Promise(async (resolve, reject) => {
     try {
@@ -26,7 +26,7 @@ export default async ({
       resolve({
         success: true, 
         data: {
-          downloadUrl,
+          file_url: downloadUrl,
         },
       });
   

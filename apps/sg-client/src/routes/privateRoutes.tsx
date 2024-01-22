@@ -12,6 +12,7 @@ const CreateOrderFormContainer = lazy(() => import("../components/Dashboard/Cont
 const InventoryContainer = lazy(() => import("../components/Dashboard/Containers/InventoryContainer"));
 const AdminContainer = lazy(() => import("../components/Dashboard/Containers/AdminContainer"));
 const CheckoutContainer = lazy(() => import("../components/Dashboard/Containers/CheckoutContainer"))
+const CheckoutOutcomeContainer = lazy(() => import("../components/Dashboard/Containers/CheckoutOutcomeContainer"))
 
 export default function routes() {
   return [
@@ -30,6 +31,7 @@ export default function routes() {
         { path: '/orders', element: <OrderContainer /> },
         { path: '/third-party', element: <ThirdPartyContainer /> },
         { path: '/checkout', element: <CheckoutContainer /> },
+        { path: '/return', element: <CheckoutOutcomeContainer />},
         { path: "*", element: <Navigate to="/login" replace /> },
       ],
     }

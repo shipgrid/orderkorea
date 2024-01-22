@@ -7,6 +7,10 @@ declare global {
   namespace Express {
     interface Request {
       user?: User;
+      params: {
+        vehicle_id?: number;
+        order_id?: number
+      }
     }
   }
 }

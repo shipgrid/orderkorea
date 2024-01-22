@@ -6,26 +6,14 @@ import {
 
 import Joi from 'joi'
 
+import Logger from '../../models/logger'
+
 import {
   checkout
 } from '../../services'
 
-import User from '../../models/user'
-
-declare global {
-  namespace Express {
-    interface Request {
-      user?: User;
-      params: {
-        vehicle_id?: number;
-        order_id?: number
-      }
-    }
-  }
-}
-
-const paramSchema = Joi.object({
-  vehicle_id: Joi.number().required()
+const paramsSchema = Joi.object({
+  session_id: Joi.string().required()
 })
 
 export default async (
@@ -38,7 +26,7 @@ export default async (
 
     const { 
       error 
-    } = paramSchema.validate(req.params)
+    } = paramsSchema.validate(req.params)
    
     if (error) {
       return res.status(400).json({
@@ -48,20 +36,15 @@ export default async (
     }
 
     const {
-      vehicle_id
+      session_id
     } = req.params
-
-    const { 
-      customer 
-    }:any = req.user
 
     const {
       success,
       message,
       data
-    } = await checkout.create({
-      vehicle_id: vehicle_id,
-      customer_id: customer.customer_id
+    } = await checkout.get({
+      session_id: session_id
     });
 
     if(!success) {

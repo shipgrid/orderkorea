@@ -10,7 +10,7 @@ interface Fee {
   vehicle_price: number;
   service_fee: number;
   delivery_fee: number | null;
-  deposit_percentage: number;
+  deposit_fee: number;
   created_on: string;
   updated_on: string;
   deleted_on: string | null;
@@ -46,10 +46,10 @@ class Fee extends Model implements Fee {
       ],
       properties: {
         fee_id: { type: 'integer' },
-        vehicle_price: { type: 'float' },
-        delivery_fee: { type: 'float' },
-        service_fee: { type: 'float' },
-        deposit_percentage: { type: 'float' },
+        vehicle_price: { type: 'int' },
+        delivery_fee: { type: 'int' },
+        service_fee: { type: 'int' },
+        deposit_fee: { type: 'int' },
         created_on: { type: 'string' },
         updated_on: { type: 'string' },
         deleted_on: { type: ['string', 'null'] },

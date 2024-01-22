@@ -19,6 +19,7 @@ import Drivetrain from './drivetrain';
 import Door from './door';
 import Color from './color';
 import Cylinder from './cylinder';
+import Reservation from './reservation'
 import KnexClient from './knex_client';
 import HttpError from './http_error';
 import Logger from './logger';
@@ -45,6 +46,7 @@ export {
   Door,
   Color,
   Cylinder,
+  Reservation,
   KnexClient,
   HttpError,
   Logger

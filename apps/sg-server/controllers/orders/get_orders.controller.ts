@@ -30,7 +30,13 @@ const userSchema = Joi.object({
     updated_on: Joi.string().allow('', null),
     deleted_on: Joi.string().allow('', null)
   }),
-  staff: Joi.string().allow('', null)
+  staff: Joi.object({
+    staff_id: Joi.number().required(),
+    user_id: Joi.number().required(),
+    created_on: Joi.string().allow('', null),
+    updated_on: Joi.string().allow('', null),
+    deleted_on: Joi.string().allow('', null)
+  }).allow({}, null)
 })
 
 
@@ -38,6 +44,10 @@ declare global {
   namespace Express {
     interface Request {
       user?: User;
+      params: {
+        vehicle_id?: number;
+        order_id?: number
+      }
     }
   }
 }

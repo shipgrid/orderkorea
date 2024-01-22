@@ -1,6 +1,6 @@
 import { IServiceResponse } from '../../../types';
 
-const stripe = require('stripe')('sk_test_Hrs6SAopgFPF0bZXSN3f6ELN', {
+const stripe = require('stripe')('sk_test_51NsSbzEVtcyiI2IC1PxYgzn9klz9ZwH50xEhHAD28lmjM5GtJt5xIVzNHuqZ14KoXZY6rkG5z3yNKrL1AfkewR7z00vpSSQzLB', {
   apiVersion: '2023-10-16',
 });
 
@@ -11,9 +11,13 @@ interface ILineItem {
 }
 
 export default async ({
-  line_items
+  line_items,
+  customer_id,
+  vehicle_id
 }: { 
-  line_items: ILineItem[] 
+  line_items: ILineItem[];
+  customer_id: string; 
+  vehicle_id: string;
 }): Promise<IServiceResponse<{
   client_secret: string
 }>> => {
@@ -55,7 +59,11 @@ export default async ({
           capture_method: 'automatic',
           setup_future_usage: 'on_session',
         },
-        return_url: `https://shipgrid.io/return?session_id={CHECKOUT_SESSION_ID}`,
+        return_url: `http://localhost:5173/#/return?session_id={CHECKOUT_SESSION_ID}`,
+        metadata: {
+          customer_id,
+          vehicle_id
+        }
       });
 
       resolve({

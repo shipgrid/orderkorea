@@ -180,7 +180,7 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
           <Divider style={{ margin: '20px 0px 20px' }}> Due Now </Divider>
           <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
             <div> Deposit </div>
-            <div> ${ vehicle.fees.vehicle_price * vehicle.fees.deposit_percentage } </div>
+            <div> ${ vehicle.fees.deposit_fee } </div>
           </div>
           <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
             <div> Service Fee </div>
@@ -188,7 +188,7 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
           </div>
           <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
             <div style={{ fontWeight: 'bold' }}> Total Due </div>
-            <div> ${ (vehicle.fees.vehicle_price * vehicle.fees.deposit_percentage)*1 + vehicle.fees.service_fee*1 } </div>
+            <div> ${ (vehicle.fees.deposit_fee) + vehicle.fees.service_fee*1 } </div>
           </div>
         </div>
       </div>
@@ -197,8 +197,8 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
 
   return (
     <>
-      <div style={{ display: 'flex', justifyContent: 'center'}}>
-        <div className='vehicle-detail'>  
+      <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: 'white'}}>
+        <div className='vehicle-detail'>   
           <div className='vehicle-detail-box'>
             <div className='vehicle-detail-images'>
               <Image.PreviewGroup
@@ -281,6 +281,7 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
                 <div style={{ fontSize: 22}}>${vehicle.fees.vehicle_price}</div>
                 <Button type="primary" style={{ marginTop: 24, width: '100%', height: 40, borderRadius: 12 }} onClick={() => startTransition(() => navigate(`/checkout?vehicle_id=${vehicle.vehicle_id}`))}> Order Now </Button>
                 <Tabs defaultActiveKey="1" items={tabItems} style={{ margin: '24px 0px'}}/>
+
               </div>
             </div>
           </div>  

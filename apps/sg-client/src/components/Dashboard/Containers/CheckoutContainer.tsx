@@ -21,7 +21,7 @@ import DashboardContent from '../Layout/DashboardContent';
 import ApiLoader from "../../Shared/ApiLoader";
 import ResourceNotFound from "../../Shared/ResourceNotFound";
 
-const stripePromise = loadStripe("pk_test_A7jK4iCYHL045qgjjfzAfPxu");
+const stripePromise = loadStripe("pk_test_51NsSbzEVtcyiI2ICnKkAk1K4Vm9IsBlyL0QAlmTHkrfgSJVLYTtC6K59PDBC7YB8eXUtyN7PdkfVaWUz9iNLIcRl00PNfuGvPS");
 
 const CheckoutContainer = () => {
 

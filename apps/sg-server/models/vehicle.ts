@@ -12,6 +12,8 @@ import Color from './color';
 import Drivetrain from './drivetrain';
 import Cylinder from './cylinder'
 import Fee from './fee'
+import Order from './order'
+import Reservation from './reservation'
 
 Model.knex(knexClient);
 
@@ -152,6 +154,26 @@ class Vehicle extends Model implements Vehicle {
         join: {
           from: 'vehicles.fee_id',
           to: 'fees.fee_id',
+        }
+      },
+      reservation: {
+        relation: Model.HasOneRelation,
+        modelClass: Reservation,
+        join: {
+          from: 'vehicles.vehicle_id',
+          to: 'reservations.vehicle_id',
+        }
+      },
+      order: {
+        relation: Model.HasOneThroughRelation,
+        modelClass: Order,
+        join: {
+          from: 'vehicles.vehicle_id',
+          through: {
+            from: 'reservations.vehicle_id',
+            to: 'reservations.order_id'
+          },
+          to: 'orders.order_id'
         }
       }
     };

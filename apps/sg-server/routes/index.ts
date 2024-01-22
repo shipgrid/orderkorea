@@ -10,6 +10,8 @@ import thirdParties from './third_parties'
 import storage from './storage'
 import filters from './filters'
 import checkout from './checkout'
+import webhook from './webhook'
+import reservations from './reservations'
 
 import authValidation from '../middlewares/auth_validation'
 
@@ -24,5 +26,7 @@ routes.use('/third-parties', authValidation, thirdParties)
 routes.use('/storage', authValidation, storage)
 routes.use('/filters', authValidation, filters)
 routes.use('/checkout', authValidation, checkout)
+routes.use('/reservations', authValidation, reservations)
+routes.use('/webhook', webhook)
 
 export default routes

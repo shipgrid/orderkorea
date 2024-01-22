@@ -1,7 +1,4 @@
 import {
-  User,
-  Customer,
-  KnexClient,
   Logger,
   Vehicle
 } from '../../models'
@@ -14,6 +11,20 @@ import {
   create_checkout_session
 } from '../vendors/stripe'
 
+import User from '../../models/user'
+
+declare global {
+  namespace Express {
+    interface Request {
+      user?: User;
+      params: {
+        vehicle_id?: number;
+        order_id?: number
+      }
+    }
+  }
+}
+
 interface ILineItem {
   amount: number; 
   name: string;
@@ -22,6 +33,7 @@ interface ILineItem {
  
 export default async ({
   vehicle_id,
+  customer_id
 }): Promise<IServiceResponse<{
   client_secret: string
 }>> => {
@@ -55,9 +67,9 @@ export default async ({
           description: null
         },
         {
-          amount: (vehicle.fees.vehicle_price * vehicle.fees.deposit_percentage*1),
+          amount: vehicle.fees.deposit_fee,
           name: 'Vehicle Deposit',
-          description: `Deposit is ${vehicle.fees.deposit_percentage*100}% of vehicle price and is fully refundable (terms & restrictions applies).`
+          description: null
         }
       ];
 
@@ -66,7 +78,9 @@ export default async ({
         message,
         data
       } = await create_checkout_session({
-        line_items: line_items
+        line_items: line_items,
+        customer_id,
+        vehicle_id
       });
 
       if(!data) {
@@ -91,7 +105,7 @@ export default async ({
       });
       
     } catch (e) {
-      Logger.error('Error creating User and UserCustomer:', e);
+      Logger.error('Error:', e);
       reject(e);
     }
   });

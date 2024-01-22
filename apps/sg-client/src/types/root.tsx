@@ -46,7 +46,18 @@ export interface OrderState {
   loaded_on: string | null;
   thirdParties: CreateThirdPartyBody[];
   documents: CreateDocumentBody[];
-  vehicles: CreateVehicleBody[];
+  reservations: Reservation[];
+}
+
+export interface Reservation {
+  reservation_id: number; 
+  vehicle_id: number; 
+  customer_id: number; 
+  order_id: number; 
+  // vehicle: Vehicle;
+  created_on?: string;
+  updated_on?: string;
+  deleted_on?: string | null;
 }
 
 export interface SessionState {
