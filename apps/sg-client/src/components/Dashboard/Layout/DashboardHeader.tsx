@@ -1,20 +1,18 @@
 import { 
   ReactNode,
-  startTransition
 } from 'react'
-
-import { 
-  useNavigate, 
-  useLocation 
-} from 'react-router-dom'
 
 import { 
   PageHeader
 } from '@ant-design/pro-layout'
 
 import { 
-  Flex
+  Affix,
+  Typography, 
 } from 'antd'
+const { Text } = Typography
+
+import '../../../assets/dashboard.css'
 
 interface DashboardHeaderProps {
   title: string
@@ -27,29 +25,28 @@ const DashboardHeader = ({
   description,
   action
 }: DashboardHeaderProps) => {
-  const navigate = useNavigate()
-  const location = useLocation()
-
-  const handleBack = () => {
-    if(location.pathname === '/') {
-      return
-    } 
-
-    startTransition(() => navigate(-1))
-  }
 
   return (
-    <Flex>
-      <PageHeader
-        onBack={handleBack} 
-        title={title}
-        subTitle={description}
-        extra={[
-          action
-        ]}
-        style={{ flex: 1 }}
-      />
-    </Flex>
+    <Affix offsetTop={0}>
+      <div style={{ display: 'flex', alignItems: 'center', backgroundColor: 'white', padding: '28px 32px'  }}>
+        <PageHeader
+          title={
+            <Text className='page-header-title'>
+              {title}
+            </Text>
+          }
+          subTitle={description}
+          extra={[
+            action
+          ]}
+          style={{ 
+            flex: 1,
+            margin: 0,
+            padding: 0
+          }}
+        />
+      </div>
+    </Affix>
   )
 }
 

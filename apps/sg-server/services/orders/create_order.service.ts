@@ -2,7 +2,8 @@ import {
   Logger,
   User,
   Order,
-  KnexClient
+  KnexClient,
+  Reservation
 } from '../../models'
 
 import {
@@ -18,7 +19,7 @@ export default async ({
   loaded_on,
   thirdParties,
   documents,
-  vehicles
+  reservations
 }): Promise<IServiceResponse<Order>> => {
 
   return new Promise(async (resolve, reject) => {
@@ -49,7 +50,6 @@ export default async ({
           loaded_on,
           thirdParties,
           documents,
-          vehicles,
           orderEvents: [
             {
               name: 'ORDER_CREATED',
@@ -58,7 +58,26 @@ export default async ({
         };
   
         const order = await Order.query(trx).upsertGraph(newOrder, { relate: true });
-        trx.commit();
+   
+        if(!order) {
+          resolve({
+            success: false,
+            message: 'Failed to create order'
+          })
+
+          return;
+        }
+
+        const updateReservations = await Reservation.query(trx).update({ order_id: order.order_id }).whereIn('reservation_id', reservations.map(item => item.reservation_id));
+
+        if(!updateReservations) {
+          resolve({
+            success: false,
+            message: 'Failed to update reservations'
+          })
+
+          return;
+        }
 
         resolve({
           success: true, 

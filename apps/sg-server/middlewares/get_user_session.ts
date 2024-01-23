@@ -36,7 +36,7 @@ export default async (req, res, next) => {
 
       return;
     }
-  
+
     const user = await User.query()
       .where((builder) => {
         if(uid) {

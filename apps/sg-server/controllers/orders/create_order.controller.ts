@@ -10,10 +10,6 @@ import {
   orders
 } from '../../services'
 
-const _imageSchema = Joi.object({
-  image_url: Joi.string().required()
-})
-
 const _addressSchema = Joi.object({
   name: Joi.string().required(),
   line1: Joi.string().required(),
@@ -36,23 +32,9 @@ const _documentSchema = Joi.object({
   file_url: Joi.string().required()
 })
 
-const _vehicleSchema = Joi.object({
+const _reservationSchema = Joi.object({
   vehicle_id: Joi.number().required(),
-  order_id: Joi.number().required(),
-  make: Joi.string().required(),
-  model: Joi.string().required(),
-  year: Joi.string().required(),
-  exterior_color: Joi.string().required(),
-  vin_number: Joi.string().required(),
-  transmission_type: Joi.string().valid('automatic', 'manual').required(),
-  mileage: Joi.number().required(),
-  description: Joi.string().required(),
-  price: Joi.number().required(),
-  fuel_type: Joi.string().valid('gasoline', 'diesel').required(),
-  images: Joi.array().items(_imageSchema),
-  created_on: Joi.string().allow('', null),
-  updated_on: Joi.string().allow('', null),
-  deleted_on: Joi.string().allow('', null)
+  reservation_id: Joi.number().required(),
 })
 
 const bodySchema = Joi.object({
@@ -64,7 +46,7 @@ const bodySchema = Joi.object({
   loaded_on: Joi.string().allow('', null),
   thirdParties: Joi.array().items(_thirdPartySchema),
   documents: Joi.array().items(_documentSchema),
-  vehicles: Joi.array().items(_vehicleSchema).min(1).required()
+  reservations: Joi.array().items(_reservationSchema).min(2).required()
 })
 
 export default async (
@@ -92,7 +74,7 @@ export default async (
       loaded_on,
       thirdParties,
       documents,
-      vehicles
+      reservations
     } = req.body
     
     const {
@@ -108,7 +90,7 @@ export default async (
       loaded_on,
       thirdParties,
       documents,
-      vehicles
+      reservations
     })
 
     if(!success) {

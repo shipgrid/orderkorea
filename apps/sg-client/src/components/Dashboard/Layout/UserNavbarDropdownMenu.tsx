@@ -42,10 +42,6 @@ import {
 } from 'react-redux'
 
 import { 
-  FaWpforms 
-} from "react-icons/fa";
-
-import { 
   MdOutlineAccountCircle 
 } from "react-icons/md";
 
@@ -94,18 +90,6 @@ const UserNavbarDropdownMenu = ({
       })
   }
 
-  userDropdownItems.push(
-    {
-      key: '2',
-      label: (
-        <div style={{ display: 'flex', alignItems: 'center'}} onClick={(_) => startTransition(() => navigate('/orders'))}>
-          <FaWpforms/> 
-          <span style={{ marginLeft: 5 }}>  My Orders </span>
-        </div>
-      ),
-    }
-  )
-
   if(session?.isStaff) {
     userDropdownItems.push(
       {
@@ -142,9 +126,9 @@ const UserNavbarDropdownMenu = ({
       placement="bottomLeft"
       arrow
     >
-      {
-        isMobile ? <MdOutlineAccountCircle style={{ fontSize: 36, color: 'white' }}/> : <Button icon={<FiChevronDown/>} style={{ marginRight: 10 }}> { session?.username } </Button>
-      }
+      <div >
+        <MdOutlineAccountCircle style={{ fontSize: 24, color: '#171a20', cursor: 'pointer' }}/>
+      </div>
     </Dropdown>
   );
 };

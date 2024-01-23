@@ -1,0 +1,59 @@
+.car-filters {
+  min-width: 330px; 
+  max-width: 400px;
+  margin-right: 40px;
+  flex: 0;
+}
+
+.mobile-inventory-header {
+  display: none;
+}
+
+.inventory-vehicle-card {
+  max-width: 475px; 
+  width: 100%;
+  border-radius: 10; 
+  cursor: pointer
+}
+
+.inventory-vehicle-meta {
+  padding: 8px 8px;
+  display: flex; 
+  justify-content: space-between;
+}
+
+.ant-checkbox-group {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 900px) {
+  .car-filters {
+    display: none; /* Hide the element when screen width is less than 900px */
+  }
+
+  .inventory-header {
+    display: none;
+  }
+
+  .mobile-inventory-header {
+    display: flex; 
+    flex-direction: column;
+    flex: 1; 
+    background-color: white; 
+    padding: 0px 32px;
+  }
+
+  .inventory-vehicle-card {
+    max-width: 100%;
+    border-radius: 10; 
+    cursor: pointer
+  }
+
+  .inventory-vehicle-meta {
+    padding: 8px 8px;
+    display: flex; 
+    justify-content: space-between;
+    flex-direction: column;
+  }
+}

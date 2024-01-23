@@ -128,14 +128,16 @@ const LoginForm = ({}) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column'}}>
       <Spin spinning={isLoading}>
+        <h2 style={{ color: 'black', marginBottom: 40 }}>
+          Sign In
+        </h2>
         <Form
           name="basic"
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 16 }}
-          style={{ maxWidth: 600 }}
           initialValues={{ remember: true }}
           onFinish={onFinish}
           autoComplete="off"
+          style={{ width: 320, maxWidth: 600 }}
+          layout='vertical'
         >
           <Form.Item<FieldType>
             label="Email"
@@ -161,7 +163,7 @@ const LoginForm = ({}) => {
         <Divider/>
         <div style={{display: 'flex', flexDirection: 'column'}}>
           <Button icon={<FaGoogle/>} onClick={signInWithGoogle} loading={firebaseLoginLoading}> Sign in with Google </Button>
-          <p color="gray.500" style={{ marginTop: 10 }}>
+          <p style={{ marginTop: 10, color: 'black' }}>
             Don't have an account? <Link to="/signup">Sign up</Link>
           </p>
         </div>

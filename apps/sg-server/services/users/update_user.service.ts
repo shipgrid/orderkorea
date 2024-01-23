@@ -21,7 +21,6 @@ export default async ({
 
         const user = await User.query(trx).patchAndFetchById(user_id, updatedUser);
 
-        trx.commit();
         Logger.info('User updated:', user);
 
         resolve({

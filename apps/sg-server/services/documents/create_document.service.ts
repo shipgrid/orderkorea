@@ -54,7 +54,7 @@ export default async ({
         const newDocument = {
           order_id: parseInt(order_id), 
           name,
-          file_url: data.downloadUrl,
+          file_url: data.file_url,
         };
   
         const document = await Document.query(trx).insert(newDocument);

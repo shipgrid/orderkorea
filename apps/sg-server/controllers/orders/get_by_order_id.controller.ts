@@ -42,12 +42,12 @@ declare global {
     interface Request {
       user?: User;
       params: {
-        order_id: number
+        vehicle_id?: number;
+        order_id?: number
       }
     }
   }
 }
-
 export default async (
   req: Request,
   res: Response,

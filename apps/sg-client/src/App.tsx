@@ -27,14 +27,20 @@ import {
   ThemeData
 } from './theme'
 
+import { 
+  ElfsightWidget 
+} from 'react-elfsight-widget';
+
 import Root from './Root'
 import Loader from './components/Shared/Loader'
 import AuthLoader from './components/Shared/AuthLoader'
+import './index.css'
+import './assets/global.css'
 
 const App = () => {
 
   return (
-    <>
+    <div>
       <Provider store={store}>
         <PersistGate loading={<Loader/>} persistor={persistStore(store)}>
           <ConfigProvider
@@ -54,12 +60,13 @@ const App = () => {
             <ReactReduxFirebaseProvider {...rrfProps}>
               <AuthLoader>
                 <Root/>
+                <ElfsightWidget widgetId={'2604a269-db6d-453d-965b-5106f8a0df64'} lazy modern />
               </AuthLoader>
             </ReactReduxFirebaseProvider>
           </ConfigProvider>
         </PersistGate>
       </Provider>
-    </>
+    </div>
   )
 }
 

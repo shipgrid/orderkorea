@@ -17,10 +17,6 @@ import {
   setOrder
 } from '../../../redux/reducers/order'
 
-import {
-  Vehicle
-} from '../../../services/api'
-
 import { 
   RiSave3Line 
 } from "react-icons/ri";
@@ -43,10 +39,11 @@ import {
 } from 'react-redux'
 
 import {
-  useGetVehiclesQuery,
+  useGetReservationsQuery,
   useCreateOrderMutation,
   CreateOrderParams,
-  CreateAddressBody
+  CreateAddressBody,
+  Reservation
 } from '../../../services/api'
 
 const VehicleForm = ({
@@ -56,62 +53,77 @@ const VehicleForm = ({
   const dispatch = useDispatch();
   const order = useSelector((state: any) => state.order)
   const [open, setOpen] = useState(false);
-  const [selectedVehicles, setSelectedVehicles] = useState<Vehicle[]>([]);
+  const [selectedReservations, setSelectedReservations] = useState<Reservation[]>([]);
 
   const [ createOrder, { isLoading } ] = useCreateOrderMutation();
 
-  const { 
-    data:vehicles, 
-    isLoading:getVehiclesLoading 
-  } = useGetVehiclesQuery({});
+  const {
+    data: reservedVehicles,
+    isLoading: getReservationsLoading
+  } = useGetReservationsQuery({});
 
   const [
     upload
   ] = useUploadMutation();
 
-  const handleAddToOrder = (vehicles: Vehicle[]) => {
+  const handleAddToOrder = (reservations: Reservation[]) => {
 
     dispatch(setOrder({ 
       ...order,
-      vehicles: [
-        ...vehicles
+      reservations: [
+        ...reservations
       ]
     }));
 
     dispatch({
       type: 'SET_ORDER',
       payload: {
-        vehicles: [
-          ...vehicles     
+        reservations: [
+          ...reservations     
         ]
       }
     })
   }
 
   useEffect(() => {
-  }, [order.vehicles.length])
+  }, [order.reservations.length])
 
   const columns = [
     {
-      title: 'Vehicle ID',
-      key: 'vehicle_id',
-      dataIndex: 'vehicle_id',
+      title: 'Reservation ID',
+      key: 'reservation_id',
+      dataIndex: 'reservation_id',
     },
     {
-      title: 'Name',
-      key: 'name',
-      dataIndex: 'make',
+      title: 'Customer ID',
+      key: 'customer_id',
+      dataIndex: 'customer_id',
     },
     {
-      title: 'model',
+      title: 'Make',
+      key: 'vehicle.make',
+      render: (_: string, record: any) => {
+        return (
+          <span> { record.vehicle.year } { record.vehicle.make.name } </span>
+        )
+      }
+    },
+    {
+      title: 'Model',
       key: 'model',
-      dataIndex: 'model',
-    },
+      render: (_: string, record: any) => {
+        return (
+          <span> { record.vehicle.model.name } </span>
+        )
+      }    },
     {
-      title: 'Vin Number',
+      title: 'Trim',
       key: 'vin_number',
-      dataIndex: 'vin_number',
-    },
+      render: (_: string, record: any) => {
+        return (
+          <span> { record.vehicle.trim.name } </span>
+        )
+      }    },
   ];
 
   const onFinish = async (values: any) => {
@@ -173,25 +185,13 @@ const VehicleForm = ({
       documents: values.documents?.fileList.map((file: any) => {
         return {
           name: file.originFileObj.name,
-          file_url: file.response
+          file_url: file.response.file_url
         }
       }),
-      vehicles: order.vehicles.map((item:Vehicle) => {
-       
-        return {
-          vehicle_id: item.vehicle_id,
-          make: item.make,
-          model: item.model,
-          year: item.year,
-          description: item.description,
-          exterior_color: item.exterior_color,
-          transmission_type: item.transmission_type,
-          mileage: item.mileage,
-          price: item.price,
-          fuel_type: item.fuel_type,
-          images: item.images
-        }
-      })
+      reservations: order.reservations.map((item:any) => ({
+        reservation_id: item.reservation_id,
+        vehicle_id: item.vehicle.vehicle_id,
+      }))
     };
 
     await createOrder(orderDetails);
@@ -244,14 +244,16 @@ const VehicleForm = ({
   const onClose = () => {
     setOpen(false);
 
-    handleAddToOrder(selectedVehicles)
+    handleAddToOrder(selectedReservations)
   };
 
   const rowSelection = {
-    onChange: (_: React.Key[], selectedRows: Vehicle[]) => {
-      setSelectedVehicles(selectedRows)
+    onChange: (_: React.Key[], selectedRows: Reservation[]) => {
+      setSelectedReservations(selectedRows)
     }
   };
+
+  if(!reservedVehicles) return null;
 
   return (
     <>
@@ -375,8 +377,8 @@ const VehicleForm = ({
         }
       >
         <Table 
-          dataSource={vehicles} 
-          loading={getVehiclesLoading} 
+          dataSource={reservedVehicles.map((item: any, index: number) =>  ({ ...item, key: index}))} 
+          loading={getReservationsLoading} 
           columns={columns}
           rowSelection={{
             type: 'checkbox',

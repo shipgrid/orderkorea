@@ -18,7 +18,7 @@ export default async ({
         .withGraphFetched('orderEvents')
         .withGraphFetched('thirdParties.[address]')
         .withGraphFetched('documents')
-        .withGraphFetched('vehicles.[images]')
+        .withGraphFetched('reservation.vehicle.[images]')
         .where('customer_id', customer_id)
         
       resolve({

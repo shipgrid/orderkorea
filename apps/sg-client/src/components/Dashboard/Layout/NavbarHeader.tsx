@@ -10,7 +10,7 @@ import {
 } from 'antd';
 
 import type { 
-  MenuProps 
+  MenuProps
 } from 'antd';
 
 import { 
@@ -21,6 +21,11 @@ import {
   IoCarSportSharp 
 } from "react-icons/io5";
 
+
+import { 
+  FaWpforms 
+} from "react-icons/fa";
+
 import UserNavbarDropdownMenu from './UserNavbarDropdownMenu';
 
 const { 
@@ -29,18 +34,24 @@ const {
 
 const navItems = [
   {
-    label: 'Shop Cars',
-    icon: <IoCarSportSharp/>,
+    label: 'Inventory',
+    // icon: <IoCarSportSharp/>,
+    width: 110,
     path: '/',
+  },
+  {
+    label: 'Orders',
+    // icon: <FaWpforms/> ,
+    width: 110,
+    path: '/orders',
   },
 ];
 
 const items: MenuProps['items'] = navItems.map((item) => ({
   key: item.path,
-  icon: item.icon,
+  // icon: item.icon,
   label: `${item.label}`,
 }));
-
 const NavbarHeader = ({ }) => {
 
   const navigate = useNavigate();
@@ -49,7 +60,7 @@ const NavbarHeader = ({ }) => {
 
   useEffect(() => {
     function handleResize() {
-      setIsMobile(window.innerWidth <= 768); // Adjust the breakpoint as needed
+      setIsMobile(window.innerWidth <= 900); // Adjust the breakpoint as needed
     }
 
     // Initial check and add event listener
@@ -65,28 +76,25 @@ const NavbarHeader = ({ }) => {
   return (
     <Header
       style={{
-        position: 'sticky',
-        top: 0,
-        zIndex: 1,
-        display: 'flex',
         alignItems: 'flex-end',
         justifyContent: 'center',
-        height: 100,
-        backgroundColor: '#0e1111',
+        backgroundColor: 'white',
+        padding: '0px 32px'
       }}
     >
-      <div style={{width: 1280, minWidth: 320, display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-        <p style={{ color: '#CDD193', fontSize: '32px', fontWeight: 'bolder', paddingRight: 10 }} onClick={(_) => startTransition(() => navigate('/'))}> ShipGrid</p>
-        {!isMobile && (
-          <Menu 
-            theme='dark' 
-            mode="horizontal" 
-            style={{ flex: 1 }} 
-            defaultSelectedKeys={['/']} 
-            items={items} 
-            onClick={(e) => startTransition(() => navigate(e.key))}
-          />
-        )}
+      <div style={{width: '100%', display: 'flex', justifyContent: 'space-between' }}>
+        <p style={{ marginTop: 0, fontSize: '28px', fontWeight: 'bolder', cursor: 'pointer' }} onClick={(_) => startTransition(() => navigate('/'))}> ShipGrid</p>
+        <div>
+          {!isMobile && (
+            <Menu 
+              mode="horizontal" 
+              style={{ width: 200 }} 
+              defaultSelectedKeys={['/']} 
+              items={items} 
+              onClick={(e) => startTransition(() => navigate(e.key))}
+            />
+          )}
+        </div>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <UserNavbarDropdownMenu/>
         </div>

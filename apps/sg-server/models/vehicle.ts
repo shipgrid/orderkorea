@@ -1,6 +1,19 @@
 import { Model } from 'objection';
 import knexClient from './knex_client'
 import VehicleImage from './vehicle_image';
+import VehicleModel from './model';
+import Make from './make';
+import Trim from './trim';
+import BodyStyle from './body_style';
+import FuelType from './fuel_type';
+import Door from './door';
+import Transmission from './transmission';
+import Color from './color';
+import Drivetrain from './drivetrain';
+import Cylinder from './cylinder'
+import Fee from './fee'
+import Order from './order'
+import Reservation from './reservation'
 
 Model.knex(knexClient);
 
@@ -20,7 +33,7 @@ interface Vehicle {
   trim: string; 
   drivetrain: string 
   vin_number: string | null; 
-  is_new: boolean; 
+  is_new: number; 
   fuel_type: string; 
   description: string; 
   created_on: string;
@@ -47,6 +60,122 @@ class Vehicle extends Model implements Vehicle {
           to: 'vehicle_images.vehicle_id',
         },
       },
+      exterior_color: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Color,
+        join: {
+          from: 'vehicles.exterior_color_id',
+          to: 'colors.color_id',
+        },
+      },
+      interior_color: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Color,
+        join: {
+          from: 'vehicles.interior_color_id',
+          to: 'colors.color_id',
+        },
+      },
+      make: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Make,
+        join: {
+          from: 'vehicles.make_id',
+          to: 'makes.make_id',
+        },
+      },
+      model: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: VehicleModel,
+        join: {
+          from: 'vehicles.model_id',
+          to: 'models.model_id',
+        }
+      },
+      trim: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Trim,
+        join: {
+          from: 'vehicles.trim_id',
+          to: 'trims.trim_id',
+        }
+      },
+      body_style: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: BodyStyle,
+        join: {
+          from: 'vehicles.body_style_id',
+          to: 'body_styles.body_style_id',
+        }
+      },
+      fuel_type: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: FuelType,
+        join: {
+          from: 'vehicles.fuel_type_id',
+          to: 'fuel_types.fuel_type_id',
+        }
+      },
+      transmission: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Transmission,
+        join: {
+          from: 'vehicles.transmission_id',
+          to: 'transmissions.transmission_id',
+        }
+      },
+      drivetrain: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Drivetrain,
+        join: {
+          from: 'vehicles.drivetrain_id',
+          to: 'drivetrains.drivetrain_id',
+        }
+      },
+      doors: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Door,
+        join: {
+          from: 'vehicles.door_id',
+          to: 'doors.door_id',
+        }
+      },
+      cylinders: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Cylinder,
+        join: {
+          from: 'vehicles.cylinder_id',
+          to: 'cylinders.cylinder_id',
+        }
+      },
+      fees: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Fee,
+        join: {
+          from: 'vehicles.fee_id',
+          to: 'fees.fee_id',
+        }
+      },
+      reservation: {
+        relation: Model.HasOneRelation,
+        modelClass: Reservation,
+        join: {
+          from: 'vehicles.vehicle_id',
+          to: 'reservations.vehicle_id',
+        }
+      },
+      order: {
+        relation: Model.HasOneThroughRelation,
+        modelClass: Order,
+        join: {
+          from: 'vehicles.vehicle_id',
+          through: {
+            from: 'reservations.vehicle_id',
+            to: 'reservations.order_id'
+          },
+          to: 'orders.order_id'
+        }
+      }
     };
   }
 
@@ -57,7 +186,6 @@ class Vehicle extends Model implements Vehicle {
         'make', 
         'model', 
         'year', 
-        'price', 
         'mileage', 
         'exterior_color', 
         'transmission_type', 
@@ -67,19 +195,20 @@ class Vehicle extends Model implements Vehicle {
       properties: {
         vehicle_id: { type: 'integer' },
         order_id: { type: 'integer' },
-        make: { type: 'string', minLength: 1, maxLength: 255 },
-        model: { type: 'string', minLength: 1, maxLength: 255 },
-        year: { type: 'string', minLength: 1, maxLength: 255 },
-        price: { type: 'number' },
+        make_id:  { type: 'integer' },
+        model_id:  { type: 'integer' },
+        year:  { type: 'integer' },
         mileage: { type: 'number' },
-        exterior_color: { type: 'string', minLength: 1, maxLength: 255 },
-        interior_color: { type: 'string', minLength: 1, maxLength: 255 },
-        transmission_type: { type: 'string', minLength: 1, maxLength: 255 },
-        doors: { type: 'integer', minLength: 2, maxLength: 5 },
-        trim: { type: 'string', minLength: 1, maxLength: 255 },
-        drivetrain: { type: 'string', minLength: 1, maxLength: 255 },
+        exterior_color_id:  { type: 'integer' },
+        interior_color_id:  { type: 'integer' },
+        transmission_id:  { type: 'integer' },
+        door_id: { type: 'integer', minLength: 2, maxLength: 5 },
+        trim_id:  { type: 'integer' },
+        drivetrain_id:  { type: 'integer' },
+        cylinder_id:  { type: 'integer' },
+        fee_id:  { type: 'integer' },
         vin_number: { type: ['string', 'null'], minLength: 1, maxLength: 255 },
-        is_new: { type: 'boolean' },
+        is_new: { type: 'number' },
         description: { type: 'string' },
         fuel_type: { type: 'string' },
         last_login: { type: ['string', 'null'] },

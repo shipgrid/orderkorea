@@ -40,22 +40,25 @@ export interface OrderEvent {
 
 export interface Vehicle {
   vehicle_id: number;
-  make: string;
-  model: string;
+  make: Make;
+  model: Model;
+  exterior_color: Color; 
+  interior_color: Color; 
+  doors: Door; 
+  transmission: Transmission; 
+  trim: Trim; 
+  drivetrain: Drivetrain; 
+  fuel_type: FuelType; 
+  images: VehicleImage[]
+  cylinders: Cylinder,
+  body_style: BodyStyle, 
+  fees: Fee,
   year: string;
   price: string;
   mileage: string; 
-  exterior_color: string; 
-  interior_color: string; 
-  transmission_type: string; 
-  doors: number; 
-  trim: string; 
-  drivetrain: string 
   vin_number: string | null; 
   is_new: boolean;
-  fuel_type: string; 
   description: string; 
-  images: VehicleImage[]
 }
 
 export interface VehicleImage {
@@ -166,7 +169,7 @@ export interface CreateOrderParams {
   loaded_on: string | null;
   thirdParties: CreateThirdPartyBody[];
   documents: CreateDocumentBody[];
-  vehicles: CreateVehicleBody[];
+  reservations: CreateReservationBody[];
 }
 
 export interface CreateThirdPartyBody {
@@ -190,6 +193,10 @@ export interface CreateDocumentBody {
   file_url: number;
 }
 
+export interface CreateReservationBody {
+  vehicle_id: number;
+}
+
 export interface CreateVehicleBody {
   make: string;
   model: string;
@@ -206,6 +213,153 @@ export interface CreateVehicleBody {
 export interface FirebaseLogin {
   firebase_token: string;
 }
+
+export interface BodyStyle {
+  body_style_id: number; 
+  name: string;
+  created_on?: string;
+  updated_on?: string;
+  deleted_on?: string | null;
+}
+
+export interface Color {
+  color_id: number; 
+  name: string;
+  code: string;
+  created_on?: string;
+  updated_on?: string;
+  deleted_on?: string | null;
+}
+
+export interface Cylinder {
+  cylinder_id: number; 
+  name: string;
+  count: number;
+  created_on?: string;
+  updated_on?: string;
+  deleted_on?: string | null;
+}
+
+export interface Door {
+  door_id: number; 
+  name: string;
+  count: number;
+  created_on?: string;
+  updated_on?: string;
+  deleted_on?: string | null;
+}
+
+export interface Drivetrain {
+  drivetrain_id: number; 
+  name: string;
+  created_on?: string;
+  updated_on?: string;
+  deleted_on?: string | null;
+}
+
+export interface FuelType {
+  fuel_type_id: number; 
+  name: string;
+  green: number;
+  created_on?: string;
+  updated_on?: string;
+  deleted_on?: string | null;
+}
+
+export interface Make {
+  make_id: number;
+  name: string;
+  created_on?: string;
+  updated_on?: string;
+  deleted_on?: string | null;
+}
+
+export interface Model {
+  model_id: number; 
+  make_id: number;
+  name: string;
+  created_on?: string;
+  updated_on?: string;
+  deleted_on?: string | null;
+}
+
+export interface Transmission {
+  transmission_id: number; 
+  name: string;
+  created_on?: string;
+  updated_on?: string;
+  deleted_on?: string | null;
+}
+
+export interface Cylinder {
+  cylinder_id: number; 
+  name: string; 
+  created_on?: string;
+  updated_on?: string;
+  deleted_on?: string | null;
+}
+
+export interface Trim {
+  trim_id: number; 
+  model_id: number;
+  name: string;
+  created_on?: string;
+  updated_on?: string;
+  deleted_on?: string | null;
+}
+
+export interface BodyStyle { 
+  body_style_id: number; 
+  name: string; 
+  created_on?: string;
+  updated_on?: string;
+  deleted_on?: string | null;
+}
+
+export interface Fee {
+  fee_id: number; 
+  vehicle_price: number; 
+  delivery_fee: number; 
+  service_fee: number;
+  deposit_fee: number; 
+  created_on?: string;
+  updated_on?: string;
+  deleted_on?: string | null;
+}
+
+export interface Filter {
+  makes: Make[],
+  models: Model[],
+  trims: Trim[],
+  fuel_types: FuelType[],
+  body_styles: BodyStyle[],
+  transmissions: Transmission[],
+  doors: Door[],
+  colors: Color[],
+  drivetrains: Drivetrain[], 
+  cylinders: Cylinder[]
+}
+
+interface CheckoutResponse {
+  client_secret: string;
+}
+
+interface CheckoutStatusResponse {
+  status: string;
+  customer_email: string;
+}
+
+export interface Reservation {
+  reservation_id: number; 
+  vehicle_id: number; 
+  customer_id: number; 
+  order_id: number; 
+  vehicle: Vehicle;
+  created_on?: string;
+  updated_on?: string;
+  deleted_on?: string | null;
+}
+
 const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_BASE_URL,
   prepareHeaders: (headers, { getState }: any) => {
@@ -257,7 +411,17 @@ const baseQueryWithReauth: BaseQueryFn<
 
 const api = createApi({
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['orders', 'order', 'vehicles', 'thirdParties', 'addresses', 'documents'],
+  tagTypes: [
+    'orders', 
+    'order', 
+    'vehicles', 
+    'thirdParties', 
+    'addresses', 
+    'documents', 
+    'filters', 
+    'checkout',
+    'reservations'
+  ],
   endpoints: (build) => ({
     firebaseLogin: build.mutation<ApiResponse, FirebaseLogin>({
       query: (body) => ({
@@ -286,16 +450,39 @@ const api = createApi({
       transformResponse: (response: { data: any }, _, _args) => response.data,
       transformErrorResponse: (error: any) => error.data,
     }),
+    checkout: build.query({
+      query: (body) => `checkout/${body.vehicle_id}`,
+      transformResponse: (response: { data: CheckoutResponse }) => response.data,
+      transformErrorResponse: (error: any) => error.data,
+      providesTags: ['checkout'],
+    }),
+    getCheckoutStatus: build.query({
+      query: (body) => `checkout/status/${body.sessionId}`,
+      transformResponse: (response: { data: CheckoutStatusResponse }) => response.data,
+      transformErrorResponse: (error: any) => error.data,
+      providesTags: ['checkout'],
+    }),
     getOrders: build.query({
       query: () => 'orders',
       transformResponse: (response: { data: Order[] }) => response.data,
       transformErrorResponse: (error: any) => error.data,
       providesTags: ['orders'],
     }),
+    getFilters: build.query({
+      query: (body) => `filters?${body.finalUrl}`,
+      transformResponse: (response: { data: Filter }, _, _args) => response.data,
+      providesTags: ['filters']
+    }),
     getOrder: build.query({
       query: (orderId) => `orders/${orderId}`,
       transformResponse: (response: { data: Order }, _, _args) => response.data,
       providesTags: ['order'],
+    }),
+    getReservations: build.query({
+      query: () => 'reservations',
+      transformResponse: (response: { data: Reservation[] }) => response.data,
+      transformErrorResponse: (error: any) => error.data,
+      providesTags: ['reservations'],
     }),
     updateOrder: build.mutation<ApiResponse, Order>({
       query: (body) => ({
@@ -316,7 +503,7 @@ const api = createApi({
       transformErrorResponse: (error: any) => error.data,
     }),
     getVehicles: build.query({
-      query: () => 'vehicles',
+      query: (body) => `vehicles?${body.finalUrl}`,
       transformResponse: (response: { data: Vehicle[] }) => response.data.map(item => ({ ...item, key: item.vehicle_id })),
       transformErrorResponse: (error: any) => error.data,
     }),
@@ -408,7 +595,11 @@ const {
   useRegisterMutation,
   useUploadMutation,
   useCreateOrderMutation,
-  useFirebaseLoginMutation
+  useFirebaseLoginMutation,
+  useGetFiltersQuery,
+  useCheckoutQuery,
+  useGetCheckoutStatusQuery,
+  useGetReservationsQuery
 } = api
 
 export {
@@ -428,6 +619,10 @@ export {
   useRegisterMutation,
   useUploadMutation,
   useCreateOrderMutation,
-  useFirebaseLoginMutation
+  useFirebaseLoginMutation,
+  useGetFiltersQuery,
+  useCheckoutQuery,
+  useGetCheckoutStatusQuery,
+  useGetReservationsQuery
 }
 

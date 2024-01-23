@@ -12,6 +12,7 @@ const PurchaseOrderContainer = lazy(() => import("../components/Dashboard/Contai
 const InformOrderContainer = lazy(() => import("../components/Dashboard/Containers/InformOrderContainer"));
 const ShippingCalculatorContainer = lazy(() => import("../components/Dashboard/Containers/ShippingCalculatorContainer"));
 const SOMContainer = lazy(() => import("../components/Dashboard/Containers/SOMContainer"));
+const CheckoutContainer = lazy(() => import('../components/Dashboard/Containers/CheckoutContainer'))
 
 const privateRoutes: RouteObject[] = [
   {
@@ -27,6 +28,7 @@ const privateRoutes: RouteObject[] = [
       { path: '/inform-order', element: <InformOrderContainer /> },
       { path: '/billing', element: <BillingContainer /> },
       { path: '/shipping-calculator', element: <ShippingCalculatorContainer /> },
+      { path: '/checkout', element: <CheckoutContainer/> },
       { path: "*", element: <Navigate to="/login" replace /> },
     ],
   },
