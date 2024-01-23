@@ -4,7 +4,7 @@ import {
 } from 'antd'
 
 import {
-  Vehicle,
+  Reservation,
   VehicleImage
 } from '../../../services/api'
 
@@ -20,11 +20,11 @@ import TableActionDropdown from '../../Shared/TableActionDropdown';
 import '../../../assets/index.css'
 
 interface VehicleTableProps {
-  vehicles: Vehicle[]; 
+  reservations: Reservation[]; 
 }
 
 const VehicleTable: React.FC<VehicleTableProps> = ({
-  vehicles
+  reservations
 }) => {
 
   const navigate = useNavigate()
@@ -38,9 +38,9 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
       title: 'Image',
       dataIndex: 'images',
       key: 'images',
-      render: (key: VehicleImage[]) => {
+      render: (_: any, record: Reservation) => {
         
-        const images = key.map((image: VehicleImage) => image.image_url)
+        const images = record.vehicle.images.map((image: VehicleImage) => image.image_url)
 
         return (
           <Image.PreviewGroup
@@ -58,10 +58,10 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
     {
       title: 'Make - Model',
       key: 'name',
-      render: (_: string, record: Vehicle) => {
+      render: (_: string, record: Reservation) => {
         return (
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <span> { `${record.make} ${record.model}` } </span>
+            <span> { `${record.vehicle.make.name} ${record.vehicle.model.name}` } </span>
           </div>
         )
       }
@@ -69,38 +69,68 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
     {
       title: 'Year',
       key: 'year',
-      dataIndex: 'year'
+      render: (_: string, record: Reservation) => {
+        return (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <span> { record.vehicle.year } </span>
+          </div>
+        )
+      }
     },
     {
       title: 'Exterior Color',
       key: 'exterior_color',
-      dataIndex: 'exterior_color'
+      render: (_: string, record: Reservation) => {
+        return (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <span> { record.vehicle.exterior_color.name } </span>
+          </div>
+        )
+      }
     },
     {
       title: 'Mileage',
       key: 'mileage',
-      dataIndex: 'mileage'
+      render: (_: string, record: Reservation) => {
+        return (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <span> { record.vehicle.mileage } </span>
+          </div>
+        )
+      }
     },
     {
       title: 'Price',
       key: 'price',
-      dataIndex: 'price'
+      render: (_: string, record: Reservation) => {
+        return (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <span> ${ record.vehicle.fees.vehicle_price } </span>
+          </div>
+        )
+      }
     },
     {
       title: 'Vin Number',
       key: 'vin_number',
-      dataIndex: 'vin_number'
+      render: (_: string, record: Reservation) => {
+        return (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <span> { record.vehicle.vin_number } </span>
+          </div>
+        )
+      }
     },
     {
       key: 'action',
       width: 50,
-      render: (_: string, record: Vehicle) => {
+      render: (_: string, record: Reservation) => {
         return (
           <TableActionDropdown
             actions={[
               {
                 label: 'View',
-                action: () => startTransition(() => navigate(`/vehicle?vehicle_id=${record.vehicle_id}`))
+                action: () => startTransition(() => navigate(`/vehicle?vehicle_id=${record.vehicle.vehicle_id}`))
               },
             ]}
           />
@@ -111,7 +141,7 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
 
   return (
     <Table 
-      dataSource={vehicles} 
+      dataSource={reservations} 
       columns={columns} 
       size='small'
       bordered

@@ -59,6 +59,7 @@ export default async ({
         .withGraphFetched('images(selectImages)')
         .withGraphFetched('cylinders(selectCylinder)')
         .withGraphFetched('fees(selectFees)')
+        .withGraphFetched('reservation')
         .modifiers({
           selectMake(builder) {
             builder.select('make_id', 'name')

@@ -1,18 +1,17 @@
-import { lazy } from "react";
 import { Navigate } from "react-router-dom";
 import Dashboard from "../pages/Dashboard";
 
-const OrderContainer = lazy(() => import("../components/Dashboard/Containers/OrderContainer"));
-const VehicleDetailContainer = lazy(() => import("../components/Dashboard/Containers/VehicleDetailContainer"));
-const OrderDetailContainer = lazy(() => import("../components/Dashboard/Containers/OrderDetailContainer"));
-const OrderDetailFormContainer = lazy(() => import("../components/Dashboard/Containers/OrderDetailFormContainer"));
-const ThirdPartyContainer = lazy(() => import("../components/Dashboard/Containers/ThirdPartyContainer"));
-const UploadVehicleFormContainer = lazy(() => import("../components/Dashboard/Containers/UploadVehicleFormContainer"));
-const CreateOrderFormContainer = lazy(() => import("../components/Dashboard/Containers/CreateOrderFormContainer"));
-const InventoryContainer = lazy(() => import("../components/Dashboard/Containers/InventoryContainer"));
-const AdminContainer = lazy(() => import("../components/Dashboard/Containers/AdminContainer"));
-const CheckoutContainer = lazy(() => import("../components/Dashboard/Containers/CheckoutContainer"))
-const CheckoutOutcomeContainer = lazy(() => import("../components/Dashboard/Containers/CheckoutOutcomeContainer"))
+import OrderContainer from "../components/Dashboard/Containers/OrderContainer";
+import VehicleDetailContainer from "../components/Dashboard/Containers/VehicleDetailContainer";
+import OrderDetailContainer from "../components/Dashboard/Containers/OrderDetailContainer";
+import OrderDetailFormContainer from "../components/Dashboard/Containers/OrderDetailFormContainer";
+import ThirdPartyContainer from "../components/Dashboard/Containers/ThirdPartyContainer";
+import UploadVehicleFormContainer from "../components/Dashboard/Containers/UploadVehicleFormContainer";
+import CreateOrderFormContainer from "../components/Dashboard/Containers/CreateOrderFormContainer";
+import InventoryContainer from "../components/Dashboard/Containers/InventoryContainer";
+import AdminContainer from "../components/Dashboard/Containers/AdminContainer";
+import CheckoutContainer from "../components/Dashboard/Containers/CheckoutContainer";
+import CheckoutOutcomeContainer from "../components/Dashboard/Containers/CheckoutOutcomeContainer";
 
 export default function routes() {
   return [

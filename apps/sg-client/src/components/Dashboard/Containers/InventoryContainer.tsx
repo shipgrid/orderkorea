@@ -377,7 +377,7 @@ const HomeContainer = () => {
                 <div> Sort by </div>
                 <Select
                   defaultValue={'highest-price'}
-                  style={{ width: 180, height: 40 }}
+                  style={{ width: 180, height: 40  }}
                   onChange={(e) => handleFilter(e, 'sort')}
                   options={[
                     { value: 'highest-price', label: 'Highest price' },
@@ -422,7 +422,7 @@ const HomeContainer = () => {
                 )  
               }
               { filters.conditions.length > 0 && (filters.conditions.map((condition) => (
-                <Tag closeIcon onClose={(e) => handleFilter(e, 'conditions-close')} key={condition}>
+                <Tag closeIcon onClose={(e) => handleFilter(condition, 'conditions-close')} key={condition}>
                   {condition}
                 </Tag>
               )))}

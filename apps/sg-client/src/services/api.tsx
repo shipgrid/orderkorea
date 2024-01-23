@@ -23,7 +23,7 @@ export interface Order {
   orderEvents: OrderEvent[];
   thirdParties: ThirdParty[];
   documents: Document[];
-  vehicles: Vehicle[];
+  reservations: Reservation[];
   expected_arrival: string | null;
   created_on: string;
   updated_on: string;
@@ -52,6 +52,7 @@ export interface Vehicle {
   images: VehicleImage[]
   cylinders: Cylinder,
   body_style: BodyStyle, 
+  reservation?: Reservation | null;
   fees: Fee,
   year: string;
   price: string;
@@ -354,7 +355,7 @@ export interface Reservation {
   vehicle_id: number; 
   customer_id: number; 
   order_id: number; 
-  vehicle: Vehicle;
+  vehicle?: Vehicle;
   created_on?: string;
   updated_on?: string;
   deleted_on?: string | null;

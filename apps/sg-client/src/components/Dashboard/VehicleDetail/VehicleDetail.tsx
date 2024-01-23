@@ -59,36 +59,6 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
   const additionalImagesCount = vehicle.images.length > 4 ? vehicle.images.length - 4 : 0
   
   const tabItems: TabsProps['items'] = [
-    // {
-    //   key: '1',
-    //   label: 'Overview',
-    //   children: <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-    //     <div style={{ display: 'flex', flexDirection: 'column' }}>
-    //       <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 18px' }}>
-    //         <div style={{ margin: 5 }}> <PiEngine style={{ fontSize: 22, color: 'gray' }}/> </div>
-    //         <div style={{ margin: 5 }}> {vehicle.transmission.name} {vehicle.drivetrain.name} { vehicle.cylinders.name }  </div>
-    //       </div>
-    //       <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 18px' }}>
-    //         <div style={{ margin: 5 }}> <LuFuel style={{ fontSize: 22, color: 'gray' }}/> </div>
-    //         <div style={{ margin: 5 }}> { vehicle.fuel_type.name }  </div>
-    //       </div>
-    //       <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 18px' }}>
-    //         <div style={{ margin: 5 }}> <IoKeyOutline style={{ fontSize: 22, color: 'gray' }}/> </div>
-    //         <div style={{ margin: 5 }}> { vehicle.is_new ? 'New' : 'Used' } </div>
-    //       </div>
-    //     </div>
-    //     <div style={{ display: 'flex', flexDirection: 'column' }}>
-    //       <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 18px' }}>
-    //         <div style={{ margin: 5 }}> <IoSpeedometerOutline style={{ fontSize: 22, color: 'gray' }}/> </div>
-    //         <div style={{ margin: 5 }}> { vehicle.mileage } km </div>
-    //       </div>
-    //       <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 18px' }}>
-    //         <div style={{ margin: 5 }}> <MdAirlineSeatReclineExtra style={{ fontSize: 22, color: 'gray' }}/> </div>
-    //         <div style={{ margin: 5 }}> { vehicle.doors.name } Seats </div>
-    //       </div>
-    //     </div>
-    //   </div>,
-    // },
     {
       key: '1',
       label: 'Specs',
@@ -209,6 +179,7 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
                   fallback={fallBackImageUrl} 
                   src={mainImage} 
                   width={'100%'}
+                  style={{ borderRadius: 10}}
                 />
                 {vehicle.images.slice(1).map((img, index) => (
                   <Image
@@ -226,7 +197,7 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
                         <Image
                           fallback={fallBackImageUrl}
                           src={img.image_url}
-                          style={{ flex: 1 }}
+                          style={{ flex: 1, borderRadius: 10 }}
                         />
                         <div
                           style={{
@@ -239,7 +210,8 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
                             display: 'flex',
                             justifyContent: 'center', 
                             alignItems: 'center', 
-                            cursor: 'pointer'
+                            cursor: 'pointer',
+                            borderRadius: 10
                           }}
                           onClick={() => showDrawer()}
                         >
@@ -250,7 +222,7 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
                       <Image
                         fallback={fallBackImageUrl}
                         src={img.image_url}
-                        style={{ flex: 1 }}
+                        style={{ flex: 1, borderRadius: 10 }}
                       />
                     )}
                   </div>
@@ -281,7 +253,6 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
                 <div style={{ fontSize: 22}}>${vehicle.fees.vehicle_price}</div>
                 <Button type="primary" style={{ marginTop: 24, width: '100%', height: 40, borderRadius: 12 }} onClick={() => startTransition(() => navigate(`/checkout?vehicle_id=${vehicle.vehicle_id}`))}> Order Now </Button>
                 <Tabs defaultActiveKey="1" items={tabItems} style={{ margin: '24px 0px'}}/>
-
               </div>
             </div>
           </div>  

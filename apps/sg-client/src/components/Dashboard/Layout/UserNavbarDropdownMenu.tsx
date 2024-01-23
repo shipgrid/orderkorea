@@ -57,14 +57,12 @@ const UserNavbarDropdownMenu = ({
 
   useEffect(() => {
     function handleResize() {
-      setIsMobile(window.innerWidth <= 768); // Adjust the breakpoint as needed
+      setIsMobile(window.innerWidth <= 768);
     }
 
-    // Initial check and add event listener
     handleResize();
     window.addEventListener('resize', handleResize);
 
-    // Cleanup the event listener on component unmount
     return () => {
       window.removeEventListener('resize', handleResize);
     };

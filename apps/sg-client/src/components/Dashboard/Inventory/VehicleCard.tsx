@@ -54,7 +54,6 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
 
   const mainImageUrl = images[0]?.image_url
 
-
   const handleItemClick = () => {
     onClick(vehicle_id)
   }
@@ -74,12 +73,13 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
 
   return (
     <Card
+      style={{ borderRadius: 10}}
       className='inventory-vehicle-card'
       cover={<Image alt={`${make} ${model}`} src={mainImageUrl} preview={false}/>}
       bordered={false}
       onClick={handleItemClick}
       title={
-        <div style={{ paddingTop: 5, paddingBottom: 5, padding: '16px 8px' }}>
+        <div style={{ padding: '32px 8px 5px' }}>
           <div style={{ display: 'flex', justifyContent:'space-between', flexWrap: 'wrap'}}>
             <Text strong style={{ fontSize: 16 }}>{`${year}`} {`${make.name}`}</Text>
             <Text strong style={{ fontSize: 16 }}>USD {`$${formatNumberWithCommas(fees.vehicle_price)}`}</Text>

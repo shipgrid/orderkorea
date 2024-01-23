@@ -3,12 +3,11 @@
   margin: 64px 0px; 
   flex-direction: column;
   border-radius: 12px;
-  background-color: white; 
 }
 
 .vehicle-detail-box {
   display:flex; 
-  padding: 24px 24px;
+  padding: 0px 24px;
   flex: 1;
 }
 
@@ -19,7 +18,7 @@
 }
 
 .vehicle-detail-info {
-  margin: 12px 40px;
+  margin: 0px 40px;
   flex: 1;
 }
 

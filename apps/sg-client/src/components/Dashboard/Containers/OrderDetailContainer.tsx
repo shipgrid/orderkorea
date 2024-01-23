@@ -1,9 +1,4 @@
 import {
-  Stack,
-  Divider,
-} from '@chakra-ui/react';
-
-import {
   Button
 } from 'antd'
 
@@ -12,7 +7,8 @@ import {
 } from 'react'
 
 import {
-  useNavigate
+  useNavigate,
+  useLocation
 } from 'react-router-dom'
 
 import {
@@ -33,14 +29,15 @@ import ResourceNotFound from '../../Shared/ResourceNotFound';
 
 const OrderDetailContainer = () => {
   const navigate = useNavigate();
+  const location = useLocation()
   const searchParams = new URLSearchParams(location.search);
   const orderId = searchParams.get('order_id');
 
   if(!orderId) {
     return  (
-      <Stack minH={'100vh'}>
+      <div>
         <ResourceNotFound />
-      </Stack>
+      </div>
     )
   }
 
@@ -52,65 +49,70 @@ const OrderDetailContainer = () => {
 
   if(!order || error) {
     return  (
-      <Stack minH={'100vh'}>
+      <div>
         <ResourceNotFound />
-      </Stack>
+      </div>
     )
   }
 
   return (
-    <Stack minH={'100vh'}>
+    <div>
       <DashboardContent>
         <DashboardHeader
           title={'Order Details'}
           description={'View your order details'}
         />
-        <Divider my={3}/>
-        <Button style={{marginBottom: 5, marginRight: 5 }} onClick={ () => startTransition(() => navigate(`/order-detail?order_id=${order.order_id}`)) }> Edit </Button>
-        <Button style={{marginBottom: 5, marginRight: 5 }}> Create Event </Button>
-        <Grid          
-        title='Shipment Details'
-          content={
-            <OrderDetail
-              order={order}
+        <div style={{ margin: '64px 24px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <div>
+            <Button style={{marginBottom: 5, marginRight: 5 }} onClick={ () => startTransition(() => navigate(`/order-detail?order_id=${order.order_id}`)) }> Edit </Button>
+            <Grid          
+            title='Shipment Details'
+              content={
+                <OrderDetail
+                  order={order}
+                />
+              }
             />
-          }
-        />
-        <Divider my={3}/>
-        <AddThirdPartyDropdownMenu
-          orderId={orderId}
-        />
-        <Grid
-          title='Shipper, Consignee and Contacts'
-          content={
-            <ThirdPartyTable
-              thirdParties={order.thirdParties}
+          </div>
+          <div style={{ margin: '24px 0px', flex: 1 }}>
+            <AddThirdPartyDropdownMenu
+              orderId={orderId}
             />
-          }
-        />
-        <Divider my={3}/>
-        <AddDocumentModal
-          orderId={orderId}
-        />
-        <Grid
-          title='Documents'
-          content={
-            <DocumentTable
-              documents={order.documents}
+            <Grid
+              title='Shipper, Consignee and Contacts'
+              content={
+                <ThirdPartyTable
+                  thirdParties={order.thirdParties}
+                />
+              }
             />
-          }
-        />
-      <Divider my={3}/>
-        <Grid
-          title='Vehicles'
-          content={
-            <VehicleTable
-              vehicles={order.vehicles}
+          </div>
+          <div style={{ margin: '24px 0px'}}>
+            <AddDocumentModal
+              orderId={orderId}
             />
-          }
-        />
+            <Grid
+              title='Documents'
+              content={
+                <DocumentTable
+                  documents={order.documents}
+                />
+              }
+            />
+          </div>
+          <div style={{ margin: '24px 0px'}}>
+            <Grid
+              title='Vehicles'
+              content={
+                <VehicleTable
+                  reservations={order.reservations}
+                />
+              }
+            />
+          </div>         
+        </div>
       </DashboardContent>
-    </Stack>
+    </div>
   );
 }
 

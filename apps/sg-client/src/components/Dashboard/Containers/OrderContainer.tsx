@@ -7,7 +7,7 @@ import DashboardHeader from '../Layout/DashboardHeader';
 import OrderTable from '../Order/OrderTable'  
 import DashboardContent from '../Layout/DashboardContent';
 
-const OrderContainer = () => {
+const OrderContainer = ({}) => {
 
   return (
     <Row>

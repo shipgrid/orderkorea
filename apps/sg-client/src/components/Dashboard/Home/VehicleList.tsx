@@ -4,7 +4,8 @@ import {
 
 import { 
   Skeleton, 
-  Space 
+  Space,
+  Badge
 } from 'antd';
 
 import {
@@ -55,7 +56,9 @@ const VehicleList = ({
     <Space direction="horizontal" size="large" style={{ width: '100%', height: '100%' }} wrap>
       {
         vehicles.length ? vehicles.map((vehicle) => (
-          <VehicleCard key={vehicle.vehicle_id} vehicle={vehicle} onClick={() => startTransition(() => handleViewVehicle(vehicle.vehicle_id))}/>
+          <Badge.Ribbon text={vehicle.reservation ? 'sold' : 'available' } color={vehicle.reservation ? 'red' : 'green'}>
+            <VehicleCard key={vehicle.vehicle_id} vehicle={vehicle} onClick={() => startTransition(() => handleViewVehicle(vehicle.vehicle_id))}/>
+          </Badge.Ribbon>
         )) : (
         <div style={{ 
           flex: 1, 

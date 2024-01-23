@@ -56,8 +56,8 @@ class Order extends Model implements Order {
           to: 'documents.order_id'
         }
       },
-      reservation: {
-        relation: Model.HasOneRelation,
+      reservations: {
+        relation: Model.HasManyRelation,
         modelClass: Reservation,
         join: {
           from: 'orders.order_id',

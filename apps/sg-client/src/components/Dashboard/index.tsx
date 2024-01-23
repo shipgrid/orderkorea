@@ -1,18 +1,16 @@
 import { 
-  Outlet 
+  Outlet,
 } from "react-router-dom";
 
 import {
   Suspense 
 } from "react";
 
-import { 
-  Spinner 
-} from '@chakra-ui/react'
-
+import AuthLoader from "../Shared/AuthLoader";
 import DashboardLayout from "./Layout/Layout";
 
 const DashboardContainer = () => {
+
   return (
     <>
       <DashboardLayout 
@@ -21,13 +19,7 @@ const DashboardContainer = () => {
         }
       />
       <Suspense fallback={
-        <Spinner
-          thickness='4px'
-          speed='0.65s'
-          emptyColor='gray.200'
-          color='blue.500'
-          size='xl'
-        />
+        <AuthLoader/>
       }>
       </Suspense>
     </>

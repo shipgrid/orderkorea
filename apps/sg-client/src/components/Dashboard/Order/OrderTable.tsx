@@ -70,10 +70,12 @@ const OrderTable = () => {
 
         return (
           <div style={{ display: 'flex', flexDirection:'column' }}>
-            <p style={{fontSize: 14}}> {address?.name} </p>
-            <p style={{fontSize: 12, color: 'gray'}}> {address?.line1} </p>
-            <p style={{fontSize: 12, color: 'gray'}}> {address?.city}, {address?.state_code} </p>
-            <p style={{fontSize: 12, color: 'gray'}}> {address?.postal_code} </p>
+            <p style={{fontSize: 14}}> 
+              {address?.name} <br/>
+              {address?.line1} <br/>
+              {address?.city}, {address?.state_code} <br/>
+              {address?.postal_code} 
+            </p>            
           </div>
         )
       }
@@ -89,10 +91,12 @@ const OrderTable = () => {
 
         return (
           <div style={{ display: 'flex', flexDirection:'column' }}>
-            <p style={{fontSize: 14}}> {address?.name} </p>
-            <p style={{fontSize: 12, color: 'gray'}}> {address?.line1} </p>
-            <p style={{fontSize: 12, color: 'gray'}}> {address?.city}, {address?.state_code} </p>
-            <p style={{fontSize: 12, color: 'gray'}}> {address?.postal_code} </p>
+            <p style={{fontSize: 14}}> 
+              {address?.name} <br/>
+              {address?.line1} <br/>
+              {address?.city}, {address?.state_code} <br/>
+              {address?.postal_code} 
+            </p>            
           </div>
         )
       }
@@ -101,6 +105,7 @@ const OrderTable = () => {
       title: 'Expected Arrival',
       dataIndex: 'expected_arrival',
       key: 'expected_arrival',
+      render:(expected_arrival: string) => expected_arrival ? expected_arrival : 'N/A'
     },
     {
       title: 'Details',
