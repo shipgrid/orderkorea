@@ -1,6 +1,6 @@
 export interface ITheme {
   colorPrimary: string;
-  // borderRadius?: number;
+  borderRadius?: number;
   Button?: {
     colorPrimary: string;
     algorithm?: boolean;
@@ -9,7 +9,7 @@ export interface ITheme {
 
 const ThemeData: ITheme = {
   colorPrimary: '#0e1111',
-  // borderRadius: 10,
+  borderRadius: 0,
   Button: {
     colorPrimary: '#BACC81',
   },
