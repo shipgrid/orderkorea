@@ -23,8 +23,8 @@ export default async ({
   makesFilter: string[],
   modelFilter: string[],
   trimFilter: string[],
-  priceFilter: number[],
-  mileageFilter: number[],
+  priceFilter: string[],
+  mileageFilter: string[],
   yearsFilter: string[],
   sortFilter: string[]
 }): Promise<IServiceResponse<Vehicle[]>> => {

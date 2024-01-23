@@ -25,7 +25,17 @@ export default async (
     years='',
     trims='',
     sort=''
-  } = req.query
+  } = req.query as {
+    search: string,
+    conditions: string,
+    makes: string,
+    models: string,
+    price: string,
+    mileage: string,
+    years: string,
+    trims: string,
+    sort: string
+  }
 
   try {
     const {
