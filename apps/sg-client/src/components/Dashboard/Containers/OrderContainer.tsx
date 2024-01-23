@@ -1,8 +1,4 @@
 import {
-  Divider,
-} from '@chakra-ui/react';
-
-import {
   Row,
   Col,
 } from 'antd'

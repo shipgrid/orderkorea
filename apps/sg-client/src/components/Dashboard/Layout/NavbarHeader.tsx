@@ -15,16 +15,7 @@ import type {
 
 import { 
   useNavigate 
-} from 'react-router-dom'
-
-import { 
-  IoCarSportSharp 
-} from "react-icons/io5";
-
-
-import { 
-  FaWpforms 
-} from "react-icons/fa";
+} from 'react-router-dom';
 
 import UserNavbarDropdownMenu from './UserNavbarDropdownMenu';
 
@@ -35,13 +26,11 @@ const {
 const navItems = [
   {
     label: 'Inventory',
-    // icon: <IoCarSportSharp/>,
     width: 110,
     path: '/',
   },
   {
     label: 'Orders',
-    // icon: <FaWpforms/> ,
     width: 110,
     path: '/orders',
   },
@@ -49,7 +38,6 @@ const navItems = [
 
 const items: MenuProps['items'] = navItems.map((item) => ({
   key: item.path,
-  // icon: item.icon,
   label: `${item.label}`,
 }));
 const NavbarHeader = ({ }) => {
