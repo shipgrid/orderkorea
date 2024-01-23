@@ -40,7 +40,7 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
       key: 'images',
       render: (_: any, record: Reservation) => {
         
-        const images = record.vehicle.images.map((image: VehicleImage) => image.image_url)
+        const images = record.vehicle?.images?.map((image: VehicleImage) => image.image_url) ?? [];
 
         return (
           <Image.PreviewGroup
@@ -61,7 +61,7 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
       render: (_: string, record: Reservation) => {
         return (
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <span> { `${record.vehicle.make.name} ${record.vehicle.model.name}` } </span>
+            <span> { `${record?.vehicle?.make.name} ${record?.vehicle?.model.name}` } </span>
           </div>
         )
       }
@@ -72,7 +72,7 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
       render: (_: string, record: Reservation) => {
         return (
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <span> { record.vehicle.year } </span>
+            <span> { record?.vehicle?.year } </span>
           </div>
         )
       }
@@ -83,7 +83,7 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
       render: (_: string, record: Reservation) => {
         return (
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <span> { record.vehicle.exterior_color.name } </span>
+            <span> { record?.vehicle?.exterior_color.name } </span>
           </div>
         )
       }
@@ -94,7 +94,7 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
       render: (_: string, record: Reservation) => {
         return (
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <span> { record.vehicle.mileage } </span>
+            <span> { record?.vehicle?.mileage } </span>
           </div>
         )
       }
@@ -105,7 +105,7 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
       render: (_: string, record: Reservation) => {
         return (
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <span> ${ record.vehicle.fees.vehicle_price } </span>
+            <span> ${ record?.vehicle?.fees.vehicle_price } </span>
           </div>
         )
       }
@@ -116,7 +116,7 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
       render: (_: string, record: Reservation) => {
         return (
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <span> { record.vehicle.vin_number } </span>
+            <span> { record?.vehicle?.vin_number } </span>
           </div>
         )
       }
@@ -130,7 +130,7 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
             actions={[
               {
                 label: 'View',
-                action: () => startTransition(() => navigate(`/vehicle?vehicle_id=${record.vehicle.vehicle_id}`))
+                action: () => startTransition(() => navigate(`/vehicle?vehicle_id=${record?.vehicle?.vehicle_id}`))
               },
             ]}
           />

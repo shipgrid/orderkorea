@@ -422,7 +422,7 @@ const HomeContainer = () => {
                 )  
               }
               { filters.conditions.length > 0 && (filters.conditions.map((condition) => (
-                <Tag closeIcon onClose={(e) => handleFilter(condition, 'conditions-close')} key={condition}>
+                <Tag closeIcon onClose={() => handleFilter(condition, 'conditions-close')} key={condition}>
                   {condition}
                 </Tag>
               )))}
