@@ -5,17 +5,12 @@ import {
 } from 'react';
 
 import { 
-  Button,
   Dropdown
 } from 'antd';
 
 import type { 
   MenuProps 
 } from 'antd';
-
-import {
-  FiChevronDown,
-} from 'react-icons/fi'
 
 import { 
   RiLogoutBoxRLine,
