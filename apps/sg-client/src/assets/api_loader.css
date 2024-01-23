@@ -1,5 +1,6 @@
-.container {
-  --uib-size: 80px;
+.api-loader {
+  --uib-width: 120px;
+  --uib-size: 30px;
   --uib-color: black;
   --uib-speed: 1.75s;
   --uib-stroke: 5px;
@@ -9,13 +10,13 @@
   align-items: center;
   justify-content: center;
   height: var(--uib-stroke);
-  width: var(--uib-size);
+  width: var(--uib-width);
   border-radius: calc(var(--uib-stroke) / 2);
   overflow: hidden;
   transform: translate3d(0, 0, 0);
 }
 
-.container::before {
+.api-loader::before {
   content: '';
   position: absolute;
   top: 0;
@@ -27,7 +28,7 @@
   transition: background-color 0.3s ease;
 }
 
-.container::after {
+.api-loader::after {
   content: '';
   height: 100%;
   width: 100%;
