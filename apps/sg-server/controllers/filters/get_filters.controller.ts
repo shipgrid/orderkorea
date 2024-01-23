@@ -20,7 +20,13 @@ export default async (
     price='',
     mileage='',
     years=''
-  } = req.query
+  } = req.query as {
+    makes: string,
+    models: string,
+    price: string,
+    mileage: string,
+    years: string
+  }
 
   try {
     const {
