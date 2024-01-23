@@ -44,6 +44,10 @@ import {
   IoCarSportSharp 
 } from "react-icons/io5";
 
+import { 
+  CiViewList 
+} from "react-icons/ci";
+
 const UserNavbarDropdownMenu = ({ 
 }) => {
 
@@ -95,6 +99,17 @@ const UserNavbarDropdownMenu = ({
         ),
       })
   }
+
+  userDropdownItems.push(
+    {
+      key: '3',
+      label: (
+        <div style={{ display: 'flex', alignItems: 'center'}} onClick={() => startTransition(() => navigate('/orders'))}>
+          <CiViewList/>
+          <span style={{ marginLeft: 5 }}>  Orders </span>
+        </div>
+      ),
+    })
 
   userDropdownItems.push(
     {
