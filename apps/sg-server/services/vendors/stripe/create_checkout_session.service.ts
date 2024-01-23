@@ -59,7 +59,7 @@ export default async ({
           capture_method: 'automatic',
           setup_future_usage: 'on_session',
         },
-        return_url: `http://localhost:5173/#/return?session_id={CHECKOUT_SESSION_ID}`,
+        return_url: `https://shipgrid.io/#/return?session_id={CHECKOUT_SESSION_ID}`,
         metadata: {
           customer_id,
           vehicle_id
