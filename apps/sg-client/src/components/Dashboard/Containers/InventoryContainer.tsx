@@ -428,21 +428,21 @@ const HomeContainer = () => {
               )))}
               {
                 filters.makes.length > 0 && (filters.makes.map((make) => (
-                  <Tag closeIcon onClose={(e) => handleFilter(make, 'make-close')} key={make}>
+                  <Tag closeIcon onClose={() => handleFilter(make, 'make-close')} key={make}>
                     {make}
                   </Tag>
                 )))
               }
               {
                 filters.models.length > 0 && (filters.models.map((model) => (
-                  <Tag closeIcon onClose={(e) => handleFilter(model, 'model-close')} key={model}>
+                  <Tag closeIcon onClose={() => handleFilter(model, 'model-close')} key={model}>
                     {model}
                   </Tag>
                 )))
               }
               {
                 filters.trims.length > 0 && (filters.trims.map((trim) => (
-                  <Tag closeIcon onClose={(e) => handleFilter(trim, 'trim-close')} key={trim}>
+                  <Tag closeIcon onClose={() => handleFilter(trim, 'trim-close')} key={trim}>
                     {trim}
                   </Tag>
                 )))
@@ -482,7 +482,7 @@ const HomeContainer = () => {
               layout="vertical"
               style={{ flex: 1, padding: 10}}
             >
-              <Search name='search' placeholder='Make, model, or keyword' onSearch={(value, e) => handleFilter(value, 'search')}/>
+              <Search name='search' placeholder='Make, model, or keyword' onSearch={(value) => handleFilter(value, 'search')}/>
               <div style={{ margin: '5px 0px 5px', flex: 1}}>  
                 {
                   filters.search.length > 0 && (
@@ -492,27 +492,27 @@ const HomeContainer = () => {
                   )  
                 }
                 { filters.conditions.length > 0 && (filters.conditions.map((condition) => (
-                  <Tag closeIcon onClose={(e) => handleFilter(condition, 'conditions-close')} key={condition}>
+                  <Tag closeIcon onClose={() => handleFilter(condition, 'conditions-close')} key={condition}>
                     {condition}
                   </Tag>
                 )))}
                 {
                   filters.makes.length > 0 && (filters.makes.map((make) => (
-                    <Tag closeIcon onClose={(e) => handleFilter(make, 'make-close')} key={make}>
+                    <Tag closeIcon onClose={() => handleFilter(make, 'make-close')} key={make}>
                     {make}
                     </Tag>
                   )))
                 }
                 {
                   filters.models.length > 0 && (filters.models.map((model) => (
-                    <Tag closeIcon onClose={(e) => handleFilter(model, 'model-close')} key={model}>
+                    <Tag closeIcon onClose={() => handleFilter(model, 'model-close')} key={model}>
                       {model}
                     </Tag>
                   )))
                 }
                 {
                   filters.trims.length > 0 && (filters.trims.map((trim) => (
-                    <Tag closeIcon onClose={(e) => handleFilter(trim, 'trim-close')} key={trim}>
+                    <Tag closeIcon onClose={() => handleFilter(trim, 'trim-close')} key={trim}>
                       {trim}
                     </Tag>
                   )))
@@ -586,20 +586,20 @@ const HomeContainer = () => {
                 )  
               }
               { filters.conditions.length > 0 && (filters.conditions.map((condition) => (
-                <Tag closeIcon onClose={(e) => handleFilter(condition, 'conditions-close')} key={condition}>
+                <Tag closeIcon onClose={() => handleFilter(condition, 'conditions-close')} key={condition}>
                   {condition}
                 </Tag>
               )))}
               {
                 filters.makes.length > 0 && (filters.makes.map((make) => (
-                  <Tag closeIcon onClose={(e) => handleFilter(make, 'make-close')} key={make}>
+                  <Tag closeIcon onClose={() => handleFilter(make, 'make-close')} key={make}>
                     {make}
                   </Tag>
                 )))
               }
               {
                 filters.models.length > 0 && (filters.models.map((model) => (
-                  <Tag closeIcon onClose={(e) => handleFilter(model, 'model-close')} key={model}>
+                  <Tag closeIcon onClose={() => handleFilter(model, 'model-close')} key={model}>
                     {model}
                   </Tag>
                 )))
