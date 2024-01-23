@@ -15,7 +15,7 @@ import {
   startTransition
 } from 'react';
 
-import VehicleCard from '../../UI/card/VehicleCard';
+import VehicleCard from '../Inventory/VehicleCard';
 import NoMatches from '../../Shared/NoMatches';
 
 interface VehicleListProps {
