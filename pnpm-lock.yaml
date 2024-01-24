@@ -284,18 +284,12 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
-      react-elfsight-widget:
-        specifier: ^1.1.1
-        version: 1.1.1(react@18.2.0)
       react-icons:
         specifier: ^4.11.0
         version: 4.11.0(react@18.2.0)
       react-redux:
         specifier: ^8.1.3
         version: 8.1.3(@types/react-dom@18.2.7)(@types/react@18.2.15)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)
-      react-redux-firebase:
-        specifier: ^3.11.0
-        version: 3.11.0(react@18.2.0)
       react-router:
         specifier: ^6.18.0
         version: 6.18.0(react@18.2.0)
@@ -9637,14 +9631,6 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
-    dev: false
-
-  /react-elfsight-widget@1.1.1(react@18.2.0):
-    resolution: {integrity: sha512-f6r0gC9266yRcNZak8sKev/UwkAP5RYpcEt5X5eeYqHo8agXCQzdYwA0+8HDz5pSPHb0/C54o6oWv+Ukf2GO9w==}
-    peerDependencies:
-      react: ^17.0.2 || ^18.0.0
-    dependencies:
-      react: 18.2.0
     dev: false
 
   /react-fast-compare@3.2.2:

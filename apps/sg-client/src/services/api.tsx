@@ -6,11 +6,9 @@ import {
   FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react'
 
-import firebase from 'firebase/compat/app'
-
-import {
-  refreshToken
-} from '../redux/reducers/session'
+// import {
+//   refreshToken
+// } from '../redux/reducers/session'
 
 import {
   logout 

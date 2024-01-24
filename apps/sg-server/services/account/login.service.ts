@@ -34,7 +34,7 @@ export default async ({
   is_customer: boolean
 }>> => {
 
-  return new Promise(async (resolve, reject) => {
+  return new Promise(async (resolve, _) => {
     try {
 
       const {
