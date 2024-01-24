@@ -97,7 +97,7 @@ const UserNavbarDropdownMenu = ({
 
   userDropdownItems.push(
     {
-      key: '3',
+      key: '2',
       label: (
         <div style={{ display: 'flex', alignItems: 'center'}} onClick={() => startTransition(() => navigate('/orders'))}>
           <CiViewList/>
