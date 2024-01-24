@@ -9,7 +9,6 @@ import {
 
 import { 
   DashboardOutlined, 
-  CopyOutlined 
 } from '@ant-design/icons'
 
 import { 
@@ -48,7 +47,6 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
     year, 
     vin_number, 
     mileage, 
-    is_new,
     description, 
   } = vehicle
 
