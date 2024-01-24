@@ -14,7 +14,6 @@ import User from '../../models/user'
 
 const userSchema = Joi.object({
   user_id: Joi.number().required(),
-  uid: Joi.string().required(),
   first_name: Joi.string().required(),
   last_name: Joi.string().allow('', null),
   username: Joi.string().required(),

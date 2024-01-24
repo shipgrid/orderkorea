@@ -49,11 +49,9 @@ export default async ({
       })
 
       if(!response.success) {
-        resolve({
+        return resolve({
           success: false
         })
-
-        return;
       }
 
       resolve({
