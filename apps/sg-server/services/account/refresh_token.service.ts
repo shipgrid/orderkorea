@@ -84,7 +84,7 @@ export default async ({
           }
         },
         process.env.FIRE_SHARK,
-        { expiresIn: '1h' }
+        { expiresIn: '7d' }
       );
 
       resolve({
