@@ -1,5 +1,6 @@
 import {
-  Logger
+  Logger,
+  User
 } from '../../models'
 
 import {
@@ -26,7 +27,12 @@ interface ILoginUser {
 export default async ({
   username,
   password
-}: ILoginUser): Promise<IServiceResponse<{ token: string}>> => {
+}: ILoginUser): Promise<IServiceResponse<{ 
+  token: string,
+  username: string,
+  is_staff: boolean,
+  is_customer: boolean
+}>> => {
 
   return new Promise(async (resolve, reject) => {
     try {
@@ -61,7 +67,10 @@ export default async ({
       const results = await bcrypt.compare(password, data.password_hash);
   
       if(!results) {
-        throw new Error('Invalid password');
+        return resolve({
+          success: false,
+          message: 'Invalid password'
+        })
       }
   
       Logger.info('Password compared successfully', results);
@@ -74,6 +83,20 @@ export default async ({
       });
   
       Logger.info('User last login', last_login);
+
+      const loginUser = await User.query()
+        .findById(data.user_id)
+        .withGraphFetched('staff')
+        .withGraphFetched('customer');
+
+      if(!loginUser) {
+        resolve({
+          success: false,
+          message: 'User not found'
+        })
+
+        return;
+      }
 
       if(!process.env.FIRE_SHARK) {
         return resolve({
@@ -89,13 +112,16 @@ export default async ({
           }
         },
         process.env.FIRE_SHARK,
-        { expiresIn: '1h' }
+        { expiresIn: '7d' }
       );
       
       resolve({
         success: true,
         data: {
-          token
+          token,
+          username: loginUser.username,
+          is_staff: !!loginUser?.staff?.staff_id,
+          is_customer: !!loginUser?.customer?.customer_id
         }
       })
   

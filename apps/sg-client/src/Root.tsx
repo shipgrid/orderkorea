@@ -13,17 +13,13 @@ import {
   useEffect 
 } from "react";
 
-import { 
-  isLoaded 
-} from 'react-redux-firebase'
-
 import PublicRoute from "./routes/publicRoutes";
 import PrivateRoute from './routes/privateRoutes'
 import Loader from './components/Shared/Loader'
 
 const App = () => {
 
-  const auth = useSelector((state: any) => state.firebase.auth)
+  const auth = useSelector((state: any) => state.session.isAuth)
   const session = useSelector((state: any) => state.session)
 
   const [routes, setRoutes] = useState<any>(null);
@@ -36,10 +32,9 @@ const App = () => {
   ]);
 
   useEffect(() => {
-    if(isLoaded(auth)) {
-      const createdRoutes = createHashRouter(allRoutes);
-      setRoutes(createdRoutes);
-    }
+    const createdRoutes = createHashRouter(allRoutes);
+    setRoutes(createdRoutes);
+
   }, [auth, session.token]);
 
   return (

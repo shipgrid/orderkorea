@@ -21,7 +21,6 @@ interface IRegisterUser {
   last_name: string;
   username: string;
   password: string;
-  uid: string;
 }
 
 export default async ({
@@ -29,7 +28,7 @@ export default async ({
   last_name,
   username,
   password,
-  uid
+  
 }: IRegisterUser): Promise<IServiceResponse<{}>> => {
   
   return new Promise(async (resolve, reject) => {
@@ -45,7 +44,6 @@ export default async ({
         first_name,
         last_name,
         username,
-        uid,
         password_hash: password_hash,
         last_login: convertToLocalDateString(new Date()),
       })

@@ -8,12 +8,6 @@ import {
   REGISTER,
 } from 'redux-persist'
 
-import {
-  getFirebase,
-  firebaseReducer,
-  actionTypes as rrfActionTypes,
-} from 'react-redux-firebase'
-
 import { 
   combineReducers, 
   Reducer 
@@ -25,6 +19,7 @@ import {
 
 import { 
   configureStore,
+  createSlice
 } from '@reduxjs/toolkit'
 
 import {
@@ -33,7 +28,6 @@ import {
 
 import session from './reducers/session'
 import order from './reducers/order'
-import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2'
 import localStorage from 'redux-persist/lib/storage' 
 
 import firebase from 'firebase/compat/app'
@@ -52,14 +46,25 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig)
 
+const logoutSlice = createSlice({
+  name: 'logout',
+  initialState: {},
+  reducers: {
+    logout: (state) => {
+      console.log(state)
+      localStorage.removeItem('persist:root');
+      state = {};
+    },
+  },
+});
+
+export const { logout } = logoutSlice.actions;
+
 const appReducer: Reducer = combineReducers({
   [api.reducerPath]: api.reducer,
   session,
   order,
-  firebase: persistReducer(
-    { key: 'firebaseState', storage: localStorage, stateReconciler: autoMergeLevel2 },
-    firebaseReducer
-  ),
+  logout: logoutSlice.reducer,
 });
 
 const rootReducer: Reducer = (state, action) => {
@@ -77,8 +82,6 @@ const persistConfig = {
   timeout: 1000,
   storage: localStorage,
   blacklist: [
-    'firebase',
-    'firebaseState',
     api.reducerPath,
   ]
 }
@@ -91,16 +94,7 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [
           FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER,
-          ...Object.keys(rrfActionTypes).map(
-            (type) => `@@reactReduxFirebase/${type}`
-          ),
         ],
-        ignoredPaths: ['firebase', 'firestore'],
-      },
-      thunk: {
-        extraArgument: {
-          getFirebase,
-        },
       },
     })
     .concat(api.middleware)
@@ -108,15 +102,6 @@ const store = configureStore({
 
 setupListeners(store.dispatch)
 
-const rrfConfig = {}
-
-const rrfProps = {
-  firebase,
-  config: rrfConfig,
-  dispatch: store.dispatch
-}
-
 export {
   store,
-  rrfProps
 }

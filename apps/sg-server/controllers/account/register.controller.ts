@@ -12,9 +12,9 @@ import {
 
 const bodySchema = Joi.object({
   first_name: Joi.string().required(),
+  last_name: Joi.string().allow(null),
   username: Joi.string().required(),
   password: Joi.string().required(),
-  uid: Joi.string().required()
 })
 
 export default async (
@@ -38,7 +38,6 @@ export default async (
       last_name,
       username,
       password,
-      uid
     } = req.body
 
     const response = await account.register({
@@ -46,17 +45,13 @@ export default async (
       last_name,
       username,
       password,
-      uid
     })
 
     if(!response.success) {
-
-      res.status(400).json({
+      return res.status(400).json({
         success: false,
         message: 'Error registering user'
       })
-
-      return
     }
 
     res.status(200).json({ success: true })

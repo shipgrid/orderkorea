@@ -6,10 +6,6 @@ import {
   ConfigProvider 
 } from 'antd';
 
-import {
-  ReactReduxFirebaseProvider,
-} from 'react-redux-firebase'
-
 import { 
   PersistGate 
 } from 'redux-persist/integration/react'
@@ -20,20 +16,14 @@ import {
 
 import {
   store,
-  rrfProps
 } from './redux/configureStore'
 
 import {
   ThemeData
 } from './theme'
 
-import { 
-  ElfsightWidget 
-} from 'react-elfsight-widget';
-
 import Root from './Root'
 import Loader from './components/Shared/Loader'
-import AuthLoader from './components/Shared/AuthLoader'
 import './index.css'
 import './assets/global.css'
 
@@ -57,12 +47,7 @@ const App = () => {
               },
             }}
           >
-            <ReactReduxFirebaseProvider {...rrfProps}>
-              <AuthLoader>
-                <Root/>
-                <ElfsightWidget widgetId={'2604a269-db6d-453d-965b-5106f8a0df64'} lazy modern />
-              </AuthLoader>
-            </ReactReduxFirebaseProvider>
+            <Root/>
           </ConfigProvider>
         </PersistGate>
       </Provider>

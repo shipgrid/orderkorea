@@ -56,7 +56,7 @@ export default async (
       return;
     }
 
-    res.status(200).json({ token: data.token })
+    res.status(200).json({ success, data })
   } catch (e) {
     next(e)
   }

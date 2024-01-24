@@ -29,10 +29,6 @@ import {
 } from 'react-router-dom'
 
 import { 
-  useFirebase 
-} from 'react-redux-firebase'
-
-import { 
   useSelector 
 } from 'react-redux'
 
@@ -52,7 +48,6 @@ const UserNavbarDropdownMenu = ({
 }) => {
 
   const navigate = useNavigate();
-  const firebase = useFirebase();
   const dispatch = useDispatch();
   const session = useSelector((state: any) => state.session);
 
@@ -115,7 +110,11 @@ const UserNavbarDropdownMenu = ({
     {
       key: '3',
       label: (
-        <div style={{ display: 'flex', alignItems: 'center'}} onClick={(e) => {e.stopPropagation; firebase.logout(); dispatch({ type: 'LOGOUT' });}}>
+        <div style={{ display: 'flex', alignItems: 'center'}} onClick={(e) => {
+          e.stopPropagation; 
+          dispatch({ type: 'LOGOUT' });
+          }}
+        >
           <RiLogoutBoxRLine/> 
           <span style={{ marginLeft: 5 }}>  Sign Out </span>
         </div>

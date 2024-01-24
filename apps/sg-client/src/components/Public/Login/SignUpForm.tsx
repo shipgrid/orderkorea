@@ -13,10 +13,6 @@ import {
   Link
 } from 'react-router-dom'
 
-import { 
-  useFirebase 
-} from 'react-redux-firebase'
-
 import {
   useRegisterMutation
 } from '../../../services/api'
@@ -31,7 +27,6 @@ type FieldType = {
 const SignUpForm = ({}) => {
 
   const navigate = useNavigate()
-  const firebase = useFirebase();
 
   const [
     register, { 
@@ -49,26 +44,21 @@ const SignUpForm = ({}) => {
 
     try {      
 
-      const firebaseCreateUserResponse:any = await firebase.createUser({
-        email: username,
-        password: password
-      })
+      console.log(
+        first_name,
+        last_name,
+        username,
+        password,
+      )
 
       await register({
         first_name,
         last_name,
         username,
         password,
-        uid: firebaseCreateUserResponse.user?.uid,
-      })
-
-      await firebase.login({  
-        email: username,
-        password: password
       })
 
       navigate('/')
-      navigate(0)
 
     } catch(e:any) {
       console.log('error', e)

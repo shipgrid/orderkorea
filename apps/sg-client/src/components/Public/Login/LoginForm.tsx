@@ -15,22 +15,13 @@ import {
   Link
 } from 'react-router-dom'
 
-import { 
-  FaGoogle 
-} from "react-icons/fa";
-
-import { 
-  useFirebase 
-} from 'react-redux-firebase'
-
-import {
-  useRegisterMutation,
-  useFirebaseLoginMutation
-} from '../../../services/api'
-
 import {
   login
 } from '../../../redux/reducers/session'
+
+import {
+  useLoginMutation
+} from '../../../services/api'
 
 
 type FieldType = {
@@ -40,54 +31,11 @@ type FieldType = {
 };
 
 const LoginForm = ({}) => {
-  const firebase = useFirebase();
   const dispatch = useDispatch();
-  const [register, { 
-      isLoading 
-    }
-  ] = useRegisterMutation()
 
-  const [firebaseLogin, {
-      isLoading: firebaseLoginLoading 
-    }
-  ] = useFirebaseLoginMutation()
-
-  const signInWithGoogle = async () => {
-    const response: any = await firebase.login({ provider: 'google', type: 'popup' })
-
-    if(response?.additionalUserInfo?.isNewUser) {
-
-      const registerResponse:any = await register({
-        first_name: response?.additionalUserInfo?.profile?.given_name,
-        username: response?.user?.email,
-        password: 'secret',
-        uid: response?.user?.uid,
-      })
-
-      if(registerResponse.error) {
-        message.error({ content: registerResponse.error.message, duration: 2 })
-        return;
-      }
-    }
-
-    const firebaseToken = await firebase.auth().currentUser?.getIdToken()
-
-    if(!firebaseToken) {
-      return;
-    }
-
-    const loginResponse: any = await firebaseLogin({
-      firebase_token: firebaseToken
-    })
-
-    dispatch(login({ 
-      token: loginResponse.data.token, 
-      fbToken: firebaseToken,
-      username: loginResponse.data.username,
-      isCustomer: loginResponse.data.is_customer,
-      isStaff: loginResponse.data.is_staff
-    }));
-  };
+  const [accountLogin, {
+    isLoading: loginLoading
+  }] = useLoginMutation()
 
   const onFinish = async (values: any) => {    
     const {
@@ -96,28 +44,22 @@ const LoginForm = ({}) => {
     } = values;
 
     try {
-      
-      await firebase.login({  
-        email: username,
-        password: password
+
+      const response: any = await accountLogin({
+        username,
+        password
       })
 
-      const firebaseToken = await firebase.auth().currentUser?.getIdToken()
-
-      if(!firebaseToken) {
-        return;
+      if(response.error) {
+        message.error({ content: response.error.message, duration: 2 })    
+        return; 
       }
-  
-      const loginResponse: any = await firebaseLogin({
-        firebase_token: firebaseToken
-      })
-      
+
       dispatch(login({ 
-        fbToken: firebaseToken,
-        token: loginResponse.data.token, 
-        username: loginResponse.data.username,
-        isCustomer: loginResponse.data.is_customer,
-        isStaff: loginResponse.data.is_staff
+        token: response.data.token, 
+        username: response.data.username,
+        isCustomer: response.data.is_customer,
+        isStaff: response.data.is_staff
       }));
       
     } catch(e:any) {
@@ -127,7 +69,7 @@ const LoginForm = ({}) => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column'}}>
-      <Spin spinning={isLoading}>
+      <Spin spinning={loginLoading}>
         <h2 style={{ color: 'black', marginBottom: 40 }}>
           Sign In
         </h2>
@@ -162,7 +104,6 @@ const LoginForm = ({}) => {
         </Form> 
         <Divider/>
         <div style={{display: 'flex', flexDirection: 'column'}}>
-          <Button icon={<FaGoogle/>} onClick={signInWithGoogle} loading={firebaseLoginLoading}> Sign in with Google </Button>
           <p style={{ marginTop: 10, color: 'black' }}>
             Don't have an account? <Link to="/signup">Sign up</Link>
           </p>

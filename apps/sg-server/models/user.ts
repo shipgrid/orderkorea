@@ -13,6 +13,14 @@ interface IUserCustomer {
   deleted_on: string | null; // Assuming deleted_on can be null
 }
 
+interface IUserStaff {
+  staff_id: number;
+  user_id: number;
+  created_on: string;
+  updated_on: string;
+  deleted_on: string | null; // Assuming deleted_on can be null
+}
+
 // Define an interface that represents your User model properties
 interface User {
   user_id: number;
@@ -22,6 +30,7 @@ interface User {
   password_hash: string;
   last_login: string | null; // Assuming last_login can be null
   customer?: IUserCustomer;
+  staff?: IUserStaff;
   created_on: string;
   updated_on: string;
   deleted_on: string | null; // Assuming deleted_on can be null

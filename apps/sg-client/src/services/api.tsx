@@ -12,6 +12,10 @@ import {
   refreshToken
 } from '../redux/reducers/session'
 
+import {
+  logout 
+} from '../redux/configureStore'
+
 export interface Order {
   order_id: number;
   customer_id: number | null;
@@ -158,7 +162,6 @@ interface RegisterParams {
   last_name?: string;
   username: string | null | undefined;
   password: string;
-  uid: string | null | undefined;
 }
 
 export interface CreateOrderParams {
@@ -213,6 +216,11 @@ export interface CreateVehicleBody {
 
 export interface FirebaseLogin {
   firebase_token: string;
+}
+
+export interface Login {
+  username: string;
+  password: string;
 }
 
 export interface BodyStyle {
@@ -364,12 +372,10 @@ export interface Reservation {
 const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_BASE_URL,
   prepareHeaders: (headers, { getState }: any) => {
-    const fbToken = getState().session.fbToken
     const token = getState().session.token
 
-    if (fbToken) {
+    if(token) {
       headers.set('authorization', `Bearer ${token}`)
-      headers.set('x-fb-key', `${fbToken}`)
     }
 
     return headers
@@ -385,27 +391,22 @@ const baseQueryWithReauth: BaseQueryFn<
 
   if (result.error && result.error.status === 401) {
 
-    const firebaseToken = await firebase.auth().currentUser?.getIdToken()
-    
-    if(!firebaseToken) {
-      return result;
-    } 
+    // opportunity to refresh token user 
+  
+    //REMOVE FIREBASE
+    // const refreshResult:any = await baseQuery(`/account/refresh-token`, api, extraOptions)
 
-    const refreshResult:any = await baseQuery(`/account/refresh-token/${firebaseToken}`, api, extraOptions)
-
-    if (refreshResult.data) {
-      // store the new token
-      api.dispatch(refreshToken({ 
-        fbToken: firebaseToken,
-        token: refreshResult.data.data.token
-      }));
+    // if (refreshResult.data) {
+    //   // store the new token
+    //   api.dispatch(refreshToken({ 
+    //     token: refreshResult.data.data.token
+    //   }));
       
-      // retry the initial query
-      result = await baseQuery(args, api, extraOptions)
-    } else {
-      //need to log out user here
-      // api.dispatch(loggedOut())
-    }
+    //   result = await baseQuery(args, api, extraOptions)
+    // } else {
+      api.dispatch(logout())
+      window.location.reload();
+    // }
   }
   return result
 }
@@ -424,9 +425,9 @@ const api = createApi({
     'reservations'
   ],
   endpoints: (build) => ({
-    firebaseLogin: build.mutation<ApiResponse, FirebaseLogin>({
+    login: build.mutation<ApiResponse, Login>({
       query: (body) => ({
-        url: 'account/firebase-login',
+        url: 'account/login',
         method: 'POST',
         body,
       }),
@@ -596,7 +597,7 @@ const {
   useRegisterMutation,
   useUploadMutation,
   useCreateOrderMutation,
-  useFirebaseLoginMutation,
+  useLoginMutation,
   useGetFiltersQuery,
   useCheckoutQuery,
   useGetCheckoutStatusQuery,
@@ -620,7 +621,7 @@ export {
   useRegisterMutation,
   useUploadMutation,
   useCreateOrderMutation,
-  useFirebaseLoginMutation,
+  useLoginMutation,
   useGetFiltersQuery,
   useCheckoutQuery,
   useGetCheckoutStatusQuery,

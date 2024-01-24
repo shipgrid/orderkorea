@@ -13,7 +13,6 @@ export default async ({
   first_name,
   last_name,
   username,
-  uid,
   password_hash,
   last_login,
 }): Promise<IServiceResponse<User>> => {
@@ -36,7 +35,6 @@ export default async ({
           first_name,
           last_name,
           username,
-          uid,
           password_hash,
           last_login,
         };
