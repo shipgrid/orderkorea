@@ -102,10 +102,8 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
               {vin_number ? (<Text style={{ color: '#5c5e62', fontSize: 12 }} onClick={(e) => handleCopyToClipboard(e, vin_number)}> 
-                <CopyOutlined style={{ marginLeft: '8px' }} />
                 {`VIN: ${vin_number}`}
               </Text>) : null}
-              <Text style={{marginTop: 3, color: '#5c5e62', fontSize: 12 }}>{is_new ? 'New' : 'Used Vehicle'}</Text>
               <Text style={{marginTop: 3, color: '#5c5e62', fontSize: 12 }}>{description}</Text>
             </div>
           </div>

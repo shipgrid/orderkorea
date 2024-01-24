@@ -575,7 +575,7 @@ const HomeContainer = () => {
             style={{ flex: 1, padding: 10}}
           >
             <Form.Item name='keyword'>
-              <Search placeholder='Make, model, or keyword'/>
+              <Search name='search' placeholder='Make, model, or keyword' onSearch={(value) => handleFilter(value, 'search')}/>
             </Form.Item>
             <div style={{ margin: '5px 0px 5px'}}>  
               {
