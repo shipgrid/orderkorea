@@ -9,7 +9,6 @@ import {
   Checkbox,
   Space,
   Slider,
-  Spin,
   Collapse
 } from 'antd';
 
