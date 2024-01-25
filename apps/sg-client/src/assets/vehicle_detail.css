@@ -22,9 +22,23 @@
   flex: 1;
 }
 
+
+.vehicle-detail-title {
+  font-size: 22px;
+  padding: 0px 0px 8px;
+}
+
 @media (max-width: 1024px) {
+
+  .vehicle-detail-title {
+    font-size: 22px;
+    padding: 16px 0px 8px;
+  }
+
   .vehicle-detail-box {
     flex-direction: column;
+    margin: 0px;
+    padding: 0px;
   }
 
   .vehicle-detail-images {

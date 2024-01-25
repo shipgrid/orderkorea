@@ -78,13 +78,13 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
       title={
         <div style={{ padding: '32px 8px 5px' }}>
           <div style={{ display: 'flex', justifyContent:'space-between', flexWrap: 'wrap'}}>
-            <Text strong style={{ fontSize: 16 }}>{`${year}`} {`${make.name}`}</Text>
-            <Text strong style={{ fontSize: 16 }}>USD {`$${formatNumberWithCommas(fees.vehicle_price)}`}</Text>
+            <Text style={{ fontSize: 16 }}>{`${year}`} {`${make.name}`}</Text>
+            <Text style={{ fontSize: 16 }}>USD {`$${formatNumberWithCommas(fees.vehicle_price)}`}</Text>
           </div>
           <div style={{ display: 'flex', justifyContent:'space-between'}}>
-            <Text strong style={{ fontSize: 12, color: 'gray' }}>{`${model.name} ${trim.name}`}</Text>
+            <Text style={{ fontSize: 14, color: 'gray' }}>{`${model.name} ${trim.name}`}</Text>
           </div>
-          <div style={{ fontSize: 12, color: 'gray', marginTop: 5 }}>
+          <div style={{ fontSize: 14, color: 'gray', marginTop: 5 }}>
             <DashboardOutlined style={{ marginRight: '2px' }}/> {`${mileage.toLocaleString()} KM`}
           </div>
         </div>
@@ -93,15 +93,15 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
       <Meta 
         description={
           <div className='inventory-vehicle-meta'>
-            <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-              <Text style={{marginTop: 3, color: '#5c5e62', fontSize: 12 }}>{exterior_color.name} exterior</Text>
-              <Text style={{marginTop: 3, color: '#5c5e62', fontSize: 12 }}>{interior_color.name} interior</Text>
+            <div style={{ display: 'flex', flexDirection: 'column', flex: 1, margin: '0px 28px' }}>
+              <Text style={{marginTop: 3, color: '#5c5e62', fontSize: 14 }}>{exterior_color.name} exterior</Text>
+              <Text style={{marginTop: 3, color: '#5c5e62', fontSize: 14 }}>{interior_color.name} interior</Text>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-              {vin_number ? (<Text style={{ color: '#5c5e62', fontSize: 12 }} onClick={(e) => handleCopyToClipboard(e, vin_number)}> 
-                {`VIN: ${vin_number}`}
+              {vin_number ? (<Text style={{ color: '#5c5e62', fontSize: 14 }} onClick={(e) => handleCopyToClipboard(e, vin_number)}> 
+                {`${vin_number}`}
               </Text>) : null}
-              <Text style={{marginTop: 3, color: '#5c5e62', fontSize: 12 }}>{description}</Text>
+              <Text style={{marginTop: 3, color: '#5c5e62', fontSize: 14 }}>{description}</Text>
             </div>
           </div>
         } 

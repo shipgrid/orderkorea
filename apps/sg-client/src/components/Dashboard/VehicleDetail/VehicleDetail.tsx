@@ -28,9 +28,12 @@ import {
   useNavigate
 } from 'react-router-dom'
 
+import { 
+  formatNumberWithCommas
+} from '../../../utils/format_string'
+
 import '../../../assets/index.css'
 import '../../../assets/vehicle_detail.css'
-
 
 interface VehicleDetailProps {
   vehicle: Vehicle
@@ -133,7 +136,7 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
             <div> Vehicle Price </div>
-            <div> ${ vehicle.fees.vehicle_price } </div>
+            <div> ${ formatNumberWithCommas(vehicle.fees.vehicle_price) } </div>
           </div>
           <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
             <div> Service Fee </div>
@@ -150,15 +153,15 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
           <Divider style={{ margin: '20px 0px 20px' }}> Due Now </Divider>
           <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
             <div> Deposit </div>
-            <div> ${ vehicle.fees.deposit_fee } </div>
+            <div> ${ formatNumberWithCommas(vehicle.fees.deposit_fee) } </div>
           </div>
           <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
             <div> Service Fee </div>
-            <div> ${vehicle.fees.service_fee} </div>
+            <div> ${ formatNumberWithCommas(vehicle.fees.service_fee) } </div>
           </div>
           <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
             <div style={{ fontWeight: 'bold' }}> Total Due </div>
-            <div> ${ (vehicle.fees.deposit_fee) + vehicle.fees.service_fee*1 } </div>
+            <div> ${ formatNumberWithCommas((vehicle.fees.deposit_fee) + vehicle.fees.service_fee*1) } </div>
           </div>
         </div>
       </div>
@@ -249,9 +252,9 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
             </div>
             <div className='vehicle-detail-box'>
               <div className='vehicle-detail-info'>
-                <div style={{ fontSize: 22, padding: '0px 0px 8px'}}>{vehicle.year} {vehicle.make.name} {vehicle.model.name} {vehicle.trim.name} </div>
-                <div style={{ fontSize: 22}}>${vehicle.fees.vehicle_price}</div>
-                <Button type="primary" style={{ marginTop: 24, width: '100%', height: 40, borderRadius: 12 }} onClick={() => startTransition(() => navigate(`/checkout?vehicle_id=${vehicle.vehicle_id}`))}> Order Now </Button>
+                <div className='vehicle-detail-title'>{vehicle.year} {vehicle.make.name} {vehicle.model.name} {vehicle.trim.name} </div>
+                <div style={{ fontSize: 22}}>${ formatNumberWithCommas(vehicle.fees.vehicle_price) }</div>
+                <Button type="primary" style={{ marginTop: 24, width: '100%', height: 40, borderRadius: 12 }} onClick={() => startTransition(() => navigate(`/checkout?vehicle_id=${vehicle.vehicle_id}`))}> Contact Seller </Button>
                 <Tabs defaultActiveKey="1" items={tabItems} style={{ margin: '24px 0px'}}/>
               </div>
             </div>

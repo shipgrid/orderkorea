@@ -47,7 +47,7 @@ const OrderContainer = ({}) => {
   }
 
   if(isMobile) {
-    return <div> This page does not support mobile yet. Please use your desktop to browse this page.</div>
+    return <div style={{ margin: '64px 24px'}}> This page does not support mobile yet. Please use your desktop to browse this page.</div>
   }
 
   return (

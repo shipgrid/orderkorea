@@ -23,7 +23,7 @@ import {
 
 import DashboardHeader from '../Layout/DashboardHeader';
 import DashboardContent from '../Layout/DashboardContent';
-import VehicleList from '../Home/VehicleList';
+import VehicleList from '../Inventory/VehicleList';
 import debounce from 'lodash/debounce';
 import ApiLoader from '../../Shared/ApiLoader';
 import FilterTags from '../Inventory/FilterTags'

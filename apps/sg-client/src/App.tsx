@@ -36,6 +36,7 @@ const App = () => {
           <ConfigProvider
             theme={{
               token: {
+                fontFamily: 'Roboto',
                 colorPrimary: ThemeData.colorPrimary,
                 borderRadius: ThemeData.borderRadius,
               },
