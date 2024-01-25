@@ -5,18 +5,28 @@ import {
   Col,
 } from 'antd'
 
+import {
+  useGetOrdersQuery,
+} from '../../../services/api';
+
 import DashboardHeader from '../Layout/DashboardHeader';
 import OrderTable from '../Order/OrderTable'  
 import DashboardContent from '../Layout/DashboardContent';
+import ApiLoader from '../../Shared/ApiLoader';
+
 
 const OrderContainer = ({}) => {
 
   const [isMobile, setIsMobile] = useState(false);
 
+  const { 
+    data:orders, 
+    isLoading 
+  } = useGetOrdersQuery({});
 
   useEffect(() => {
     function handleResize() {
-      setIsMobile(window.innerWidth <= 768);
+      setIsMobile(window.innerWidth <= 900);
     }
 
     handleResize();
@@ -26,6 +36,12 @@ const OrderContainer = ({}) => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  if(isLoading || !orders) {
+    return (
+      <ApiLoader />
+    )
+  }
 
   if(isMobile) {
     return <div> This page does not support mobile yet. Please use your desktop to browse this page.</div>
@@ -40,7 +56,9 @@ const OrderContainer = ({}) => {
             description={'View your orders and track your shipments'}
           />
           <div style={{ margin: '64px 24px'}}> 
-            <OrderTable />
+            <OrderTable 
+              orders={orders}
+            />
           </div>
         </DashboardContent>
       </Col>

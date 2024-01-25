@@ -56,7 +56,7 @@ const UserNavbarDropdownMenu = ({
 
   useEffect(() => {
     function handleResize() {
-      setIsMobile(window.innerWidth <= 768);
+      setIsMobile(window.innerWidth <= 900);
     }
 
     handleResize();
@@ -80,6 +80,17 @@ const UserNavbarDropdownMenu = ({
           </div>
         ),
       })
+
+    userDropdownItems.push(
+      {
+        key: 'my-orders',
+        label: (
+          <div style={{ display: 'flex', alignItems: 'center'}} onClick={() => startTransition(() => navigate('/'))}>
+            <CiViewList/> 
+            <span style={{ marginLeft: 5 }}>  My Orders </span>
+          </div>
+        ),
+      })
   }
 
   if(session?.isStaff) {
@@ -94,17 +105,6 @@ const UserNavbarDropdownMenu = ({
         ),
       })
   }
-
-  userDropdownItems.push(
-    {
-      key: '2',
-      label: (
-        <div style={{ display: 'flex', alignItems: 'center'}} onClick={() => startTransition(() => navigate('/orders'))}>
-          <CiViewList/>
-          <span style={{ marginLeft: 5 }}>  Orders </span>
-        </div>
-      ),
-    })
 
   userDropdownItems.push(
     {

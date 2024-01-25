@@ -1,7 +1,6 @@
 import {
   Table,
   Button,
-  Progress
 } from 'antd'
 
 import '../../../assets/index.css'
@@ -15,20 +14,20 @@ import {
 } from 'react-router-dom'
 
 import {
-  useGetOrdersQuery,
   Order,
   Shipper,
   ThirdParty,
 } from '../../../services/api';
 
-const OrderTable = () => {
+interface OrderTableProps {
+  orders: Order[]
+}
+
+const OrderTable = ({
+  orders
+}: OrderTableProps) => {
 
   const navigate = useNavigate();
-
-  const { 
-    data:orders, 
-    isLoading 
-  } = useGetOrdersQuery({});
 
   const rowClassName = () => {
     return 'fixed-height-row';
@@ -44,20 +43,6 @@ const OrderTable = () => {
       title: 'Shipment Type',
       dataIndex: 'shipment_type',
       key: 'shipment_type',
-    },
-    {
-      title: 'Status',
-      dataIndex: 'id',
-      key: 'id',
-      render: (_: string, _record: Order) => {
-
-        return (
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <Progress percent={70} steps={10} size='small'/>            
-            <span> IN_TRANSIT </span>
-          </div>
-        )
-      }
     },
     {
       title: 'Shipper',
@@ -122,7 +107,6 @@ const OrderTable = () => {
   return (
     <Table 
       dataSource={orders}
-      loading={isLoading} 
       columns={columns} 
       rowClassName={rowClassName}
     />

@@ -30,7 +30,7 @@ const navItems = [
     path: '/',
   },
   {
-    label: 'Orders',
+    label: 'My Orders',
     width: 110,
     path: '/orders',
   },
@@ -48,14 +48,12 @@ const NavbarHeader = ({ }) => {
 
   useEffect(() => {
     function handleResize() {
-      setIsMobile(window.innerWidth <= 900); // Adjust the breakpoint as needed
+      setIsMobile(window.innerWidth <= 900); 
     }
 
-    // Initial check and add event listener
     handleResize();
     window.addEventListener('resize', handleResize);
 
-    // Cleanup the event listener on component unmount
     return () => {
       window.removeEventListener('resize', handleResize);
     };
