@@ -1,0 +1,42 @@
+.request-car-card {
+  flex: 1;
+  border: 1px solid #d9d9d9;
+  max-width: 475px;
+  height: 560px; 
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.request-car-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 32px 32px;
+}
+
+.request-car-hero {
+  width: 335px !important;
+}
+
+@media (max-width: 900px) {
+  
+  .request-car-card {
+    max-width: 100%;
+    border-radius: 10; 
+    cursor: pointer
+  }
+
+  .request-car-hero {
+    width: 335px !important;
+  }
+
+}
+
+@media (max-width: 420px) {
+  
+  .request-car-hero {
+    width: 255px !important;
+  }
+
+}

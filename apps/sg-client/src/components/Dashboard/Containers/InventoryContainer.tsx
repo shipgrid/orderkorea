@@ -5,17 +5,11 @@ import {
 } from 'react';
 
 import {
-  Form,
   Input,
   Checkbox,
   Space,
   Slider,
-  Select,
-  Button,
-  Drawer,
-  Affix,
   Spin,
-  Tag,
   Collapse
 } from 'antd';
 
@@ -33,6 +27,10 @@ import DashboardContent from '../Layout/DashboardContent';
 import VehicleList from '../Home/VehicleList';
 import debounce from 'lodash/debounce';
 import ApiLoader from '../../Shared/ApiLoader';
+import FilterTags from '../Inventory/FilterTags'
+import SortDropdown from '../Inventory/SortDropdown'
+import MobileHeader from '../Inventory/MobileHeader';
+
 import '../../../assets/inventory.css'
 
 const { Search } = Input;
@@ -63,7 +61,6 @@ const HomeContainer = () => {
     sort: ['highest-price']
   });
 
-  const [open, setOpen] = useState(false);
   const [finalUrl, setFinalUrl] = useState('');
   const [isDebounceComplete, setIsDebounceComplete] = useState(false);
 
@@ -71,12 +68,10 @@ const HomeContainer = () => {
     const queryParams = [];
     
     for (const key in filterObject) {
-
       if(filterObject[key].length) {
         queryParams.push(`${key}=${filterObject[key]}`);
       }
     }
-
     return queryParams.join('&');
   }
 
@@ -93,7 +88,6 @@ const HomeContainer = () => {
 
   const { 
     data:searchFilters, 
-    isLoading 
   } = useGetFiltersQuery({finalUrl: finalUrl}, {
     skip: !isDebounceComplete
   });
@@ -109,16 +103,7 @@ const HomeContainer = () => {
     setIsDebounceComplete(false); 
   },[filters])
 
-  const showDrawer = () => {
-    setOpen(true);
-  };
-
-  const onClose = () => {
-    setOpen(false);
-  };
-
   const handleFilter = (values: any, name?: string) => {
-    console.log(values, name)
     if(name === 'sort') {
       setFilters({
         ...filters,
@@ -369,9 +354,9 @@ const HomeContainer = () => {
     },
   ];
 
+
   return (
     <>
-      <Spin spinning={isLoading}> 
       <DashboardContent>
         <div className='inventory-header'>
           <DashboardHeader
@@ -379,267 +364,40 @@ const HomeContainer = () => {
             action={[
               <div>
                 <div> Sort by </div>
-                <Select
-                  defaultValue={'highest-price'}
-                  style={{ width: 180, height: 40  }}
-                  onChange={(e) => handleFilter(e, 'sort')}
-                  options={[
-                    { value: 'highest-price', label: 'Highest price' },
-                    { value: 'lowest-price', label: 'Lowest price' },
-                    { value: 'lowest-mileage', label: 'Lowest mileage' },
-                    { value: 'oldest', label: 'Oldest vehicles' },
-                    { value: 'newest', label: 'Newest vehicles' },
-                  ]}
+                <SortDropdown
+                  handleFilter={handleFilter}
                 />
               </div>,
             ]}
           />              
         </div>
-        <Affix offsetTop={0}>
-          <div className='mobile-inventory-header'>
-            <div style={{ display:'flex', height: 60, marginTop: 30 }}>
-              <div style={{ flex: 1 }}>
-                <Button style={{ height: 40, backgroundColor: '#f4f4f4', width: '95%' }} onClick={showDrawer}> Filter </Button>
-              </div>
-              <div style={{ flex: 1 }}>
-                <Select
-                  defaultValue={'highest-price'}
-                  dropdownStyle={{ backgroundColor: '#f4f4f4' }}
-                  style={{ height: 40, backgroundColor: '#f4f4f4', width: '95%' }}
-                  onChange={(e) => handleFilter(e, 'sort')}
-                  options={[
-                    { value: 'highest-price', label: 'Highest price' },
-                    { value: 'lowest-price', label: 'Lowest price' },
-                    { value: 'lowest-mileage', label: 'Lowest mileage' },
-                    { value: 'oldest', label: 'Oldest vehicles' },
-                    { value: 'newest', label: 'Newest vehicles' },
-                  ]}
-                />
-              </div>
-            </div>
-            <div style={{ margin: '0px 0px 0px', flex: 1}}>  
-              {
-                filters.search.length > 0 && (
-                  <Tag closable onClose={(e) => handleFilter(e, 'search-close')} key={'search'}>
-                    {filters.search}
-                  </Tag>
-                )  
-              }
-              { filters.conditions.length > 0 && (filters.conditions.map((condition) => (
-                <Tag closeIcon onClose={() => handleFilter(condition, 'conditions-close')} key={condition}>
-                  {condition}
-                </Tag>
-              )))}
-              {
-                filters.makes.length > 0 && (filters.makes.map((make) => (
-                  <Tag closeIcon onClose={() => handleFilter(make, 'make-close')} key={make}>
-                    {make}
-                  </Tag>
-                )))
-              }
-              {
-                filters.models.length > 0 && (filters.models.map((model) => (
-                  <Tag closeIcon onClose={() => handleFilter(model, 'model-close')} key={model}>
-                    {model}
-                  </Tag>
-                )))
-              }
-              {
-                filters.trims.length > 0 && (filters.trims.map((trim) => (
-                  <Tag closeIcon onClose={() => handleFilter(trim, 'trim-close')} key={trim}>
-                    {trim}
-                  </Tag>
-                )))
-              }
-              {
-                filters.years.length > 0 && (
-                  <Tag key={'years'}>
-                    Year {filters.years[0]} - {filters.years[1]}
-                  </Tag>
-                )
-              }
-              {
-                filters.mileage.length > 0 && (
-                  <Tag key={'mileage'}>
-                    Mileage {filters.mileage[0]}km - {filters.mileage[1]}km
-                  </Tag>
-                )
-              }
-              {
-                filters.price.length > 0 && (
-                  <Tag key={'price'}>
-                    Price {filters.price[0]}km - {filters.price[1]}km
-                  </Tag>
-                )
-              }
-            </div>
-            <div>
-              <p style={{ fontSize: 12, textAlign:'center', paddingBottom: 10, color: '#5c5e62' }}> Showing results for { vehicles.length ?? 0 } vehicles </p>
-            </div>
-    
-          </div>
-        </Affix>
+        <MobileHeader
+          filters={filters}
+          handleFilter={handleFilter}
+          filterItems={items}
+          vehicleCount={vehicles.length}
+        />
         <div style={{ display: 'flex', margin: '64px 24px' }}>
-          <Spin spinning={isLoading}>
           <div className='car-filters'>
-            <Form
-              layout="vertical"
-              style={{ flex: 1, padding: 10}}
-            >
-              <Search name='search' placeholder='Make, model, or keyword' onSearch={(value) => handleFilter(value, 'search')}/>
-              <div style={{ margin: '5px 0px 5px', flex: 1}}>  
-                {
-                  filters.search.length > 0 && (
-                    <Tag closable onClose={(e) => handleFilter(e, 'search-close')} key={'search'}>
-                      {filters.search}
-                    </Tag>
-                  )  
-                }
-                { filters.conditions.length > 0 && (filters.conditions.map((condition) => (
-                  <Tag closeIcon onClose={() => handleFilter(condition, 'conditions-close')} key={condition}>
-                    {condition}
-                  </Tag>
-                )))}
-                {
-                  filters.makes.length > 0 && (filters.makes.map((make) => (
-                    <Tag closeIcon onClose={() => handleFilter(make, 'make-close')} key={make}>
-                    {make}
-                    </Tag>
-                  )))
-                }
-                {
-                  filters.models.length > 0 && (filters.models.map((model) => (
-                    <Tag closeIcon onClose={() => handleFilter(model, 'model-close')} key={model}>
-                      {model}
-                    </Tag>
-                  )))
-                }
-                {
-                  filters.trims.length > 0 && (filters.trims.map((trim) => (
-                    <Tag closeIcon onClose={() => handleFilter(trim, 'trim-close')} key={trim}>
-                      {trim}
-                    </Tag>
-                  )))
-                }
-                {
-                  filters.years.length > 0 && (
-                    <Tag key={'years'}>
-                      Year {filters.years[0]} - {filters.years[1]}
-                    </Tag>
-                  )
-                }
-                {
-                  filters.mileage.length > 0 && (
-                    <Tag key={'mileage'}>
-                      Mileage {filters.mileage[0]}km - {filters.mileage[1]}km
-                    </Tag>
-                  )
-                }
-                {
-                  filters.price.length > 0 && (
-                    <Tag key={'price'}>
-                      Price {filters.price[0]}km - {filters.price[1]}km
-                    </Tag>
-                  )
-                }
-              </div>
-              <Collapse 
-                defaultActiveKey={['1']} 
-                bordered={false} 
-                items={items} 
-                expandIconPosition={'end'}
-                accordion
-                />
-            </Form>
+            <Search name='search' placeholder='Make, model, or keyword' onSearch={(value) => handleFilter(value, 'search')}/>
+            <FilterTags
+              filters={filters}
+              handleFilter={handleFilter}
+            />
+            <Collapse 
+              defaultActiveKey={['1']} 
+              bordered={false} 
+              items={items} 
+              expandIconPosition={'end'}
+              accordion
+            />
           </div>
-          </Spin>
           <VehicleList
             vehicles={vehicles}
             isLoading={isVehicleListLoading}
           />
         </div>
       </DashboardContent>
-      <Drawer
-        title="Filters"
-        placement={'bottom'}
-        closable={false}
-        onClose={onClose}
-        open={open}
-        key={'bottom'}
-        height={'90%'}
-        extra={
-          <Button type="primary" onClick={onClose}>
-            Close
-          </Button>
-        }
-      >
-        <div>
-          <Form
-            layout="vertical"
-            style={{ flex: 1, padding: 10}}
-          >
-            <Form.Item name='keyword'>
-              <Search name='search' placeholder='Make, model, or keyword' onSearch={(value) => handleFilter(value, 'search')}/>
-            </Form.Item>
-            <div style={{ margin: '5px 0px 5px'}}>  
-              {
-                filters.search.length > 0 && (
-                  <Tag closable onClose={(e) => handleFilter(e, 'search-close')} key={'search'}>
-                    {filters.search}
-                  </Tag>
-                )  
-              }
-              { filters.conditions.length > 0 && (filters.conditions.map((condition) => (
-                <Tag closeIcon onClose={() => handleFilter(condition, 'conditions-close')} key={condition}>
-                  {condition}
-                </Tag>
-              )))}
-              {
-                filters.makes.length > 0 && (filters.makes.map((make) => (
-                  <Tag closeIcon onClose={() => handleFilter(make, 'make-close')} key={make}>
-                    {make}
-                  </Tag>
-                )))
-              }
-              {
-                filters.models.length > 0 && (filters.models.map((model) => (
-                  <Tag closeIcon onClose={() => handleFilter(model, 'model-close')} key={model}>
-                    {model}
-                  </Tag>
-                )))
-              }
-              {
-                filters.years.length > 0 && (
-                  <Tag key={'years'}>
-                    Year {filters.years[0]} - {filters.years[1]}
-                  </Tag>
-                )
-              }
-              {
-                filters.mileage.length > 0 && (
-                  <Tag key={'mileage'}>
-                    Mileage {filters.mileage[0]}km - {filters.mileage[1]}km
-                  </Tag>
-                )
-              }
-              {
-                filters.price.length > 0 && (
-                  <Tag key={'price'}>
-                    Price {filters.price[0]}km - {filters.price[1]}km
-                  </Tag>
-                )
-              }
-            </div>
-            <Collapse 
-              defaultActiveKey={['1']} 
-              bordered={false} 
-              items={items} 
-              expandIconPosition={'end'}
-              />
-          </Form>
-        </div>
-      </Drawer>
-      </Spin>
     </>
   );
 }

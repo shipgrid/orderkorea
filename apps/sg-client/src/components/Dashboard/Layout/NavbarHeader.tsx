@@ -18,9 +18,8 @@ import {
   useNavigate 
 } from 'react-router-dom';
 
-import Logo from '../../../assets/images/logo-no-bg.png';
-
 import UserNavbarDropdownMenu from './UserNavbarDropdownMenu';
+import Logo from '../../../assets/images/logo-no-bg.png';
 
 const { 
   Header 
@@ -48,7 +47,6 @@ const NavbarHeader = ({ }) => {
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(false);
 
-
   useEffect(() => {
     function handleResize() {
       setIsMobile(window.innerWidth <= 900); 
@@ -72,8 +70,7 @@ const NavbarHeader = ({ }) => {
       }}
     >
       <div style={{width: '100%', display: 'flex', justifyContent: 'space-between' }}>
-        {/* <p style={{ marginTop: 0, fontSize: '28px', fontWeight: 'bolder', cursor: 'pointer' }} onClick={(_) => startTransition(() => navigate('/'))}> ShipGrid</p> */}
-        <Image src={Logo} preview={false} style={{ width: 150 }}/>
+        <Image src={Logo} preview={false} style={{ width: 150, cursor:'pointer' }} onClick={(_) => startTransition(() => navigate('/'))}/>
         <div>
           {!isMobile && (
             <Menu 
