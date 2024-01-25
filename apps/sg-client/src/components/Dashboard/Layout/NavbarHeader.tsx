@@ -7,6 +7,7 @@ import {
 import { 
   Layout, 
   Menu,
+  Image
 } from 'antd';
 
 import type { 
@@ -16,6 +17,8 @@ import type {
 import { 
   useNavigate 
 } from 'react-router-dom';
+
+import Logo from '../../../assets/images/logo-no-bg.png';
 
 import UserNavbarDropdownMenu from './UserNavbarDropdownMenu';
 
@@ -69,7 +72,8 @@ const NavbarHeader = ({ }) => {
       }}
     >
       <div style={{width: '100%', display: 'flex', justifyContent: 'space-between' }}>
-        <p style={{ marginTop: 0, fontSize: '28px', fontWeight: 'bolder', cursor: 'pointer' }} onClick={(_) => startTransition(() => navigate('/'))}> ShipGrid</p>
+        {/* <p style={{ marginTop: 0, fontSize: '28px', fontWeight: 'bolder', cursor: 'pointer' }} onClick={(_) => startTransition(() => navigate('/'))}> ShipGrid</p> */}
+        <Image src={Logo} preview={false} style={{ width: 150 }}/>
         <div>
           {!isMobile && (
             <Menu 

@@ -23,7 +23,6 @@ import {
   useLoginMutation
 } from '../../../services/api'
 
-
 type FieldType = {
   username?: string;
   password?: string;

@@ -24,7 +24,6 @@ import '../../../assets/inventory.css'
 const { Meta } = Card;
 const { Text } = Typography
 
-
 interface VehicleCardProps {
   vehicle: Vehicle,
   onClick: Function

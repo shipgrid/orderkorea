@@ -10,9 +10,12 @@ import {
   Affix,
   Typography, 
 } from 'antd'
-const { Text } = Typography
 
 import '../../../assets/dashboard.css'
+
+const { 
+  Text 
+} = Typography
 
 interface DashboardHeaderProps {
   title: string

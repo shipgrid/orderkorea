@@ -1,9 +1,8 @@
-import React from 'react';
 import { 
   Result 
 } from 'antd';
 
-const SomethingWentWrong: React.FC = () => (
+const SomethingWentWrong = () => (
   <Result
     status="500"
     title="500"

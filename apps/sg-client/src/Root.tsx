@@ -15,7 +15,7 @@ import {
 
 import PublicRoute from "./routes/publicRoutes";
 import PrivateRoute from './routes/privateRoutes'
-import Loader from './components/Shared/Loader'
+import ApiLoader from "./components/Shared/ApiLoader";
 
 const App = () => {
 
@@ -43,9 +43,9 @@ const App = () => {
       routes ? (
         <RouterProvider 
           router={routes} 
-          fallbackElement={<Loader />}
+          fallbackElement={<ApiLoader />}
         />
-      ) : <Loader />
+      ) : <ApiLoader />
     }
     </>
   )

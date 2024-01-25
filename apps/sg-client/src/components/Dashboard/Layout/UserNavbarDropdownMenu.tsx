@@ -53,7 +53,6 @@ const UserNavbarDropdownMenu = ({
 
   const [isMobile, setIsMobile] = useState(false);
 
-
   useEffect(() => {
     function handleResize() {
       setIsMobile(window.innerWidth <= 900);

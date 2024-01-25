@@ -23,7 +23,7 @@ import {
 } from './theme'
 
 import Root from './Root'
-import Loader from './components/Shared/Loader'
+import ApiLoader from "./components/Shared/ApiLoader";
 import './index.css'
 import './assets/global.css'
 
@@ -32,7 +32,7 @@ const App = () => {
   return (
     <div>
       <Provider store={store}>
-        <PersistGate loading={<Loader/>} persistor={persistStore(store)}>
+        <PersistGate loading={<ApiLoader/>} persistor={persistStore(store)}>
           <ConfigProvider
             theme={{
               token: {

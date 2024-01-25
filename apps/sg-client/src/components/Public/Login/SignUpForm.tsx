@@ -44,13 +44,6 @@ const SignUpForm = ({}) => {
 
     try {      
 
-      console.log(
-        first_name,
-        last_name,
-        username,
-        password,
-      )
-
       await register({
         first_name,
         last_name,
@@ -61,7 +54,6 @@ const SignUpForm = ({}) => {
       navigate('/')
 
     } catch(e:any) {
-      console.log('error', e)
       message.error({ content: e.message, duration: 2 })    
     }
   };

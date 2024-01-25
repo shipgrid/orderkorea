@@ -16,11 +16,13 @@ import {
   Affix,
   Spin,
   Tag,
+  Collapse
 } from 'antd';
-const { Search } = Input;
 
-import type { CollapseProps } from 'antd';
-import { Collapse } from 'antd';
+import type { 
+  CollapseProps 
+} from 'antd';
+
 import {
   useGetFiltersQuery,
   useGetVehiclesQuery
@@ -29,9 +31,11 @@ import {
 import DashboardHeader from '../Layout/DashboardHeader';
 import DashboardContent from '../Layout/DashboardContent';
 import VehicleList from '../Home/VehicleList';
-import '../../../assets/inventory.css'
 import debounce from 'lodash/debounce';
 import ApiLoader from '../../Shared/ApiLoader';
+import '../../../assets/inventory.css'
+
+const { Search } = Input;
 
 interface IFilter {
   search: string[];
