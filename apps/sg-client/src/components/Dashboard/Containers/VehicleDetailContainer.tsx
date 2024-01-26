@@ -59,7 +59,6 @@ const VehicleDetailContainer = () => {
           <VehicleDetail
             vehicle={vehicle}
           />
-        <Divider my={5}/>
       </DashboardContent>
     </Stack>
   )

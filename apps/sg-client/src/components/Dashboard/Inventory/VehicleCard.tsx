@@ -40,6 +40,9 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
     model, 
     exterior_color,
     interior_color,
+    transmission,
+    cylinders,
+    drivetrain,
     trim,
     images,
     fees,
@@ -97,11 +100,11 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
               <Text style={{marginTop: 3, color: '#5c5e62', fontSize: 14 }}>{exterior_color.name} exterior</Text>
               <Text style={{marginTop: 3, color: '#5c5e62', fontSize: 14 }}>{interior_color.name} interior</Text>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', flex: 1, margin: '0px 28px' }}>
               {vin_number ? (<Text style={{ color: '#5c5e62', fontSize: 14 }} onClick={(e) => handleCopyToClipboard(e, vin_number)}> 
                 {`${vin_number}`}
               </Text>) : null}
-              <Text style={{marginTop: 3, color: '#5c5e62', fontSize: 14 }}>{description}</Text>
+              <Text style={{marginTop: 3, color: '#5c5e62', fontSize: 14 }}>{transmission.name} {drivetrain.name} </Text>
             </div>
           </div>
         } 

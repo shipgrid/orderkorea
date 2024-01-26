@@ -1,6 +1,6 @@
 .vehicle-detail {
   display: flex; 
-  margin: 64px 0px; 
+  margin: 64px 24px; 
   flex-direction: column;
   border-radius: 12px;
 }
@@ -37,7 +37,7 @@
 
   .vehicle-detail-box {
     flex-direction: column;
-    margin: 0px;
+    margin: 0px 0px;
     padding: 0px;
   }
 

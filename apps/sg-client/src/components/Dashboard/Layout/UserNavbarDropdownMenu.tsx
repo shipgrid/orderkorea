@@ -5,7 +5,8 @@ import {
 } from 'react';
 
 import { 
-  Dropdown
+  Dropdown,
+  Avatar
 } from 'antd';
 
 import type { 
@@ -22,15 +23,12 @@ import {
 
 import {
   useDispatch,
+  useSelector
 } from 'react-redux'
 
 import { 
   useNavigate 
 } from 'react-router-dom'
-
-import { 
-  useSelector 
-} from 'react-redux'
 
 import { 
   MdOutlineAccountCircle 
@@ -75,7 +73,7 @@ const UserNavbarDropdownMenu = ({
         label: (
           <div style={{ display: 'flex', alignItems: 'center'}} onClick={() => startTransition(() => navigate('/'))}>
             <IoCarSportSharp/> 
-            <span style={{ marginLeft: 5 }}>  Inventory </span>
+            <span style={{ marginLeft: 5 }}>  Broker Inventory </span>
           </div>
         ),
       })
@@ -124,7 +122,7 @@ const UserNavbarDropdownMenu = ({
   const menuProps = {
     items: userDropdownItems,
   };
-
+  console.log(session)
   return (
     <Dropdown
       menu={menuProps}
@@ -132,8 +130,10 @@ const UserNavbarDropdownMenu = ({
       placement="bottomLeft"
       arrow
     >
-      <div >
-        <MdOutlineAccountCircle style={{ fontSize: 24, color: '#171a20', cursor: 'pointer' }}/>
+      <div>
+      <Avatar style={{ backgroundColor: 'blue', verticalAlign: 'middle', cursor: 'pointer' }} size="large">
+        {session.username[0] + session.username[1] }
+      </Avatar>        
       </div>
     </Dropdown>
   );

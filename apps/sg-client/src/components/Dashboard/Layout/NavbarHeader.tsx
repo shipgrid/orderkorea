@@ -5,10 +5,6 @@ import {
 } from 'react';
 
 import { 
-  useSelector 
-} from 'react-redux'
-
-import { 
   Layout, 
   Menu,
   Image
@@ -31,7 +27,7 @@ const {
 
 const navItems = [
   {
-    label: 'Inventory',
+    label: 'Broker Network',
     width: 110,
     path: '/',
   },
@@ -50,8 +46,6 @@ const NavbarHeader = ({ }) => {
 
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(false);
-
-  const username = useSelector((state: any) => state.session.username)
 
   useEffect(() => {
     function handleResize() {
@@ -81,7 +75,7 @@ const NavbarHeader = ({ }) => {
           {!isMobile && (
             <Menu 
               mode="horizontal" 
-              style={{ width: 230, fontWeight: 'bold', fontSize: 16 }} 
+              style={{ width: 330, fontWeight: 'bold', fontSize: 16 }} 
               defaultSelectedKeys={['/']} 
               items={items} 
               onClick={(e) => startTransition(() => navigate(e.key))}
@@ -89,7 +83,6 @@ const NavbarHeader = ({ }) => {
           )}
         </div>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <div style={{ marginRight: 16, fontWeight: 'bold' }}> { username } </div>
           <UserNavbarDropdownMenu/>
         </div>
       </div>

@@ -4,7 +4,8 @@ import {
   Input,
   Divider,
   message,
-  Spin
+  Spin,
+  Image
 } from 'antd';
 
 import {
@@ -22,6 +23,9 @@ import {
 import {
   useLoginMutation
 } from '../../../services/api'
+
+import Logo from '../../../assets/images/logo-no-bg.png';
+
 
 type FieldType = {
   username?: string;
@@ -68,44 +72,47 @@ const LoginForm = ({}) => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column'}}>
+      <Image src={Logo} preview={false} style={{ width: 150, cursor:'pointer' }}/>
       <Spin spinning={loginLoading}>
-        <h2 style={{ color: 'black', marginBottom: 40 }}>
-          Sign In
-        </h2>
-        <Form
-          name="basic"
-          initialValues={{ remember: true }}
-          onFinish={onFinish}
-          autoComplete="off"
-          style={{ width: 320, maxWidth: 600 }}
-          layout='vertical'
-        >
-          <Form.Item<FieldType>
-            label="Email"
-            name="username"
-            rules={[{ required: true, message: 'Please input your email' }]}
+        <div style={{ padding: 20 }}>
+          <h2 style={{ color: 'black', marginBottom: 40 }}>
+            Sign In
+          </h2>
+          <Form
+            name="basic"
+            initialValues={{ remember: true }}
+            onFinish={onFinish}
+            autoComplete="off"
+            style={{ width: 320, maxWidth: 600 }}
+            layout='vertical'
           >
-            <Input />
-          </Form.Item>
+            <Form.Item<FieldType>
+              label="Email"
+              name="username"
+              rules={[{ required: true, message: 'Please input your email' }]}
+            >
+              <Input />
+            </Form.Item>
 
-          <Form.Item<FieldType>
-            label="Password"
-            name="password"
-            rules={[{ required: true, message: 'Please input your password' }]}
-          >
-            <Input.Password />
-          </Form.Item>
-          <Form.Item wrapperCol={{ span: 24 }}>
-            <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
-              Submit
-            </Button>
-          </Form.Item>
-        </Form> 
-        <Divider/>
-        <div style={{display: 'flex', flexDirection: 'column'}}>
-          <p style={{ marginTop: 10, color: 'black' }}>
-            Don't have an account? <Link to="/signup">Sign up</Link>
-          </p>
+            <Form.Item<FieldType>
+              label="Password"
+              name="password"
+              rules={[{ required: true, message: 'Please input your password' }]}
+            >
+              <Input.Password />
+            </Form.Item>
+            <Form.Item wrapperCol={{ span: 24 }}>
+              <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
+                Submit
+              </Button>
+            </Form.Item>
+          </Form> 
+          {/* <Divider/>
+          <div style={{display: 'flex', flexDirection: 'column'}}>
+            <p style={{ marginTop: 10, color: 'black' }}>
+              Don't have an account? <Link to="/signup">Sign up</Link>
+            </p>
+          </div> */}
         </div>
       </Spin>
     </div>

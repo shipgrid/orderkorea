@@ -359,7 +359,8 @@ const HomeContainer = () => {
       <DashboardContent>
         <div className='inventory-header'>
           <DashboardHeader
-            title={'Inventory'}
+            title={'Broker Inventory'}
+            description={'Search the broker network for vehicles'}
             action={[
               <div>
                 <div> Sort by </div>
