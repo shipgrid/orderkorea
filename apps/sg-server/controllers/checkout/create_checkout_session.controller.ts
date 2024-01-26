@@ -51,6 +51,13 @@ export default async (
       vehicle_id
     } = req.params
 
+    if(!req.user) {
+      return res.status(400).json({
+        success: false,
+        message: 'User not found'
+      })
+    }
+
     const {
       success,
       message,

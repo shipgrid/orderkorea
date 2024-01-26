@@ -57,6 +57,13 @@ export default async (
         message: error.details[0].message
       })
     }
+
+    if(!req.user) {
+      return res.status(400).json({
+        success: false,
+        message: 'User not found'
+      })
+    }
     
     const {
       success,
