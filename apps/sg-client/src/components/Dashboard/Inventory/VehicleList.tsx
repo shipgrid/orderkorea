@@ -63,7 +63,7 @@ const VehicleList = ({
           <Image src={PricePana} preview={false} className='request-car-hero'/>
           <div>
             <div style={{ fontWeight: 600, fontSize: 24, margin: '12px 0px' }}>Can't find the car you want?</div>
-            <div style={{ fontWeight: 400, fontSize: 16, margin: '12px 0px', color: '#5c5e62' }}>Access Shipgrid's extensive broker network to get the best offers on your what you're looking for</div>
+            <div style={{ fontWeight: 400, fontSize: 16, margin: '12px 0px', color: '#5c5e62' }}>Access the broker network to leverage the best offers that match your desired margins</div>
             <Button type='primary' style={{ width: '100%', height: 45, margin: '12px 0px' }}>Request for a Car</Button>
           </div>
         </div>

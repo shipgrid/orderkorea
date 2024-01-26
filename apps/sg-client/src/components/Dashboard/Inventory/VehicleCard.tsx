@@ -41,7 +41,6 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
     exterior_color,
     interior_color,
     transmission,
-    cylinders,
     drivetrain,
     trim,
     images,
@@ -49,7 +48,6 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
     year, 
     vin_number, 
     mileage, 
-    description, 
   } = vehicle
 
   const mainImageUrl = images[0]?.image_url

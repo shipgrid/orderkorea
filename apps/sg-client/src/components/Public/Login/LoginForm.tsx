@@ -2,7 +2,7 @@ import {
   Button,
   Form, 
   Input,
-  Divider,
+  // Divider,
   message,
   Spin,
   Image
@@ -12,9 +12,9 @@ import {
   useDispatch,
 } from 'react-redux'
 
-import {
-  Link
-} from 'react-router-dom'
+// import {
+//   Link
+// } from 'react-router-dom'
 
 import {
   login
