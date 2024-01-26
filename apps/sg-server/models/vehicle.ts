@@ -12,14 +12,15 @@ import Color from './color';
 import Drivetrain from './drivetrain';
 import Cylinder from './cylinder'
 import Fee from './fee'
+import User from './user'
 import Order from './order'
-import Reservation from './reservation'
 
 Model.knex(knexClient);
 
 // Define an interface that represents your Vehicle model properties
 interface Vehicle {
   vehicle_id: number;
+  user_id: number;
   order_id: string;
   make: string;
   model: string;
@@ -52,6 +53,22 @@ class Vehicle extends Model implements Vehicle {
 
   static get relationMappings() {
     return {
+      user: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: User,
+        join: {
+          from: 'vehicles.user_id',
+          to: 'users.user_id',
+        },
+      },
+      order: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Order,
+        join: {
+          from: 'vehicles.order_id',
+          to: 'orders.order_id',
+        },
+      },
       images: {
         relation: Model.HasManyRelation,
         modelClass: VehicleImage,
@@ -156,26 +173,6 @@ class Vehicle extends Model implements Vehicle {
           to: 'fees.fee_id',
         }
       },
-      reservation: {
-        relation: Model.HasOneRelation,
-        modelClass: Reservation,
-        join: {
-          from: 'vehicles.vehicle_id',
-          to: 'reservations.vehicle_id',
-        }
-      },
-      order: {
-        relation: Model.HasOneThroughRelation,
-        modelClass: Order,
-        join: {
-          from: 'vehicles.vehicle_id',
-          through: {
-            from: 'reservations.vehicle_id',
-            to: 'reservations.order_id'
-          },
-          to: 'orders.order_id'
-        }
-      }
     };
   }
 
@@ -184,6 +181,7 @@ class Vehicle extends Model implements Vehicle {
       type: 'object',
       required: [
         'make', 
+        'user_id',
         'model', 
         'year', 
         'mileage', 
@@ -194,7 +192,8 @@ class Vehicle extends Model implements Vehicle {
       ],
       properties: {
         vehicle_id: { type: 'integer' },
-        order_id: { type: 'integer' },
+        user_id: { type: 'integer' },
+        order_id: { type: ['integer', 'null']  },
         make_id:  { type: 'integer' },
         model_id:  { type: 'integer' },
         year:  { type: 'integer' },

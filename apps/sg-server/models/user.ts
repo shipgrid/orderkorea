@@ -1,25 +1,9 @@
 import { Model } from 'objection';
 import knexClient from './knex_client'
-import UserCustomer from './user_customer';
-import UserStaff from './user_staff';
+import Vehicle from './vehicle';
 
 Model.knex(knexClient);
 
-interface IUserCustomer {
-  customer_id: number;
-  user_id: number;
-  created_on: string;
-  updated_on: string;
-  deleted_on: string | null; // Assuming deleted_on can be null
-}
-
-interface IUserStaff {
-  staff_id: number;
-  user_id: number;
-  created_on: string;
-  updated_on: string;
-  deleted_on: string | null; // Assuming deleted_on can be null
-}
 
 // Define an interface that represents your User model properties
 interface User {
@@ -29,8 +13,8 @@ interface User {
   username: string;
   password_hash: string;
   last_login: string | null; // Assuming last_login can be null
-  customer?: IUserCustomer;
-  staff?: IUserStaff;
+  is_broker: boolean;
+  is_staff: boolean;
   created_on: string;
   updated_on: string;
   deleted_on: string | null; // Assuming deleted_on can be null
@@ -47,20 +31,12 @@ class User extends Model implements User {
 
   static get relationMappings() {
     return {
-      customer: {
-        relation: Model.HasOneRelation,
-        modelClass: UserCustomer,
+      vehicles: {
+        relation: Model.HasManyRelation,
+        modelClass: Vehicle,
         join: {
           from: 'users.user_id',
-          to: 'user_customers.user_id',
-        },
-      },
-      staff: {
-        relation: Model.HasOneRelation,
-        modelClass: UserStaff,
-        join: {
-          from: 'users.user_id',
-          to: 'user_staff.user_id',
+          to: 'vehicles.user_id',
         },
       }
     };
@@ -77,6 +53,8 @@ class User extends Model implements User {
         last_name: { type: 'string', minLength: 1, maxLength: 255 },
         username: { type: 'string', minLength: 1, maxLength: 255 },
         password_hash: { type: 'string', minLength: 1, maxLength: 255 },
+        is_broker: { type: 'boolean' },
+        is_staff: { type: 'boolean' },
         last_login: { type: ['string', 'null'] },
         created_on: { type: 'string' },
         updated_on: { type: 'string' },

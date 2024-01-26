@@ -14,7 +14,7 @@ export default async ({
   session_id,
 }): Promise<IServiceResponse<{
   status: string;
-  customer_email: string;
+  email: string;
 }>> => {
   
   return new Promise(async (resolve, reject) => {
@@ -46,7 +46,7 @@ export default async ({
         success: true, 
         data: {
           status: data.status,
-          customer_email: data.customer_email
+          email: data.email
         }
       });
       

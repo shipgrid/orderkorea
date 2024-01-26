@@ -14,7 +14,6 @@ interface Address {
   postal_code: string;
   email: string | null;
   phone: string | null;
-  customer_id: number | null;
   created_on: string;
   updated_on: string;
   deleted_on: string | null;

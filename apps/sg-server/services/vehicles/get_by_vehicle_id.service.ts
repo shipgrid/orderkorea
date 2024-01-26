@@ -80,10 +80,14 @@ export default async ({
         })
         .select(
           'vehicle_id',
+          'user_id',
           'year',
           'vin_number',
           'is_new',
           'mileage',
+          'vehicles.created_on',
+          'vehicles.updated_on',
+          'vehicles.deleted_on'
         )
         .findById(vehicle_id)
   

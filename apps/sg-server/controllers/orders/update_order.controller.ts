@@ -35,15 +35,7 @@ const userSchema = Joi.object({
   last_login: Joi.string().allow('', null),
   created_on: Joi.string().allow('', null),
   updated_on: Joi.string().allow('', null),
-  deleted_on: Joi.string().allow('', null),
-  customer: Joi.object({
-    customer_id: Joi.number().required(),
-    user_id: Joi.number().required(),
-    created_on: Joi.string().allow('', null),
-    updated_on: Joi.string().allow('', null),
-    deleted_on: Joi.string().allow('', null)
-  }),
-  staff: Joi.string().allow('', null)
+  deleted_on: Joi.string().allow('', null)
 }) 
 
 const paramsSchema = Joi.object({
@@ -102,14 +94,10 @@ export default async (
       loaded_on
     } = req.body
 
-    const { 
-      customer 
-    }:any = req.user
-
-    if(!customer) {
+    if(!req.user) {
       return res.status(400).json({
         success: false,
-        message: 'No customer found for user'
+        message: 'No user found'
       })
     }
 
@@ -118,7 +106,7 @@ export default async (
       message
     } = await orders.update({
       order_id: parseInt(order_id),
-      customer_id: customer.customer_id,
+      user_id: req.user.user_id,
       shipment_type,
       container_number,
       port_of_loading,

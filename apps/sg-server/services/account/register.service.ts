@@ -1,10 +1,7 @@
 import {
-  Logger
+  Logger,
+  User
 } from '../../models'
-
-import {
-  customers
-} from '../../services'
 
 import {
   convertToLocalDateString
@@ -39,16 +36,18 @@ export default async ({
       if(!password_hash) {
         throw new Error('Error hashing password');
       }
-  
-      const response = await customers.create({
+
+      const newUser = {
         first_name,
         last_name,
         username,
-        password_hash: password_hash,
+        password_hash,
         last_login: convertToLocalDateString(new Date()),
-      })
+      };
 
-      if(!response.success) {
+      const user:any = await User.query().insert(newUser);
+  
+      if(!user) {
         return resolve({
           success: false
         })
@@ -58,7 +57,7 @@ export default async ({
         success: true
       })
   
-      Logger.info('User added successfully', response);
+      Logger.info('User added successfully', user);
   
     } catch(e) {
       Logger.error('Error registering user:', e);

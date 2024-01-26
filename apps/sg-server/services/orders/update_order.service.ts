@@ -10,7 +10,7 @@ import {
 
 export default async ({
   order_id,
-  customer_id,
+  user_id,
   shipment_type,
   container_number,
   port_of_loading,
@@ -36,7 +36,7 @@ export default async ({
           .query(trx)
           .update(newOrder)
           .where('order_id', order_id)
-          .andWhere('customer_id', customer_id);
+          .andWhere('user_id', user_id);
 
         if(!response) {
           return resolve({

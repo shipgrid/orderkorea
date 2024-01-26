@@ -19,9 +19,6 @@ import {
 export default async ({
   makesFilter,
   modelFilter,
-  price,
-  mileage,
-  years
 }: {
   makesFilter: string[],
   modelFilter: string[],

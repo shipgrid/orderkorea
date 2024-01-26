@@ -25,7 +25,6 @@ export default async ({
   return new Promise(async (resolve, reject) => {
     try {
 
-  
       await KnexClient.transaction(async (trx) => {
   
         const newVehicle = {

@@ -33,7 +33,7 @@ interface ILineItem {
  
 export default async ({
   vehicle_id,
-  customer_id
+  user_id
 }): Promise<IServiceResponse<{
   client_secret: string
 }>> => {
@@ -79,7 +79,7 @@ export default async ({
         data
       } = await create_checkout_session({
         line_items: line_items,
-        customer_id,
+        user_id,
         vehicle_id
       });
 

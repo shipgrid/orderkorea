@@ -3,13 +3,14 @@ import knexClient from './knex_client'
 import OrderEvent from './order_event';
 import ThirdParty from './third_party'
 import Document from './document'
-import Reservation from './reservation'
+import Vehicle from './vehicle'
 
 Model.knex(knexClient);
 
 interface Order {
   order_id: number;
-  customer_id: number | null;
+  seller_id: number;
+  buyer_id: number;
   shipment_type: string;
   port_of_loading: string | null;
   container_number: string | null;
@@ -56,24 +57,12 @@ class Order extends Model implements Order {
           to: 'documents.order_id'
         }
       },
-      reservations: {
+      vehicles: {
         relation: Model.HasManyRelation,
-        modelClass: Reservation,
+        modelClass: Vehicle,
         join: {
           from: 'orders.order_id',
-          to: 'reservations.order_id',
-        }
-      },
-      order: {
-        relation: Model.HasOneThroughRelation,
-        modelClass: Order,
-        join: {
-          from: 'orders.order_id',
-          through: {
-            from: 'reservations.order_id',
-            to: 'reservations.vehicle_id'
-          },
-          to: 'vehicles.vehicle_id'
+          to: 'vehicles.order_id'
         }
       }
     }
@@ -84,7 +73,8 @@ class Order extends Model implements Order {
       type: 'object',
       properties: {
         order_id: { type: 'integer' },
-        customer_id: { type: ['integer', 'null'] },
+        seller_id: { type: 'integer' },
+        buyer_id: { type: ['integer', 'null'] },
         shipment_type: { type: 'string', maxLength: 255 },
         port_of_loading: { type: ['string', 'null'], maxLength: 255 },
         container_number: { type: ['string', 'null'], maxLength: 255 },

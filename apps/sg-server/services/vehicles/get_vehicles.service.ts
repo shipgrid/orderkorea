@@ -30,9 +30,8 @@ export default async ({
 }): Promise<IServiceResponse<Vehicle[]>> => {
 
   return new Promise(async (resolve, reject) => {
-    console.log(searchFilter)
-    try {
 
+    try {
       const vehiclesQuery = Vehicle
         .query()
         .joinRelated('exterior_color')
@@ -59,7 +58,6 @@ export default async ({
         .withGraphFetched('images(selectImages)')
         .withGraphFetched('cylinders(selectCylinder)')
         .withGraphFetched('fees(selectFees)')
-        .withGraphFetched('reservation')
         .modifiers({
           selectMake(builder) {
             builder.select('make_id', 'name')
@@ -100,10 +98,14 @@ export default async ({
         })
         .select(
           'vehicle_id',
+          'user_id',
           'year',
           'vin_number',
           'is_new',
           'mileage',
+          'vehicles.created_on',
+          'vehicles.updated_on',
+          'vehicles.deleted_on'
         )
 
         if(searchFilter.length) {

@@ -4,11 +4,6 @@ import {
 } from '../../models'
 
 import {
-  customers,
-  users
-} from '../../services'
-
-import {
   convertToLocalDateString
 } from '../../utils/dates'
 
@@ -31,20 +26,15 @@ export default async ({
   token: string,
   username: string,
   is_staff: boolean,
-  is_customer: boolean
+  is_broker: boolean
 }>> => {
 
   return new Promise(async (resolve, _) => {
     try {
 
-      const {
-        success,
-        data
-      } = await customers.getByUsername({
-        username
-      });
+      const foundUser = await User.query().findOne({ username: username });
   
-      if(!success) {
+      if(!foundUser) {
         resolve({
           success: false, 
           message: 'User not found'
@@ -53,18 +43,9 @@ export default async ({
         return;
       }
 
-      if(!data) {
-        resolve({
-          success: false, 
-          message: 'User not found'
-        })
-
-        return;
-      }
+      Logger.info('User fetched successfully', foundUser);
   
-      Logger.info('User fetched successfully', data);
-  
-      const results = await bcrypt.compare(password, data.password_hash);
+      const results = await bcrypt.compare(password, foundUser.password_hash);
   
       if(!results) {
         return resolve({
@@ -76,27 +57,12 @@ export default async ({
       Logger.info('Password compared successfully', results);
   
       const last_login = convertToLocalDateString(new Date());
-  
-      await users.update({
-        user_id: data.user_id,
-        last_login
-      });
-  
+
+      await User.query()
+      .patch({ last_login: last_login }) 
+      .where('user_id', foundUser.user_id);
+
       Logger.info('User last login', last_login);
-
-      const loginUser = await User.query()
-        .findById(data.user_id)
-        .withGraphFetched('staff')
-        .withGraphFetched('customer');
-
-      if(!loginUser) {
-        resolve({
-          success: false,
-          message: 'User not found'
-        })
-
-        return;
-      }
 
       if(!process.env.FIRE_SHARK) {
         return resolve({
@@ -108,7 +74,7 @@ export default async ({
       let token = jwt.sign(
         { 
           user: {
-            ...data.customer
+            ...foundUser
           }
         },
         process.env.FIRE_SHARK,
@@ -119,9 +85,9 @@ export default async ({
         success: true,
         data: {
           token,
-          username: loginUser.username,
-          is_staff: !!loginUser?.staff?.staff_id,
-          is_customer: !!loginUser?.customer?.customer_id
+          username: foundUser.username,
+          is_staff: !!foundUser.is_staff,
+          is_broker: !!foundUser.is_broker
         }
       })
   

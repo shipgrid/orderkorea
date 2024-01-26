@@ -30,10 +30,6 @@ import {
   useNavigate 
 } from 'react-router-dom'
 
-// import { 
-//   MdOutlineAccountCircle 
-// } from "react-icons/md";
-
 import { 
   IoCarSportSharp 
 } from "react-icons/io5";
@@ -47,9 +43,9 @@ const UserNavbarDropdownMenu = ({
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [isMobile, setIsMobile] = useState(false);
   const session = useSelector((state: any) => state.session);
 
-  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     function handleResize() {
@@ -122,7 +118,7 @@ const UserNavbarDropdownMenu = ({
   const menuProps = {
     items: userDropdownItems,
   };
-  console.log(session)
+
   return (
     <Dropdown
       menu={menuProps}
@@ -131,7 +127,7 @@ const UserNavbarDropdownMenu = ({
       arrow
     >
       <div>
-      <Avatar style={{ backgroundColor: 'blue', verticalAlign: 'middle', cursor: 'pointer' }} size="large">
+      <Avatar style={{ backgroundColor: 'green', verticalAlign: 'middle', cursor: 'pointer' }} size="large">
         {session.username[0] + session.username[1] }
       </Avatar>        
       </div>

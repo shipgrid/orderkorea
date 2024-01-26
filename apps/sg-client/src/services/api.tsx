@@ -25,7 +25,7 @@ export interface Order {
   orderEvents: OrderEvent[];
   thirdParties: ThirdParty[];
   documents: Document[];
-  reservations: Reservation[];
+  vehicles: Vehicle[];
   expected_arrival: string | null;
   created_on: string;
   updated_on: string;
@@ -62,6 +62,9 @@ export interface Vehicle {
   vin_number: string | null; 
   is_new: boolean;
   description: string; 
+  created_on: string;
+  updated_on: string;
+  deleted_on: string | null;
 }
 
 export interface VehicleImage {

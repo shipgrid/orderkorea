@@ -56,8 +56,6 @@ export default async ({
             .patchAndFetchById(user_id, {
               last_login
             })
-            .withGraphFetched('staff')
-            .withGraphFetched('customer')
   
           await trx.commit();
           Logger.info('User updated:', loginUser);
@@ -80,7 +78,7 @@ export default async ({
       let token = jwt.sign(
         { 
           user: {
-            ...loginUser.customer
+            ...loginUser
           }
         },
         process.env.FIRE_SHARK,

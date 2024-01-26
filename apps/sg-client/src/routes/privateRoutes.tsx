@@ -11,7 +11,7 @@ import CreateOrderFormContainer from "../components/Dashboard/Containers/CreateO
 import InventoryContainer from "../components/Dashboard/Containers/InventoryContainer";
 import AdminContainer from "../components/Dashboard/Containers/AdminContainer";
 import CheckoutContainer from "../components/Dashboard/Containers/CheckoutContainer";
-import CheckoutOutcomeContainer from "../components/Dashboard/Containers/CheckoutOutcomeContainer";
+import SellerContactedContainer from "../components/Dashboard/Containers/SellerContactedContainer";
 
 export default function routes() {
   return [
@@ -30,7 +30,7 @@ export default function routes() {
         { path: '/orders', element: <OrderContainer /> },
         { path: '/third-party', element: <ThirdPartyContainer /> },
         { path: '/checkout', element: <CheckoutContainer /> },
-        { path: '/return', element: <CheckoutOutcomeContainer />},
+        { path: '/return', element: <SellerContactedContainer />},
         { path: "*", element: <Navigate to="/login" replace /> },
       ],
     }

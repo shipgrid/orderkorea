@@ -1,8 +1,6 @@
 import Address from './address';
-import Customer from './user_customer';
 import Order from './order';
 import OrderEvent from './order_event';
-import Staff from './user_staff';
 import User from './user';
 import VehicleImage from './vehicle_image';
 import Vehicle from './vehicle';
@@ -19,7 +17,6 @@ import Drivetrain from './drivetrain';
 import Door from './door';
 import Color from './color';
 import Cylinder from './cylinder';
-import Reservation from './reservation'
 import KnexClient from './knex_client';
 import HttpError from './http_error';
 import Logger from './logger';
@@ -27,10 +24,8 @@ import Logger from './logger';
 export {
   Address,
   ThirdParty,
-  Customer,
   Order,
   OrderEvent,
-  Staff,
   User,
   VehicleImage,
   Vehicle,
@@ -46,7 +41,6 @@ export {
   Door,
   Color,
   Cylinder,
-  Reservation,
   KnexClient,
   HttpError,
   Logger

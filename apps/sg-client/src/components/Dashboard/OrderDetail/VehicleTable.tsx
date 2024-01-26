@@ -4,7 +4,7 @@ import {
 } from 'antd'
 
 import {
-  Reservation,
+  Vehicle,
   VehicleImage
 } from '../../../services/api'
 
@@ -16,15 +16,19 @@ import {
   useNavigate
 } from 'react-router-dom'
 
+import { 
+  formatNumberWithCommas
+} from '../../../utils/format_string'
+
 import TableActionDropdown from '../../Shared/TableActionDropdown';
 import '../../../assets/index.css'
 
 interface VehicleTableProps {
-  reservations: Reservation[]; 
+  vehicles: Vehicle[]; 
 }
 
 const VehicleTable: React.FC<VehicleTableProps> = ({
-  reservations
+  vehicles
 }) => {
 
   const navigate = useNavigate()
@@ -38,9 +42,9 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
       title: 'Image',
       dataIndex: 'images',
       key: 'images',
-      render: (_: any, record: Reservation) => {
+      render: (_: any, record: Vehicle) => {
         
-        const images = record.vehicle?.images?.map((image: VehicleImage) => image.image_url) ?? [];
+        const images = record.images?.map((image: VehicleImage) => image.image_url) ?? [];
 
         return (
           <Image.PreviewGroup
@@ -58,10 +62,10 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
     {
       title: 'Make - Model',
       key: 'name',
-      render: (_: string, record: Reservation) => {
+      render: (_: string, record: Vehicle) => {
         return (
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <span> { `${record?.vehicle?.make.name} ${record?.vehicle?.model.name}` } </span>
+            <span> { `${record?.make.name} ${record?.model.name}` } </span>
           </div>
         )
       }
@@ -69,10 +73,10 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
     {
       title: 'Year',
       key: 'year',
-      render: (_: string, record: Reservation) => {
+      render: (_: string, record: Vehicle) => {
         return (
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <span> { record?.vehicle?.year } </span>
+            <span> { record?.year } </span>
           </div>
         )
       }
@@ -80,10 +84,10 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
     {
       title: 'Exterior Color',
       key: 'exterior_color',
-      render: (_: string, record: Reservation) => {
+      render: (_: string, record: Vehicle) => {
         return (
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <span> { record?.vehicle?.exterior_color.name } </span>
+            <span> { record?.exterior_color.name } </span>
           </div>
         )
       }
@@ -91,10 +95,10 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
     {
       title: 'Mileage',
       key: 'mileage',
-      render: (_: string, record: Reservation) => {
+      render: (_: string, record: Vehicle) => {
         return (
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <span> { record?.vehicle?.mileage } </span>
+            <span> { formatNumberWithCommas(record?.mileage) }km </span>
           </div>
         )
       }
@@ -102,10 +106,10 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
     {
       title: 'Price',
       key: 'price',
-      render: (_: string, record: Reservation) => {
+      render: (_: string, record: Vehicle) => {
         return (
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <span> ${ record?.vehicle?.fees.vehicle_price } </span>
+            <span> ${ formatNumberWithCommas(record?.fees.vehicle_price) } </span>
           </div>
         )
       }
@@ -113,10 +117,10 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
     {
       title: 'Vin Number',
       key: 'vin_number',
-      render: (_: string, record: Reservation) => {
+      render: (_: string, record: Vehicle) => {
         return (
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <span> { record?.vehicle?.vin_number } </span>
+            <span> { record?.vin_number } </span>
           </div>
         )
       }
@@ -124,13 +128,13 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
     {
       key: 'action',
       width: 50,
-      render: (_: string, record: Reservation) => {
+      render: (_: string, record: Vehicle) => {
         return (
           <TableActionDropdown
             actions={[
               {
                 label: 'View',
-                action: () => startTransition(() => navigate(`/vehicle?vehicle_id=${record?.vehicle?.vehicle_id}`))
+                action: () => startTransition(() => navigate(`/vehicle?vehicle_id=${record?.vehicle_id}`))
               },
             ]}
           />
@@ -141,7 +145,7 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
 
   return (
     <Table 
-      dataSource={reservations} 
+      dataSource={vehicles} 
       columns={columns} 
       size='small'
       bordered

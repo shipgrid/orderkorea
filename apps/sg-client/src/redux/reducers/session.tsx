@@ -7,7 +7,7 @@ const initialState: SessionState = {
   token: '',
   fbToken: '',
   username: '',
-  isCustomer: false,
+  isBroker: false,
   isStaff: false,
 };
 
@@ -18,16 +18,14 @@ const sessionSlice = createSlice({
   reducers: {
     login: (state, action: PayloadAction<{ 
       token: string; 
-      // fbToken: string;
       username: string;
-      isCustomer: boolean;
+      isBroker: boolean;
       isStaff: boolean;
     }>) => {
       state.isAuth = true;
       state.token = action.payload.token;
-      // state.fbToken = action.payload.fbToken;
       state.username = action.payload.username;
-      state.isCustomer = action.payload.isCustomer;
+      state.isBroker = action.payload.isBroker;
       state.isStaff = action.payload.isStaff;
     },
     refreshToken: (state, action: PayloadAction<{ 

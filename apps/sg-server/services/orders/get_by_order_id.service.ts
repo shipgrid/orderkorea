@@ -9,7 +9,7 @@ import {
 
 export default async ({
   order_id,
-  customer_id
+  user_id
 }): Promise<IServiceResponse<Order>> => {
 
   return new Promise(async (resolve, reject) => {
@@ -19,22 +19,22 @@ export default async ({
         .withGraphFetched('orderEvents')
         .withGraphFetched('thirdParties.[address]')
         .withGraphFetched('documents')
-        .withGraphFetched('reservations.vehicle.[make(selectMake)]')
-        .withGraphFetched('reservations.vehicle.[model(selectModel)]')
-        .withGraphFetched('reservations.vehicle.[trim(selectTrim)]')
-        .withGraphFetched('reservations.vehicle.[body_style(selectBodyStyle)]')
-        .withGraphFetched('reservations.vehicle.[fuel_type(selectFuelType)]')
-        .withGraphFetched('reservations.vehicle.[doors(selectDoors)]')
-        .withGraphFetched('reservations.vehicle.[exterior_color(selectColor)]')
-        .withGraphFetched('reservations.vehicle.[interior_color(selectColor)]')
-        .withGraphFetched('reservations.vehicle.[transmission(selectTransmission)]')
-        .withGraphFetched('reservations.vehicle.[drivetrain(selectDrivetrain)]')
-        .withGraphFetched('reservations.vehicle.[cylinders(selectCylinder)]')
-        .withGraphFetched('reservations.vehicle.[fees(selectFees)]')
-        .withGraphFetched('reservations.vehicle.[images(selectImages)]')
-        .modifyGraph('reservations.vehicle', builder => {
-          builder.select('vehicle_id', 'year', 'mileage', 'is_new', 'vin_number', 'description', 'created_on', 'updated_on', 'deleted_on')
-        })
+        .withGraphFetched('vehicles.[make(selectMake)]')
+        .withGraphFetched('vehicles.[model(selectModel)]')
+        .withGraphFetched('vehicles.[trim(selectTrim)]')
+        .withGraphFetched('vehicles.[body_style(selectBodyStyle)]')
+        .withGraphFetched('vehicles.[fuel_type(selectFuelType)]')
+        .withGraphFetched('vehicles.[doors(selectDoors)]')
+        .withGraphFetched('vehicles.[exterior_color(selectColor)]')
+        .withGraphFetched('vehicles.[interior_color(selectColor)]')
+        .withGraphFetched('vehicles.[transmission(selectTransmission)]')
+        .withGraphFetched('vehicles.[drivetrain(selectDrivetrain)]')
+        .withGraphFetched('vehicles.[cylinders(selectCylinder)]')
+        .withGraphFetched('vehicles.[fees(selectFees)]')
+        .withGraphFetched('vehicles.[images(selectImages)]')
+        // .modifyGraph('vehicles', builder => {
+        //   builder.select('vehicles.vehicles_id', 'year', 'mileage', 'is_new', 'vin_number', 'description', 'created_on', 'updated_on', 'deleted_on')
+        // })
         .modifiers({
           selectMake(builder) {
             builder.select('make_id', 'name')
@@ -73,12 +73,9 @@ export default async ({
             builder.select('fee_id', 'vehicle_price', 'delivery_fee', 'service_fee', 'deposit_fee')
           }
         })
-        // .withGraphFetched('reservations.vehicle.[images]')
-        // .modifyGraph('reservations.vehicle.[images]', builder => {
-        //   builder.select('image_url');
-        // })
         .where('order_id', order_id)
-        .where('customer_id', customer_id)
+        .where('buyer_id', user_id)
+        .orWhere('seller_id', user_id)
   
         if(!order.length) {
           resolve({

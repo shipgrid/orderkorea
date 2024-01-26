@@ -14,6 +14,8 @@ import User from '../../models/user'
 
 const userSchema = Joi.object({
   user_id: Joi.number().required(),
+  is_broker: Joi.number().required(),
+  is_staff: Joi.number().required(),
   first_name: Joi.string().required(),
   last_name: Joi.string().allow('', null),
   username: Joi.string().required(),
@@ -22,20 +24,6 @@ const userSchema = Joi.object({
   created_on: Joi.string().allow('', null),
   updated_on: Joi.string().allow('', null),
   deleted_on: Joi.string().allow('', null),
-  customer: Joi.object({
-    customer_id: Joi.number().required(),
-    user_id: Joi.number().required(),
-    created_on: Joi.string().allow('', null),
-    updated_on: Joi.string().allow('', null),
-    deleted_on: Joi.string().allow('', null)
-  }),
-  staff: Joi.object({
-    staff_id: Joi.number().required(),
-    user_id: Joi.number().required(),
-    created_on: Joi.string().allow('', null),
-    updated_on: Joi.string().allow('', null),
-    deleted_on: Joi.string().allow('', null)
-  }).allow({}, null)
 })
 
 
@@ -69,16 +57,12 @@ export default async (
         message: error.details[0].message
       })
     }
-
-    const { 
-      customer 
-    }: any = req.user
     
     const {
       success,
       data
     } = await orders.list({
-      customer_id: customer.customer_id
+      user_id: req.user.user_id
     })
 
     if(!success) {

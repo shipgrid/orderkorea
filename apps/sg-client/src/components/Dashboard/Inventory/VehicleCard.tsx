@@ -5,6 +5,7 @@ import {
   Typography, 
   Image,
   message,
+  Avatar
 } from 'antd'
 
 import { 
@@ -38,10 +39,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
     vehicle_id, 
     make, 
     model, 
-    exterior_color,
-    interior_color,
-    transmission,
-    drivetrain,
+    created_on,
     trim,
     images,
     fees,
@@ -69,6 +67,37 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
     copyToClipboard(vinNumber)
   }
 
+
+  const getRandomColor = () => {
+    const r = Math.floor(Math.random() * 256); 
+    const g = Math.floor(Math.random() * 256); 
+    const b = Math.floor(Math.random() * 256); 
+  
+    const color = `rgb(${r},${g},${b})`;
+  
+    return color;
+  }
+
+  const getRandomLetter = () => {
+    const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+    const randomIndex = Math.floor(Math.random() * alphabet.length);
+    const randomLetter = alphabet[randomIndex];
+    return randomLetter.toUpperCase();
+  }
+
+  const calculateDaysDifference = (timestampString: string): number => {
+    const timestampDate = new Date(timestampString); // Convert the timestamp string to a Date object
+    const currentDate = new Date(); // Get the current date
+    const timeDifference = currentDate.getTime() - timestampDate.getTime(); // Calculate the time difference in milliseconds
+    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
+
+    if (daysDifference < 0) {
+      return 0;
+    }
+
+    return daysDifference;
+  }
+
   return (
     <Card
       style={{ borderRadius: 10}}
@@ -94,15 +123,16 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
       <Meta 
         description={
           <div className='inventory-vehicle-meta'>
-            <div style={{ display: 'flex', flexDirection: 'column', flex: 1, margin: '0px 28px' }}>
-              <Text style={{marginTop: 3, color: '#5c5e62', fontSize: 14 }}>{exterior_color.name} exterior</Text>
-              <Text style={{marginTop: 3, color: '#5c5e62', fontSize: 14 }}>{interior_color.name} interior</Text>
+            <div style={{ display: 'flex', flexDirection: 'column', flex: 1, margin: '0px 16px' }}>
+              <div style={{ display: 'flex'}}> 
+                <Avatar style={{ backgroundColor: getRandomColor(), verticalAlign: 'middle', cursor: 'pointer' }} size="small"> { getRandomLetter() } </Avatar> 
+                {calculateDaysDifference(created_on) <= 0 ? <span style={{ margin: '0px 0px 0px 5px'}}> posted now </span> : <span style={{ margin: '0px 0px 0px 5px'}}> posted {calculateDaysDifference(created_on)} days ago </span> }
+              </div>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', flex: 1, margin: '0px 28px' }}>
-              {vin_number ? (<Text style={{ color: '#5c5e62', fontSize: 14 }} onClick={(e) => handleCopyToClipboard(e, vin_number)}> 
+            <div style={{ display: 'flex', flexDirection: 'column', flex: 1, margin: '0px 16px' }}>
+              {vin_number ? (<span style={{ fontSize: 14 }} onClick={(e) => handleCopyToClipboard(e, vin_number)}> 
                 {`${vin_number}`}
-              </Text>) : null}
-              <Text style={{marginTop: 3, color: '#5c5e62', fontSize: 14 }}>{transmission.name} {drivetrain.name} </Text>
+              </span>) : null}
             </div>
           </div>
         } 

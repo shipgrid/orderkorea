@@ -2,7 +2,7 @@ import {
   Button,
   Form, 
   Input,
-  // Divider,
+  Divider,
   message,
   Spin,
   Image
@@ -12,9 +12,9 @@ import {
   useDispatch,
 } from 'react-redux'
 
-// import {
-//   Link
-// } from 'react-router-dom'
+import {
+  Link
+} from 'react-router-dom'
 
 import {
   login
@@ -61,7 +61,7 @@ const LoginForm = ({}) => {
       dispatch(login({ 
         token: response.data.token, 
         username: response.data.username,
-        isCustomer: response.data.is_customer,
+        isBroker: response.data.is_broker,
         isStaff: response.data.is_staff
       }));
       
@@ -72,10 +72,10 @@ const LoginForm = ({}) => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column'}}>
-      <Image src={Logo} preview={false} style={{ width: 150, cursor:'pointer' }}/>
+      <Image src={Logo} preview={false} style={{ width: 150, cursor:'pointer', marginBottom: 35 }}/>
       <Spin spinning={loginLoading}>
         <div style={{ padding: 20 }}>
-          <h2 style={{ color: 'black', marginBottom: 40 }}>
+          <h2 style={{ color: 'black', marginBottom: 20 }}>
             Sign In
           </h2>
           <Form
@@ -107,12 +107,19 @@ const LoginForm = ({}) => {
               </Button>
             </Form.Item>
           </Form> 
-          {/* <Divider/>
+          <Divider/>
           <div style={{display: 'flex', flexDirection: 'column'}}>
             <p style={{ marginTop: 10, color: 'black' }}>
-              Don't have an account? <Link to="/signup">Sign up</Link>
+            <a
+              href="https://forms.gle/3q6pTTMdCXxcQK4W6"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Join the <b>Broker Network</b> <Link to='https://forms.gle/3q6pTTMdCXxcQK4W6'> send in an application</Link>
+            </a>
+              {/* Don't have an account? <Link to="/signup">Sign up</Link> */}
             </p>
-          </div> */}
+          </div>
         </div>
       </Spin>
     </div>

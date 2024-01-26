@@ -9,7 +9,7 @@ import {
   Tabs,
   Button,
   Space,
-  Divider
+  Divider,
 } from 'antd'
 
 import type { 
@@ -83,7 +83,7 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
           <Divider style={{ margin: '10px 0px 10px' }}/>
           <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
             <div> Mileage </div>
-            <div> { vehicle.mileage } km</div>
+            <div> { formatNumberWithCommas(vehicle.mileage) } km</div>
           </div>
           <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
             <div> Year </div>
@@ -129,43 +129,43 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
         </div>
       </div>
     },
-    {
-      key: '2',
-      label: 'Pricing (USD)',
-      children: <div style={{ flex: 1 }}>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
-            <div> Vehicle Price </div>
-            <div> ${ formatNumberWithCommas(vehicle.fees.vehicle_price) } </div>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
-            <div> Service Fee </div>
-            <div> ${ vehicle.fees.service_fee } </div>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
-            <div> Delivery Fee </div>
-            <div> { vehicle.fees.delivery_fee ? `$${vehicle.fees.delivery_fee}` : `TBD` } </div>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
-            <div style={{ fontWeight: 'bold' }}> Subtotal </div>
-            <div> TBD + Delivery </div>
-          </div>
-          <Divider style={{ margin: '20px 0px 20px' }}> Due Now </Divider>
-          <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
-            <div> Deposit </div>
-            <div> ${ formatNumberWithCommas(vehicle.fees.deposit_fee) } </div>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
-            <div> Service Fee </div>
-            <div> ${ formatNumberWithCommas(vehicle.fees.service_fee) } </div>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
-            <div style={{ fontWeight: 'bold' }}> Total Due </div>
-            <div> ${ formatNumberWithCommas((vehicle.fees.deposit_fee) + vehicle.fees.service_fee*1) } </div>
-          </div>
-        </div>
-      </div>
-    },
+    // {
+    //   key: '2',
+    //   label: 'Pricing (USD)',
+    //   children: <div style={{ flex: 1 }}>
+    //     <div style={{ display: 'flex', flexDirection: 'column' }}>
+    //       <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
+    //         <div> Vehicle Price </div>
+    //         <div> ${ formatNumberWithCommas(vehicle.fees.vehicle_price) } </div>
+    //       </div>
+    //       <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
+    //         <div> Service Fee </div>
+    //         <div> ${ vehicle.fees.service_fee } </div>
+    //       </div>
+    //       <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
+    //         <div> Delivery Fee </div>
+    //         <div> { vehicle.fees.delivery_fee ? `$${vehicle.fees.delivery_fee}` : `TBD` } </div>
+    //       </div>
+    //       <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
+    //         <div style={{ fontWeight: 'bold' }}> Subtotal </div>
+    //         <div> TBD + Delivery </div>
+    //       </div>
+    //       <Divider style={{ margin: '20px 0px 20px' }}> Due Now </Divider>
+    //       <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
+    //         <div> Deposit </div>
+    //         <div> ${ formatNumberWithCommas(vehicle.fees.deposit_fee) } </div>
+    //       </div>
+    //       <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
+    //         <div> Service Fee </div>
+    //         <div> ${ formatNumberWithCommas(vehicle.fees.service_fee) } </div>
+    //       </div>
+    //       <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
+    //         <div style={{ fontWeight: 'bold' }}> Total Due </div>
+    //         <div> ${ formatNumberWithCommas((vehicle.fees.deposit_fee) + vehicle.fees.service_fee*1) } </div>
+    //       </div>
+    //     </div>
+    //   </div>
+    // },
   ];
 
   return (
@@ -254,7 +254,7 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
               <div className='vehicle-detail-info'>
                 <div className='vehicle-detail-title'>{vehicle.year} {vehicle.make.name} {vehicle.model.name} {vehicle.trim.name} </div>
                 <div style={{ fontSize: 22}}>${ formatNumberWithCommas(vehicle.fees.vehicle_price) }</div>
-                <Button type="primary" style={{ marginTop: 24, width: '100%', height: 40, borderRadius: 12 }} onClick={() => startTransition(() => navigate(`/checkout?vehicle_id=${vehicle.vehicle_id}`))}> Contact Selling Broker </Button>
+                <Button type="primary" style={{ marginTop: 24, width: '100%', height: 40, borderRadius: 12 }} onClick={() => startTransition(() => navigate(`/return`))}> Contact Selling Broker </Button>
                 <Tabs defaultActiveKey="1" items={tabItems} style={{ margin: '24px 0px'}}/>
               </div>
             </div>

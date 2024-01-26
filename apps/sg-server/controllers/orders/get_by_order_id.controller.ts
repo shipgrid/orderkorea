@@ -14,6 +14,8 @@ import User from '../../models/user'
 
 const userSchema = Joi.object({
   user_id: Joi.number().required(),
+  is_broker: Joi.number().required(),
+  is_staff: Joi.number().required(),
   first_name: Joi.string().required(),
   last_name: Joi.string().allow('', null),
   username: Joi.string().required(),
@@ -22,20 +24,6 @@ const userSchema = Joi.object({
   created_on: Joi.string().allow('', null),
   updated_on: Joi.string().allow('', null),
   deleted_on: Joi.string().allow('', null),
-  customer: Joi.object({
-    customer_id: Joi.number().required(),
-    user_id: Joi.number().required(),
-    created_on: Joi.string().allow('', null),
-    updated_on: Joi.string().allow('', null),
-    deleted_on: Joi.string().allow('', null)
-  }),
-  staff: Joi.object({
-    staff_id: Joi.number().required(),
-    user_id: Joi.number().required(),
-    created_on: Joi.string().allow('', null),
-    updated_on: Joi.string().allow('', null),
-    deleted_on: Joi.string().allow('', null)
-  }).allow({}, null)
 }) 
 
 const paramsSchema = Joi.object({
@@ -78,19 +66,15 @@ export default async (
         message: paramsValidation.error.details[0].message
       })
     }
-
-    const { 
-      customer 
-    }:any = req.user
     
     const {
       order_id
     } = req.params
     
-    if(!customer) {
+    if(!req.user) {
       return res.status(400).json({
         success: false,
-        message: 'No customer found for user'
+        message: 'No user found'
       })
     }
 
@@ -100,7 +84,7 @@ export default async (
       data
     } = await orders.getByOrderId({
       order_id,
-      customer_id: customer.customer_id
+      user_id: req.user.user_id
     })
 
     if(!success) {

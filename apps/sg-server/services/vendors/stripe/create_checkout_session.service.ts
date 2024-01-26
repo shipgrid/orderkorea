@@ -12,11 +12,11 @@ interface ILineItem {
 
 export default async ({
   line_items,
-  customer_id,
+  user_id,
   vehicle_id
 }: { 
   line_items: ILineItem[];
-  customer_id: string; 
+  user_id: string; 
   vehicle_id: string;
 }): Promise<IServiceResponse<{
   client_secret: string
@@ -61,7 +61,7 @@ export default async ({
         },
         return_url: `https://shipgrid.io/#/return?session_id={CHECKOUT_SESSION_ID}`,
         metadata: {
-          customer_id,
+          user_id,
           vehicle_id
         }
       });

@@ -26,8 +26,6 @@ export default async (req, res, next) => {
       .where((builder) => {
         builder.where('user_id', user_id)
       })
-      .withGraphFetched('customer')
-      .withGraphFetched('staff')
       
 
     if(!user.length) {

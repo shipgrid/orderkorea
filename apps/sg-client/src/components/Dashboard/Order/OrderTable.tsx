@@ -87,12 +87,6 @@ const OrderTable = ({
       }
     },
     {
-      title: 'Expected Arrival',
-      dataIndex: 'expected_arrival',
-      key: 'expected_arrival',
-      render:(expected_arrival: string) => expected_arrival ? expected_arrival : 'N/A'
-    },
-    {
       title: 'Details',
       dataIndex: 'totalCost',
       key: 'totalCost',

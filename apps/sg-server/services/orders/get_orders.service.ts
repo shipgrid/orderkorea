@@ -8,7 +8,7 @@ import {
 } from '../../types'
 
 export default async ({
-  customer_id
+  user_id
 }): Promise<IServiceResponse<Order[]>> => {
 
   return new Promise(async (resolve, reject) => {
@@ -18,8 +18,9 @@ export default async ({
         .withGraphFetched('orderEvents')
         .withGraphFetched('thirdParties.[address]')
         .withGraphFetched('documents')
-        .withGraphFetched('reservations.vehicle.[images]')
-        .where('customer_id', customer_id)
+        .withGraphFetched('vehicles.[images]')
+        .where('seller_id', user_id)
+        .orWhere('buyer_id', user_id); 
         
       resolve({
         success: true, 

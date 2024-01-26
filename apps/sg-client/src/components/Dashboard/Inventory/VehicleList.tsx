@@ -64,7 +64,15 @@ const VehicleList = ({
           <div>
             <div style={{ fontWeight: 600, fontSize: 24, margin: '12px 0px' }}>Can't find the car you want?</div>
             <div style={{ fontWeight: 400, fontSize: 16, margin: '12px 0px', color: '#5c5e62' }}>Access the broker network to leverage the best offers that match your desired margins</div>
-            <Button type='primary' style={{ width: '100%', height: 45, margin: '12px 0px' }}>Request for a Car</Button>
+            <a
+              href="https://forms.gle/3q6pTTMdCXxcQK4W6"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button type='primary' style={{ width: '100%', height: 45, margin: '12px 0px' }}>
+                Request for a Car
+              </Button>
+            </a>
           </div>
         </div>
       </div>
@@ -72,7 +80,7 @@ const VehicleList = ({
         vehicles.length ? (
           vehicles.map((vehicle, index) => (
           <div key={index}>
-            <Badge.Ribbon text={vehicle.reservation ? 'sold' : 'available' } color={vehicle.reservation ? 'red' : 'green'}>
+            <Badge.Ribbon text={vehicle.reservation ? 'in negotiation' : 'available' } color={vehicle.reservation ? 'orange' : 'green'}>
               <VehicleCard key={vehicle.vehicle_id} vehicle={vehicle} onClick={() => startTransition(() => handleViewVehicle(vehicle.vehicle_id))}/>
             </Badge.Ribbon>
           </div>)

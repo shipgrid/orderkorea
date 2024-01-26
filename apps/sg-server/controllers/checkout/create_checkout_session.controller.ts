@@ -51,17 +51,13 @@ export default async (
       vehicle_id
     } = req.params
 
-    const { 
-      customer 
-    }:any = req.user
-
     const {
       success,
       message,
       data
     } = await checkout.create({
       vehicle_id: vehicle_id,
-      customer_id: customer.customer_id
+      user_id: req.user.user_id
     });
 
     if(!success) {

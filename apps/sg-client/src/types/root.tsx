@@ -54,7 +54,6 @@ export interface Reservation {
   vehicle_id: number; 
   customer_id: number; 
   order_id: number; 
-  // vehicle: Vehicle;
   created_on?: string;
   updated_on?: string;
   deleted_on?: string | null;
@@ -65,7 +64,7 @@ export interface SessionState {
   token: string;
   fbToken: string;
   username: string;
-  isCustomer: boolean;
+  isBroker: boolean;
   isStaff: boolean;
 }
 

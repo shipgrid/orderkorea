@@ -3,7 +3,6 @@ import {
   User,
   Order,
   KnexClient,
-  Reservation
 } from '../../models'
 
 import {
@@ -12,6 +11,8 @@ import {
 
 export default async ({
   email,
+  buyer_id,
+  seller_id,
   shipment_type,
   port_of_loading,
   container_number,
@@ -19,7 +20,6 @@ export default async ({
   loaded_on,
   thirdParties,
   documents,
-  reservations
 }): Promise<IServiceResponse<Order>> => {
 
   return new Promise(async (resolve, reject) => {
@@ -29,7 +29,6 @@ export default async ({
   
         const user:any = await User
           .query(trx)
-          .withGraphFetched('customer')
           .where('username', email).first();
   
         if(!user) {
@@ -42,7 +41,8 @@ export default async ({
         }
   
         const newOrder = {
-          customer_id: user.customer?.customer_id,
+          buyer_id,
+          seller_id,
           shipment_type,
           port_of_loading,
           container_number,
@@ -63,17 +63,6 @@ export default async ({
           resolve({
             success: false,
             message: 'Failed to create order'
-          })
-
-          return;
-        }
-
-        const updateReservations = await Reservation.query(trx).update({ order_id: order.order_id }).whereIn('reservation_id', reservations.map(item => item.reservation_id));
-
-        if(!updateReservations) {
-          resolve({
-            success: false,
-            message: 'Failed to update reservations'
           })
 
           return;

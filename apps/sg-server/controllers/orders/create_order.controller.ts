@@ -32,11 +32,6 @@ const _documentSchema = Joi.object({
   file_url: Joi.string().required()
 })
 
-const _reservationSchema = Joi.object({
-  vehicle_id: Joi.number().required(),
-  reservation_id: Joi.number().required(),
-})
-
 const bodySchema = Joi.object({
   email: Joi.string().required(),
   shipment_type: Joi.string().valid('ocean', 'air').required(),
@@ -46,7 +41,6 @@ const bodySchema = Joi.object({
   loaded_on: Joi.string().allow('', null),
   thirdParties: Joi.array().items(_thirdPartySchema),
   documents: Joi.array().items(_documentSchema),
-  reservations: Joi.array().items(_reservationSchema).min(2).required()
 })
 
 export default async (
@@ -67,6 +61,8 @@ export default async (
   try {
     const {
       email,
+      buyer_id,
+      seller_id,
       shipment_type,
       port_of_loading,
       container_number,
@@ -74,7 +70,6 @@ export default async (
       loaded_on,
       thirdParties,
       documents,
-      reservations
     } = req.body
     
     const {
@@ -83,6 +78,8 @@ export default async (
       data
     } = await orders.create({
       email,
+      buyer_id,
+      seller_id,
       shipment_type,
       port_of_loading,
       container_number,
@@ -90,7 +87,6 @@ export default async (
       loaded_on,
       thirdParties,
       documents,
-      reservations
     })
 
     if(!success) {

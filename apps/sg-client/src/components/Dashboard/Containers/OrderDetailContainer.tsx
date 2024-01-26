@@ -105,7 +105,7 @@ const OrderDetailContainer = () => {
               title='Vehicles'
               content={
                 <VehicleTable
-                  reservations={order.reservations}
+                  vehicles={order.vehicles}
                 />
               }
             />

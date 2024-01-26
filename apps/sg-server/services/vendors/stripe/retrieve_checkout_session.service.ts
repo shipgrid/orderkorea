@@ -10,7 +10,7 @@ export default async ({
   session_id: string; 
 }): Promise<IServiceResponse<{
   status: string
-  customer_email: string
+  email: string
 }>> => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -21,7 +21,7 @@ export default async ({
         success: true, 
         data: {
           status: session.status,
-          customer_email: session.customer_details.email
+          email: session.customer_details.email
         },
       });
   
