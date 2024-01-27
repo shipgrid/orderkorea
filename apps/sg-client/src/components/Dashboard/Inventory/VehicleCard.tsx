@@ -113,10 +113,10 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
                 <Avatar style={{ backgroundColor: getRandomColor(), verticalAlign: 'middle', cursor: 'pointer' }} size="small"> { getRandomLetter() } </Avatar> 
                 {calculateDaysDifference(created_on) <= 0 ? <span style={{ margin: '0px 0px 0px 5px'}}> posted now </span> : <span style={{ margin: '0px 0px 0px 5px'}}> posted {calculateDaysDifference(created_on)} days ago </span> }
               </div>
-              <Text style={{ fontSize: 16 }}>USD {`$${formatNumberWithCommas(fees.vehicle_price)}`}</Text>
+              <Text style={{ fontSize: 16, fontWeight: 'bold' }}>USD {`$${formatNumberWithCommas(fees.vehicle_price)}`}</Text>
             </div>
             <div style={{ display: 'flex', justifyContent:'space-between', marginTop: 5 }}>
-              <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{`${year}`} {`${make.name}`}</Text>
+              <Text style={{ fontSize: 16 }}>{`${year}`} {`${make.name}`}</Text>
               <Text style={{ fontSize: 14, color: 'gray' }}>{`${model.name} ${trim.name}`}</Text>
             </div>
             <div style={{ fontSize: 14, color: 'gray', marginTop: 5 }}>
