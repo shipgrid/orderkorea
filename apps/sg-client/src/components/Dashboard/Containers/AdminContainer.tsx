@@ -5,11 +5,12 @@ import {
 
 import {
   Button,
-  Space
+  Space,
 } from 'antd';
 
 import {
-  useNavigate
+  useNavigate,
+  Link
 } from 'react-router-dom'
 
 import { 
@@ -40,6 +41,7 @@ const OrderDetailFormContainer = () => {
               <Space style={{ display: 'flex', flexDirection: 'column'}}>
                 <Button style={{ width: 200 }} onClick={() => startTransition(() => navigate('/upload-vehicle'))}> Upload Vehicle </Button>
                 <Button style={{ width: 200 }} onClick={() => startTransition(() => navigate('/create-order'))}> Create Order </Button>
+                <Link to="/signup">Sign up</Link>
               </Space>
             </div>
           }
