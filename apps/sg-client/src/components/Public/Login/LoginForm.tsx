@@ -3,7 +3,6 @@ import {
   Form, 
   Input,
   Divider,
-  message,
   Spin,
   Image
 } from 'antd';
