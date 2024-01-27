@@ -254,7 +254,15 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
               <div className='vehicle-detail-info'>
                 <div className='vehicle-detail-title'>{vehicle.year} {vehicle.make.name} {vehicle.model.name} {vehicle.trim.name} </div>
                 <div style={{ fontSize: 22}}>${ formatNumberWithCommas(vehicle.fees.vehicle_price) }</div>
-                <Button type="primary" style={{ marginTop: 24, width: '100%', height: 40, borderRadius: 12 }} onClick={() => startTransition(() => navigate(`/return`))}> Contact Selling Broker </Button>
+                <a
+                  href="https://forms.gle/HPtbqMS1t3WNJWps8"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                <Button type="primary" style={{ marginTop: 24, width: '100%', height: 40, borderRadius: 12 }}> 
+                  Contact Selling Broker 
+                </Button>
+                </a>
                 <Tabs defaultActiveKey="1" items={tabItems} style={{ margin: '24px 0px'}}/>
               </div>
             </div>
