@@ -23,10 +23,6 @@ import {
   fallBackImageUrl
 } from '../../../data'
 
-import {
-  useNavigate
-} from 'react-router-dom'
-
 import { 
   formatNumberWithCommas
 } from '../../../utils/format_string'
