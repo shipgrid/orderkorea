@@ -9,7 +9,8 @@ import {
   Checkbox,
   Space,
   Slider,
-  Collapse
+  Collapse,
+  Spin
 } from 'antd';
 
 import type { 
@@ -74,6 +75,12 @@ const HomeContainer = () => {
     return queryParams.join('&');
   }
 
+  const { 
+    data: vehicles = [], 
+  } = useGetVehiclesQuery({finalUrl: finalUrl}, {
+    skip: !isDebounceComplete
+  })
+
   const delayedBuildQueryString = useRef(debounce((filterObject) => {
     const query = buildQueryString(filterObject)
     setIsDebounceComplete(true);
@@ -91,12 +98,6 @@ const HomeContainer = () => {
     skip: !isDebounceComplete
   });
 
-  const { 
-    data: vehicles = [], 
-    isLoading: isVehicleListLoading 
-  } = useGetVehiclesQuery({finalUrl: finalUrl}, {
-    skip: !isDebounceComplete
-  });
 
   useEffect(() => {
     setIsDebounceComplete(false); 
@@ -392,10 +393,12 @@ const HomeContainer = () => {
               accordion
             />
           </div>
+          <Spin spinning={!isDebounceComplete}> 
           <VehicleList
             vehicles={vehicles}
-            isLoading={isVehicleListLoading}
           />
+          </Spin>
+      
         </div>
       </DashboardContent>
     </>

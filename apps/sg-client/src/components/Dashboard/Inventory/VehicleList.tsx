@@ -23,31 +23,16 @@ import '../../../assets/request_car.css';
 
 interface VehicleListProps {
   vehicles: Vehicle[];
-  isLoading: boolean;
 }
 
 const VehicleList = ({ 
   vehicles,
-  isLoading
 }: VehicleListProps) => {  
 
   const navigate = useNavigate();
 
   const handleViewVehicle = (vehicleId: number) => {
     navigate(`/vehicle?vehicle_id=${vehicleId}`);
-  }
-
-  if (isLoading) {
-    return (
-      <Space direction="horizontal" size="large" style={{ flex: 1, justifyContent: 'center' }} wrap>
-        <Skeleton.Button style={{ height: 325, width: 360 }} active />
-        <Skeleton.Button style={{ height: 325, width: 360 }} active />
-        <Skeleton.Button style={{ height: 325, width: 360 }} active />
-        <Skeleton.Button style={{ height: 325, width: 360 }} active />
-        <Skeleton.Button style={{ height: 325, width: 360 }} active />
-        <Skeleton.Button style={{ height: 325, width: 360 }} active />
-      </Space>
-    );
   }
 
   return (
