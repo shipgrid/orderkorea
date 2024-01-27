@@ -4,7 +4,6 @@ import {
   Card,
   Typography, 
   Image,
-  message,
   Avatar
 } from 'antd'
 
@@ -52,20 +51,6 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
   const handleItemClick = () => {
     onClick(vehicle_id)
   }
-
-  const copyToClipboard = (text: any) => {
-    navigator.clipboard.writeText(text).then(() => {
-      message.success('Vin Copied') 
-    }, (err) => {
-      console.error('Failed to copy: ', err)
-    })
-  }
-
-  const handleCopyToClipboard = (e: any, vinNumber: string) => {
-    e.stopPropagation() 
-    copyToClipboard(vinNumber)
-  }
-
 
   const getRandomColor = () => {
     const r = Math.floor(Math.random() * 256); 

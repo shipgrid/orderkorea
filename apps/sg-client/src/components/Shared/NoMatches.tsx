@@ -5,8 +5,8 @@ import {
 const NoMatches: React.FC = () => {
   return (
     <Result
-      status="404"
-      title="We didn't find any exact matches"
+      status="warning"
+      title="We didn't find any matches"
       subTitle="Try another search term to find what you're looking for."
     />
   )
