@@ -35,8 +35,8 @@ const SellerContactedContainer = () => {
           minHeight: 'calc(100vh - 200px)',
         }}>
           <div style={{ maxWidth: 550, textAlign: 'center', backgroundColor: 'white', borderRadius: 10, padding: 32 }}>
-            <Image src={PaymentSuccess} width={320} preview={false} />
-            <p style={{ fontSize: 24, fontWeight: 'bold' }}>You have contacted the seller</p>
+            <Image src={PaymentSuccess} width={310} preview={false} />
+            <p style={{ fontSize: 24, fontWeight: 'bold' }}>The seller has been contacted</p>
             <p>
               You will be connected once the seller has agreed to the offer.
               If you have any questions, please email <a href="mailto:admin@shipgrid.io">admin@shipgrid.io</a>.

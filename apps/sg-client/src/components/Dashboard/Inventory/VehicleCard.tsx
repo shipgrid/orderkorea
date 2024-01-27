@@ -123,13 +123,13 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
       <Meta 
         description={
           <div className='inventory-vehicle-meta'>
-            <div style={{ display: 'flex', flexDirection: 'column', flex: 1, margin: '0px 0px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', flex: 1, margin: '5px 0px' }}>
               <div style={{ display: 'flex'}}> 
                 <Avatar style={{ backgroundColor: getRandomColor(), verticalAlign: 'middle', cursor: 'pointer' }} size="small"> { getRandomLetter() } </Avatar> 
-                {calculateDaysDifference(created_on) <= 0 ? <span style={{ margin: '0px 0px 0px 5px'}}> posted now </span> : <span style={{ margin: '0px 0px 0px 5px'}}> posted {calculateDaysDifference(created_on)} days ago </span> }
+                {calculateDaysDifference(created_on) <= 0 ? <span style={{ margin: '0px 0px 0px 5px'}}> listed now </span> : <span style={{ margin: '0px 0px 0px 5px'}}> listed {calculateDaysDifference(created_on)} days ago </span> }
               </div>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', flex: 1, margin: '0px 0px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', flex: 1, margin: '5px 0px' }}>
               {vin_number ? (<span style={{ fontSize: 14 }} onClick={(e) => handleCopyToClipboard(e, vin_number)}> 
                 {`VIN: ${vin_number}`}
               </span>) : null}
