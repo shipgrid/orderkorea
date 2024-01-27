@@ -46,28 +46,17 @@ const LoginForm = ({}) => {
       password,
     } = values;
 
-    try {
+    const response: any = await accountLogin({
+      username,
+      password
+    })
 
-      const response: any = await accountLogin({
-        username,
-        password
-      })
-
-      if(response.error) {
-        message.error({ content: response.error.message, duration: 2 })    
-        return; 
-      }
-
-      dispatch(login({ 
-        token: response.data.token, 
-        username: response.data.username,
-        isBroker: response.data.is_broker,
-        isStaff: response.data.is_staff
-      }));
-      
-    } catch(e:any) {
-      message.error({ content: e.message, duration: 2 })    
-    }
+    dispatch(login({ 
+      token: response.data.token, 
+      username: response.data.username,
+      isBroker: response.data.is_broker,
+      isStaff: response.data.is_staff
+    }));
   };
 
   return (

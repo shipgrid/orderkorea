@@ -31,6 +31,11 @@ export default async ({
   
       await KnexClient.transaction(async (trx) => {
   
+        const thirdParty = await ThirdParty.query(trx).insert({
+          type,
+          order_id,
+        });
+
         const newAddress = {
           name,
           line1,
@@ -41,17 +46,11 @@ export default async ({
           postal_code,
           email,
           phone,
+          third_party_id: thirdParty.third_party_id
         };
   
-        const address = await Address.query(trx).insert(newAddress);
-  
-        const thirdParty = await ThirdParty.query(trx).insert({
-          address_id: address.address_id,
-          type,
-          order_id,
-        });
-        
-        trx.commit();
+        await Address.query(trx).insert(newAddress);
+
         resolve({
           success: true, 
           data: thirdParty
@@ -59,7 +58,7 @@ export default async ({
       });
         
     } catch(e) {
-      Logger.error('Error creating order:', e);
+      Logger.error('Error:', e);
       reject(e)
     }
   })  

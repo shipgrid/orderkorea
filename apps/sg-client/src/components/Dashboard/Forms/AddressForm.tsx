@@ -40,8 +40,8 @@ const AddressForm: React.FC<AddressFormProps> = ({
     }
 
     await updateAddress({
+      ...values,
       address_id: address.address_id,
-      ...values
    })
   };
   

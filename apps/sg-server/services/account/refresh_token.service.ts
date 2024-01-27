@@ -57,7 +57,6 @@ export default async ({
               last_login
             })
   
-          await trx.commit();
           Logger.info('User updated:', loginUser);
   
         });

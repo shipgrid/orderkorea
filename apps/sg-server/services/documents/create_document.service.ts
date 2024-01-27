@@ -59,8 +59,6 @@ export default async ({
   
         const document = await Document.query(trx).insert(newDocument);
 
-        trx.commit();
-
         resolve({
           success: true,
           data: document

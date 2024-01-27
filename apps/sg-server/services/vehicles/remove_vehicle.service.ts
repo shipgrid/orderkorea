@@ -22,7 +22,6 @@ export default async ({
   
   
         Logger.info('Vehicle deleted:');
-        trx.commit();
         resolve({
           success: true,
         })

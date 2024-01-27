@@ -42,20 +42,14 @@ const SignUpForm = ({}) => {
       password,
     } = values;
 
-    try {      
+    await register({
+      first_name,
+      last_name,
+      username,
+      password,
+    })
 
-      await register({
-        first_name,
-        last_name,
-        username,
-        password,
-      })
-
-      navigate('/')
-
-    } catch(e:any) {
-      message.error({ content: e.message, duration: 2 })    
-    }
+    navigate('/')
   };
 
   const onFinishFailed = (errorInfo: any) => {

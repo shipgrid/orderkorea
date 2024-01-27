@@ -36,8 +36,8 @@ export default async ({
           .query(trx)
           .update(newOrder)
           .where('order_id', order_id)
-          .andWhere('user_id', user_id);
-
+          .andWhere('seller_id', user_id);
+        
         if(!response) {
           return resolve({
             success: false,
@@ -45,7 +45,6 @@ export default async ({
           })
         }
 
-        trx.commit();
         resolve({
           success: true,
         })      

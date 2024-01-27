@@ -113,7 +113,7 @@ const ThirdPartyTable: React.FC<ThirdPartyTableProps> = ({
               },
               {
                 label: 'Edit',
-                action: () => { startTransition(() => navigate(`/third-party?order_id=${record.order_id}&address_id=${record.address_id}&type=${record.type}`)) }
+                action: () => { startTransition(() => navigate(`/third-party?order_id=${record.order_id}&address_id=${record.address[0].address_id}&type=${record.type}`)) }
               },
               {
                 label: 'Remove',

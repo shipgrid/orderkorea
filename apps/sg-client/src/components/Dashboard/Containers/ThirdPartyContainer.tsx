@@ -7,6 +7,11 @@ import {
   Switch,
 } from 'antd';
 
+
+import {
+  useLocation
+} from 'react-router-dom'
+
 import {
   useUpdateAddressMutation,
   useCreateThirdPartyMutation,
@@ -21,7 +26,7 @@ import ApiLoader from '../../Shared/ApiLoader';
 import ResourceNotFound from '../../Shared/ResourceNotFound';
 
 const ThirdPartyContainer = () => {
-
+  const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const orderId = searchParams.get('order_id');
   const addressId = searchParams.get('address_id');
@@ -47,7 +52,11 @@ const ThirdPartyContainer = () => {
     data:address, 
     error, 
     isLoading 
-  } = useGetAddressQuery(addressId);
+  } = useGetAddressQuery({
+    addressId: addressId,
+  }, {
+    skip: !addressId
+  });
 
   const [
     createThirdParty, { 

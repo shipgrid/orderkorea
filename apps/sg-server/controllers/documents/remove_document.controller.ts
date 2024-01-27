@@ -11,6 +11,7 @@ import {
 } from '../../services'
 
 const paramsSchema = Joi.object({
+  order_id: Joi.number().required(),
   document_id: Joi.number().required()
 })
 

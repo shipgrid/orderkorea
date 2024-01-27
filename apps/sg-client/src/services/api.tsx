@@ -11,6 +11,10 @@ import {
 // } from '../redux/reducers/session'
 
 import {
+  message
+} from 'antd'
+
+import {
   logout 
 } from '../redux/configureStore'
 
@@ -389,7 +393,11 @@ const baseQueryWithReauth: BaseQueryFn<
   unknown,
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
-  let result = await baseQuery(args, api, extraOptions)
+  let result:any = await baseQuery(args, api, extraOptions)
+
+  if(result.error?.data.message) {
+    message.error({ content: result.error?.data.message, duration: 2 })
+  }
 
   if (result.error && result.error.status === 401) {
 
@@ -566,7 +574,7 @@ const api = createApi({
       invalidatesTags: ['order'],
     }),
     getAddress: build.query({
-      query: (addressId) => `addresses/${addressId}`,
+      query: (body) => `addresses/${body.addressId}`,
       transformResponse: (response: { data: Address }) => response.data,
       transformErrorResponse: (error: any) => error.data,
     }),

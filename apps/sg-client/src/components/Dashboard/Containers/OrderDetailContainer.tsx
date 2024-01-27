@@ -64,7 +64,7 @@ const OrderDetailContainer = () => {
         />
         <div style={{ margin: '64px 24px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
           <div>
-            <Button style={{marginBottom: 5, marginRight: 5 }} onClick={ () => startTransition(() => navigate(`/order-detail?order_id=${order.order_id}`)) }> Edit </Button>
+            <Button style={{marginBottom: 5, marginRight: 5 }} onClick={ () => startTransition(() => navigate(`/order-detail?order_id=${order?.order_id}`)) }> Edit </Button>
             <Grid          
             title='Shipment Details'
               content={

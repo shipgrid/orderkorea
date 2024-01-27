@@ -8,6 +8,10 @@ import {
 } from 'antd';
 
 import {
+  useLocation
+} from 'react-router-dom'
+
+import {
   useGetOrderQuery,
   useUpdateOrderMutation
 } from '../../../services/api'
@@ -20,7 +24,7 @@ import ApiLoader from '../../Shared/ApiLoader';
 import ResourceNotFound from '../../Shared/ResourceNotFound';
 
 const OrderDetailFormContainer = () => {
-
+  const location = useLocation()
   const searchParams = new URLSearchParams(location.search);
   const orderId = searchParams.get('order_id');
 

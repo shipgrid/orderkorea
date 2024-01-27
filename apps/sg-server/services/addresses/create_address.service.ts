@@ -40,8 +40,6 @@ export default async ({
   
         const address = await Address.query(trx).insert(newAddress);
 
-        trx.commit();
-
         resolve({
           success: true,
           data: address

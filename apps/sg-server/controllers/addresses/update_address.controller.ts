@@ -15,9 +15,10 @@ const paramsSchema = Joi.object({
 })
 
 const bodySchema = Joi.object({
+  address_id: Joi.number().required(),
   name: Joi.string(),
   line1: Joi.string(),
-  line2: Joi.string(),
+  line2: Joi.string().allow(null),
   city: Joi.string(),
   state_code: Joi.string(),
   country_code: Joi.string(),
@@ -36,12 +37,18 @@ export default async (
 
     const paramsValidation = paramsSchema.validate(req.params)
     if (paramsValidation.error) {
-      throw new Error(paramsValidation.error.details[0].message)
+      return res.status(400).json({
+        success: false,
+        message: paramsValidation.error.details[0].message
+      })
     }
     
     const bodyValidation = bodySchema.validate(req.body)
     if (bodyValidation.error) {
-      throw new Error(bodyValidation.error.details[0].message)
+      return res.status(400).json({
+        success: false,
+        message: bodyValidation.error.details[0].message
+      })
     }
 
     const {

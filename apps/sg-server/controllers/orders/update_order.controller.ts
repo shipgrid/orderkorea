@@ -32,6 +32,8 @@ const userSchema = Joi.object({
   last_name: Joi.string().allow('', null),
   username: Joi.string().required(),
   password_hash: Joi.string().required(),
+  is_broker: Joi.number().required(),
+  is_staff: Joi.number().required(),
   last_login: Joi.string().allow('', null),
   created_on: Joi.string().allow('', null),
   updated_on: Joi.string().allow('', null),
@@ -43,6 +45,7 @@ const paramsSchema = Joi.object({
 })
 
 const bodySchema = Joi.object({
+  order_id: Joi.number().required(),
   shipment_type: Joi.string().required().valid('ocean', 'air'),
   container_number: Joi.string().required(),
   port_of_loading: Joi.string().required(),

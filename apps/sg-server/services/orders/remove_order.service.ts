@@ -26,7 +26,6 @@ export default async ({
           return; 
         }
         
-        trx.commit();
         resolve({
           success: true
         })
