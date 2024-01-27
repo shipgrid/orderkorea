@@ -46,7 +46,6 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
   vehicle
 }) => {
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate()
 
   const showDrawer = () => {
     setOpen(true);
