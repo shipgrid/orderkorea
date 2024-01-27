@@ -103,7 +103,7 @@ const LoginForm = ({}) => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Join the <b>Broker Network</b> <Link to='https://forms.gle/V77JrUbuHKnBvJXd9'>, send in an application</Link>
+              Join the <b>Broker Network</b><Link to='https://forms.gle/V77JrUbuHKnBvJXd9'>, send in an application</Link>
             </a>
               {/* Don't have an account? <Link to="/signup">Sign up</Link> */}
             </p>
