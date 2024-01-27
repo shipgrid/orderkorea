@@ -6,7 +6,6 @@ import {
   Skeleton, 
   Space,
   Badge,
-  Image,
   Button
 } from 'antd';
 
@@ -20,7 +19,6 @@ import {
 
 import VehicleCard from './VehicleCard';
 import NoMatches from '../../Shared/NoMatches';
-import PricePana from '../../../assets/images/price-pana.png';
 import '../../../assets/request_car.css';
 
 interface VehicleListProps {
@@ -56,7 +54,6 @@ const VehicleList = ({
     <Space direction="horizontal" size="large" style={{ width: '100%', height: '100%' }} wrap>
       <div className='request-car-card'>
         <div className='request-car-content'>
-          <Image src={PricePana} preview={false} className='request-car-hero'/>
           <div>
             <div style={{ fontWeight: 600, fontSize: 24, margin: '12px 0px' }}>Can't find the car you want?</div>
             <div style={{ fontWeight: 400, fontSize: 16, margin: '12px 0px', color: '#5c5e62' }}>Access the broker network to leverage the best offers that match your desired margins</div>

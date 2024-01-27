@@ -377,7 +377,7 @@ const HomeContainer = () => {
           filterItems={items}
           vehicleCount={vehicles.length}
         />
-        <div style={{ display: 'flex', margin: '64px 24px' }}>
+        <div style={{ display: 'flex', margin: '32px 24px' }}>
           <div className='car-filters'>
             <Search name='search' placeholder='Make, model, or keyword' onSearch={(value) => handleFilter(value, 'search')}/>
             <FilterTags
