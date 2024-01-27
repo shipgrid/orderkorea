@@ -52,10 +52,6 @@ const VehicleList = ({
     );
   }
 
-  if (!vehicles) {
-    return <NoMatches />;
-  }
-
   return (
     <Space direction="horizontal" size="large" style={{ width: '100%', height: '100%' }} wrap>
       <div className='request-car-card'>
@@ -85,13 +81,7 @@ const VehicleList = ({
             </Badge.Ribbon>
           </div>)
         )) : (
-        <div style={{ 
-          flex: 1, 
-          border: '1px solid #d9d9d9',
-          width: 475,
-          height: 560,
-          borderRadius: 10, 
-        }}>
+        <div className='no-match-vehicle-card'>
           <NoMatches />
         </div>
       )}

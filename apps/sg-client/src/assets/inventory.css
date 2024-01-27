@@ -9,6 +9,16 @@
   display: none;
 }
 
+.no-match-vehicle-card {
+  max-width: 475px; 
+  width: 100%;
+  border-radius: 10; 
+  cursor: pointer;
+  border: 1px solid #d9d9d9;
+  height: 560px;
+  border-radius: 10px;
+}
+
 .inventory-vehicle-card {
   max-width: 475px; 
   width: 100%;
@@ -48,6 +58,14 @@
     max-width: 100%;
     border-radius: 10; 
     cursor: pointer
+  }
+
+  .no-match-vehicle-card {
+    max-width: 100%;
+    border-radius: 10; 
+    cursor: pointer;
+    border: 1px solid #d9d9d9;
+    height: 560px;
   }
 
   .inventory-vehicle-meta {
