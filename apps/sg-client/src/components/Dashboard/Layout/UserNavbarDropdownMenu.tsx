@@ -78,7 +78,7 @@ const UserNavbarDropdownMenu = ({
       {
         key: 'my-orders',
         label: (
-          <div style={{ display: 'flex', alignItems: 'center'}} onClick={() => startTransition(() => navigate('/'))}>
+          <div style={{ display: 'flex', alignItems: 'center'}} onClick={() => startTransition(() => navigate('/orders'))}>
             <CiViewList/> 
             <span style={{ marginLeft: 5 }}>  My Orders </span>
           </div>
