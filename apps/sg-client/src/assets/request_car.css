@@ -28,6 +28,7 @@
   }
 
   .request-car-hero {
+    display: none;
     width: 335px !important;
   }
 
