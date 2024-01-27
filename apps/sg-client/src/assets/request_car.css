@@ -24,21 +24,21 @@
   .request-car-card {
     max-width: 100%;
     border-radius: 10; 
-    cursor: pointer
+    cursor: pointer;
+    height: 100%;
   }
 
   .request-car-hero {
     display: none;
-    height: 200px;
     width: 335px !important;
   }
-
 }
 
 @media (max-width: 420px) {
-  
+
   .request-car-hero {
     width: 255px !important;
   }
+
 
 }
