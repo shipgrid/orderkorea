@@ -99,6 +99,7 @@ export default async ({
         .select(
           'vehicle_id',
           'user_id',
+          'order_id',
           'year',
           'vin_number',
           'is_new',

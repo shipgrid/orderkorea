@@ -75,7 +75,7 @@ const NavbarHeader = ({ }) => {
           {!isMobile && (
             <Menu 
               mode="horizontal" 
-              style={{ width: 330, fontWeight: 'bold', fontSize: 16 }} 
+              style={{ width: 270, fontWeight: 'bold', fontSize: 16 }} 
               defaultSelectedKeys={['/']} 
               items={items} 
               onClick={(e) => startTransition(() => navigate(e.key))}

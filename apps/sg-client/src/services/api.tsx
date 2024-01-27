@@ -42,6 +42,7 @@ export interface OrderEvent {
 
 export interface Vehicle {
   vehicle_id: number;
+  order_id: number;
   make: Make;
   model: Model;
   exterior_color: Color; 
