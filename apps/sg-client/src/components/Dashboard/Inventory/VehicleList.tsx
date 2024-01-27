@@ -3,7 +3,6 @@ import {
 } from 'react-router-dom'
 
 import { 
-  Skeleton, 
   Space,
   Badge,
   Button
