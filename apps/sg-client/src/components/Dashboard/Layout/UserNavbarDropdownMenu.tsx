@@ -62,6 +62,23 @@ const UserNavbarDropdownMenu = ({
 
   const userDropdownItems: MenuProps['items'] = [];
 
+  userDropdownItems.push(
+    {
+      key: '2',
+      label: (
+        <div style={{ display: 'flex', alignItems: 'center'}} onClick={() => startTransition(() => navigate('/orders'))}>
+          <CiViewList/> 
+          <a
+              href="https://forms.gle/qT2XmsD5CuXmWdKv6"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+            <span style={{ marginLeft: 5 }}> List a Car </span>
+          </a>
+        </div>
+      ),
+    })
+
   if(isMobile) {
     userDropdownItems.push(
       {
