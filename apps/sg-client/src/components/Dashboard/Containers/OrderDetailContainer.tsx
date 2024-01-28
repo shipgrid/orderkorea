@@ -19,8 +19,8 @@ import DashboardHeader from '../Layout/DashboardHeader';
 import DashboardContent from '../Layout/DashboardContent';
 import Grid from '../../Shared/Grid';
 import OrderDetail from '../OrderDetail/OrderDetail';
-import ThirdPartyTable from '../OrderDetail/ThirdPartyTable';
-import AddThirdPartyDropdownMenu from '../OrderDetail/AddThirdPartyDropdownMenu';
+// import ThirdPartyTable from '../OrderDetail/ThirdPartyTable';
+// import AddThirdPartyDropdownMenu from '../OrderDetail/AddThirdPartyDropdownMenu';
 import AddDocumentModal from '../OrderDetail/AddDocumentModal';
 import VehicleTable from '../OrderDetail/VehicleTable';
 import DocumentTable from '../OrderDetail/DocumentTable';
@@ -74,7 +74,7 @@ const OrderDetailContainer = () => {
               }
             />
           </div>
-          <div style={{ margin: '24px 0px', flex: 1 }}>
+          {/* <div style={{ margin: '24px 0px', flex: 1 }}>
             <AddThirdPartyDropdownMenu
               orderId={orderId}
             />
@@ -86,7 +86,7 @@ const OrderDetailContainer = () => {
                 />
               }
             />
-          </div>
+          </div> */}
           <div style={{ margin: '24px 0px'}}>
             <AddDocumentModal
               orderId={orderId}

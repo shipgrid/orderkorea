@@ -40,47 +40,36 @@ const OrderTable = ({
       key: 'order_id',
     },
     {
-      title: 'Shipment Type',
-      dataIndex: 'shipment_type',
-      key: 'shipment_type',
-    },
-    {
-      title: 'Shipper',
+      title: 'Buyer',
       dataIndex: 'shipper',
       key: 'shipper',
-      render: (_: Shipper, record: Order) => {
+      render: (_: any, record: Order) => {
 
-        const shipper = record?.thirdParties?.find((thirdParty: ThirdParty) => thirdParty.type === 'shipper') 
-        const address = shipper?.address[0]
+        const buyer = record?.buyer
 
         return (
           <div style={{ display: 'flex', flexDirection:'column' }}>
             <p style={{fontSize: 14}}> 
-              {address?.name} <br/>
-              {address?.line1} <br/>
-              {address?.city}, {address?.state_code} <br/>
-              {address?.postal_code} 
+              {buyer?.first_name} {buyer?.last_name}<br/>
+              {buyer?.username} <br/>
             </p>            
           </div>
         )
       }
     },
     {
-      title: 'Consignee',
+      title: 'Seller',
       dataIndex: 'consignee',
       key: 'consignee',
-      render:(_: Shipper, record: Order) => {
+      render:(_: any, record: Order) => {
 
-        const consignee = record?.thirdParties?.find((thirdParty: ThirdParty) => thirdParty.type === 'consignee')
-        const address = consignee?.address[0]
+        const seller = record?.seller
 
         return (
           <div style={{ display: 'flex', flexDirection:'column' }}>
             <p style={{fontSize: 14}}> 
-              {address?.name} <br/>
-              {address?.line1} <br/>
-              {address?.city}, {address?.state_code} <br/>
-              {address?.postal_code} 
+              {seller?.first_name} {seller?.last_name}<br/>
+              {seller?.username} <br/>
             </p>            
           </div>
         )

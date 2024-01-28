@@ -253,9 +253,13 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                <Button type="primary" style={{ marginTop: 24, width: '100%', height: 40, borderRadius: 12 }}> 
-                  Contact Selling Broker 
-                </Button>
+                  {
+                    !vehicle.order_id ? (
+                      <Button type="primary" style={{ marginTop: 24, width: '100%', height: 40, borderRadius: 12 }}> 
+                        Contact Selling Broker 
+                      </Button>
+                    ) : null
+                  }
                 </a>
                 <Tabs defaultActiveKey="1" items={tabItems} style={{ margin: '24px 0px'}}/>
               </div>

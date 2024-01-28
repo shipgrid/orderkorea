@@ -4,6 +4,7 @@ import OrderEvent from './order_event';
 import ThirdParty from './third_party'
 import Document from './document'
 import Vehicle from './vehicle'
+import User from './user'
 
 Model.knex(knexClient);
 
@@ -63,6 +64,22 @@ class Order extends Model implements Order {
         join: {
           from: 'orders.order_id',
           to: 'vehicles.order_id'
+        }
+      },
+      seller: {
+        relation: Model.HasOneRelation,
+        modelClass: User,
+        join: {
+          from: 'orders.seller_id',
+          to: 'users.user_id'
+        }
+      },
+      buyer: {
+        relation: Model.HasOneRelation,
+        modelClass: User,
+        join: {
+          from: 'orders.buyer_id',
+          to: 'users.user_id'
         }
       }
     }

@@ -30,7 +30,21 @@ export interface Order {
   thirdParties: ThirdParty[];
   documents: Document[];
   vehicles: Vehicle[];
+  buyer: User;
+  seller: User;
   expected_arrival: string | null;
+  created_on: string;
+  updated_on: string;
+  deleted_on: string | null;
+}
+
+export interface User {
+  user_id: string;
+  is_broker: number;
+  is_staff: number;
+  first_name: string;
+  last_name: string;
+  username: string;
   created_on: string;
   updated_on: string;
   deleted_on: string | null;
