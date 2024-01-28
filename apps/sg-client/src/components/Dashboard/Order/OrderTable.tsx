@@ -41,8 +41,8 @@ const OrderTable = ({
     },
     {
       title: 'Buyer',
-      dataIndex: 'shipper',
-      key: 'shipper',
+      dataIndex: 'buyer',
+      key: 'buyer',
       render: (_: any, record: Order) => {
 
         const buyer = record?.buyer
@@ -59,8 +59,8 @@ const OrderTable = ({
     },
     {
       title: 'Seller',
-      dataIndex: 'consignee',
-      key: 'consignee',
+      dataIndex: 'seller',
+      key: 'seller',
       render:(_: any, record: Order) => {
 
         const seller = record?.seller

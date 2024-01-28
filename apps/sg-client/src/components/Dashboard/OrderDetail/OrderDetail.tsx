@@ -1,8 +1,8 @@
 import {
   Descriptions,
-  Timeline,
-  Divider,
-  Collapse
+  // Timeline,
+  // Divider,
+  // Collapse
 } from 'antd'
 
 import {
@@ -19,10 +19,6 @@ const OrderDetail: React.FC<OrderDetailProps> = ({
   order 
 }) => {
 
-  const onChange = (key: string | string[]) => {
-    console.log(key);
-  };
-
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column'}}>
@@ -38,7 +34,7 @@ const OrderDetail: React.FC<OrderDetailProps> = ({
             <Descriptions.Item label="ESTIMATED DATE OF ARRIVAL">{ order.expected_arrival } </Descriptions.Item>
           </Descriptions>
         </div>
-        <div style={{ margin: 10 }}>
+        {/* <div style={{ margin: 10 }}>
           <Divider />
           <Collapse size='large' items={[
             {
@@ -55,7 +51,7 @@ const OrderDetail: React.FC<OrderDetailProps> = ({
             }
           ]} defaultActiveKey={['1']} onChange={onChange} />
           
-        </div>
+        </div> */}
       </div>
     </>
   );
