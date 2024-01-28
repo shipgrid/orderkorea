@@ -27,9 +27,14 @@ const {
 
 const navItems = [
   {
-    label: 'Broker Network',
+    label: 'Home',
     width: 110,
     path: '/',
+  },
+  {
+    label: 'Broker Network',
+    width: 110,
+    path: '/broker-inventory',
   },
   {
     label: 'My Orders',
@@ -75,7 +80,7 @@ const NavbarHeader = ({ }) => {
           {!isMobile && (
             <Menu 
               mode="horizontal" 
-              style={{ width: 270, fontWeight: 'bold', fontSize: 16 }} 
+              style={{ width: '100%', fontWeight: 'bold', fontSize: 16 }} 
               defaultSelectedKeys={['/']} 
               items={items} 
               onClick={(e) => startTransition(() => navigate(e.key))}

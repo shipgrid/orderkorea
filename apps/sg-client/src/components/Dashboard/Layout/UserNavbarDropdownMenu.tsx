@@ -30,13 +30,20 @@ import {
   useNavigate 
 } from 'react-router-dom'
 
-import { 
-  IoCarSportSharp 
-} from "react-icons/io5";
+import { LiaCarSideSolid } from "react-icons/lia";
+
 
 import { 
   CiViewList 
 } from "react-icons/ci";
+
+import { 
+  PiGarage 
+} from "react-icons/pi";
+
+import { 
+  IoHomeOutline 
+} from "react-icons/io5";
 
 const UserNavbarDropdownMenu = ({ 
 }) => {
@@ -62,30 +69,35 @@ const UserNavbarDropdownMenu = ({
 
   const userDropdownItems: MenuProps['items'] = [];
 
-  userDropdownItems.push(
-    {
-      key: '2',
-      label: (
-        <div style={{ display: 'flex', alignItems: 'center'}} onClick={() => startTransition(() => navigate('/orders'))}>
-          <CiViewList/> 
-          <a
-              href="https://forms.gle/qT2XmsD5CuXmWdKv6"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-            <span style={{ marginLeft: 5 }}> List a Car </span>
-          </a>
-        </div>
-      ),
-    })
-
   if(isMobile) {
     userDropdownItems.push(
       {
-        key: '4',
+        key: 'home',
         label: (
           <div style={{ display: 'flex', alignItems: 'center'}} onClick={() => startTransition(() => navigate('/'))}>
-            <IoCarSportSharp/> 
+            <IoHomeOutline/>
+            <span style={{ marginLeft: 5 }}>  Home </span>
+          </div>
+        ),
+      })
+
+    userDropdownItems.push(
+      {
+        key: 'my-inventory',
+        label: (
+          <div style={{ display: 'flex', alignItems: 'center'}} onClick={() => startTransition(() => navigate('/inventory'))}>
+            <PiGarage/> 
+            <span style={{ marginLeft: 5 }}>  My Inventory </span>
+          </div>
+        ),
+      })
+
+    userDropdownItems.push(
+      {
+        key: 'broker-inventory',
+        label: (
+          <div style={{ display: 'flex', alignItems: 'center'}} onClick={() => startTransition(() => navigate('/broker-inventory'))}>
+            <LiaCarSideSolid/> 
             <span style={{ marginLeft: 5 }}>  Broker Inventory </span>
           </div>
         ),
@@ -106,7 +118,7 @@ const UserNavbarDropdownMenu = ({
   if(session?.isStaff) {
     userDropdownItems.push(
       {
-        key: '1',
+        key: 'admin',
         label: (
           <div style={{ display: 'flex', alignItems: 'center'}} onClick={() => startTransition(() => navigate('admin'))}>
             <MdOutlineAdminPanelSettings/> 
@@ -118,7 +130,7 @@ const UserNavbarDropdownMenu = ({
 
   userDropdownItems.push(
     {
-      key: '3',
+      key: 'sign-out',
       label: (
         <div style={{ display: 'flex', alignItems: 'center'}} onClick={(e) => {
           e.stopPropagation; 

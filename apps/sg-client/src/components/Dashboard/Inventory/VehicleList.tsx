@@ -22,10 +22,12 @@ import '../../../assets/request_car.css';
 
 interface VehicleListProps {
   vehicles: Vehicle[];
+  extra: React.ReactNode;
 }
 
 const VehicleList = ({ 
   vehicles,
+  extra
 }: VehicleListProps) => {  
 
   const navigate = useNavigate();
@@ -36,7 +38,8 @@ const VehicleList = ({
 
   return (
     <Space direction="horizontal" size="large" style={{ width: '100%', height: '100%' }} wrap>
-      <div className='request-car-card'>
+      {extra}
+      {/* <div className='request-car-card'>
         <div className='request-car-content'>
           <div>
             <div style={{ fontWeight: 600, fontSize: 24, margin: '12px 0px' }}>Can't find the car you want?</div>
@@ -52,7 +55,7 @@ const VehicleList = ({
             </a>
           </div>
         </div>
-      </div>
+      </div> */}
       {
         vehicles.length ? (
           vehicles.map((vehicle, index) => (

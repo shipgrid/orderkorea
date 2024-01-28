@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
 import Dashboard from "../pages/Dashboard";
 
+import HomeContainer from "../components/Dashboard/Containers/HomeContainer";
 import OrderContainer from "../components/Dashboard/Containers/OrderContainer";
 import VehicleDetailContainer from "../components/Dashboard/Containers/VehicleDetailContainer";
 import OrderDetailContainer from "../components/Dashboard/Containers/OrderDetailContainer";
@@ -12,6 +13,7 @@ import InventoryContainer from "../components/Dashboard/Containers/InventoryCont
 import AdminContainer from "../components/Dashboard/Containers/AdminContainer";
 import CheckoutContainer from "../components/Dashboard/Containers/CheckoutContainer";
 import SellerContactedContainer from "../components/Dashboard/Containers/SellerContactedContainer";
+import MyInventoryContainer from '../components/Dashboard/Containers/MyInventoryContainer';
 
 export default function routes() {
   return [
@@ -19,14 +21,15 @@ export default function routes() {
       path: '/',
       element: <Dashboard />,
       children: [
-        { path: '/', element: <InventoryContainer /> },
+        { path: '/', element: <HomeContainer /> },
+        { path: '/inventory', element: <MyInventoryContainer /> },
+        { path: '/broker-inventory', element: <InventoryContainer /> },
         { path: '/vehicle', element: <VehicleDetailContainer /> },
         { path: '/order', element: <OrderDetailContainer /> },
         { path: '/admin', element: <AdminContainer />},
         { path: '/order-detail', element: <OrderDetailFormContainer /> },
         { path: '/upload-vehicle', element: <UploadVehicleFormContainer /> },
         { path: '/create-order', element: <CreateOrderFormContainer /> },
-        { path: '/inventory', element: <InventoryContainer /> },
         { path: '/orders', element: <OrderContainer /> },
         { path: '/third-party', element: <ThirdPartyContainer /> },
         { path: '/checkout', element: <CheckoutContainer /> },

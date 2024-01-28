@@ -7,12 +7,14 @@ import {
   update,
   remove,
   create,
-  list
+  list,
+  get_by_user_id
 } from '../controllers/vehicles'
 
 const routes = Router()
 
 routes.get('/', list)
+routes.get('/inventory', get_by_user_id)
 routes.get('/:vehicle_id', get)
 routes.post('/', create)
 routes.delete('/:vehicle_id', remove)

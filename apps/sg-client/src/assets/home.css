@@ -1,0 +1,27 @@
+.home-container {
+  display: flex;
+  justify-content: center; 
+  padding: 32px 64px; 
+  flex-direction: column;
+}
+
+.learn-more {
+  background-color: white;
+  padding: 32px 64px; 
+  border-radius: 10px; 
+  flex: 1;
+}
+
+.learn-more-content {
+  max-width: 1200px;
+}
+
+@media (max-width: 900px) {
+  .home-container {
+    padding: 32px 12px; 
+  }
+
+  .learn-more {
+    padding: 32px 32px; 
+  }
+}

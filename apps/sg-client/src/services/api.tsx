@@ -533,6 +533,11 @@ const api = createApi({
       transformResponse: (response: { data: Vehicle[] }) => response.data.map(item => ({ ...item, key: item.vehicle_id })),
       transformErrorResponse: (error: any) => error.data,
     }),
+    getVehiclesByUserId: build.query({
+      query: (body) => `vehicles/inventory`,
+      transformResponse: (response: { data: Vehicle[] }) => response.data,
+      transformErrorResponse: (error: any) => error.data,
+    }),
     getVehicle: build.query<Vehicle, string>({
       query: (vehicleId) => `vehicles/${vehicleId}`,
       transformResponse: (response: { data: Vehicle }) => response.data,
@@ -625,7 +630,8 @@ const {
   useGetFiltersQuery,
   useCheckoutQuery,
   useGetCheckoutStatusQuery,
-  useGetReservationsQuery
+  useGetReservationsQuery,
+  useGetVehiclesByUserIdQuery
 } = api
 
 export {
@@ -649,6 +655,7 @@ export {
   useGetFiltersQuery,
   useCheckoutQuery,
   useGetCheckoutStatusQuery,
-  useGetReservationsQuery
+  useGetReservationsQuery,
+  useGetVehiclesByUserIdQuery
 }
 

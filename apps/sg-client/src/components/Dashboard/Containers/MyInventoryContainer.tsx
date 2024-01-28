@@ -20,7 +20,7 @@ import type {
 
 import {
   useGetFiltersQuery,
-  useGetVehiclesQuery
+  useGetVehiclesByUserIdQuery
 } from '../../../services/api'
 
 import DashboardHeader from '../Layout/DashboardHeader';
@@ -78,7 +78,7 @@ const HomeContainer = () => {
 
   const { 
     data: vehicles = [], 
-  } = useGetVehiclesQuery({finalUrl: finalUrl}, {
+  } = useGetVehiclesByUserIdQuery({finalUrl: finalUrl}, {
     skip: !isDebounceComplete
   })
 
@@ -404,8 +404,8 @@ const HomeContainer = () => {
       <DashboardContent>
         <div className='inventory-header'>
           <DashboardHeader
-            title={'Broker Inventory'}
-            description={'Search the broker network for vehicles'}
+            title={'My Inventory'}
+            description={'Manage your inventory'}
             action={[
               <div>
                 <div> Sort by </div>
@@ -443,15 +443,15 @@ const HomeContainer = () => {
               <div className='request-car-card'>
                 <div className='request-car-content'>
                   <div>
-                    <div style={{ fontWeight: 600, fontSize: 24, margin: '12px 0px' }}>Can't find the car you want?</div>
-                    <div style={{ fontWeight: 400, fontSize: 16, margin: '12px 0px', color: '#5c5e62' }}>Access the Broker Network to receive the best offers in your inbox within 48 hours </div>
+                    <div style={{ fontWeight: 600, fontSize: 24, margin: '12px 0px' }}>List a Car</div>
+                    <div style={{ fontWeight: 400, fontSize: 16, margin: '12px 0px', color: '#5c5e62' }}>Upload a car onto the Broker Network and receive the best offers and leads in your inbox </div>
                     <a
-                      href="https://forms.gle/eUHuJxdqDEVmDwPF9"
+                      href="https://forms.gle/qT2XmsD5CuXmWdKv6"                      
                       target="_blank"
                       rel="noopener noreferrer"
                     >
                       <Button type='primary' style={{ width: '100%', height: 45, margin: '12px 0px' }}>
-                        Request a Car
+                        List a Car
                       </Button>
                     </a>
                   </div>

@@ -176,13 +176,13 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
                   fallback={fallBackImageUrl} 
                   src={mainImage} 
                   width={'100%'}
-                  style={{ borderRadius: 10}}
+                  style={{ borderRadius: 10, border: '1px solid #E5E5E5'}}
                 />
                 {vehicle.images.slice(1).map((img, index) => (
                   <Image
                     key={index}
                     src={img.image_url}
-                    style={{ display: 'none' }} 
+                    style={{ display: 'none', }} 
                   />
                 ))}
               </Image.PreviewGroup>
@@ -208,7 +208,8 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
                             justifyContent: 'center', 
                             alignItems: 'center', 
                             cursor: 'pointer',
-                            borderRadius: 10
+                            borderRadius: 10,
+                            
                           }}
                           onClick={() => showDrawer()}
                         >
@@ -219,7 +220,7 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
                       <Image
                         fallback={fallBackImageUrl}
                         src={img.image_url}
-                        style={{ flex: 1, borderRadius: 10 }}
+                        style={{ flex: 1, borderRadius: 10, border: '1px solid #E5E5E5' }}
                       />
                     )}
                   </div>

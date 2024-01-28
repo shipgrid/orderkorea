@@ -39,8 +39,6 @@ app.use(express.json({ limit: "5mb" }));
 app.use(express.urlencoded({ extended: false, limit: "5mb" }));
 
 
-
-
 if(process.env.NODE_ENV === 'development') {
   app.use(cors())
 } else {
