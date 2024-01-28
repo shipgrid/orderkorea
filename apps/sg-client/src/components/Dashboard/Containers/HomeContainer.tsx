@@ -61,7 +61,6 @@ const HomeContainer = () => {
             </div>
           </div>
         </Space>
-
           <Space style={{ display: 'flex', padding: 5, justifyContent: 'center' }} wrap>
             <Card hoverable title="Buy Cars" bordered={false} style={{ width: 340, height: '100%', cursor: 'pointer' }} cover={<Image preview={false} src={PricePana} alt='buy-car-home' style={{ width: 300 }} />}>
               <div style={{ height: 85}}>
