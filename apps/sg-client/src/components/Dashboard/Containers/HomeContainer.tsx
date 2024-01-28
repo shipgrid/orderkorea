@@ -62,35 +62,36 @@ const HomeContainer = () => {
           </div>
         </Space>
           <Space style={{ display: 'flex', padding: 5, justifyContent: 'center' }} wrap>
-            <Card hoverable title="Buy Cars" bordered={false} style={{ width: 340, height: '100%', cursor: 'pointer' }} cover={<Image preview={false} src={PricePana} alt='buy-car-home' style={{ width: 300 }} />}>
+            <Card onClick={() => startTransition(() => navigate('/broker-inventory'))} hoverable title="Buy Cars" bordered={false} style={{ width: 340, height: '100%', cursor: 'pointer' }} cover={<Image preview={false} src={PricePana} alt='buy-car-home' style={{ width: 300 }} />}>
               <div style={{ height: 85}}>
                 Buy cars from our network of brokers and traders. 
               </div>
-              <Button type='primary' style={{ width: '100%' }} onClick={() => startTransition(() => navigate('/broker-inventory'))}> Buy Cars </Button>
+              <Button type='primary' style={{ width: '100%' }}> Buy Cars </Button>
             </Card>
-            <Card hoverable title="Sell Cars" bordered={false} style={{ width: 340, height: '100%', cursor: 'pointer' }} cover={<Image preview={false}  src={PaymentSuccess} alt='payment-success' style={{ width: 300 }} />}>
-              <div style={{ height: 85}}>
-                Upload cars and sell to other brokers and traders.
-              </div>
-                <a
-                  href="https://forms.gle/qT2XmsD5CuXmWdKv6"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                <Button type='primary'  style={{ width: '100%' }}> Sell Cars </Button>
-              </a>
-            </Card>
-            <Card hoverable title="My Inventory" bordered={false} style={{ width: 340, height: '100%', cursor: 'pointer' }} cover={<Image preview={false}  src={CarAmico} alt='buy-car-home' style={{ width: 300 }} />}>
+            <a
+              href="https://forms.gle/qT2XmsD5CuXmWdKv6"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Card hoverable title="Sell Cars" bordered={false} style={{ width: 340, height: '100%', cursor: 'pointer' }} cover={<Image preview={false}  src={PaymentSuccess} alt='payment-success' style={{ width: 300 }} />}>
+                <div style={{ height: 85}}>
+                  Upload cars and sell to other brokers and traders.
+                </div>
+                  <Button type='primary'  style={{ width: '100%' }}> Sell Cars </Button>
+              </Card>
+            </a>
+
+            <Card onClick={() => startTransition(() => navigate('/inventory'))} hoverable title="My Inventory" bordered={false} style={{ width: 340, height: '100%', cursor: 'pointer' }} cover={<Image preview={false}  src={CarAmico} alt='buy-car-home' style={{ width: 300 }} />}>
               <div style={{ height: 85}}>
                 Manage your inventory of cars that you have for sale.
               </div>
-              <Button type='primary'  style={{ width: '100%' }} onClick={() => startTransition(() => navigate('/inventory'))}> My Inventory </Button>
+              <Button type='primary'  style={{ width: '100%' }}> My Inventory </Button>
             </Card>
-            <Card hoverable title="My Orders" bordered={false} style={{ width: 340, height: '100%', cursor: 'pointer' }} cover={<Image preview={false}  src={CarPana} alt='buy-car-home' style={{ width: 300 }} />}>
+            <Card onClick={() => startTransition(() => navigate('/orders'))} hoverable title="My Orders" bordered={false} style={{ width: 340, height: '100%', cursor: 'pointer' }} cover={<Image preview={false}  src={CarPana} alt='buy-car-home' style={{ width: 300 }} />}>
               <div style={{ height: 85}}>
                 Manage and view your ongoing or completed orders that you have with other brokers.
               </div>
-              <Button type='primary'  style={{ width: '100%' }} onClick={() => startTransition(() => navigate('/orders'))}> My Orders </Button>
+              <Button type='primary'  style={{ width: '100%' }}> My Orders </Button>
             </Card>
           </Space>
         </div>
