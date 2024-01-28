@@ -104,6 +104,7 @@ const HomeContainer = () => {
   },[filters])
 
   const handleFilter = (values: any, name?: string) => {
+
     if(name === 'sort') {
       setFilters({
         ...filters,
@@ -153,10 +154,38 @@ const HomeContainer = () => {
       })
     }
 
+    if(name === 'years-min') {
+      setFilters({
+        ...filters,
+        years: [values.target.value, filters.years[1]]
+      })
+    }
+    
+    if(name === 'years-max') {
+      setFilters({
+        ...filters,
+        years: [filters.years[0], values.target.value]
+      })
+    }
+    
     if(name === 'mileage') {
       setFilters({
         ...filters,
         mileage: values
+      })
+    }
+
+    if(name === 'mileage-min') {
+      setFilters({
+        ...filters,
+        mileage: [values.target.value, filters.mileage[1]]
+      })
+    }
+
+    if(name === 'mileage-max') {
+      setFilters({
+        ...filters,
+        mileage: [filters.mileage[0], values.target.value]
       })
     }
     
@@ -164,6 +193,20 @@ const HomeContainer = () => {
       setFilters({
         ...filters,
         price: values
+      })
+    }
+
+    if(name === 'price-min') {
+      setFilters({
+        ...filters,
+        price: [values.target.value, filters.price[1]]
+      })
+    }
+
+    if(name === 'price-max') {
+      setFilters({
+        ...filters,
+        price: [filters.price[0], values.target.value]
       })
     }
 
@@ -301,8 +344,8 @@ const HomeContainer = () => {
       children: (
         <div>
           <Space direction='horizontal'>
-            <Input value={1999}/>
-            <Input value={2024}/>
+            <Input defaultValue={1999} value={filters.years[0]} onChange={(e) => handleFilter(e, 'years-min')}/>
+            <Input defaultValue={2024} value={filters.years[1]} onChange={(e) => handleFilter(e, 'years-max')}/>
           </Space>
           <Slider 
             range 
@@ -320,8 +363,8 @@ const HomeContainer = () => {
       children: (
         <div>
           <Space direction='horizontal'>
-            <Input defaultValue={0}/>
-            <Input defaultValue={12000}/>
+            <Input defaultValue={0} value={filters.mileage[0]} onChange={(e) => handleFilter(e, 'mileage-min')}/>
+            <Input defaultValue={120000} value={filters.mileage[1]} onChange={(e) => handleFilter(e, 'mileage-max')}/>
           </Space>
           <Slider 
             range 
@@ -339,14 +382,14 @@ const HomeContainer = () => {
       children: (
         <div>
           <Space direction='horizontal'>
-            <Input defaultValue={0}/>
-            <Input defaultValue={1200000}/>
+            <Input defaultValue={0} value={filters.price[0]} onChange={(e) => handleFilter(e, 'price-min')}/>
+            <Input defaultValue={1200000} value={filters.price[1]} onChange={(e) => handleFilter(e, 'price-max')}/>
           </Space>
           <Slider 
             range 
             value={filters.price}
             min={0}
-            max={730000}
+            max={1200000}
             onChange={(e) => handleFilter(e, 'price')}
           />  
         </div>
