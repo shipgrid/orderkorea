@@ -23,6 +23,10 @@ import {
   useGetVehiclesQuery
 } from '../../../services/api'
 
+import {
+  useSelector
+} from 'react-redux';
+
 import DashboardHeader from '../Layout/DashboardHeader';
 import DashboardContent from '../Layout/DashboardContent';
 import VehicleList from '../Inventory/VehicleList';
@@ -49,6 +53,8 @@ interface IFilter {
 }
 
 const HomeContainer = () => {
+
+  const session = useSelector((state: any) => state.session);
 
   const [filters, setFilters] = useState<IFilter>({ 
     search: [],
@@ -446,7 +452,7 @@ const HomeContainer = () => {
                     <div style={{ fontWeight: 600, fontSize: 24, margin: '12px 0px' }}>Can't find the car you want?</div>
                     <div style={{ fontWeight: 400, fontSize: 16, margin: '12px 0px', color: '#5c5e62' }}>Access the Broker Network to receive the best offers in your inbox within 48 hours </div>
                     <a
-                      href="https://forms.gle/eUHuJxdqDEVmDwPF9"
+                      href={`https://docs.google.com/forms/d/e/1FAIpQLSerMzC4HWA1nDUwWVCxbwvk5Z2yS9BNjJsWgm3EQWTZnGBbeA/viewform?usp=pp_url&entry.1892265409=${session.username}`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >

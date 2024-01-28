@@ -20,6 +20,10 @@ import {
   startTransition 
 } from 'react';
 
+import {
+  useSelector
+} from 'react-redux';
+
 import DashboardHeader from '../Layout/DashboardHeader';
 import DashboardContent from '../Layout/DashboardContent';
 import PricePana from '../../../assets/images/price-pana.png';
@@ -32,6 +36,7 @@ import '../../../assets/home.css'
 const HomeContainer = () => {
 
   const navigate = useNavigate();
+  const session = useSelector((state: any) => state.session);
 
   const [open, setOpen] = useState(false);
 
@@ -69,7 +74,7 @@ const HomeContainer = () => {
               <Button type='primary' style={{ width: '100%' }}> Buy Cars </Button>
             </Card>
             <a
-              href="https://forms.gle/qT2XmsD5CuXmWdKv6"
+              href={`https://docs.google.com/forms/d/e/1FAIpQLSc2Ehqh5mG3FzBjZMyDqNZjmWUAxee5TAvxCdqqDfhWC2_hrg/viewform?usp=pp_url&entry.362768116=${session.username}`}
               target="_blank"
               rel="noopener noreferrer"
             >
