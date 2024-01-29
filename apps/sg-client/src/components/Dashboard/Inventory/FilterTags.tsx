@@ -69,7 +69,7 @@ const FilterTags = ({
       {
         filters.price.length > 0 && (
           <Tag key={'price'}>
-            Price {filters.price[0]}km - {filters.price[1]}km
+            Price USD {filters.price[0]}km - {filters.price[1]}
           </Tag>
         )
       }

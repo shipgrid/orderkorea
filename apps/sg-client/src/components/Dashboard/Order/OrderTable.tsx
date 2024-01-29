@@ -36,7 +36,6 @@ const OrderTable = ({
     return 'fixed-height-row';
   };
 
-
   const renderTags = (vehicles: Vehicle[]) => {
 
     const maxTagsToShow = 4; // Define the maximum number of tags to display
