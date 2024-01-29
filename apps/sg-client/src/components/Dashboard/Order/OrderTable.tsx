@@ -49,7 +49,7 @@ const OrderTable = ({
         {visibleTags.map((vehicle, index) => (
           <Tag key={index}>{`${vehicle.year} ${vehicle.make.name} ${vehicle.model.name} ${vehicle.trim.name}`}</Tag>
         ))}
-        {remainingTags.length > 0 && <Tag>other cars...</Tag>}
+        {remainingTags.length > 0 && <Tag>...</Tag>}
       </Space>
     );
   };
