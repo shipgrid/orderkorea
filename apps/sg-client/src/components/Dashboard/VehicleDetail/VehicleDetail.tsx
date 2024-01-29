@@ -67,8 +67,8 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
       children: <div style={{ flex: 1 }}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <div style={{ display: 'flex', flexDirection: 'row', margin: '0px 0px 0px', justifyContent: 'space-between' }}>
-            <div> VIN </div>
-            <div> { vehicle.vin_number } </div>
+            <div style={{ fontSize: 16, fontWeight: 'bold' }}> VIN </div>
+            <div style={{ fontSize: 16, fontWeight: 'bold' }}> { vehicle.vin_number } </div>
           </div>
           <Divider style={{ margin: '10px 0px 10px' }}/>
           <div style={{ display: 'flex', flexDirection: 'row', margin: '5px 0px 0px', justifyContent: 'space-between' }}>
