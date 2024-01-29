@@ -256,7 +256,6 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
                 <div style={{ fontSize: 22}}>${ formatNumberWithCommas(vehicle.fees.vehicle_price) }</div>
                 <a
                   href={`https://docs.google.com/forms/d/e/1FAIpQLSdtNkVtjCxIDH6P7iMGz-Fe2S208mZtpuwEJ42CCHUjc4NGUQ/viewform?usp=pp_url&entry.907431906=${session.username}&entry.1886287464=${vehicle.vehicle_id}&entry.521345170=${vehicle.year}+${vehicle.make.name}+${vehicle.model.name}+${vehicle.trim.name}`}
-                  target="_blank"
                   rel="noopener noreferrer"
                 >
                   {

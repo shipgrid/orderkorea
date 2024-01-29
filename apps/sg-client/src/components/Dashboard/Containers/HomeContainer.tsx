@@ -75,7 +75,6 @@ const HomeContainer = () => {
             </Card>
             <a
               href={`https://docs.google.com/forms/d/e/1FAIpQLSc2Ehqh5mG3FzBjZMyDqNZjmWUAxee5TAvxCdqqDfhWC2_hrg/viewform?usp=pp_url&entry.362768116=${session.username}`}
-              target="_blank"
               rel="noopener noreferrer"
             >
               <Card hoverable title="Sell Cars" bordered={false} style={{ width: 340, height: '100%', cursor: 'pointer' }} cover={<Image preview={false}  src={PaymentSuccess} alt='payment-success' style={{ width: 300 }} />}>

@@ -453,7 +453,6 @@ const HomeContainer = () => {
                     <div style={{ fontWeight: 400, fontSize: 16, margin: '12px 0px', color: '#5c5e62' }}>Upload a car onto the Broker Network and receive the best offers and leads in your inbox </div>
                     <a
                       href={`https://docs.google.com/forms/d/e/1FAIpQLSc2Ehqh5mG3FzBjZMyDqNZjmWUAxee5TAvxCdqqDfhWC2_hrg/viewform?usp=pp_url&entry.362768116=${session.username} `}                    
-                      target="_blank"
                       rel="noopener noreferrer"
                     >
                       <Button type='primary' style={{ width: '100%', height: 45, margin: '12px 0px' }}>

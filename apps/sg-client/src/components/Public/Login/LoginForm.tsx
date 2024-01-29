@@ -100,7 +100,6 @@ const LoginForm = ({}) => {
             <p style={{ marginTop: 10, color: 'black' }}>
             <a
               href="https://forms.gle/V77JrUbuHKnBvJXd9"
-              target="_blank"
               rel="noopener noreferrer"
             >
               Join the <b>Broker Network</b><Link to='https://forms.gle/V77JrUbuHKnBvJXd9'>, send in an application</Link>
