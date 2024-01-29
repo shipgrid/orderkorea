@@ -75,7 +75,6 @@ const FilterTags = ({
       }
     </div>
   )
-
 }
 
 export default FilterTags
