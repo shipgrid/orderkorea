@@ -411,7 +411,6 @@ const HomeContainer = () => {
         <div className='inventory-header'>
           <DashboardHeader
             title={'Broker Inventory'}
-            description={'Search the broker network for vehicles'}
             action={[
               <div>
                 <div> Sort by </div>
