@@ -20,6 +20,7 @@
     "isolatedModules": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
+    "types": ["node"]
   },
   "include": ["**/*.ts", "**/*.js"], // Include both TypeScript and JavaScript files
   "exclude": ["node_modules", "**/*.spec.ts"]
