@@ -6,11 +6,6 @@ import morgan from 'morgan'
 import dotenv from 'dotenv';
 import routes from './routes'
 import admin from 'firebase-admin'
-import { initSDK } from '@hyperdx/node-opentelemetry';
-
-initSDK({
-  consoleCapture: true, // optional, default: true
-});
 
 dotenv.config();
 if(process.env.NODE_ENV === 'development') {
