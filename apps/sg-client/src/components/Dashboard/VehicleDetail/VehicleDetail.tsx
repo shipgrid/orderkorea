@@ -27,6 +27,10 @@ import {
   formatNumberWithCommas
 } from '../../../utils/format_string'
 
+import {
+  useSelector
+} from 'react-redux'
+
 import '../../../assets/index.css'
 import '../../../assets/vehicle_detail.css'
 
@@ -41,6 +45,7 @@ interface VehicleImage {
 const VehicleDetail: React.FC<VehicleDetailProps> = ({
   vehicle
 }) => {
+  const session = useSelector((state: any) => state.session);
   const [open, setOpen] = useState(false);
 
   const showDrawer = () => {
@@ -250,7 +255,7 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
                 <div className='vehicle-detail-title'>{vehicle.year} {vehicle.make.name} {vehicle.model.name} {vehicle.trim.name} </div>
                 <div style={{ fontSize: 22}}>${ formatNumberWithCommas(vehicle.fees.vehicle_price) }</div>
                 <a
-                  href={`https://docs.google.com/forms/d/e/1FAIpQLSdtNkVtjCxIDH6P7iMGz-Fe2S208mZtpuwEJ42CCHUjc4NGUQ/viewform?usp=pp_url&entry.521345170=${vehicle.year}+${vehicle.make.name}+${vehicle.model.name}+${vehicle.trim.name}`}
+                  href={`https://docs.google.com/forms/d/e/1FAIpQLSdtNkVtjCxIDH6P7iMGz-Fe2S208mZtpuwEJ42CCHUjc4NGUQ/viewform?usp=pp_url&entry.907431906=${session.username}&entry.1886287464=${vehicle.vehicle_id}&entry.521345170=${vehicle.year}+${vehicle.make.name}+${vehicle.model.name}+${vehicle.trim.name}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

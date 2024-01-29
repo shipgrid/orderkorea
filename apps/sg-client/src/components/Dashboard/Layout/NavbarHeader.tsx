@@ -15,7 +15,8 @@ import type {
 } from 'antd';
 
 import { 
-  useNavigate 
+  useNavigate,
+  useLocation
 } from 'react-router-dom';
 
 import UserNavbarDropdownMenu from './UserNavbarDropdownMenu';
@@ -32,9 +33,16 @@ const navItems = [
     path: '/',
   },
   {
-    label: 'Broker Network',
+    label: 'Cars For Sale',
     width: 110,
     path: '/broker-inventory',
+    key:'/broker-inventory'
+  },
+  {
+    label: 'My Inventory',
+    width: 110,
+    path: '/inventory',
+    key:'/inventory'
   },
   {
     label: 'My Orders',
@@ -49,8 +57,11 @@ const items: MenuProps['items'] = navItems.map((item) => ({
 }));
 const NavbarHeader = ({ }) => {
 
+  const location = useLocation();
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(false);
+
+  console.log(location.pathname)
 
   useEffect(() => {
     function handleResize() {
@@ -80,9 +91,10 @@ const NavbarHeader = ({ }) => {
           {!isMobile && (
             <Menu 
               mode="horizontal" 
-              style={{ width: '100%', fontWeight: 'bold', fontSize: 16 }} 
+              style={{ width: '440px', fontWeight: 'bold', fontSize: 14 }} 
               defaultSelectedKeys={['/']} 
               items={items} 
+              selectedKeys={[location.pathname]}
               onClick={(e) => startTransition(() => navigate(e.key))}
             />
           )}

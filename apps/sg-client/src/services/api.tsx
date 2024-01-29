@@ -534,7 +534,7 @@ const api = createApi({
       transformErrorResponse: (error: any) => error.data,
     }),
     getVehiclesByUserId: build.query({
-      query: () => `vehicles/inventory`,
+      query: (body) => `vehicles/inventory?${body.finalUrl}`,
       transformResponse: (response: { data: Vehicle[] }) => response.data,
       transformErrorResponse: (error: any) => error.data,
     }),

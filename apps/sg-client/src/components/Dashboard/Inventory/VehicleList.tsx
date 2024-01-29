@@ -36,25 +36,10 @@ const VehicleList = ({
   }
 
   return (
-    <Space direction="horizontal" size="large" style={{ width: '100%', height: '100%' }} wrap>
-      {extra}
-      {/* <div className='request-car-card'>
-        <div className='request-car-content'>
-          <div>
-            <div style={{ fontWeight: 600, fontSize: 24, margin: '12px 0px' }}>Can't find the car you want?</div>
-            <div style={{ fontWeight: 400, fontSize: 16, margin: '12px 0px', color: '#5c5e62' }}>Access the Broker Network to receive the best offers in your inbox within 48 hours </div>
-            <a
-              href="https://forms.gle/eUHuJxdqDEVmDwPF9"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button type='primary' style={{ width: '100%', height: 45, margin: '12px 0px' }}>
-                Request a Car
-              </Button>
-            </a>
-          </div>
-        </div>
-      </div> */}
+    <Space direction="horizontal" size="large" wrap>
+      <div style={{ width: '100%'}}>
+        {extra}
+      </div>
       {
         vehicles.length ? (
           vehicles.map((vehicle, index) => (

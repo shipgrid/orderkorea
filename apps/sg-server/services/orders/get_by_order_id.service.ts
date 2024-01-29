@@ -32,9 +32,6 @@ export default async ({
         .withGraphFetched('vehicles.[cylinders(selectCylinder)]')
         .withGraphFetched('vehicles.[fees(selectFees)]')
         .withGraphFetched('vehicles.[images(selectImages)]')
-        // .modifyGraph('vehicles', builder => {
-        //   builder.select('vehicles.vehicles_id', 'year', 'mileage', 'is_new', 'vin_number', 'description', 'created_on', 'updated_on', 'deleted_on')
-        // })
         .modifiers({
           selectMake(builder) {
             builder.select('make_id', 'name')

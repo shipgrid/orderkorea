@@ -83,22 +83,22 @@ const UserNavbarDropdownMenu = ({
 
     userDropdownItems.push(
       {
-        key: 'my-inventory',
+        key: 'broker-inventory',
         label: (
-          <div style={{ display: 'flex', alignItems: 'center'}} onClick={() => startTransition(() => navigate('/inventory'))}>
-            <PiGarage/> 
-            <span style={{ marginLeft: 5 }}>  My Inventory </span>
+          <div style={{ display: 'flex', alignItems: 'center'}} onClick={() => startTransition(() => navigate('/broker-inventory'))}>
+            <LiaCarSideSolid/> 
+            <span style={{ marginLeft: 5 }}>  Cars For Sale </span>
           </div>
         ),
       })
 
     userDropdownItems.push(
       {
-        key: 'broker-inventory',
+        key: 'my-inventory',
         label: (
-          <div style={{ display: 'flex', alignItems: 'center'}} onClick={() => startTransition(() => navigate('/broker-inventory'))}>
-            <LiaCarSideSolid/> 
-            <span style={{ marginLeft: 5 }}>  Broker Inventory </span>
+          <div style={{ display: 'flex', alignItems: 'center'}} onClick={() => startTransition(() => navigate('/inventory'))}>
+            <PiGarage/> 
+            <span style={{ marginLeft: 5 }}>  My Inventory </span>
           </div>
         ),
       })

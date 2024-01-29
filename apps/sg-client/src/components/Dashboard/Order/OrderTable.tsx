@@ -1,6 +1,8 @@
 import {
   Table,
   Button,
+  Space,
+  Tag
 } from 'antd'
 
 import '../../../assets/index.css'
@@ -15,6 +17,7 @@ import {
 
 import {
   Order,
+  Vehicle
   // Shipper,
   // ThirdParty,
 } from '../../../services/api';
@@ -31,6 +34,24 @@ const OrderTable = ({
 
   const rowClassName = () => {
     return 'fixed-height-row';
+  };
+
+
+  const renderTags = (vehicles: Vehicle[]) => {
+
+    const maxTagsToShow = 4; // Define the maximum number of tags to display
+
+    const visibleTags = vehicles.slice(0, maxTagsToShow);
+    const remainingTags = vehicles.slice(maxTagsToShow);
+
+    return (
+      <Space wrap style={{ width: 100 }}>
+        {visibleTags.map((vehicle, index) => (
+          <Tag key={index}>{`${vehicle.year} ${vehicle.make.name} ${vehicle.model.name} ${vehicle.trim.name}`}</Tag>
+        ))}
+        {remainingTags.length > 0 && <Tag>other cars...</Tag>}
+      </Space>
+    );
   };
 
   const columns = [
@@ -74,6 +95,12 @@ const OrderTable = ({
           </div>
         )
       }
+    },
+    {
+      title: 'Cars',
+      dataIndex: 'vehicles',
+      key: 'vehicles',
+      render:(vehicles: Vehicle[], _: Order) => renderTags(vehicles)
     },
     {
       title: 'Details',

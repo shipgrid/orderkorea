@@ -52,7 +52,7 @@ const HomeContainer = () => {
     <Stack minH={'100vh'}>
       <DashboardContent>
         <DashboardHeader
-          title={'Control Panel'}
+          title={'Home'}
         />
         <div className='home-container'>
         <Space style={{ display: 'flex', padding: 5, justifyContent: 'center' }} wrap>

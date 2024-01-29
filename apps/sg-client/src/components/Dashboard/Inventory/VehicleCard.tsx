@@ -4,7 +4,6 @@ import {
   Card,
   Typography, 
   Image,
-  Avatar
 } from 'antd'
 
 import { 
@@ -52,28 +51,11 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
     onClick(vehicle_id)
   }
 
-  const getRandomColor = () => {
-    const r = Math.floor(Math.random() * 256); 
-    const g = Math.floor(Math.random() * 256); 
-    const b = Math.floor(Math.random() * 256); 
-  
-    const color = `rgb(${r},${g},${b})`;
-  
-    return color;
-  }
-
-  const getRandomLetter = () => {
-    const alphabet = 'abcdefghijklmnopqrstuvwxyz';
-    const randomIndex = Math.floor(Math.random() * alphabet.length);
-    const randomLetter = alphabet[randomIndex];
-    return randomLetter.toUpperCase();
-  }
-
   const calculateDaysDifference = (timestampString: string): number => {
-    const timestampDate = new Date(timestampString); // Convert the timestamp string to a Date object
-    const currentDate = new Date(); // Get the current date
-    const timeDifference = currentDate.getTime() - timestampDate.getTime(); // Calculate the time difference in milliseconds
-    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
+    const timestampDate = new Date(timestampString); 
+    const currentDate = new Date(); 
+    const timeDifference = currentDate.getTime() - timestampDate.getTime();
+    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24)); 
 
     if (daysDifference < 0) {
       return 0;
@@ -86,17 +68,17 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
     <Card
       style={{ borderRadius: 10}}
       className='inventory-vehicle-card'
-      cover={<Image alt={`${make} ${model}`} src={mainImageUrl} preview={false}/>}
+      cover={<Image alt={`${make.name} ${model.name} ${trim.name}`} src={mainImageUrl} preview={false} />}
       bordered={false}
       onClick={handleItemClick}
     >
       <Meta 
+        style={{ height: 80 }}
         description={
           <div style={{ padding: '0px 8px 5px', fontWeight: 'normal' }}>
             <div style={{ display: 'flex', justifyContent:'space-between', flexWrap: 'wrap'}}>
               <div style={{ display: 'flex'}}> 
-                <Avatar style={{ backgroundColor: getRandomColor(), verticalAlign: 'middle', cursor: 'pointer' }} size="small"> { getRandomLetter() } </Avatar> 
-                {calculateDaysDifference(created_on) <= 0 ? <span style={{ margin: '0px 0px 0px 5px'}}> posted now </span> : <span style={{ margin: '0px 0px 0px 5px'}}> posted {calculateDaysDifference(created_on)} days ago </span> }
+                {calculateDaysDifference(created_on) <= 0 ? <span style={{ margin: '0px 0px 0px 0px'}}> posted now </span> : <span style={{ margin: '0px 0px 0px 0px'}}> posted {calculateDaysDifference(created_on)} days ago </span> }
               </div>
               <Text style={{ fontSize: 16, fontWeight: 'bold' }}>USD {`$${formatNumberWithCommas(fees.vehicle_price)}`}</Text>
             </div>
