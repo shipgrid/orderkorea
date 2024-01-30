@@ -11,19 +11,23 @@
 
 .no-match-vehicle-card {
   max-width: 475px; 
-  width: 100%;
+  width: 450px;
   border-radius: 10; 
   cursor: pointer;
   border: 1px solid #d9d9d9;
-  height: 403px;
+  height: 470px; 
   border-radius: 10px;
 }
 
 .inventory-vehicle-card {
   max-width: 475px; 
-  width: 100%;
+  width: 450px;
   border-radius: 10; 
   cursor: pointer
+}
+
+.inventory-vehicle-card-image {
+  height: 350px !important; 
 }
 
 .inventory-vehicle-meta {
@@ -56,16 +60,22 @@
 
   .inventory-vehicle-card {
     max-width: 100%;
+    width: 100%;
     border-radius: 10; 
     cursor: pointer
   }
 
+  .inventory-vehicle-card-image {
+    height: 100% !important; 
+  }
+
   .no-match-vehicle-card {
     max-width: 100%;
+    width: 100%;
     border-radius: 10; 
     cursor: pointer;
     border: 1px solid #d9d9d9;
-    height: 560px;
+    height: 100%;
   }
 
   .inventory-vehicle-meta {

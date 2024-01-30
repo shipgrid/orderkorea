@@ -37,7 +37,7 @@ const VehicleList = ({
 
   return (
     <Space direction="horizontal" size="large" wrap>
-      <div style={{ width: '100%'}}>
+      <div style={{ flex: 1}}>
         {extra}
       </div>
       {

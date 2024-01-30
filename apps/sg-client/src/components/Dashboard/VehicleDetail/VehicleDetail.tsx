@@ -253,7 +253,7 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
             <div className='vehicle-detail-box'>
               <div className='vehicle-detail-info'>
                 <div className='vehicle-detail-title'>{vehicle.year} {vehicle.make.name} {vehicle.model.name} {vehicle.trim.name} </div>
-                <div style={{ fontSize: 22}}>${ formatNumberWithCommas(vehicle.fees.vehicle_price) }</div>
+                <div className='vehicle-detail-title'>${ formatNumberWithCommas(vehicle.fees.vehicle_price) }</div>
                 <a
                   href={`https://docs.google.com/forms/d/e/1FAIpQLSdtNkVtjCxIDH6P7iMGz-Fe2S208mZtpuwEJ42CCHUjc4NGUQ/viewform?usp=pp_url&entry.907431906=${session.username}&entry.1487388506=${vehicle.vehicle_id}&entry.521345170=${vehicle.year}+${vehicle.make.name}+${vehicle.model.name}+${vehicle.trim.name}`}
                   rel="noopener noreferrer"

@@ -68,7 +68,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
     <Card
       style={{ borderRadius: 10}}
       className='inventory-vehicle-card'
-      cover={<Image alt={`${make.name} ${model.name} ${trim.name}`} src={mainImageUrl} preview={false} />}
+      cover={<Image alt={`${make.name} ${model.name} ${trim.name}`} src={mainImageUrl} preview={false} className='inventory-vehicle-card-image' />}
       bordered={false}
       onClick={handleItemClick}
     >

@@ -411,7 +411,6 @@ const HomeContainer = () => {
         <div className='inventory-header'>
           <DashboardHeader
             title={'My Inventory'}
-            description={'Manage your inventory'}
             action={[
               <div>
                 <div> Sort by </div>
@@ -466,7 +465,6 @@ const HomeContainer = () => {
             vehicles={vehicles}
           />
           </Spin>
-      
         </div>
       </DashboardContent>
     </>
