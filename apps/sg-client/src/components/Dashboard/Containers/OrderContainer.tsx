@@ -55,8 +55,7 @@ const OrderContainer = ({}) => {
       <Col style={{ flex: 1 }}>
         <DashboardContent>
           <DashboardHeader
-            title={'Order'}
-            description={'View your orders and track your shipments'}
+            title={'My Orders'}
           />
           <div style={{ margin: '64px 24px'}}> 
             <OrderTable 
