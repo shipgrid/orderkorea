@@ -28,6 +28,7 @@ import {
 } from 'react-redux';
 
 import {
+  trackPageView,
   trackFormOpen
 } from '../../../lib/analytics'
 
@@ -113,6 +114,10 @@ const HomeContainer = () => {
     trackFormOpen('List a Car');
     window.location.href = `https://docs.google.com/forms/d/e/1FAIpQLSc2Ehqh5mG3FzBjZMyDqNZjmWUAxee5TAvxCdqqDfhWC2_hrg/viewform?usp=pp_url&entry.362768116=${session.username}`
   };
+
+  useEffect(() => {
+    trackPageView('/inventory')    
+  }, [])
 
   useEffect(() => {
     setIsDebounceComplete(false); 

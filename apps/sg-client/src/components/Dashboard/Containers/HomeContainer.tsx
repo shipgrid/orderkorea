@@ -62,7 +62,7 @@ const HomeContainer = () => {
   };
   
   useEffect(() => {
-    trackPageView('Home')
+    trackPageView('/')
   }, [])
 
   return (

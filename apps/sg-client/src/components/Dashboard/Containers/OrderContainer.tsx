@@ -12,6 +12,10 @@ import {
   useGetOrdersQuery,
 } from '../../../services/api';
 
+import {
+  trackPageView  
+} from '../../../lib/analytics'
+
 import DashboardHeader from '../Layout/DashboardHeader';
 import OrderTable from '../Order/OrderTable'  
 import DashboardContent from '../Layout/DashboardContent';
@@ -26,6 +30,10 @@ const OrderContainer = ({}) => {
     data:orders, 
     isLoading 
   } = useGetOrdersQuery({});
+
+  useEffect(() => {
+    trackPageView('/orders');
+  }, [])
 
   useEffect(() => {
     function handleResize() {

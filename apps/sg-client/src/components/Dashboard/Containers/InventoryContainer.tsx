@@ -28,6 +28,7 @@ import {
 } from 'react-redux';
 
 import {
+  trackPageView,
   trackFormOpen
 } from '../../../lib/analytics'
 
@@ -109,6 +110,9 @@ const HomeContainer = () => {
     skip: !isDebounceComplete
   });
 
+  useEffect(() => {
+    trackPageView('/broker-inventory')    
+  }, [])
 
   useEffect(() => {
     setIsDebounceComplete(false); 
