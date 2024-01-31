@@ -1,8 +1,9 @@
 import winston, { 
   Logger,
   format,
-
 } from 'winston';
+
+import { getWinsonTransport } from '@hyperdx/node-opentelemetry';
 
 const MAX_LEVEL: string = 'info';
 
@@ -21,12 +22,14 @@ const logger: Logger = winston.createLogger({
   format: format.combine(
     format.colorize({ all: true }),
     format.simple(),
-    // format.errors({ stack: true }), 
-    // format.timestamp(), 
-    // format.json()
+    format.errors({ stack: true }), 
+    format.timestamp(), 
+    format.json()
     ),
   transports: [
     new winston.transports.Console(),
+    getWinsonTransport(MAX_LEVEL), // append this to the existing transports
+
   ],
   exceptionHandlers: [
     new winston.transports.Console(),

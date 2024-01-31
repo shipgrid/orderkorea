@@ -3,6 +3,7 @@ import {
 } from '../models'
 
 import Logger from '../models/logger'
+import { setTraceAttributes } from '@hyperdx/node-opentelemetry';
 
 export default async (req, res, next) => {
 
@@ -39,6 +40,15 @@ export default async (req, res, next) => {
     }
 
     req.user = user[0]
+    Logger.info({
+      userId: user[0].user_id,
+      email: user[0].username,
+    })
+    setTraceAttributes({
+      userId: user[0].user_id,
+      email: user[0].username,
+    });
+
     next()
 
   } catch(e) {
