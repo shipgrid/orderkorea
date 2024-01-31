@@ -8,7 +8,7 @@
     "docker:build": "docker build .",
     "clean": "node clean.js",
     "build": "npm run clean && tsc",
-    "compile": "npm run build && HYPERDX_API_KEY='51879cc1-f1b0-45b8-be07-e193f92a1793' OTEL_SERVICE_NAME='shipgrid' node -r '@hyperdx/node-opentelemetry/build/src/tracing' dist/index.js",
+    "compile": "npm run build && HYPERDX_API_KEY='51879cc1-f1b0-45b8-be07-e193f92a1793' OTEL_SERVICE_NAME='shipgrid' HDX_NODE_BETA_MODE=1 node -r '@hyperdx/node-opentelemetry/build/src/tracing' dist/index.js",
     "start": "npm run build && npm run compile"
   },
   "keywords": [],
