@@ -27,6 +27,10 @@ import {
   useSelector
 } from 'react-redux';
 
+import {
+  trackFormOpen
+} from '../../../lib/analytics'
+
 import DashboardHeader from '../Layout/DashboardHeader';
 import DashboardContent from '../Layout/DashboardContent';
 import VehicleList from '../Inventory/VehicleList';
@@ -105,6 +109,10 @@ const HomeContainer = () => {
     skip: !isDebounceComplete
   });
 
+  const onListCarClick = () => {
+    trackFormOpen('List a Car');
+    window.location.href = `https://docs.google.com/forms/d/e/1FAIpQLSc2Ehqh5mG3FzBjZMyDqNZjmWUAxee5TAvxCdqqDfhWC2_hrg/viewform?usp=pp_url&entry.362768116=${session.username}`
+  };
 
   useEffect(() => {
     setIsDebounceComplete(false); 
@@ -450,14 +458,9 @@ const HomeContainer = () => {
                   <div>
                     <div style={{ fontWeight: 600, fontSize: 24, margin: '12px 0px' }}>List a Car</div>
                     <div style={{ fontWeight: 400, fontSize: 16, margin: '12px 0px', color: '#5c5e62' }}>Upload a car onto the Broker Network and receive the best offers and leads in your inbox </div>
-                    <a
-                      href={`https://docs.google.com/forms/d/e/1FAIpQLSc2Ehqh5mG3FzBjZMyDqNZjmWUAxee5TAvxCdqqDfhWC2_hrg/viewform?usp=pp_url&entry.362768116=${session.username} `}                    
-                      rel="noopener noreferrer"
-                    >
-                      <Button type='primary' style={{ width: '100%', height: 45, margin: '12px 0px' }}>
-                        List a Car
-                      </Button>
-                    </a>
+                    <Button type='primary' style={{ width: '100%', height: 45, margin: '12px 0px' }} onClick={onListCarClick}>
+                      List a Car
+                    </Button>
                   </div>
                 </div>
               </div>

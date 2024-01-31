@@ -31,6 +31,10 @@ import {
   useSelector
 } from 'react-redux'
 
+import {
+  trackFormOpen
+} from '../../../lib/analytics'
+
 import '../../../assets/index.css'
 import '../../../assets/vehicle_detail.css'
 
@@ -55,6 +59,12 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
   const onClose = () => {
     setOpen(false);
   };
+
+  const handleContactBrokerClick = () => {
+    trackFormOpen('Contact Selling Broker');
+    window.location.href = `https://docs.google.com/forms/d/e/1FAIpQLSdtNkVtjCxIDH6P7iMGz-Fe2S208mZtpuwEJ42CCHUjc4NGUQ/viewform?usp=pp_url&entry.907431906=${session.username}&entry.1487388506=${vehicle.vehicle_id}&entry.521345170=${vehicle.year}+${vehicle.make.name}+${vehicle.model.name}+${vehicle.trim.name}`;
+  };
+
 
   const mainImage = vehicle.images[0]?.image_url
   const secondaryImagesToShow = vehicle.images.slice(1, Math.min(vehicle.images.length, 6))
@@ -254,18 +264,17 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
               <div className='vehicle-detail-info'>
                 <div className='vehicle-detail-title'>{vehicle.year} {vehicle.make.name} {vehicle.model.name} {vehicle.trim.name} </div>
                 <div className='vehicle-detail-title'>${ formatNumberWithCommas(vehicle.fees.vehicle_price) }</div>
-                <a
-                  href={`https://docs.google.com/forms/d/e/1FAIpQLSdtNkVtjCxIDH6P7iMGz-Fe2S208mZtpuwEJ42CCHUjc4NGUQ/viewform?usp=pp_url&entry.907431906=${session.username}&entry.1487388506=${vehicle.vehicle_id}&entry.521345170=${vehicle.year}+${vehicle.make.name}+${vehicle.model.name}+${vehicle.trim.name}`}
-                  rel="noopener noreferrer"
-                >
                   {
                     !vehicle.order_id ? (
-                      <Button type="primary" style={{ marginTop: 24, width: '100%', height: 40, borderRadius: 12 }}> 
+                      <Button 
+                        type="primary" 
+                        style={{ marginTop: 24, width: '100%', height: 40, borderRadius: 12 }} 
+                        onClick={handleContactBrokerClick}
+                      > 
                         Contact Selling Broker 
                       </Button>
                     ) : null
                   }
-                </a>
                 <Tabs defaultActiveKey="1" items={tabItems} style={{ margin: '24px 0px'}}/>
               </div>
             </div>
