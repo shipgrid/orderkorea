@@ -43,8 +43,8 @@ export default async (req, res, next) => {
     req.user = user[0]
     
     setTraceAttributes({
-      user_id: user[0].user_id,
-      email: user[0].username,
+      userId: user[0].user_id,
+      userEmail: user[0].username,
     });
 
     next()
