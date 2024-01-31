@@ -12,16 +12,16 @@ import {
 } from 'react-redux'
 
 import {
-  Link
-} from 'react-router-dom'
-
-import {
   login
 } from '../../../redux/reducers/session'
 
 import {
   useLoginMutation
 } from '../../../services/api'
+
+import {
+  trackFormOpen
+} from '../../../lib/analytics'
 
 import Logo from '../../../assets/images/logo-no-bg.png';
 
@@ -57,6 +57,13 @@ const LoginForm = ({}) => {
       isStaff: response.data.is_staff
     }));
   };
+
+  const onApplyClick = (e: Event) => {
+    e.preventDefault(); 
+    trackFormOpen('Application');
+    window.location.href = `https://forms.gle/V77JrUbuHKnBvJXd9`;
+  };
+  
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column'}}>
@@ -98,12 +105,9 @@ const LoginForm = ({}) => {
           <Divider/>
           <div style={{display: 'flex', flexDirection: 'column'}}>
             <p style={{ marginTop: 10, color: 'black' }}>
-            <a
-              href="https://forms.gle/V77JrUbuHKnBvJXd9"
-              rel="noopener noreferrer"
-            >
-              Join the <b>Broker Network</b><Link to='https://forms.gle/V77JrUbuHKnBvJXd9'>, send in an application</Link>
-            </a>
+              <a onClick={onApplyClick} style={{ cursor: 'pointer' }}>
+                Join the <b>Broker Network</b> , send in an application
+              </a>
             </p>
           </div>
         </div>
