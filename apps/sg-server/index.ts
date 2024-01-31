@@ -55,7 +55,15 @@ if(process.env.NODE_ENV === 'development') {
     }
   }
 
-  app.use(cors(corsOptions));
+  app.use((req, res, next) => {
+    cors(corsOptions)(req, res, (err) => {
+      if (err) {
+        res.status(403).send('CORS Policy Denied Access'); // Send 403 Forbidden or another appropriate status
+      } else {
+        next();
+      }
+    });
+  });
 }
 
 // Apply security headers
