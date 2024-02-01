@@ -1,7 +1,5 @@
 import {
   startTransition,
-  useEffect,
-  useState
 } from 'react';
 
 import { 
@@ -21,6 +19,7 @@ import {
 
 import UserNavbarDropdownMenu from './UserNavbarDropdownMenu';
 import Logo from '../../../assets/images/logo-no-bg.png';
+import useMobile from '../../../hooks/useMobile';
 
 const { 
   Header 
@@ -59,23 +58,11 @@ const NavbarHeader = ({ }) => {
 
   const location = useLocation();
   const navigate = useNavigate();
-  const [isMobile, setIsMobile] = useState(false);
 
-  console.log(location.pathname)
-
-  useEffect(() => {
-    function handleResize() {
-      setIsMobile(window.innerWidth <= 900); 
-    }
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
+  const {
+    isMobile
+  } = useMobile();
+  
   return (
     <Header
       style={{

@@ -41,7 +41,11 @@ const OrderDetailContainer = () => {
     )
   }
 
-  const { data:order, error, isLoading } = useGetOrderQuery(orderId);
+  const { 
+    data:order, 
+    error, 
+    isLoading 
+  } = useGetOrderQuery(orderId);
 
   if(isLoading) {
     return <ApiLoader />

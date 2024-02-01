@@ -1,7 +1,5 @@
 import {
   startTransition,
-  useState,
-  useEffect
 } from 'react';
 
 import { 
@@ -32,7 +30,6 @@ import {
 
 import { LiaCarSideSolid } from "react-icons/lia";
 
-
 import { 
   CiViewList 
 } from "react-icons/ci";
@@ -45,27 +42,18 @@ import {
   IoHomeOutline 
 } from "react-icons/io5";
 
+import useMobile from '../../../hooks/useMobile';
+
 const UserNavbarDropdownMenu = ({ 
 }) => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [isMobile, setIsMobile] = useState(false);
   const session = useSelector((state: any) => state.session);
 
-
-  useEffect(() => {
-    function handleResize() {
-      setIsMobile(window.innerWidth <= 900);
-    }
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+  const {
+    isMobile
+  } = useMobile();
 
   const userDropdownItems: MenuProps['items'] = [];
 

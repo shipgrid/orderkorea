@@ -79,8 +79,8 @@ const OrderDetailFormContainer = () => {
           title={`Order Details: ${orderId}`}
           actionButtons={[
             <div style={{ display: 'flex' }}>
-                <p style={{ marginRight: 10 }}> Show all fields </p>
-               <Switch />
+              <p style={{ marginRight: 10 }}> Show all fields </p>
+              <Switch />
             </div>
           ]}
           centerContent={true}

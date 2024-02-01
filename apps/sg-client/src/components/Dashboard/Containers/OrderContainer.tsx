@@ -1,6 +1,5 @@
-import { 
-  useState, 
-  useEffect 
+import {
+  useEffect
 } from 'react'
 
 import {
@@ -20,11 +19,13 @@ import DashboardHeader from '../Layout/DashboardHeader';
 import OrderTable from '../Order/OrderTable'  
 import DashboardContent from '../Layout/DashboardContent';
 import ApiLoader from '../../Shared/ApiLoader';
-
+import useMobile from '../../../hooks/useMobile';
 
 const OrderContainer = ({}) => {
 
-  const [isMobile, setIsMobile] = useState(false);
+  const {
+    isMobile
+  } = useMobile()
 
   const { 
     data:orders, 
@@ -34,20 +35,7 @@ const OrderContainer = ({}) => {
   useEffect(() => {
     trackPageView('/orders');
   }, [])
-
-  useEffect(() => {
-    function handleResize() {
-      setIsMobile(window.innerWidth <= 900);
-    }
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
+  
   if(isLoading || !orders) {
     return (
       <ApiLoader />
