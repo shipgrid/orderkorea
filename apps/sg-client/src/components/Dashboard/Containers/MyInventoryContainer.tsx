@@ -1,5 +1,4 @@
 import {
-  Input,
   Spin,
 } from 'antd';
 
@@ -23,8 +22,6 @@ import InventoryFilter from '../Inventory/InventoryFilter';
 import config from '../../../config';
 
 import '../../../assets/inventory.css'
-
-const { Search } = Input;
 
 const HomeContainer = () => {
 
