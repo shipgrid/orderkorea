@@ -1,25 +1,17 @@
-import { useEffect, useState } from 'react';
-import { Image } from 'antd';
+import { 
+  Image 
+} from 'antd';
+
 import Logo from '../../assets/images/logo-no-bg.png';
+import useMobile from '../../hooks/useMobile';
 import '../../assets/api_loader.css'
 
 const ApiLoader = () => {
 
-  const [isMobile, setIsMobile] = useState(false);
 
-  useEffect(() => {
-    function handleResize() {
-      setIsMobile(window.innerWidth <= 900);
-    }
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
+  const {
+    isMobile
+  } = useMobile();
 
   return (
     <div style={{ display: 'flex', width: '100vw', height: '45vh', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>

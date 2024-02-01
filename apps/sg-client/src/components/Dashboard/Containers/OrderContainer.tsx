@@ -1,8 +1,3 @@
-import { 
-  useState, 
-  useEffect 
-} from 'react'
-
 import {
   Row,
   Col,
@@ -16,29 +11,19 @@ import DashboardHeader from '../Layout/DashboardHeader';
 import OrderTable from '../Order/OrderTable'  
 import DashboardContent from '../Layout/DashboardContent';
 import ApiLoader from '../../Shared/ApiLoader';
-
+import useMobile from '../../../hooks/useMobile';
 
 const OrderContainer = ({}) => {
 
-  const [isMobile, setIsMobile] = useState(false);
+  const {
+    isMobile
+  } = useMobile()
 
   const { 
     data:orders, 
     isLoading 
   } = useGetOrdersQuery({});
 
-  useEffect(() => {
-    function handleResize() {
-      setIsMobile(window.innerWidth <= 900);
-    }
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
 
   if(isLoading || !orders) {
     return (
