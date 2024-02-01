@@ -60,7 +60,6 @@ const LoginForm = ({}) => {
   };
 
   const onJoinBrokerNetworkClick = (e: Event) => {
-    e.preventDefault(); 
     trackFormOpen('Application');
     window.location.href = config.forms.joinBrokerNetworkLink({});
   };  
