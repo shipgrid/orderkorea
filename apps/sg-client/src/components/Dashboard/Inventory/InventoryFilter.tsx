@@ -4,49 +4,29 @@ import {
   Space,
   Slider,
   Collapse,
-  Spin,
 } from 'antd';
 
 import type { 
   CollapseProps 
 } from 'antd';
 
-import {
-  useSelector
-} from 'react-redux';
-
-import DashboardHeader from '../Layout/DashboardHeader';
-import DashboardContent from '../Layout/DashboardContent';
-import VehicleList from '../Inventory/VehicleList';
-import ApiLoader from '../../Shared/ApiLoader';
 import FilterTags from '../Inventory/FilterTags'
-import SortDropdown from '../Inventory/SortDropdown'
-import MobileHeader from '../Inventory/MobileHeader';
-import useFilter from '../../../hooks/useVehicleFilter'
-import ExtraCard from '../Inventory/ExtraCard';
-import InventoryFilter from '../Inventory/InventoryFilter';
-
-import config from '../../../config';
 
 import '../../../assets/inventory.css'
 
 const { Search } = Input;
 
-const HomeContainer = () => {
+interface InventoryFilterProps {
+  filters: any;
+  searchFilters: any;
+  handleFilter: any;
+}
 
-  const session = useSelector((state: any) => state.session);
-
-  const {
-    handleFilter,
-    filters, 
-    searchFilters, 
-    vehicles,
-    isDebounceComplete
-  } = useFilter();
-
-  if(!searchFilters) {
-    return <ApiLoader/>;
-  }
+const InventoryFilter = ({
+  filters,
+  searchFilters,
+  handleFilter,
+}: InventoryFilterProps) => {
 
   const items: CollapseProps['items'] = [
     {
@@ -171,50 +151,21 @@ const HomeContainer = () => {
   ];
 
   return (
-    <>
-      <DashboardContent>
-        <div className='inventory-header'>
-          <DashboardHeader
-            title={'Broker Inventory'}
-            action={[
-              <div>
-                <div> Sort by </div>
-                <SortDropdown
-                  handleFilter={handleFilter}
-                />
-              </div>,
-            ]}
-          />              
-        </div>
-        <MobileHeader
-          filters={filters}
-          handleFilter={handleFilter}
-          searchFilters={searchFilters}
-          vehicleCount={vehicles.length}
-        />
-        <div style={{ display: 'flex', margin: '32px 24px' }}>
-          <InventoryFilter
-            searchFilters={searchFilters}
-            filters={filters}
-            handleFilter={handleFilter}
-          />
-          <Spin spinning={!isDebounceComplete}> 
-          <VehicleList
-            extra={
-              <ExtraCard
-                title="Can't find the car you want?"
-                description='Access the Broker Network to receive the best offers in your inbox within 48 hours'
-                link={config.requestACarLink({ email: session.username })}
-              />
-            }
-            vehicles={vehicles}
-          />
-          </Spin>
-      
-        </div>
-      </DashboardContent>
-    </>
-  );
+    <div className='car-filters'>
+      <Search name='search' placeholder='Make, model, or keyword' onSearch={(value) => handleFilter(value, 'search')}/>
+      <FilterTags
+        filters={filters}
+        handleFilter={handleFilter}
+      />
+      <Collapse 
+        defaultActiveKey={['1']} 
+        bordered={false} 
+        items={items} 
+        expandIconPosition={'end'}
+        accordion
+      />
+    </div>
+  )
 }
 
-export default HomeContainer;
+export default InventoryFilter;
