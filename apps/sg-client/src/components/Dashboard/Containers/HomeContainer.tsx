@@ -59,7 +59,7 @@ const HomeContainer = () => {
 
   const onListCarClick = () => {
     trackFormOpen('List a Car');
-    window.location.href = config.listACarLink({ email: session.username })
+    window.location.href = config.forms.listACarLink({ email: session.username })
   };
   
   useEffect(() => {

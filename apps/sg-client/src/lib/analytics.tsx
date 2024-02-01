@@ -1,9 +1,20 @@
 import ReactGA from 'react-ga4';
 
-const GA_TRACKING_ID = 'G-XVLZR9C776'; 
 
 const initGA = () => {
-  ReactGA.initialize(GA_TRACKING_ID);
+  try {
+    const GA_TRACKING_ID = import.meta.env.VITE_APP_GA_TRACKING_ID;
+  
+    if (!GA_TRACKING_ID) {
+      console.error('GA_TRACKING_ID is not set')
+      return
+    }
+
+    ReactGA.initialize(GA_TRACKING_ID);
+  } catch (e) {
+    console.error('Issue with initializing GA: ', e)
+  }
+
 };
 
 const trackPageView = (path: string) => {
@@ -12,8 +23,8 @@ const trackPageView = (path: string) => {
 
 const trackFormOpen = (formName: string) => {
   ReactGA.event({
-    category: 'form',
-    action: 'open',
+    category: 'Google Form',
+    action: 'Opened Google Form',
     label: formName
   })
 }

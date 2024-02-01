@@ -27,7 +27,6 @@ import config from '../../../config'
 
 import Logo from '../../../assets/images/logo-no-bg.png';
 
-
 type FieldType = {
   username?: string;
   password?: string;
@@ -64,8 +63,7 @@ const LoginForm = ({}) => {
     e.preventDefault(); 
     trackFormOpen('Application');
     window.location.href = config.forms.joinBrokerNetworkLink({});
-  };
-  
+  };  
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column'}}>
@@ -111,7 +109,7 @@ const LoginForm = ({}) => {
               onClick={onJoinBrokerNetworkClick}
               rel="noopener noreferrer"
             >
-              Join the <b>Broker Network</b><Link to={config.forms.joinBrokerNetworkLink({})}>, send in an application</Link>
+              Join the <b>Broker Network</b>send in an application
             </a>
             </p>
           </div>
