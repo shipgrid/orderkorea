@@ -11,13 +11,8 @@ import VehicleTabContent from './VehicleTabContent';
 import VehicleDetailHeader from './VehicleDetailHeader';
 import ImageDisplay from './ImageDisplay'
 
-import {
-  trackFormOpen
-} from '../../../lib/analytics'
-
 import '../../../assets/index.css'
 import '../../../assets/vehicle_detail.css'
-import config from '../../../config';
 
 interface VehicleDetailProps {
   vehicle: Vehicle

@@ -14,6 +14,10 @@ import {
   useSelector
 } from 'react-redux'
 
+import { 
+  trackFormOpen
+} from '../../../lib/analytics'
+
 import config from '../../../config'
 
 import '../../../assets/index.css'
@@ -28,19 +32,24 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
 }) => {
   const session = useSelector((state: any) => state.session);
   
+  const onContactSellingBrokerClick = () => {
+    trackFormOpen('Contact Selling Broker');
+    window.location.href = config.forms.contactSellingBrokerLink({ 
+      email: session.username,
+      vehicle_id: vehicle.vehicle_id,
+      make: vehicle.make.name,
+      model: vehicle.model.name,
+      trim: vehicle.trim.name,
+      year: vehicle.year
+    })
+  };
+
   return (
     <div>
       <div className='vehicle-detail-title'>{vehicle.year} {vehicle.make.name} {vehicle.model.name} {vehicle.trim.name} </div>
       <div className='vehicle-detail-title'>${ formatNumberWithCommas(vehicle.fees.vehicle_price) }</div>
       <a
-        href={config.forms.contactSellingBrokerLink({ 
-          email: session.username,
-          vehicle_id: vehicle.vehicle_id,
-          make: vehicle.make.name,
-          model: vehicle.model.name,
-          trim: vehicle.trim.name,
-          year: vehicle.year
-        })}
+        onClick={onContactSellingBrokerClick}
         rel="noopener noreferrer"
       >
         {
