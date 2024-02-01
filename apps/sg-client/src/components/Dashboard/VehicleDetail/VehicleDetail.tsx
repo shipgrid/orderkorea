@@ -33,7 +33,7 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
 
   return (
     <>
-      <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: 'white'}}>
+      <div className='vehicle-detail-container'>
         <div className='vehicle-detail'>   
           <div className='vehicle-detail-box'>
             <ImageDisplay
