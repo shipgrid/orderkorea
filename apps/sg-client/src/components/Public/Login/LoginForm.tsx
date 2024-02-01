@@ -23,8 +23,9 @@ import {
   trackFormOpen
 } from '../../../lib/analytics'
 
+import config from '../../../config'
+
 import Logo from '../../../assets/images/logo-no-bg.png';
-import config from '../../../config';
 
 
 type FieldType = {
@@ -59,10 +60,10 @@ const LoginForm = ({}) => {
     }));
   };
 
-  const onApplyClick = (e: Event) => {
+  const onJoinBrokerNetworkClick = (e: Event) => {
     e.preventDefault(); 
     trackFormOpen('Application');
-    window.location.href = config.applyToJoinLink();
+    window.location.href = config.forms.joinBrokerNetworkLink({});
   };
   
 
@@ -106,9 +107,12 @@ const LoginForm = ({}) => {
           <Divider/>
           <div style={{display: 'flex', flexDirection: 'column'}}>
             <p style={{ marginTop: 10, color: 'black' }}>
-              <a onClick={onApplyClick} style={{ cursor: 'pointer' }}>
-                Join the <b>Broker Network</b> , send in an application
-              </a>
+            <a
+              onClick={onJoinBrokerNetworkClick}
+              rel="noopener noreferrer"
+            >
+              Join the <b>Broker Network</b><Link to={config.forms.joinBrokerNetworkLink({})}>, send in an application</Link>
+            </a>
             </p>
           </div>
         </div>

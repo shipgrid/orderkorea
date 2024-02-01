@@ -1,13 +1,14 @@
 import {
   Descriptions,
-  // Timeline,
-  // Divider,
-  // Collapse
+  Divider,
 } from 'antd'
 
 import {
   Order
 } from '../../../services/api'
+
+import OrderEvent from './OrderEvents'
+import config from '../../../config'
 
 import '../../../assets/index.css'
 
@@ -34,24 +35,15 @@ const OrderDetail: React.FC<OrderDetailProps> = ({
             <Descriptions.Item label="ESTIMATED DATE OF ARRIVAL">{ order.expected_arrival } </Descriptions.Item>
           </Descriptions>
         </div>
-        {/* <div style={{ margin: 10 }}>
-          <Divider />
-          <Collapse size='large' items={[
-            {
-              key: 1,
-              label: 'Shipment History',
-              children: <Timeline
-              items={order.orderEvents.map((orderEvent) => {
-                return {
-                  color: 'green',
-                  children: `${orderEvent.name} - ${orderEvent.created_on}`,
-                }
-              })}
+        <Divider />
+        {
+          config.featureFlags.showOrderEvents && (
+            <OrderEvent 
+              orderEvents={order.orderEvents} 
             />
-            }
-          ]} defaultActiveKey={['1']} onChange={onChange} />
-          
-        </div> */}
+          )
+        }
+
       </div>
     </>
   );
