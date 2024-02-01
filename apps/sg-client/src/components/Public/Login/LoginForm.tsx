@@ -24,6 +24,7 @@ import {
 } from '../../../lib/analytics'
 
 import Logo from '../../../assets/images/logo-no-bg.png';
+import config from '../../../config';
 
 
 type FieldType = {
@@ -61,7 +62,7 @@ const LoginForm = ({}) => {
   const onApplyClick = (e: Event) => {
     e.preventDefault(); 
     trackFormOpen('Application');
-    window.location.href = `https://forms.gle/V77JrUbuHKnBvJXd9`;
+    window.location.href = config.applyToJoinLink();
   };
   
 

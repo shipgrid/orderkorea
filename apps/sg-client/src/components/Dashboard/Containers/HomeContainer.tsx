@@ -40,6 +40,7 @@ import CarAmico from '../../../assets/images/car-amico.png';
 import CarPana from '../../../assets/images/car-pana.png';
 
 import '../../../assets/home.css'
+import config from '../../../config';
 
 const HomeContainer = () => {
 
@@ -58,7 +59,7 @@ const HomeContainer = () => {
 
   const onListCarClick = () => {
     trackFormOpen('List a Car');
-    window.location.href = `https://docs.google.com/forms/d/e/1FAIpQLSc2Ehqh5mG3FzBjZMyDqNZjmWUAxee5TAvxCdqqDfhWC2_hrg/viewform?usp=pp_url&entry.362768116=${session.username}`
+    window.location.href = config.listACarLink({ email: session.username })
   };
   
   useEffect(() => {

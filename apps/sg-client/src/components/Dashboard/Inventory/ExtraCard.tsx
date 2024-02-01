@@ -19,7 +19,6 @@ const ExtraCard = ({
 }: ExtraCardProps) => {
 
   const handleLinkClick = () => {
-    console.log('handle Link click ran')
     if (onLinkClick) {
       onLinkClick()
     }
@@ -36,7 +35,7 @@ const ExtraCard = ({
             rel="noopener noreferrer"
             onClick={handleLinkClick}
           >
-            <Button type='primary' style={{ width: '100%', height: 45, margin: '12px 0px' }} onClick={() => {console.log('trakcedd!!')}}>
+            <Button type='primary' style={{ width: '100%', height: 45, margin: '12px 0px' }}>
               { title }
             </Button>
           </a>

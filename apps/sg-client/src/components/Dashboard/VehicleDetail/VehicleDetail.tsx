@@ -37,6 +37,7 @@ import {
 
 import '../../../assets/index.css'
 import '../../../assets/vehicle_detail.css'
+import config from '../../../config';
 
 interface VehicleDetailProps {
   vehicle: Vehicle
@@ -61,8 +62,15 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
   };
 
   const handleContactBrokerClick = () => {
-    trackFormOpen('Contact Selling Broker');
-    window.location.href = `https://docs.google.com/forms/d/e/1FAIpQLSdtNkVtjCxIDH6P7iMGz-Fe2S208mZtpuwEJ42CCHUjc4NGUQ/viewform?usp=pp_url&entry.907431906=${session.username}&entry.1487388506=${vehicle.vehicle_id}&entry.521345170=${vehicle.year}+${vehicle.make.name}+${vehicle.model.name}+${vehicle.trim.name}`;
+    trackFormOpen('Contact Selling Broker')
+    window.location.href = config.contactBrokerLink({ 
+      email: session.username,
+      vehicle_id: vehicle.vehicle_id,
+      year: vehicle.year,
+      make: vehicle.make.name,
+      model: vehicle.model.name,
+      trim: vehicle.trim.name
+     })
   };
 
 
