@@ -5,7 +5,6 @@ import {
   Slider,
   Collapse,
   Spin,
-  Button
 } from 'antd';
 
 import type { 
@@ -24,6 +23,9 @@ import FilterTags from '../Inventory/FilterTags'
 import SortDropdown from '../Inventory/SortDropdown'
 import MobileHeader from '../Inventory/MobileHeader';
 import useFilter from '../../../hooks/useVehicleFilter'
+import ExtraCard from '../Inventory/ExtraCard';
+
+import config from '../../../config';
 
 import '../../../assets/inventory.css'
 
@@ -167,7 +169,6 @@ const HomeContainer = () => {
     },
   ];
 
-
   return (
     <>
       <DashboardContent>
@@ -208,22 +209,11 @@ const HomeContainer = () => {
           <Spin spinning={!isDebounceComplete}> 
           <VehicleList
             extra={
-              <div className='request-car-card'>
-                <div className='request-car-content'>
-                  <div>
-                    <div style={{ fontWeight: 600, fontSize: 24, margin: '12px 0px' }}>Can't find the car you want?</div>
-                    <div style={{ fontWeight: 400, fontSize: 16, margin: '12px 0px', color: '#5c5e62' }}>Access the Broker Network to receive the best offers in your inbox within 48 hours </div>
-                    <a
-                      href={`https://docs.google.com/forms/d/e/1FAIpQLSerMzC4HWA1nDUwWVCxbwvk5Z2yS9BNjJsWgm3EQWTZnGBbeA/viewform?usp=pp_url&entry.1892265409=${session.username}`}
-                      rel="noopener noreferrer"
-                    >
-                      <Button type='primary' style={{ width: '100%', height: 45, margin: '12px 0px' }}>
-                        Request a Car
-                      </Button>
-                    </a>
-                  </div>
-                </div>
-              </div>
+              <ExtraCard
+                title="Can't find the car you want?"
+                description='Access the Broker Network to receive the best offers in your inbox within 48 hours'
+                link={config.requestACarLink({ email: session.username })}
+              />
             }
             vehicles={vehicles}
           />

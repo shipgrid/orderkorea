@@ -5,7 +5,6 @@ import {
   Slider,
   Collapse,
   Spin,
-  Button
 } from 'antd';
 
 import type { 
@@ -28,6 +27,8 @@ import FilterTags from '../Inventory/FilterTags'
 import SortDropdown from '../Inventory/SortDropdown'
 import MobileHeader from '../Inventory/MobileHeader';
 import useVehicleFilter from '../../../hooks/useVehicleFilter';
+import ExtraCard from '../Inventory/ExtraCard';
+import config from '../../../config';
 
 import '../../../assets/inventory.css'
 
@@ -217,22 +218,11 @@ const HomeContainer = () => {
           <Spin spinning={!isDebounceComplete}> 
           <VehicleList
             extra={
-              <div className='request-car-card'>
-                <div className='request-car-content'>
-                  <div>
-                    <div style={{ fontWeight: 600, fontSize: 24, margin: '12px 0px' }}>List a Car</div>
-                    <div style={{ fontWeight: 400, fontSize: 16, margin: '12px 0px', color: '#5c5e62' }}>Upload a car onto the Broker Network and receive the best offers and leads in your inbox </div>
-                    <a
-                      href={`https://docs.google.com/forms/d/e/1FAIpQLSc2Ehqh5mG3FzBjZMyDqNZjmWUAxee5TAvxCdqqDfhWC2_hrg/viewform?usp=pp_url&entry.362768116=${session.username} `}                    
-                      rel="noopener noreferrer"
-                    >
-                      <Button type='primary' style={{ width: '100%', height: 45, margin: '12px 0px' }}>
-                        List a Car
-                      </Button>
-                    </a>
-                  </div>
-                </div>
-              </div>
+              <ExtraCard
+                title={'List a Car'}
+                description={'Upload a car onto the Broker Network and receive the best offers and leads in your inbox'}
+                link={config.listACarLink({ email: session.username })}
+              />
             }
             vehicles={vehicles}
           />
