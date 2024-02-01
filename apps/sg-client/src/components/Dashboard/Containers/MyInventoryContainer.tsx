@@ -14,11 +14,11 @@ import DashboardHeader from '../Layout/DashboardHeader';
 import DashboardContent from '../Layout/DashboardContent';
 import VehicleList from '../Inventory/VehicleList';
 import ApiLoader from '../../Shared/ApiLoader';
-import SortDropdown from '../Inventory/SortDropdown'
 import MobileHeader from '../Inventory/MobileHeader';
 import useVehicleFilter from '../../../hooks/useVehicleFilter';
 import ExtraCard from '../Inventory/ExtraCard';
 import InventoryFilter from '../Inventory/InventoryFilter';
+import InventorySortFilter from '../Inventory/InventorySortFIlter';
 import config from '../../../config';
 
 import '../../../assets/inventory.css'
@@ -52,12 +52,10 @@ const HomeContainer = () => {
           <DashboardHeader
             title={'My Inventory'}
             action={[
-              <div>
-                <div> Sort by </div>
-                <SortDropdown
-                  handleFilter={handleFilter}
-                />
-              </div>,
+              <InventorySortFilter 
+                handleFilter={handleFilter}
+                searchFilters={searchFilters}
+              />,
             ]}
           />              
         </div>
