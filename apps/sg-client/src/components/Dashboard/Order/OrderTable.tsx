@@ -18,8 +18,6 @@ import {
 import {
   Order,
   Vehicle
-  // Shipper,
-  // ThirdParty,
 } from '../../../services/api';
 
 interface OrderTableProps {

@@ -79,7 +79,7 @@ const HomeContainer = () => {
                 <ExtraCard
                   title={'List a Car'}
                   description={'Upload a car onto the Broker Network and receive the best offers and leads in your inbox'}
-                  link={config.listACarLink({ email: session.username })}
+                  link={config.forms.listACarLink({ email: session.username })}
                 />
               }
               vehicles={vehicles}

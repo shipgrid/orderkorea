@@ -19,13 +19,14 @@ import DashboardHeader from '../Layout/DashboardHeader';
 import DashboardContent from '../Layout/DashboardContent';
 import Grid from '../../Shared/Grid';
 import OrderDetail from '../OrderDetail/OrderDetail';
-// import ThirdPartyTable from '../OrderDetail/ThirdPartyTable';
-// import AddThirdPartyDropdownMenu from '../OrderDetail/AddThirdPartyDropdownMenu';
+import ThirdPartyTable from '../OrderDetail/ThirdPartyTable';
+import AddThirdPartyDropdownMenu from '../OrderDetail/AddThirdPartyDropdownMenu';
 import AddDocumentModal from '../OrderDetail/AddDocumentModal';
 import VehicleTable from '../OrderDetail/VehicleTable';
 import DocumentTable from '../OrderDetail/DocumentTable';
 import ApiLoader from '../../Shared/ApiLoader';
 import ResourceNotFound from '../../Shared/ResourceNotFound';
+import config from '../../../config'
 
 const OrderDetailContainer = () => {
   const navigate = useNavigate();
@@ -67,53 +68,69 @@ const OrderDetailContainer = () => {
           description={'View your order details'}
         />
         <div style={{ margin: '64px 24px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <div>
-            <Button style={{marginBottom: 5, marginRight: 5 }} onClick={ () => startTransition(() => navigate(`/order-detail?order_id=${order?.order_id}`)) }> Edit </Button>
-            <Grid          
-            title='Shipment Details'
-              content={
-                <OrderDetail
-                  order={order}
+          {
+            config.featureFlags.showOrderDetails && (
+              <div>
+                <Button style={{marginBottom: 5, marginRight: 5 }} onClick={ () => startTransition(() => navigate(`/order-detail?order_id=${order?.order_id}`)) }> Edit </Button>
+                <Grid          
+                title='Shipment Details'
+                  content={
+                    <OrderDetail
+                      order={order}
+                    />
+                  }
                 />
-              }
-            />
-          </div>
-          {/* <div style={{ margin: '24px 0px', flex: 1 }}>
-            <AddThirdPartyDropdownMenu
-              orderId={orderId}
-            />
-            <Grid
-              title='Shipper, Consignee and Contacts'
-              content={
-                <ThirdPartyTable
-                  thirdParties={order.thirdParties}
+              </div>
+            )
+          }
+          {
+            config.featureFlags.showOrderThirdParty && (
+              <div style={{ margin: '24px 0px', flex: 1 }}>
+                <AddThirdPartyDropdownMenu
+                  orderId={orderId}
                 />
-              }
-            />
-          </div> */}
-          <div style={{ margin: '24px 0px'}}>
-            <AddDocumentModal
-              orderId={orderId}
-            />
-            <Grid
-              title='Documents'
-              content={
-                <DocumentTable
-                  documents={order.documents}
+                <Grid
+                  title='Shipper, Consignee and Contacts'
+                  content={
+                    <ThirdPartyTable
+                      thirdParties={order.thirdParties}
+                    />
+                  }
                 />
-              }
-            />
-          </div>
-          <div style={{ margin: '24px 0px'}}>
-            <Grid
-              title='Vehicles'
-              content={
-                <VehicleTable
-                  vehicles={order.vehicles}
+              </div>
+            )
+          }
+          {
+            config.featureFlags.showOrderDocuments && (
+              <div style={{ margin: '24px 0px'}}>
+                <AddDocumentModal
+                  orderId={orderId}
                 />
-              }
-            />
-          </div>         
+                <Grid
+                  title='Documents'
+                  content={
+                    <DocumentTable
+                      documents={order.documents}
+                    />
+                  }
+                />
+              </div>
+            )
+          }
+          {
+            config.featureFlags.showOrderVehicles && (
+              <div style={{ margin: '24px 0px'}}>
+                <Grid
+                  title='Vehicles'
+                  content={
+                    <VehicleTable
+                      vehicles={order.vehicles}
+                    />
+                  }
+                />
+              </div> 
+            )
+          }
         </div>
       </DashboardContent>
     </div>

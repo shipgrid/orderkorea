@@ -23,6 +23,8 @@ import {
   useLoginMutation
 } from '../../../services/api'
 
+import config from '../../../config'
+
 import Logo from '../../../assets/images/logo-no-bg.png';
 
 
@@ -99,10 +101,10 @@ const LoginForm = ({}) => {
           <div style={{display: 'flex', flexDirection: 'column'}}>
             <p style={{ marginTop: 10, color: 'black' }}>
             <a
-              href="https://forms.gle/V77JrUbuHKnBvJXd9"
+              href={config.forms.joinBrokerNetworkLink({})}
               rel="noopener noreferrer"
             >
-              Join the <b>Broker Network</b><Link to='https://forms.gle/V77JrUbuHKnBvJXd9'>, send in an application</Link>
+              Join the <b>Broker Network</b><Link to={config.forms.joinBrokerNetworkLink({})}>, send in an application</Link>
             </a>
             </p>
           </div>
