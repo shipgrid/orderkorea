@@ -1,10 +1,24 @@
 import {
+  useEffect
+} from 'react';
+
+import {
+  Input,
+  Checkbox,
+  Space,
+  Slider,
+  Collapse,
   Spin,
 } from 'antd';
 
 import {
   useSelector
 } from 'react-redux';
+
+import {
+  trackPageView,
+  trackFormOpen
+} from '../../../lib/analytics'
 
 import DashboardHeader from '../Layout/DashboardHeader';
 import DashboardContent from '../Layout/DashboardContent';
@@ -31,6 +45,10 @@ const HomeContainer = () => {
     vehicles,
     isDebounceComplete
   } = useFilter();
+
+  useEffect(() => {
+    trackPageView('/inventory');
+  }, [])
 
   if(!searchFilters) {
     return <ApiLoader/>;
@@ -71,6 +89,7 @@ const HomeContainer = () => {
                 title="Can't find the car you want?"
                 description='Access the Broker Network to receive the best offers in your inbox within 48 hours'
                 link={config.forms.requestACarLink({ email: session.username })}
+                onLinkClick={() => trackFormOpen('Request a Car')}
               />
             }
             vehicles={vehicles}

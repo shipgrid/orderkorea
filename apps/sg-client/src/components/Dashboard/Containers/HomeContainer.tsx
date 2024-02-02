@@ -1,5 +1,6 @@
 import { 
-  useState 
+  useState,
+  useEffect
 } from 'react';
 
 import {
@@ -26,6 +27,11 @@ import {
   useSelector
 } from 'react-redux';
 
+import {
+  trackPageView,
+  trackFormOpen
+} from '../../../lib/analytics'
+
 import DashboardHeader from '../Layout/DashboardHeader';
 import DashboardContent from '../Layout/DashboardContent';
 import PricePana from '../../../assets/images/price-pana.png';
@@ -34,6 +40,7 @@ import CarAmico from '../../../assets/images/car-amico.png';
 import CarPana from '../../../assets/images/car-pana.png';
 
 import '../../../assets/home.css'
+import config from '../../../config';
 
 const HomeContainer = () => {
 
@@ -48,7 +55,16 @@ const HomeContainer = () => {
 
   const onClose = () => {
     setOpen(false);
+  }
+
+  const onListCarClick = () => {
+    trackFormOpen('List a Car');
+    window.location.href = config.forms.listACarLink({ email: session.username })
   };
+  
+  useEffect(() => {
+    trackPageView('/')
+  }, [])
 
   return (
     <Stack minH={'100vh'}>
@@ -75,17 +91,13 @@ const HomeContainer = () => {
               </div>
               <Button type='primary' style={{ width: '100%' }}> Buy Cars </Button>
             </Card>
-            <a
-              href={`https://docs.google.com/forms/d/e/1FAIpQLSc2Ehqh5mG3FzBjZMyDqNZjmWUAxee5TAvxCdqqDfhWC2_hrg/viewform?usp=pp_url&entry.362768116=${session.username}`}
-              rel="noopener noreferrer"
-            >
-              <Card hoverable title="Sell Cars" bordered={false} style={{ width: 340, height: '100%', cursor: 'pointer' }} cover={<Image preview={false}  src={PaymentSuccess} alt='payment-success' style={{ width: 300 }} />}>
-                <div style={{ height: 85}}>
-                  Upload cars and sell to other brokers and traders.
-                </div>
-                  <Button type='primary'  style={{ width: '100%' }}> Sell Cars </Button>
-              </Card>
-            </a>
+ 
+            <Card hoverable title="Sell Cars" bordered={false} style={{ width: 340, height: '100%', cursor: 'pointer' }} cover={<Image preview={false}  src={PaymentSuccess} alt='payment-success' style={{ width: 300 }} />}>
+              <div style={{ height: 85}}>
+                Upload cars and sell to other brokers and traders.
+              </div>
+                <Button type='primary'  style={{ width: '100%' }} onClick={onListCarClick}> Sell Cars </Button>
+            </Card>
 
             <Card onClick={() => startTransition(() => navigate('/inventory'))} hoverable title="My Inventory" bordered={false} style={{ width: 340, height: '100%', cursor: 'pointer' }} cover={<Image preview={false}  src={CarAmico} alt='buy-car-home' style={{ width: 300 }} />}>
               <div style={{ height: 85}}>

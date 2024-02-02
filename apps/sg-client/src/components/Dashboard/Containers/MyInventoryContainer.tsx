@@ -1,3 +1,7 @@
+import { 
+  useEffect
+} from 'react'
+
 import {
   Spin,
 } from 'antd';
@@ -9,6 +13,11 @@ import {
 import {
   useSelector
 } from 'react-redux';
+
+import {
+  trackPageView,
+  trackFormOpen
+} from '../../../lib/analytics'
 
 import DashboardHeader from '../Layout/DashboardHeader';
 import DashboardContent from '../Layout/DashboardContent';
@@ -34,6 +43,10 @@ const HomeContainer = () => {
     searchFilters, 
     isDebounceComplete
   } = useVehicleFilter();
+
+  useEffect(() => {
+    trackPageView('/inventory')    
+  }, [])
 
   const { 
     data: vehicles = [], 
@@ -78,6 +91,7 @@ const HomeContainer = () => {
                   title={'List a Car'}
                   description={'Upload a car onto the Broker Network and receive the best offers and leads in your inbox'}
                   link={config.forms.listACarLink({ email: session.username })}
+                  onLinkClick={() => trackFormOpen('List a Car')}
                 />
               }
               vehicles={vehicles}
