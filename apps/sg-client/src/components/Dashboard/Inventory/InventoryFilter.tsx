@@ -117,13 +117,13 @@ const InventoryFilter = ({
         <div>
           <Space direction='horizontal'>
             <Input defaultValue={0} value={filters.mileage[0]} onChange={(e) => handleFilter(e, 'mileage-min')}/>
-            <Input defaultValue={120000} value={filters.mileage[1]} onChange={(e) => handleFilter(e, 'mileage-max')}/>
+            <Input defaultValue={180000} value={filters.mileage[1]} onChange={(e) => handleFilter(e, 'mileage-max')}/>
           </Space>
           <Slider 
             range 
             value={filters.mileage}
             min={0}
-            max={120000}
+            max={180000}
             onChange={(e) => handleFilter(e, 'mileage')}
           />    
         </div>
