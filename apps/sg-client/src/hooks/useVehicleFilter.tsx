@@ -35,7 +35,7 @@ const useFilter = () => {
     models: [],
     trims: [],
     price: [0, 1200000],
-    mileage: [0, 120000],
+    mileage: [0, 180000],
     years: [1999, 2024],
     sort: ['highest-price']
   });
