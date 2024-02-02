@@ -1,4 +1,8 @@
 import {
+  useEffect
+} from 'react'
+
+import {
   Row,
   Col,
 } from 'antd'
@@ -6,6 +10,10 @@ import {
 import {
   useGetOrdersQuery,
 } from '../../../services/api';
+
+import {
+  trackPageView  
+} from '../../../lib/analytics'
 
 import DashboardHeader from '../Layout/DashboardHeader';
 import OrderTable from '../Order/OrderTable'  
@@ -24,7 +32,10 @@ const OrderContainer = ({}) => {
     isLoading 
   } = useGetOrdersQuery({});
 
-
+  useEffect(() => {
+    trackPageView('/orders');
+  }, [])
+  
   if(isLoading || !orders) {
     return (
       <ApiLoader />

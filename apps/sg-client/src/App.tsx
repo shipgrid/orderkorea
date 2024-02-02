@@ -1,3 +1,7 @@
+import {
+  useEffect 
+} from "react"
+
 import { 
   Provider 
 } from "react-redux";
@@ -22,12 +26,20 @@ import {
   ThemeData
 } from './theme'
 
+import {
+  initGA
+} from './lib/analytics'
+
 import Root from './Root'
 import ApiLoader from "./components/Shared/ApiLoader";
 import './index.css'
 import './assets/global.css'
 
 const App = () => {
+
+  useEffect(() => {
+    initGA() 
+  }, [])
 
   return (
     <div>

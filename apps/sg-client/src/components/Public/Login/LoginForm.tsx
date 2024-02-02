@@ -12,10 +12,6 @@ import {
 } from 'react-redux'
 
 import {
-  Link
-} from 'react-router-dom'
-
-import {
   login
 } from '../../../redux/reducers/session'
 
@@ -23,10 +19,13 @@ import {
   useLoginMutation
 } from '../../../services/api'
 
+import {
+  trackFormOpen
+} from '../../../lib/analytics'
+
 import config from '../../../config'
 
 import Logo from '../../../assets/images/logo-no-bg.png';
-
 
 type FieldType = {
   username?: string;
@@ -60,6 +59,11 @@ const LoginForm = ({}) => {
       isStaff: response.data.is_staff
     }));
   };
+
+  const onJoinBrokerNetworkClick = (e: Event) => {
+    trackFormOpen('Application');
+    window.location.href = config.forms.joinBrokerNetworkLink({});
+  };  
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column'}}>
@@ -102,10 +106,10 @@ const LoginForm = ({}) => {
           <div style={{display: 'flex', flexDirection: 'column'}}>
             <p style={{ marginTop: 10, color: 'black' }}>
             <a
-              href={config.forms.joinBrokerNetworkLink({})}
+              onClick={onJoinBrokerNetworkClick}
               rel="noopener noreferrer"
             >
-              Join the <b>Broker Network</b><Link to={config.forms.joinBrokerNetworkLink({})}>, send in an application</Link>
+              Join the <b>Broker Network</b>send in an application
             </a>
             </p>
           </div>

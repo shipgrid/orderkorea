@@ -22,6 +22,10 @@ import {
   useUpdateVehicleMutation
 } from '../../../services/api'
 
+import { 
+  trackFormOpen
+} from '../../../lib/analytics'
+
 import config from '../../../config'
 
 import '../../../assets/index.css'
@@ -72,6 +76,18 @@ const VehicleDetailHeader: React.FC<VehicleDetailHeaderProps> = ({
       })
     }
   ];
+  
+  const onContactSellingBrokerClick = () => {
+    trackFormOpen('Contact Selling Broker');
+    window.location.href = config.forms.contactSellingBrokerLink({ 
+      email: session.username,
+      vehicle_id: vehicle.vehicle_id,
+      make: vehicle.make.name,
+      model: vehicle.model.name,
+      trim: vehicle.trim.name,
+      year: vehicle.year
+    })
+  };
 
   return (
     <div>
@@ -81,14 +97,7 @@ const VehicleDetailHeader: React.FC<VehicleDetailHeaderProps> = ({
           !vehicle.order_id && !isOwner ? (
             <Button type="primary" style={{ marginTop: 24, width: '100%', height: 40, borderRadius: 12 }}> 
               <a
-                href={config.forms.contactSellingBrokerLink({ 
-                  email: session.username,
-                  vehicle_id: vehicle.vehicle_id,
-                  make: vehicle.make.name,
-                  model: vehicle.model.name,
-                  trim: vehicle.trim.name,
-                  year: vehicle.year
-                })}
+                onClick={onContactSellingBrokerClick}
                 rel="noopener noreferrer"
               >
                 Contact Selling Broker 

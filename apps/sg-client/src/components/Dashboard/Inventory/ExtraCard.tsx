@@ -8,13 +8,21 @@ interface ExtraCardProps {
   title: string;
   description: string;
   link?: string; 
+  onLinkClick?: () => void;
 }
 
 const ExtraCard = ({
   title,
   description,
-  link
+  link,
+  onLinkClick
 }: ExtraCardProps) => {
+
+  const handleLinkClick = () => {
+    if (onLinkClick) {
+      onLinkClick()
+    }
+  };
 
   return (
     <div className='request-car-card'>
@@ -25,6 +33,7 @@ const ExtraCard = ({
           <a
             href={link}                    
             rel="noopener noreferrer"
+            onClick={handleLinkClick}
           >
             <Button type='primary' style={{ width: '100%', height: 45, margin: '12px 0px' }}>
               { title }
