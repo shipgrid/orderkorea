@@ -60,7 +60,7 @@ const LoginForm = ({}) => {
     }));
   };
 
-  const onJoinBrokerNetworkClick = (e: Event) => {
+  const onJoinBrokerNetworkClick = (_) => {
     trackFormOpen('Application');
     window.location.href = config.forms.joinBrokerNetworkLink({});
   };  
@@ -103,14 +103,13 @@ const LoginForm = ({}) => {
             </Form.Item>
           </Form> 
           <Divider/>
-          <div style={{display: 'flex', flexDirection: 'column'}}>
+          <div style={{display: 'flex', flexDirection: 'column'}} onClick={onJoinBrokerNetworkClick}>
             <p style={{ marginTop: 10, color: 'black' }}>
-            <a
-              onClick={onJoinBrokerNetworkClick}
-              rel="noopener noreferrer"
-            >
-              Join the <b>Broker Network</b>send in an application
-            </a>
+              <a
+                rel="noopener noreferrer"
+              >
+                Join the <b>Broker Network</b>send in an application
+              </a>
             </p>
           </div>
         </div>

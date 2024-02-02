@@ -3,11 +3,6 @@ import {
 } from 'react';
 
 import {
-  Input,
-  Checkbox,
-  Space,
-  Slider,
-  Collapse,
   Spin,
 } from 'antd';
 
