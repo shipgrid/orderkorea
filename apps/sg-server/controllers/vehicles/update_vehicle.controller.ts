@@ -16,21 +16,23 @@ const paramsSchema = Joi.object({
 })
 
 const bodySchema = Joi.object({
-  make: Joi.string().required(),
-  model: Joi.string().required(),
-  year: Joi.number().required(),
-  price: Joi.number().required(),
-  mileage: Joi.number().required(),
-  exterior_color: Joi.string().required(),
-  interior_color: Joi.string().required(),
-  transmission_type: Joi.string().valid('automatic', 'manual').required(),
-  doors: Joi.number().required(),
-  trim: Joi.string().required(),
-  drivetrain: Joi.string().valid('FWD', 'AWD', 'RWD', '4WD').required(),
-  is_new: Joi.boolean().required(),
-  vin_number: Joi.string().required(),
-  fuel_type: Joi.string().valid('gasoline', 'diesel').required(),
-  description: Joi.string().required(),
+  make: Joi.string(),
+  model: Joi.string(),
+  year: Joi.number(),
+  price: Joi.number(),
+  mileage: Joi.number(),
+  exterior_color: Joi.string(),
+  interior_color: Joi.string(),
+  transmission_type: Joi.string().valid('automatic', 'manual'),
+  doors: Joi.number(),
+  trim: Joi.string(),
+  is_listed: Joi.boolean(),
+  is_sold: Joi.boolean(),
+  drivetrain: Joi.string().valid('FWD', 'AWD', 'RWD', '4WD'),
+  is_new: Joi.boolean(),
+  vin_number: Joi.string(),
+  fuel_type: Joi.string().valid('gasoline', 'diesel'),
+  description: Joi.string(),
 })
 
 export default async (  
@@ -40,6 +42,7 @@ export default async (
 ) => {
 
   try {
+
     const paramsValidation = paramsSchema.validate(req.params)
     
     if (paramsValidation.error) {
@@ -49,7 +52,7 @@ export default async (
       })
     }
 
-    const bodyValidation = bodySchema.validate(req.body)
+    const bodyValidation = bodySchema.validate(req.body);
 
     if (bodyValidation.error) {
       return res.status(400).json({
@@ -68,6 +71,8 @@ export default async (
       year,
       price, 
       is_new,
+      is_listed,
+      is_sold,
       mileage, 
       exterior_color,
       interior_color,
@@ -88,6 +93,8 @@ export default async (
       model,
       year,
       is_new,
+      is_listed,
+      is_sold,
       price, 
       mileage, 
       exterior_color,
@@ -101,7 +108,6 @@ export default async (
       description
     })
   
-
     if(!success) {
       return res.status(400).json({ 
         success, 

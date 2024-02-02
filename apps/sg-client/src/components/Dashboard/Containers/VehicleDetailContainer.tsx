@@ -10,6 +10,10 @@ import {
   useGetVehicleQuery,
 } from '../../../services/api'
 
+import {
+  useSelector
+} from 'react-redux'
+
 import DashboardHeader from '../Layout/DashboardHeader'
 import DashboardContent from '../Layout/DashboardContent'
 import VehicleDetail from '../VehicleDetail/VehicleDetail'
@@ -17,10 +21,9 @@ import ApiLoader from '../../Shared/ApiLoader'
 import ResourceNotFound from '../../Shared/ResourceNotFound'
 
 const VehicleDetailContainer = () => {
-
   const location = useLocation()
+  const session = useSelector((state: any) => state.session)
   const searchParams = new URLSearchParams(location.search)
-
   const vehicleId = searchParams.get('vehicle_id')
 
   if(!vehicleId) {
@@ -49,6 +52,8 @@ const VehicleDetailContainer = () => {
     )
   }
 
+  const IS_OWNER = vehicle.user_id === session.userId
+
   return (
     <Stack minH={'100vh'}>
       <DashboardContent>
@@ -57,6 +62,7 @@ const VehicleDetailContainer = () => {
         />
           <VehicleDetail
             vehicle={vehicle}
+            isOwner={IS_OWNER}
           />
       </DashboardContent>
     </Stack>

@@ -15,11 +15,13 @@ import '../../../assets/index.css'
 import '../../../assets/vehicle_detail.css'
 
 interface VehicleDetailProps {
-  vehicle: Vehicle
+  vehicle: Vehicle;
+  isOwner?: boolean;
 }
 
 const VehicleDetail: React.FC<VehicleDetailProps> = ({
-  vehicle
+  vehicle,
+  isOwner
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -44,6 +46,7 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
               <div className='vehicle-detail-info'>
                 <VehicleDetailHeader
                   vehicle={vehicle}
+                  isOwner={isOwner}
                 />
                 <VehicleTabContent
                   vehicle={vehicle}

@@ -54,6 +54,7 @@ const LoginForm = ({}) => {
 
     dispatch(login({ 
       token: response.data.token, 
+      userId: response.data.user_id,
       username: response.data.username,
       isBroker: response.data.is_broker,
       isStaff: response.data.is_staff

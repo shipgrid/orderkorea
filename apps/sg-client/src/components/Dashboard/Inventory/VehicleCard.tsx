@@ -4,7 +4,12 @@ import {
   Card,
   Typography, 
   Image,
+  Tag
 } from 'antd'
+
+import {
+  useSelector
+} from 'react-redux'
 
 import { 
   DashboardOutlined, 
@@ -35,15 +40,21 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
 
   const { 
     vehicle_id, 
+    user_id,
     make, 
     model, 
     created_on,
+    is_listed,
+    is_sold,
     trim,
     images,
     fees,
     year, 
     mileage, 
   } = vehicle
+
+
+  const session = useSelector((state: any) => state.session);
 
   const mainImageUrl = images[0]?.image_url
 
@@ -64,6 +75,8 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
     return daysDifference;
   }
 
+  const IS_OWNER = user_id === session.userId
+
   return (
     <Card
       style={{ borderRadius: 10}}
@@ -73,9 +86,17 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
       onClick={handleItemClick}
     >
       <Meta 
-        style={{ height: 80 }}
+        style={{ height: IS_OWNER ? 100 : 80 }}
         description={
           <div style={{ padding: '0px 8px 5px', fontWeight: 'normal' }}>
+            {
+              IS_OWNER && (
+                <div>
+                  <Tag color={is_listed ? 'orange' : 'red'}> {is_listed ? 'Listed' : 'Unlisted'} </Tag>
+                  <Tag color={is_sold ? 'green' : 'blue'}> {is_sold ? 'Sold' : 'For Sale'} </Tag>
+                </div>
+              )
+            }
             <div style={{ display: 'flex', justifyContent:'space-between', flexWrap: 'wrap'}}>
               <div style={{ display: 'flex'}}> 
                 {calculateDaysDifference(created_on) <= 0 ? <span style={{ margin: '0px 0px 0px 0px'}}> posted now </span> : <span style={{ margin: '0px 0px 0px 0px'}}> posted {calculateDaysDifference(created_on)} days ago </span> }

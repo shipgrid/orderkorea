@@ -24,6 +24,7 @@ export default async ({
   password
 }: ILoginUser): Promise<IServiceResponse<{ 
   token: string,
+  user_id: number,
   username: string,
   is_staff: boolean,
   is_broker: boolean
@@ -85,6 +86,7 @@ export default async ({
         success: true,
         data: {
           token,
+          user_id: foundUser.user_id,
           username: foundUser.username,
           is_staff: !!foundUser.is_staff,
           is_broker: !!foundUser.is_broker

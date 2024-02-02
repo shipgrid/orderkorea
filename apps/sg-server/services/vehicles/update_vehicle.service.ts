@@ -15,6 +15,8 @@ export default async ({
   year,
   price, 
   is_new,
+  is_listed,
+  is_sold,
   mileage, 
   exterior_color,
   interior_color,
@@ -31,13 +33,33 @@ export default async ({
     try {
   
       await KnexClient.transaction(async (trx) => {
-  
+        console.log({
+          make,
+          model,
+          year,
+          price, 
+          is_new,
+          is_listed,
+          is_sold,
+          mileage, 
+          exterior_color,
+          interior_color,
+          transmission_type,
+          doors, 
+          trim, 
+          drivetrain, 
+          vin_number, 
+          description,
+          fuel_type, 
+        })
         await Vehicle.query(trx).patchAndFetchById(vehicle_id, {
           make,
           model,
           year,
           price, 
           is_new,
+          is_listed,
+          is_sold,
           mileage, 
           exterior_color,
           interior_color,

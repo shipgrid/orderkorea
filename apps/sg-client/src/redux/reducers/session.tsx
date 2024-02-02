@@ -5,7 +5,7 @@ import { SessionState } from '../../types/root';
 const initialState: SessionState = {
   isAuth: false,
   token: '',
-  fbToken: '',
+  userId: null,
   username: '',
   isBroker: false,
   isStaff: false,
@@ -18,12 +18,14 @@ const sessionSlice = createSlice({
   reducers: {
     login: (state, action: PayloadAction<{ 
       token: string; 
+      userId: string;
       username: string;
       isBroker: boolean;
       isStaff: boolean;
     }>) => {
       state.isAuth = true;
       state.token = action.payload.token;
+      state.userId = action.payload.userId;
       state.username = action.payload.username;
       state.isBroker = action.payload.isBroker;
       state.isStaff = action.payload.isStaff;

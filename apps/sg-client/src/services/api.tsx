@@ -61,6 +61,7 @@ export interface OrderEvent {
 export interface Vehicle {
   vehicle_id: number;
   order_id: number;
+  user_id: number;
   make: Make;
   model: Model;
   exterior_color: Color; 
@@ -73,7 +74,10 @@ export interface Vehicle {
   images: VehicleImage[]
   cylinders: Cylinder,
   body_style: BodyStyle, 
-  reservation?: Reservation | null;
+  is_listed: boolean;
+  is_sold: boolean;
+  list_on: string | null;
+  sold_on: string | null;
   fees: Fee,
   year: string;
   price: string;
@@ -162,6 +166,12 @@ interface removeThirdPartyParams {
 interface removeDocumentParams {
   document_id: number;
   order_id: number;
+}
+
+interface UpdateVehicleParams {
+  vehicle_id: number;
+  is_listed?: boolean;
+  is_sold?: boolean;
 }
 
 interface CreateVehicleParams {
@@ -441,6 +451,7 @@ const api = createApi({
     'orders', 
     'order', 
     'vehicles', 
+    'vehicle',
     'thirdParties', 
     'addresses', 
     'documents', 
@@ -532,16 +543,19 @@ const api = createApi({
       query: (body) => `vehicles?${body.finalUrl}`,
       transformResponse: (response: { data: Vehicle[] }) => response.data.map(item => ({ ...item, key: item.vehicle_id })),
       transformErrorResponse: (error: any) => error.data,
+      providesTags: ['vehicles'],
     }),
     getVehiclesByUserId: build.query({
       query: (body) => `vehicles/inventory?${body.finalUrl}`,
       transformResponse: (response: { data: Vehicle[] }) => response.data,
       transformErrorResponse: (error: any) => error.data,
+      providesTags: ['vehicles'],
     }),
     getVehicle: build.query<Vehicle, string>({
       query: (vehicleId) => `vehicles/${vehicleId}`,
       transformResponse: (response: { data: Vehicle }) => response.data,
       transformErrorResponse: (error: any) => error.data,
+      providesTags: ['vehicle'],
     }),
     createVehicle: build.mutation<ApiResponse, CreateVehicleParams>({
       query: (body) => ({
@@ -551,6 +565,19 @@ const api = createApi({
       }),
       transformResponse: (response: { data: any }, _, _args) => response.data,
       transformErrorResponse: (error: any) => error.data,
+    }),
+    updateVehicle: build.mutation<ApiResponse, UpdateVehicleParams>({
+      query: (body) => ({
+        url: `vehicles/${body.vehicle_id}`,
+        method: 'PUT',
+        body: {
+          is_listed: body.is_listed,
+          is_sold: body.is_sold
+        },
+      }),
+      transformResponse: (response: { data: any }, _, _args) => response.data,
+      transformErrorResponse: (error: any) => error.data,
+      invalidatesTags: ['vehicles', 'vehicle'],
     }),
     createThirdParty: build.mutation<ApiResponse, CreateThirdPartyParams>({
       query: (body) => ({
@@ -631,7 +658,8 @@ const {
   useCheckoutQuery,
   useGetCheckoutStatusQuery,
   useGetReservationsQuery,
-  useGetVehiclesByUserIdQuery
+  useGetVehiclesByUserIdQuery,
+  useUpdateVehicleMutation
 } = api
 
 export {
@@ -656,6 +684,7 @@ export {
   useCheckoutQuery,
   useGetCheckoutStatusQuery,
   useGetReservationsQuery,
-  useGetVehiclesByUserIdQuery
+  useGetVehiclesByUserIdQuery,
+  useUpdateVehicleMutation
 }
 

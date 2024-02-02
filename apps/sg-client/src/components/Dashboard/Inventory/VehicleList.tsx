@@ -44,7 +44,7 @@ const VehicleList = ({
         vehicles.length ? (
           vehicles.map((vehicle, index) => (
           <div key={index}>
-            <Badge.Ribbon text={vehicle.order_id ? 'in negotiation' : 'available' } color={vehicle.order_id ? 'red' : 'green'}>
+            <Badge.Ribbon text={vehicle.order_id ? 'in negotiation' : 'available' } color={vehicle.order_id ? 'orange' : 'green'}>
               <VehicleCard key={vehicle.vehicle_id} vehicle={vehicle} onClick={() => startTransition(() => handleViewVehicle(vehicle.vehicle_id))}/>
             </Badge.Ribbon>
           </div>)

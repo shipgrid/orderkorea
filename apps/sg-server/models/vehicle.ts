@@ -35,6 +35,10 @@ interface Vehicle {
   drivetrain: string 
   vin_number: string | null; 
   is_new: number; 
+  is_listed: number;
+  is_sold: number;
+  listed_on: string | null; 
+  sold_on: string | null; 
   fuel_type: string; 
   description: string; 
   created_on: string;

@@ -85,6 +85,8 @@ export default async ({
           'year',
           'vin_number',
           'is_new',
+          'is_listed',
+          'is_sold',
           'mileage',
           'vehicles.created_on',
           'vehicles.updated_on',

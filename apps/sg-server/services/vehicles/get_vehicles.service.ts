@@ -103,78 +103,82 @@ export default async ({
           'year',
           'vin_number',
           'is_new',
+          'is_listed',
+          'is_sold',
           'mileage',
           'vehicles.created_on',
           'vehicles.updated_on',
           'vehicles.deleted_on'
         )
 
-        if(searchFilter.length) {
-          const keyword = searchFilter[0];
-          vehiclesQuery
-            .where('make.name', 'like', `%${keyword}%`)
-            .orWhere('model.name', 'like', `%${keyword}%`)
-            .orWhere('year', 'like', `%${keyword}%`)
-            .orWhere('vin_number', 'like', `%${keyword}%`)
+      if(searchFilter.length) {
+        const keyword = searchFilter[0];
+        vehiclesQuery
+          .where('make.name', 'like', `%${keyword}%`)
+          .orWhere('model.name', 'like', `%${keyword}%`)
+          .orWhere('year', 'like', `%${keyword}%`)
+          .orWhere('vin_number', 'like', `%${keyword}%`)
+      }
+
+      if(sortFilter.length) {
+        if(sortFilter.includes('highest-price')) {
+          vehiclesQuery.orderBy('fees.vehicle_price', 'desc')
         }
 
-        if(sortFilter.length) {
-          if(sortFilter.includes('highest-price')) {
-            vehiclesQuery.orderBy('fees.vehicle_price', 'desc')
+        if(sortFilter.includes('lowest-price')) {
+          vehiclesQuery.orderBy('fees.vehicle_price', 'asc')
+        }
+
+        if(sortFilter.includes('lowest-mileage')) {
+          vehiclesQuery.orderBy('mileage', 'asc')
+        }
+
+        if(sortFilter.includes('newest')) {
+          vehiclesQuery.orderByRaw('CAST(year AS SIGNED) DESC')
+        }
+
+        if(sortFilter.includes('oldest')) {
+          vehiclesQuery.orderByRaw('CAST(year AS SIGNED) ASC')
+        }
+      }
+
+      if (conditionsFilter.length) {
+        const conditions = conditionsFilter.map((condition) => {
+          if (condition === 'New') {
+            return 1;
+          } else if (condition === 'Used') {
+            return 0;
           }
+        })
 
-          if(sortFilter.includes('lowest-price')) {
-            vehiclesQuery.orderBy('fees.vehicle_price', 'asc')
-          }
+        vehiclesQuery.whereIn('is_new', conditions as any);
+      }
 
-          if(sortFilter.includes('lowest-mileage')) {
-            vehiclesQuery.orderBy('mileage', 'asc')
-          }
+      if (makesFilter.length) {
+        vehiclesQuery.whereIn('make.name', makesFilter);
+      }
 
-          if(sortFilter.includes('newest')) {
-            vehiclesQuery.orderByRaw('CAST(year AS SIGNED) DESC')
-          }
+      if(modelFilter.length) {
+        vehiclesQuery.whereIn('model.name', modelFilter)
+      }
 
-          if(sortFilter.includes('oldest')) {
-            vehiclesQuery.orderByRaw('CAST(year AS SIGNED) ASC')
-          }
-        }
+      if(trimFilter.length) {
+        vehiclesQuery.whereIn('trim.name', trimFilter)
+      }
 
-        if (conditionsFilter.length) {
-          const conditions = conditionsFilter.map((condition) => {
-            if (condition === 'New') {
-              return 1;
-            } else if (condition === 'Used') {
-              return 0;
-            }
-          })
+      if(priceFilter.length > 1) {
+        vehiclesQuery.whereBetween('fees.vehicle_price', [priceFilter[0], priceFilter[1]])
+      }
 
-          vehiclesQuery.whereIn('is_new', conditions as any);
-        }
+      if(mileageFilter.length > 1) {
+        vehiclesQuery.whereBetween('mileage', [mileageFilter[0], mileageFilter[1]])
+      }
 
-        if (makesFilter.length) {
-          vehiclesQuery.whereIn('make.name', makesFilter);
-        }
+      if(yearsFilter.length > 1) {
+        vehiclesQuery.whereBetween('year', [yearsFilter[0], yearsFilter[1]])
+      }
 
-        if(modelFilter.length) {
-          vehiclesQuery.whereIn('model.name', modelFilter)
-        }
-
-        if(trimFilter.length) {
-          vehiclesQuery.whereIn('trim.name', trimFilter)
-        }
-
-        if(priceFilter.length > 1) {
-          vehiclesQuery.whereBetween('fees.vehicle_price', [priceFilter[0], priceFilter[1]])
-        }
-
-        if(mileageFilter.length > 1) {
-          vehiclesQuery.whereBetween('mileage', [mileageFilter[0], mileageFilter[1]])
-        }
-
-        if(yearsFilter.length > 1) {
-          vehiclesQuery.whereBetween('year', [yearsFilter[0], yearsFilter[1]])
-        }
+      vehiclesQuery.where('vehicles.is_listed', '=', 1);
 
       const vehicles = await vehiclesQuery;
     

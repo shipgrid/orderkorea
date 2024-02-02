@@ -62,7 +62,7 @@ export interface Reservation {
 export interface SessionState {
   isAuth: boolean;
   token: string;
-  fbToken: string;
+  userId: string | null;
   username: string;
   isBroker: boolean;
   isStaff: boolean;
