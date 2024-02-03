@@ -10,6 +10,7 @@ import {
 } from '../services/api'
 
 import debounce from 'lodash/debounce';
+import config from '../config/config'
 
 interface IFilter {
   search: string[];
@@ -34,10 +35,10 @@ const useFilter = () => {
     makes: [], 
     models: [],
     trims: [],
-    price: [0, 1200000],
-    mileage: [0, 180000],
-    years: [1999, 2024],
-    sort: ['highest-price']
+    price: [config.filters.prices.min, config.filters.prices.max],
+    mileage: [config.filters.mileage.min, config.filters.mileage.max],
+    years: [config.filters.years.min, config.filters.years.max],
+    sort: [ config.sorter[0].value ]
   });
 
   const buildQueryString = (filterObject: any) => {

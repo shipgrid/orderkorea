@@ -25,7 +25,7 @@ import useFilter from '../../../hooks/useVehicleFilter'
 import ExtraCard from '../Inventory/ExtraCard';
 import InventoryFilter from '../Inventory/InventoryFilter';
 
-import config from '../../../config';
+import config from '../../../config/config';
 
 import '../../../assets/inventory.css'
 

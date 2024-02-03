@@ -11,7 +11,7 @@ import type {
 } from 'antd';
 
 import FilterTags from '../Inventory/FilterTags'
-
+import config from '../../../config/config'
 import '../../../assets/inventory.css'
 
 const { Search } = Input;
@@ -30,7 +30,7 @@ const InventoryFilter = ({
 
   const items: CollapseProps['items'] = [
     {
-      key: '1',
+      key: 'condition',
       label: 'Condition',
       children: <Space direction='vertical'>
           <Checkbox.Group 
@@ -48,7 +48,7 @@ const InventoryFilter = ({
       ,
     },
     {
-      key: '2',
+      key: 'make',
       label: 'Make',
       children: <Space direction='vertical'>
         <Checkbox.Group 
@@ -62,7 +62,7 @@ const InventoryFilter = ({
       </Space>,
     },
     {
-      key: '3',
+      key: 'model',
       label: 'Model',
       collapsible: searchFilters.models.length ? undefined : "disabled",
       children: <Space direction='vertical'>
@@ -77,7 +77,7 @@ const InventoryFilter = ({
       </Space>,
     },
     {
-      key: '4',
+      key: 'trim',
       label: 'Trim',
       collapsible: searchFilters.trims.length ? undefined : "disabled",
       children: <Space direction='vertical'>
@@ -92,57 +92,57 @@ const InventoryFilter = ({
       </Space>,
     },
     {
-      key: '5',
+      key: 'year',
       label: 'Year',
       children: (
         <div>
           <Space direction='horizontal'>
-            <Input defaultValue={1999} value={filters.years[0]} onChange={(e) => handleFilter(e, 'years-min')}/>
-            <Input defaultValue={2024} value={filters.years[1]} onChange={(e) => handleFilter(e, 'years-max')}/>
+            <Input defaultValue={config.filters.years.min} value={filters.years[0]} onChange={(e) => handleFilter(e, 'years-min')}/>
+            <Input defaultValue={config.filters.years.max} value={filters.years[1]} onChange={(e) => handleFilter(e, 'years-max')}/>
           </Space>
           <Slider 
             range 
             value={filters.years}
-            min={1999} 
-            max={2024} 
+            min={config.filters.years.min} 
+            max={config.filters.years.max} 
             onChange={(e) => handleFilter(e, 'years')}
           />    
         </div>
       )
     },
     {
-      key: '6',
+      key: 'mileage',
       label: 'Mileage',
       children: (
         <div>
           <Space direction='horizontal'>
-            <Input defaultValue={0} value={filters.mileage[0]} onChange={(e) => handleFilter(e, 'mileage-min')}/>
-            <Input defaultValue={180000} value={filters.mileage[1]} onChange={(e) => handleFilter(e, 'mileage-max')}/>
+            <Input defaultValue={config.filters.mileage.min} value={filters.mileage[0]} onChange={(e) => handleFilter(e, 'mileage-min')}/>
+            <Input defaultValue={config.filters.mileage.max} value={filters.mileage[1]} onChange={(e) => handleFilter(e, 'mileage-max')}/>
           </Space>
           <Slider 
             range 
             value={filters.mileage}
-            min={0}
-            max={180000}
+            min={config.filters.mileage.min}
+            max={config.filters.mileage.max}
             onChange={(e) => handleFilter(e, 'mileage')}
           />    
         </div>
       )
     },
     {
-      key: '7',
+      key: 'price',
       label: 'Price',
       children: (
         <div>
           <Space direction='horizontal'>
-            <Input defaultValue={0} value={filters.price[0]} onChange={(e) => handleFilter(e, 'price-min')}/>
-            <Input defaultValue={1200000} value={filters.price[1]} onChange={(e) => handleFilter(e, 'price-max')}/>
+            <Input defaultValue={config.filters.prices.min} value={filters.price[0]} onChange={(e) => handleFilter(e, 'price-min')}/>
+            <Input defaultValue={config.filters.prices.max} value={filters.price[1]} onChange={(e) => handleFilter(e, 'price-max')}/>
           </Space>
           <Slider 
             range 
             value={filters.price}
-            min={0}
-            max={1200000}
+            min={config.filters.prices.min}
+            max={config.filters.prices.max}
             onChange={(e) => handleFilter(e, 'price')}
           />  
         </div>

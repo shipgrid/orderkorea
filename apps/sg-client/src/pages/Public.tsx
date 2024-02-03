@@ -1,4 +1,4 @@
-import LoginContainer from '../components/Public/Containers/LoginContainer'
+import LoginContainer from '../components/Dashboard/Containers/LoginContainer'
 
 const Login = () => {
   return (

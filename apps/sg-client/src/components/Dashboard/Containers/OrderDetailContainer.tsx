@@ -26,7 +26,7 @@ import VehicleTable from '../OrderDetail/VehicleTable';
 import DocumentTable from '../OrderDetail/DocumentTable';
 import ApiLoader from '../../Shared/ApiLoader';
 import ResourceNotFound from '../../Shared/ResourceNotFound';
-import config from '../../../config'
+import config from '../../../config/config'
 
 const OrderDetailContainer = () => {
   const navigate = useNavigate();

@@ -1,13 +1,13 @@
 import { Navigate } from "react-router-dom";
-import Login from '../pages/Login';
-import LoginForm from '../components/Public/Login/LoginForm';
-import SignUpForm from "../components/Public/Login/SignUpForm";
+import Public from '../pages/Public';
+import LoginForm from '../components/Dashboard/Forms/LoginForm';
+import SignUpForm from "../components/Dashboard/Forms/SignUpForm";
 
 export default function routes() {
   return [
     {
       path: '/',
-      element: <Login />,
+      element: <Public />,
       children: [
         { path: '/', element: <LoginForm /> },
         { path: '/signup', element: <SignUpForm />},

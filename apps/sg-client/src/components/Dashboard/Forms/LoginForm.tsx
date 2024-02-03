@@ -23,7 +23,7 @@ import {
   trackFormOpen
 } from '../../../lib/analytics'
 
-import config from '../../../config'
+import config from '../../../config/config'
 
 import Logo from '../../../assets/images/logo-no-bg.png';
 

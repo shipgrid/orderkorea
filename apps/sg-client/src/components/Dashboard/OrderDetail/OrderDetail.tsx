@@ -8,7 +8,7 @@ import {
 } from '../../../services/api'
 
 import OrderEvent from './OrderEvents'
-import config from '../../../config'
+import config from '../../../config/config'
 
 import '../../../assets/index.css'
 

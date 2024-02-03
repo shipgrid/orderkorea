@@ -26,7 +26,7 @@ import {
   trackFormOpen
 } from '../../../lib/analytics'
 
-import config from '../../../config'
+import config from '../../../config/config'
 
 import '../../../assets/index.css'
 import '../../../assets/vehicle_detail.css'

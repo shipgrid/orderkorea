@@ -11,5 +11,26 @@ export default {
     showOrderThirdParty: false,
     showOrderDocuments: true,
     showOrderVehicles: true
-  }
+  }, 
+  filters: {
+    years: {
+      min: 1999,
+      max: 2024
+    },
+    prices: {
+      min: 0,
+      max: 1200000
+    },
+    mileage: {
+      min: 0,
+      max: 180000
+    }
+  },
+  sorter: [
+    { value: 'highest-price', label: 'Highest price' },
+    { value: 'lowest-price', label: 'Lowest price' },
+    { value: 'lowest-mileage', label: 'Lowest mileage' },
+    { value: 'oldest', label: 'Oldest vehicles' },
+    { value: 'newest', label: 'Newest vehicles' },
+  ]
 }
