@@ -44,17 +44,17 @@ const HomeContainer = () => {
           title={'Home'}
         />
         <div className='home-container'>
-        <Space style={{ display: 'flex', padding: 5, justifyContent: 'center' }} wrap>
-          <div className='learn-more'>
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-              <div style={{ fontSize: 24, fontWeight: 600, marginBottom: 12 }}>Welcome to Shipgrid</div>
-              <div style={{ fontSize: 16, fontWeight: 400, marginBottom: 12, flexWrap: 'wrap' }}>The premier workstation for car brokers around the world.</div>
-              <div>
-                <Button type='primary' onClick={showDrawer}> Learn More </Button>
+          <Space style={{ display: 'flex', padding: 5, justifyContent: 'center' }} wrap>
+            <div className='learn-more'>
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                <div style={{ fontSize: 24, fontWeight: 600, marginBottom: 12 }}>Welcome to Shipgrid</div>
+                <div style={{ fontSize: 16, fontWeight: 400, marginBottom: 12, flexWrap: 'wrap' }}>The premier workstation for car brokers around the world.</div>
+                <div>
+                  <Button type='primary' onClick={showDrawer}> Learn More </Button>
+                </div>
               </div>
             </div>
-          </div>
-        </Space>
+          </Space>
           <CardList/>
         </div>
       </DashboardContent>

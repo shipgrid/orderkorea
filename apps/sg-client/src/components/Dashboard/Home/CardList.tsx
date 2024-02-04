@@ -70,12 +70,12 @@ const HomeContainer = () => {
       image: CarPana,
       onClick: () => startTransition(() => navigate('/orders'))
     }, 
-    // {
-    //   title: 'My Account',
-    //   description: 'Manage your accounts.',
-    //   image: Settings,
-    //   onClick: () => startTransition(() => navigate('/orders'))
-    // }
+    {
+      title: 'My Account',
+      description: 'Manage your accounts.',
+      image: Settings,
+      onClick: () => startTransition(() => navigate('/account'))
+    }
   ]
   
   useEffect(() => {

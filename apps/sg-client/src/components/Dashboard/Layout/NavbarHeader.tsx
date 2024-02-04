@@ -48,6 +48,11 @@ const navItems = [
     width: 110,
     path: '/orders',
   },
+  {
+    label: 'My Account',
+    width: 110,
+    path: '/account',
+  },
 ];
 
 const items: MenuProps['items'] = navItems.map((item) => ({
@@ -78,7 +83,7 @@ const NavbarHeader = ({ }) => {
           {!isMobile && (
             <Menu 
               mode="horizontal" 
-              style={{ width: '440px', fontWeight: 'bold', fontSize: 14 }} 
+              style={{ width: '540px', fontWeight: 'bold', fontSize: 14 }} 
               defaultSelectedKeys={['/']} 
               items={items} 
               selectedKeys={[location.pathname]}

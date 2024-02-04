@@ -30,6 +30,8 @@ import {
 
 import { LiaCarSideSolid } from "react-icons/lia";
 
+import { CiSettings } from "react-icons/ci";
+
 import { 
   CiViewList 
 } from "react-icons/ci";
@@ -98,6 +100,17 @@ const UserNavbarDropdownMenu = ({
           <div style={{ display: 'flex', alignItems: 'center'}} onClick={() => startTransition(() => navigate('/orders'))}>
             <CiViewList/> 
             <span style={{ marginLeft: 5 }}>  My Orders </span>
+          </div>
+        ),
+      })
+
+    userDropdownItems.push(
+      {
+        key: 'my-account',
+        label: (
+          <div style={{ display: 'flex', alignItems: 'center'}} onClick={() => startTransition(() => navigate('/account'))}>
+            <CiSettings/> 
+            <span style={{ marginLeft: 5 }}>  My Account </span>
           </div>
         ),
       })

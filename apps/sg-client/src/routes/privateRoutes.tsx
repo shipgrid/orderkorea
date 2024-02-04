@@ -14,6 +14,7 @@ import AdminContainer from "../components/Dashboard/Containers/AdminContainer";
 import CheckoutContainer from "../components/Dashboard/Containers/CheckoutContainer";
 import SellerContactedContainer from "../components/Dashboard/Containers/SellerContactedContainer";
 import MyInventoryContainer from '../components/Dashboard/Containers/MyInventoryContainer';
+import AccountContainer from "../components/Dashboard/Containers/AccountContainer";
 
 export default function routes() {
   return [
@@ -33,6 +34,7 @@ export default function routes() {
         { path: '/orders', element: <OrderContainer /> },
         { path: '/third-party', element: <ThirdPartyContainer /> },
         { path: '/checkout', element: <CheckoutContainer /> },
+        { path: '/account', element: <AccountContainer /> },
         { path: '/return', element: <SellerContactedContainer />},
         { path: "*", element: <Navigate to="/login" replace /> },
       ],

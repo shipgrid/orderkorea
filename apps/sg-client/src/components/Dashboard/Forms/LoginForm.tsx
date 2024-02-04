@@ -108,7 +108,7 @@ const LoginForm = ({}) => {
               <a
                 rel="noopener noreferrer"
               >
-                Join the <b>Broker Network</b>send in an application
+                Join the <b>Broker Network</b> send in an application
               </a>
             </p>
           </div>

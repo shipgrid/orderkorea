@@ -388,6 +388,16 @@ interface CheckoutStatusResponse {
   customer_email: string;
 }
 
+interface UpdateAccountParams {
+  first_name: string; 
+  last_name: string;
+}
+
+interface updatePasswordParams {
+  current_password: string; 
+  updated_password: string;
+}
+
 export interface Reservation {
   reservation_id: number; 
   vehicle_id: number; 
@@ -448,6 +458,7 @@ const baseQueryWithReauth: BaseQueryFn<
 const api = createApi({
   baseQuery: baseQueryWithReauth,
   tagTypes: [
+    'account',
     'orders', 
     'order', 
     'vehicles', 
@@ -468,6 +479,32 @@ const api = createApi({
       }),
       transformResponse: (response: { data: any }, _, _args) => response.data,
       transformErrorResponse: (error: any) => error.data,
+    }),
+    getAccount: build.query({
+      query: () => 'account',
+      transformResponse: (response: { data: User }) => response.data,
+      transformErrorResponse: (error: any) => error.data,
+      providesTags: ['account']
+    }),
+    updateAccount: build.mutation<ApiResponse, UpdateAccountParams>({
+      query: (body) => ({
+        url: 'account',
+        method: 'PUT',
+        body: body,
+      }),
+      transformResponse: (response: { data: any }, _, _args) => response.data,
+      transformErrorResponse: (error: any) => error.data,
+      invalidatesTags: ['account']
+    }),
+    updatePassword: build.mutation<ApiResponse, updatePasswordParams>({
+      query: (body) => ({
+        url: 'account/update-password',
+        method: 'POST',
+        body: body,
+      }),
+      transformResponse: (response: { data: any }, _, _args) => response.data,
+      transformErrorResponse: (error: any) => error.data,
+      invalidatesTags: ['account']
     }),
     upload: build.mutation<ApiResponse, UploadParams>({
       query: (body) => ({
@@ -659,7 +696,10 @@ const {
   useGetCheckoutStatusQuery,
   useGetReservationsQuery,
   useGetVehiclesByUserIdQuery,
-  useUpdateVehicleMutation
+  useUpdateVehicleMutation,
+  useGetAccountQuery,
+  useUpdateAccountMutation,
+  useUpdatePasswordMutation
 } = api
 
 export {
@@ -685,6 +725,9 @@ export {
   useGetCheckoutStatusQuery,
   useGetReservationsQuery,
   useGetVehiclesByUserIdQuery,
-  useUpdateVehicleMutation
+  useUpdateVehicleMutation,
+  useGetAccountQuery,
+  useUpdateAccountMutation,
+  useUpdatePasswordMutation
 }
 
