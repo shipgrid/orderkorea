@@ -67,6 +67,13 @@ export default async (
         message: bodyValidation.error.details[0].message
       })
     }
+
+    if(!req.user) {
+      return res.status(400).json({
+        success: false,
+        message: 'No user found'
+      })
+    }
     
     const {
       current_password, 

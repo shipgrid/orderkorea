@@ -10,7 +10,7 @@ import {
 } from '../../types'
 
 interface IUpdatePassword {
-  user_id: string; 
+  user_id: number; 
   current_password: string;
   updated_password: string;
 }
