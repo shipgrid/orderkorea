@@ -8,10 +8,6 @@ import {
   Image
 } from 'antd';
 
-import type { 
-  MenuProps
-} from 'antd';
-
 import { 
   useNavigate,
 } from 'react-router-dom';
