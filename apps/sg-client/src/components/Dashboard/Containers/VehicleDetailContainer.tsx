@@ -41,7 +41,7 @@ const VehicleDetailContainer = () => {
   } = useGetVehicleQuery(vehicleId)
 
   if(isLoading) {
-    return <ApiLoader />
+    return <div style={{ height: '100vh', width: '100vw'}}> <ApiLoader/> </div>;
   }
 
   if(!vehicle || error) {

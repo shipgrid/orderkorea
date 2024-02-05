@@ -16,6 +16,10 @@ import {
 } from '../../../redux/reducers/session'
 
 import {
+  useNavigate
+} from 'react-router-dom'
+
+import {
   useLoginMutation
 } from '../../../services/api'
 
@@ -35,6 +39,7 @@ type FieldType = {
 
 const LoginForm = ({}) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [accountLogin, {
     isLoading: loginLoading
@@ -58,6 +63,8 @@ const LoginForm = ({}) => {
       isBroker: response.data.is_broker,
       isStaff: response.data.is_staff
     }));
+
+    navigate('/')
   };
 
   const onJoinBrokerNetworkClick = (_: any) => {

@@ -46,7 +46,7 @@ const HomeContainer = () => {
   }, [])
 
   if(!searchFilters) {
-    return <ApiLoader/>;
+    return <div style={{ height: '100vh' }}> <ApiLoader/> </div>;
   }
 
   return (
@@ -54,7 +54,7 @@ const HomeContainer = () => {
       <DashboardContent>
         <div className='inventory-header'>
           <DashboardHeader
-            title={'Broker Inventory'}
+            title={'Cars for Sale'}
             action={[
               <div>
                 <div> Sort by </div>

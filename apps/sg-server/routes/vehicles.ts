@@ -11,13 +11,15 @@ import {
   get_by_user_id
 } from '../controllers/vehicles'
 
+import authValidation from '../middlewares/auth_validation'
+
 const routes = Router()
 
 routes.get('/', list)
-routes.get('/inventory', get_by_user_id)
 routes.get('/:vehicle_id', get)
-routes.post('/', create)
-routes.delete('/:vehicle_id', remove)
-routes.put('/:vehicle_id', update)
+routes.get('/inventory', authValidation, get_by_user_id)
+routes.post('/', authValidation, create)
+routes.delete('/:vehicle_id', authValidation, remove)
+routes.put('/:vehicle_id', authValidation, update)
 
 export default routes

@@ -18,12 +18,12 @@ const routes = Router()
 
 routes.get('/test', (_, res) => res.status(200).send('OK'))
 routes.use('/account', account);
-routes.use('/vehicles', authValidation, vehicles);
+routes.use('/vehicles', vehicles);
+routes.use('/filters', filters)
 routes.use('/orders', authValidation, orders);
 routes.use('/addresses', authValidation, addresses);
 routes.use('/third-parties', authValidation, thirdParties)
 routes.use('/storage', authValidation, storage)
-routes.use('/filters', authValidation, filters)
 routes.use('/checkout', authValidation, checkout)
 routes.use('/webhook', webhook)
 

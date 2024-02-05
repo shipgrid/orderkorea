@@ -100,7 +100,7 @@ const VehicleDetailHeader: React.FC<VehicleDetailHeaderProps> = ({
                 onClick={onContactSellingBrokerClick}
                 rel="noopener noreferrer"
               >
-                Contact Selling Broker 
+                Contact Seller
               </a>
             </Button>
           ) : null
