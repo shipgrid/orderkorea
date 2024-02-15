@@ -47,7 +47,7 @@ export default async ({
 
       const affectedRows = await User.query().patch({
         password_hash: password_hash
-      })
+      }).where('user_id', user_id)
 
       if(affectedRows <= 0) {
         return resolve({
